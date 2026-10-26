@@ -418,6 +418,21 @@ const A10_ROWS = [
   src(s, "Update 2022 [PMID: 36001996]; practical update 2024 [PMID: 39170946]");
   s.addNotes("This is why ammonia is actionable in ALF. The brain has no time to adapt, unlike in cirrhosis where astrocytes compensate over months. Every element of the bundle that follows maps to a box on this slide.");
 }
+{
+  const s = slide("Ammonia: how high is too high?");
+  table(s, [
+    ["Study (arterial ammonia)", "Patients", "What they found", "The catch"],
+    ["Clemmesen 1999, Copenhagen", "44 ALF", { t: [{ t: "14 herniated. Mean ammonia 230 vs 118 μmol/L; every herniation was above 146", b: true }] }, "Small, one center"],
+    ["Bhatia 2006, Delhi", "80 ALF", "Admission ammonia ≥ 124 predicted death (sensitivity 79%, specificity 76%)", "One center; the endpoint was death, not ICH"],
+    ["Bernal 2007, King's", "165 ALF, grade III-IV", { t: [{ t: "> 100 predicted severe HE (70% accuracy). ", br: false }, { t: "> 200: ICH in 55%", b: true }] }, "200 missed most of the ICH cases"],
+    ["Kumar 2012, Delhi", "295 ALF", { t: [{ t: "≥ 122 for 3 days: survival 23% vs 72%", b: true }, { t: ", cerebral edema 71% vs 37%" }] }, "One center, but the trend beat a single value"],
+  ], { x: 0.6, y: 1.35, w: W - 1.2, colW: [2.9, 2.0, 4.9, 2.33], size: 16, rowH: [0.5, 0.95, 0.85, 0.85, 0.85] });
+  q(s, "Above 150 to 200 and not falling: worry about the brain", 5.55, { hl: true, size: 22 });
+  body(s, [{ t: "A normal ammonia doesn't clear her, and one high value isn't a diagnosis", nb: true, i: true, align: "center" }],
+    { y: 6.1, h: 0.6, size: 18 });
+  src(s, "Clemmesen Hepatology 1999;29:648-53; Bhatia Gut 2006; Bernal Hepatology 2007 [PMID: 17685471]; Kumar Clin Gastroenterol Hepatol 2012");
+  s.addNotes("All four used arterial ammonia, measured in micromoles per liter. The pattern is consistent: higher and more persistent ammonia, more cerebral edema and death. But no single cutoff works on its own. In Bernal's King's cohort, more than 200 meant intracranial hypertension in 55%, yet most patients who developed ICH were below 200. So use it as a risk marker together with the grade of encephalopathy, the time course and the trend. Patient A went 182 then 214. That's the trajectory you act on with CRRT. Practical point: whatever you send, arterial or venous, put it on ice and get it run quickly. A delayed sample reads falsely high. In cirrhosis, by contrast, a single ammonia doesn't diagnose HE and shouldn't be trended to dose lactulose.");
+}
 function intubate(step) {
   const s = slide("When do you intubate?");
   if (step === 1) {
@@ -987,6 +1002,10 @@ sec("Appendix");
     "Moreau R et al. CANONIC. Gastroenterology 2013 [PMID: 23474284]",
     "Jalan R et al. CLIF-C ACLF score. J Hepatol 2014 [PMID: 24950482]",
     "Lee WM et al. NAC in non-acetaminophen ALF. Gastroenterology 2009 [PMID: 19524577]",
+    "Clemmesen JO et al. Cerebral herniation and arterial ammonia. Hepatology 1999;29:648-53",
+    "Bernal W et al. Arterial ammonia, HE and intracranial hypertension. Hepatology 2007 [PMID: 17685471]",
+    "Bhatia V et al. Arterial ammonia in ALF. Gut 2006;55:98-104",
+    "Kumar R et al. Persistent hyperammonemia in ALF. Clin Gastroenterol Hepatol 2012;10:925-31",
     "Cardoso FS et al. CRRT and ammonia in ALF. Hepatology 2018 [PMID: 28859230]",
     "Pre-emptive CRRT in ALF with cerebral edema. Aliment Pharmacol Ther 2026 [PMID: 42332991]",
     "Larsen FS et al. High-volume plasma exchange. J Hepatol 2016 [PMID: 26325537]",
