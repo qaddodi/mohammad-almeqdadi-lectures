@@ -298,7 +298,7 @@ caseA(3).addNotes("Liver failure is a clinical diagnosis: coagulopathy plus ence
       { t: [{ t: "Now, not after the workup", br: true }, { t: "Transplant evaluation starts tonight", br: true }, { t: "Social work and psychiatry while she can still talk" }] },
     ],
   ], { x: 0.8, y: 1.6, w: W - 1.6, colW: [3.9, 3.9, 3.93], size: 18, rowH: [0.55, 2.4], valign: "top", align: ["left", "left", "left"] });
-  q(s, "Not one after the other", 5.6, { hl: true });
+  q(s, "All three start in the first hour", 5.6, { hl: true });
   s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then call hepatology. By then she is intubated and the evaluation has lost a day. Here the transplant evaluation runs in parallel from the first night, and the psychosocial part is much easier while she can still talk.");
 }
 {
@@ -428,7 +428,7 @@ const A10_ROWS = [
     ["Kumar 2012, Delhi", "295 ALF", { t: [{ t: "≥ 122 for 3 days: survival 23% vs 72%", b: true }, { t: ", cerebral edema 71% vs 37%" }] }, "One center, but the trend beat a single value"],
   ], { x: 0.6, y: 1.35, w: W - 1.2, colW: [2.9, 2.0, 4.9, 2.33], size: 16, rowH: [0.5, 0.95, 0.85, 0.85, 0.85] });
   q(s, "Above 150 to 200 and not falling: worry about the brain", 5.55, { hl: true, size: 22 });
-  body(s, [{ t: "A normal ammonia doesn't clear her, and one high value isn't a diagnosis", nb: true, i: true, align: "center" }],
+  body(s, [{ t: "ICH can occur below 200. Interpret the level with the HE grade and the trend", nb: true, i: true, align: "center" }],
     { y: 6.1, h: 0.6, size: 18 });
   src(s, "Clemmesen Hepatology 1999;29:648-53; Bhatia Gut 2006; Bernal Hepatology 2007 [PMID: 17685471]; Kumar Clin Gastroenterol Hepatol 2012");
   s.addNotes("All four used arterial ammonia, measured in micromoles per liter. The pattern is consistent: higher and more persistent ammonia, more cerebral edema and death. But no single cutoff works on its own. In Bernal's King's cohort, more than 200 meant intracranial hypertension in 55%, yet most patients who developed ICH were below 200. So use it as a risk marker together with the grade of encephalopathy, the time course and the trend. Patient A went 182 then 214. That's the trajectory you act on with CRRT. Practical point: whatever you send, arterial or venous, put it on ice and get it run quickly. A delayed sample reads falsely high. In cirrhosis, by contrast, a single ammonia doesn't diagnose HE and shouldn't be trended to dose lactulose.");
@@ -500,7 +500,7 @@ function crrt(step) {
   const s = slide("The creatinine is only 1.3");
   body(s, [{ t: "Ammonia 182 → 214 μmol/L, grade III, urine output 15 mL/h", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
   if (step === 1) { q(s, "Do you wait for a conventional dialysis indication?", 3.3, { size: 28 }); return s; }
-  q(s, "No. In ALF you dialyze the ammonia, not the creatinine", 2.0, { hl: true, size: 24 });
+  q(s, "No. In ALF, start CRRT for the ammonia", 2.0, { hl: true, size: 24 });
   body(s, [
     "ACG 2023: suggests early CRRT for hyperammonemia with grade II or higher encephalopathy, even without a renal indication (conditional, very low certainty)",
     "Continuous, not intermittent: fewer swings in blood pressure and brain water",
@@ -554,7 +554,7 @@ function enzymes(step) {
     { name: "INR", labels, values: [3.2, 4.1, 4.9, 5.6] },
     { name: "Lactate (mmol/L)", labels, values: [2.1, 4.6, 5.2, 5.8] },
   ], c2);
-  q(s, "No. She is running out of liver", 6.1, { hl: true, size: 24 });
+  q(s, "No. Rising INR and lactate mean loss of liver mass", 6.1, { hl: true, size: 24 });
   src(s, "Made-up numbers for teaching");
   s.addNotes("Falling AST and ALT with a rising INR, rising lactate and worsening encephalopathy means there are fewer hepatocytes left to release enzymes. Read the whole trajectory, not one line [PMID: 36001996]. Arterial pH on day 2 after fluids: 7.26. Keep that number; it comes back.");
   return s;
@@ -836,7 +836,7 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Respiratory 
     ["Study", "CONFIRM: terlipressin + albumin vs placebo + albumin, type 1 HRS, 300 patients"],
     ["Main finding", "Verified HRS reversal 32% vs 17%"],
     ["The catch", { t: "Death from respiratory disorders by day 90: 11% vs 2%. Respiratory failure about 14% vs 5% (label)", b: true }],
-    ["What it doesn't show", "A survival benefit. Kidney response is not the same endpoint as living"],
+    ["What it doesn't show", "A survival benefit. 90-day mortality was not different"],
   ], { x: 0.9, y: 1.6, w: W - 1.8, colW: [2.8, 8.73], size: 18, rowH: [0.9, 0.8, 1.1, 0.9], header: false });
   src(s, "Wong F et al. NEJM 2021 [PMID: 33657294]; TERLIVAZ prescribing information 2022");
   s.addNotes("The respiratory harm clustered in patients with volume overload and ACLF grade 3, which is how the label language came about. The label's own reanalysis gives slightly different reversal numbers (29% vs 16%); either way the direction is the same.");
@@ -868,12 +868,13 @@ function trajectory(step) {
     ["Bilirubin / INR", "5.8 / 2.1", "6.4 / 2.3", "6.1 / 2.2", "5.2 / 2.0"],
     ["ACLF grade", "2", { t: "3", red: true, b: true }, "2", step === 2 ? { t: "1", hl: true, b: true } : "?"],
   ];
-  table(s, rows, { x: 0.7, y: 1.4, w: W - 1.4, colW: [3.33, 2.15, 2.15, 2.15, 2.15], size: 17, rowH: 0.55, align: ["left", "center", "center", "center", "center"] });
+  table(s, rows, { x: 0.7, y: 1.4, w: W - 1.4, colW: [3.33, 2.15, 2.15, 2.15, 2.15], size: 17, rowH: 0.48, align: ["left", "center", "center", "center", "center"] });
   if (step === 1) q(s, "Better or worse? What do you tell his family?", 5.6, { size: 24 });
   if (step === 2) body(s, [
     "The grade at days 3 to 7 predicts outcome better than the grade at admission",
-    "Persistent ACLF 3, especially four or more failures, carries a very high mortality without transplant. Time to talk with the family and the transplant team. No score writes the withdrawal order",
-  ], { y: 5.4, h: 1.5, size: 17 });
+    "Persistent ACLF 3 at days 3 to 7, especially with four or more organ failures, has a very high mortality without transplant",
+    "If he is not a transplant candidate, discuss goals of care with the family and involve palliative care",
+  ], { y: 4.85, h: 2.0, size: 17, gap: 4 });
   src(s, "Made-up numbers for teaching. CLIF-C ACLF score [PMID: 24950482]; EASL ACLF 2023 [PMID: 37364789]");
   return s;
 }
@@ -954,10 +955,10 @@ sec("Closing");
   body(s, [
     "Big enzymes don't make it liver failure. Get an INR and examine the patient",
     "Stabilize, treat the cause and call transplant hepatology in the same hour",
-    { runs: ["ALF: ", { t: "protect the brain", b: true }, ". Intubate at grade III, keep the CO2 normal and the sodium up, and dialyze the ammonia"] },
+    { runs: ["ALF: ", { t: "protect the brain", b: true }, ". Intubate at grade III, keep the CO2 normal and the sodium up, and start CRRT for rising ammonia"] },
     "ACLF: count the organs, find the trigger",
-    { runs: ["Treat the kidney with one eye on the lungs"] },
-    "Look again tomorrow",
+    "ACLF: check oxygenation and volume status before albumin or terlipressin",
+    "Reassess organ failures daily. The trend matters more than the admission score",
   ], { size: 22, gap: 14 });
 }
 {
