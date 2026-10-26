@@ -558,6 +558,22 @@ twoStep((step) => {
   s.addNotes("Left: in Copenhagen, ammonia was drawn at the onset of grade III encephalopathy. The 14 patients who herniated had about twice the arterial ammonia of those who didn't, and all of them were above 146. Right: in Delhi, ammonia that stayed at or above 122 for three days went with a third of the survival and twice the cerebral edema of ammonia that came down. These are associations, not proof that lowering the number saves the patient, but they are why we trend it and start CRRT. In Bernal's King's cohort, more than 200 meant intracranial hypertension in 55%, yet most patients who developed ICH were below 200. Practical point: whatever you send, put it on ice and get it run quickly. A delayed sample reads falsely high. In cirrhosis, a single ammonia doesn't diagnose HE and shouldn't be trended to dose lactulose.");
   return s;
 });
+twoStep((step) => {
+  const s = slide("Lactulose for her?");
+  body(s, [{ t: "Hour 12: ammonia 182 μmol/L, grade III. In a cirrhotic we'd already be giving it", nb: true, i: true, align: "center" }],
+    { y: 1.3, h: 0.5, size: 19 });
+  if (step === 1) { q(s, "Yes or no?", 3.2, { size: 34 }); return s; }
+  table(s, [
+    ["Why people give it", "Why not"],
+    ["Ammonia drives the brain swelling", { t: "No proven benefit. ALFSG matched comparison: a little longer survival time, no difference in encephalopathy or outcome", b: true }],
+    ["It's what we do in cirrhosis", "Gas-distended bowel gets in the surgeon's way at transplant"],
+    ["Cheap, and the AASLD position paper allows it in early grades, short of diarrhea", "Diarrhea means free water loss and volume swings, which fight your sodium target"],
+    ["", "Liquid by mouth or tube in a patient who can't protect her airway: aspiration"],
+  ], { x: 0.8, y: 2.0, w: W - 1.6, colW: [5.0, 6.73], size: 17, rowH: [0.5, 0.95, 0.7, 0.85, 0.7], valign: "middle" });
+  q(s, "Not for her: CRRT for the ammonia, protect the airway, keep the sodium up", 6.05, { hl: true, size: 20 });
+  src(s, "AASLD position paper 2011, rec. 26; Alba L, Hay JE, Lee WM et al. J Hepatol 2002;36(Suppl 1):33 (abstract); ACG ALF 2023 [PMID: 37377263]");
+  return s;
+}).addNotes("The ALF Study Group data were a retrospective comparison presented only as an abstract: a small increase in survival time with lactulose, no difference in encephalopathy grade or overall outcome. The 2011 AASLD position paper allowed lactulose in early encephalopathy, orally or rectally, but not to the point of diarrhea, and warned about bowel distension during transplant. Neither the 2023 ACG guideline nor EASL 2017 recommends it. Once she is grade III-IV the tools that lower ammonia are CRRT and time. In ACLF it's the opposite: lactulose is first-line for overt HE.");
 function intubate(step) {
   const s = slide("When do you intubate?");
   if (step === 1) {
