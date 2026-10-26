@@ -235,10 +235,8 @@ sec("Opening");
   s.addText([
     { text: "Acute Liver Failure", options: { fontSize: 38, breakLine: true } },
     { text: "and ACLF in the ICU", options: { fontSize: 34 } },
-  ], { x: tx, y: 1.3, w: tw, h: 1.45, fontFace: "Georgia", bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
-  s.addText("For pulmonary and critical care fellows", { x: tx - 0.2, y: 2.9, w: tw + 0.4, h: 0.5, fontFace: "Georgia", fontSize: 20,
-    italic: true, align: "center", color: "595959", isTextBox: true, margin: 0 });
-  s.addShape(pres.shapes.LINE, { x: tx + 1.2, y: 3.75, w: tw - 2.4, h: 0, line: { color: "A6A6A6", width: 1 } });
+  ], { x: tx, y: 1.75, w: tw, h: 1.45, fontFace: "Georgia", bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  s.addShape(pres.shapes.LINE, { x: tx + 1.2, y: 3.6, w: tw - 2.4, h: 0, line: { color: "A6A6A6", width: 1 } });
   s.addText([
     { text: "Mohammad Almeqdadi, MD", options: { bold: true, fontSize: 20, breakLine: true } },
     { text: "Transplant Hepatologist and Gastroenterologist", options: { fontSize: 16, breakLine: true } },
