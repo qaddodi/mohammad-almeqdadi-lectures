@@ -218,7 +218,11 @@ sec("Opening");
 {
   const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
   // liver from the 2025 cirrhosis cover on the left, text on white so it reads from the back of the room
-  s.addImage({ path: COVER_IMG, x: 0.35, y: 1.6, w: 5.8, h: 4.01, altText: "Liver illustration" });
+  const cap = (t, y) => s.addText(t, { x: 0.4, y, w: 5.6, h: 0.4, fontFace: "Georgia", fontSize: 16, italic: true, align: "center", color: "7F7F7F", isTextBox: true, margin: 0 });
+  pic(s, "cover-liver-healthy.png", 0.4, 0.55, 5.6, 2.75, "Healthy liver");
+  cap("Bed 4: a liver that was normal last week", 3.3);
+  pic(s, "cover-liver-cirrhotic.png", 0.4, 3.85, 5.6, 2.75, "Cirrhotic liver");
+  cap("Bed 7: cirrhosis, and now organ failure", 6.6);
   const tx = 6.3, tw = W - tx - 0.35;
   s.addText([
     { text: "Acute Liver Failure", options: { fontSize: 38, breakLine: true } },
