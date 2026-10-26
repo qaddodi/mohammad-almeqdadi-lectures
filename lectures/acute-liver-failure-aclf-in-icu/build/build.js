@@ -374,7 +374,7 @@ caseA_apap(2).addNotes("An undetectable or low level late in the course does not
   s.addNotes("Transplant-free survival is a softer endpoint than overall survival, and part of the effect is that fewer patients needed transplant. Still, it is cheap and safe, so most centers give it in early non-acetaminophen ALF.");
 }
 const A10_ROWS = [
-  ["", "Admission", "Hour 10"],
+  ["", "Admission", "Hour 12"],
   ["Mental status", "Disoriented, asterixis", { t: "Responds only to voice (grade III)", red: true, b: true }],
   ["Ammonia (arterial)", "Not sent", { t: "182 μmol/L", red: true, b: true }],
   ["Urine output", "OK", { t: "15 mL/h for 4 hours", red: true }],
@@ -387,7 +387,7 @@ const A10_ROWS = [
   const s = slide(A_TITLE, { bold: true });
   table(s, A10_ROWS, { x: 1.5, y: 1.4, w: W - 3.0, colW: [3.0, 3.0, 4.33], size: 17, rowH: 0.5 });
   q(s, "What worries you most?", 5.8);
-  s.addNotes("Hour 10. Hepatology has seen her and the transplant evaluation is under way. Let them pick. Kidney? Lactate? The answer for a hyperacute patient with this ammonia is the brain.");
+  s.addNotes("Hour 12. Hepatology has seen her and the transplant evaluation is under way. Let them pick. Kidney? Lactate? The answer for a hyperacute patient with this ammonia is the brain.");
 }
 {
   const s = slide(A_TITLE, { bold: true });
@@ -528,7 +528,7 @@ crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the litera
 
 // Falling enzymes
 function enzymes(step) {
-  const s = slide("Day 2: the enzymes are falling");
+  const s = slide("Day 3: the enzymes are falling");
   const labels = ["Admission", "Hour 12", "Day 2", "Day 3"];
   const chartBase = (title) => ({
     x: 0, y: 0, w: 0, h: 0, showTitle: true, title, titleFontFace: "Georgia", titleFontSize: 16, titleColor: "000000",
@@ -537,7 +537,7 @@ function enzymes(step) {
     showLegend: true, legendPos: "b", legendFontFace: "Calibri", legendFontSize: 13, lineSize: 2.5, lineDataSymbolSize: 8,
     showValue: true, valAxisLabelFormatCode: "#,##0", dataLabelFormatCode: "#,##0", dataLabelFontSize: 11, dataLabelFontFace: "Calibri", dataLabelPosition: "t",
   });
-  const c1 = { ...chartBase("AST and ALT (U/L)"), x: 0.6, y: 1.35, w: 6.0, h: 4.6, chartColors: ["000000", "7F7F7F"] };
+  const c1 = { ...chartBase("AST and ALT (U/L)"), x: 0.6, y: 1.35, w: 6.0, h: 4.3, chartColors: ["000000", "7F7F7F"] };
   s.addChart(pres.charts.LINE, [
     { name: "AST", labels, values: [6820, 4310, 2140, 1190] },
     { name: "ALT", labels, values: [5940, 5020, 3260, 2210] },
@@ -548,22 +548,25 @@ function enzymes(step) {
     s.addNotes("Show only the enzymes. Most of the room will say yes.");
     return s;
   }
-  const c2 = { ...chartBase("INR and lactate"), x: 6.8, y: 1.35, w: 6.0, h: 4.6, chartColors: [RED, "7F7F7F"],
+  const c2 = { ...chartBase("INR and lactate"), x: 6.8, y: 1.35, w: 6.0, h: 4.3, chartColors: [RED, "7F7F7F"],
     valAxisLabelFormatCode: "0", dataLabelFormatCode: "0.0", showValue: false };
   s.addChart(pres.charts.LINE, [
     { name: "INR", labels, values: [3.2, 4.1, 4.9, 5.6] },
     { name: "Lactate (mmol/L)", labels, values: [2.1, 4.6, 5.2, 5.8] },
   ], c2);
-  q(s, "No. Rising INR and lactate mean loss of liver mass", 6.1, { hl: true, size: 24 });
+  body(s, [{ t: "Day 2 arterial pH 7.26 after fluids", nb: true, align: "center", i: true }], { x: 6.8, y: 5.62, w: 6.0, h: 0.45, size: 17 });
+  q(s, "No. Rising INR and lactate mean loss of liver mass", 6.15, { hl: true, size: 24 });
   src(s, "Made-up numbers for teaching");
-  s.addNotes("Falling AST and ALT with a rising INR, rising lactate and worsening encephalopathy means there are fewer hepatocytes left to release enzymes. Read the whole trajectory, not one line [PMID: 36001996]. Arterial pH on day 2 after fluids: 7.26. Keep that number; it comes back.");
+  s.addNotes("Falling AST and ALT with a rising INR, rising lactate and worsening encephalopathy means there are fewer hepatocytes left to release enzymes. Read the whole trajectory, not one line [PMID: 36001996]. Point out the day 2 arterial pH of 7.26 after fluids. It comes back on the King's College slide.");
   return s;
 }
+inr(1).addNotes("Hour 12, CRRT is starting. Very common request from the procedure side.");
+inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
 enzymes(1);
 enzymes(2);
 function inr(step) {
   const s = slide("Should we correct this INR?");
-  body(s, [{ t: "INR 5.6, platelets 88. She needs a dialysis catheter", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
+  body(s, [{ t: "Hour 12: INR 4.1, platelets 88. She needs a dialysis catheter", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
   if (step === 1) { q(s, "2 units of FFP first?", 3.3, { size: 30 }); return s; }
   body(s, [
     { runs: [{ t: "No plasma just to fix the number", b: true, hl: true }] },
@@ -577,8 +580,6 @@ function inr(step) {
   src(s, "Update 2022 [PMID: 36001996]; SCCM 2020 [PMID: 32058387]");
   return s;
 }
-inr(1).addNotes("Very common request from the procedure side.");
-inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
 function kcc(step) {
   const s = slide("When do you call transplant hepatology?");
   if (step === 1) {
@@ -665,7 +666,7 @@ function caseB(step) {
 caseB(1).addNotes("Made-up patient. Same night, bed 7. After 2 L of fluid he is on norepinephrine 0.15 mcg/kg/min.");
 caseB(2).addNotes("Acute decompensation alone is not ACLF. ACLF means organ failure, and the definition you use matters.");
 {
-  const s = slide("Same ICU, different disease");
+  const s = slide("ALF, decompensation or ACLF?");
   table(s, [
     ["", "Acute liver failure", "Acute decompensation", "ACLF"],
     [{ t: "Liver before", b: true }, "No cirrhosis", "Cirrhosis", "Cirrhosis (or chronic liver disease, depending on definition)"],
@@ -728,13 +729,13 @@ function tap(step) {
   body(s, [
     { runs: [{ t: "Yes, now. ", b: true }, { t: "No plasma, no platelets", hl: true, b: true }] },
     { runs: ["Ascitic fluid: ", { t: "PMN 1,240/mm³", b: true, red: true }, ". Spontaneous bacterial peritonitis"] },
-    { t: "Look for the trigger, every time", b: true, nb: true, gap: 18 },
+    { t: "Common triggers", b: true, nb: true, gap: 18 },
     "Infection: SBP, pneumonia, urine, lines, C. difficile",
     "Alcohol-associated hepatitis",
     "GI bleeding",
     "Drugs: NSAIDs, sedatives, too much diuretic",
     "HBV flare, ischemia",
-    "Sometimes nothing is found. Keep looking",
+    "No trigger is found in some patients. Repeat the search if he gets worse",
   ], { y: 1.45, h: 5.4, size: 20 });
   src(s, "EASL ACLF 2023 [PMID: 37364789]; SCCM 2023 [PMID: 37052436]");
   return s;
@@ -819,7 +820,7 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Respiratory 
   const s = slide("Will fixing the kidney hurt the lungs?");
   body(s, [
     { runs: [{ t: "Terlipressin: not for him today", b: true }] },
-    { t: "Label: contraindicated with hypoxia or worsening respiratory symptoms; don't start if SpO2 < 90%", lvl: 1 },
+    { t: "Label: contraindicated with hypoxia or worsening respiratory symptoms; don't start if SpO2 < 90%, stop if it falls below 90%", lvl: 1 },
     { t: "Label: avoid in ACLF grade 3; volume overload raises the risk of respiratory failure", lvl: 1 },
     "Stop the albumin while he is wet",
     "He is already on a vasoconstrictor. Norepinephrine, titrated to perfusion",
@@ -827,7 +828,7 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Respiratory 
     "Midodrine and octreotide? Not in someone on IV pressors",
   ], { y: 1.4, h: 4.6, size: 20 });
   q(s, "Check oxygen and volume before any kidney treatment", 6.05, { hl: true, size: 20 });
-  src(s, "TERLIVAZ prescribing information (FDA, 2022; check the current label); ADQI-ICA 2024 [PMID: 38527522]");
+  src(s, "TERLIVAZ prescribing information, revised 6/2026; ADQI-ICA 2024 [PMID: 38527522]");
   s.addNotes("Before any terlipressin dose: baseline SpO2, lung exam, volume status, and whether he is ACLF grade 3. Norepinephrine is an ICU alternative for HRS when terlipressin is contraindicated or unavailable. RRT in ACLF should follow usual indications plus trajectory and transplant potential; avoid the rule 'dialysis only if listed'. A time-limited trial is reasonable.");
 }
 {
@@ -838,7 +839,7 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Respiratory 
     ["The catch", { t: "Death from respiratory disorders by day 90: 11% vs 2%. Respiratory failure about 14% vs 5% (label)", b: true }],
     ["What it doesn't show", "A survival benefit. 90-day mortality was not different"],
   ], { x: 0.9, y: 1.6, w: W - 1.8, colW: [2.8, 8.73], size: 18, rowH: [0.9, 0.8, 1.1, 0.9], header: false });
-  src(s, "Wong F et al. NEJM 2021 [PMID: 33657294]; TERLIVAZ prescribing information 2022");
+  src(s, "Wong F et al. NEJM 2021 [PMID: 33657294]; TERLIVAZ prescribing information, revised 6/2026");
   s.addNotes("The respiratory harm clustered in patients with volume overload and ACLF grade 3, which is how the label language came about. The label's own reanalysis gives slightly different reversal numbers (29% vs 16%); either way the direction is the same.");
 }
 {
@@ -849,7 +850,7 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Respiratory 
     ["The catch", { t: "More serious adverse events with albumin, including fluid overload and pulmonary edema", b: true }],
   ], { x: 0.9, y: 1.4, w: W - 1.8, colW: [2.8, 8.73], size: 17, rowH: [1.0, 0.75, 0.85], header: false });
   body(s, [
-    { t: "Albumin has indications, not a target", b: true, nb: true },
+    { t: "When albumin is indicated", b: true, nb: true },
     "SBP: 1.5 g/kg on day 1, 1 g/kg on day 3",
     "Paracentesis over 5 L: 6 to 8 g per liter removed",
     "HRS-AKI: with a vasoconstrictor, dosed to volume status",
@@ -923,7 +924,7 @@ trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kid
   s.addNotes("A good call makes the transplant team's decision faster. Trends, not single values.");
 }
 {
-  const s = slide("Same patient, different rules");
+  const s = slide("ALF and ACLF: what changes at the bedside");
   table(s, [
     ["", "Acute liver failure", "ACLF"],
     [{ t: "Ammonia", b: true }, "Predicts cerebral edema. Act on it (CRRT)", "Doesn't diagnose HE. Don't trend it to dose lactulose"],
@@ -1015,7 +1016,7 @@ sec("Appendix");
     "Liver transplantation for ACLF. Lancet Gastroenterol Hepatol 2024 [PMID: 38309288]",
     "AASLD/AST candidate evaluation guideline. Hepatology 2026 [PMID: 41405234]",
     "Kyoto consensus on ACLF. Hepatol Int 2025 [PMID: 39961976]",
-    "TERLIVAZ (terlipressin) prescribing information, FDA 2022. Check the current label",
+    "TERLIVAZ (terlipressin) prescribing information, revised 6/2026",
   ], { size: 15, gap: 4, y: 1.35, h: 5.5 });
 }
 
