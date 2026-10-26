@@ -217,9 +217,9 @@ function divider(title, sub, img) {
 sec("Opening");
 {
   const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
-  // liver from the 2025 cirrhosis cover on the left, text on white so it reads from the back of the room
-  s.addImage({ path: COVER_IMG, x: 0.35, y: 1.6, w: 5.8, h: 4.01, altText: "Liver illustration" });
-  const tx = 6.3, tw = W - tx - 0.35;
+  // watercolor cover Mohammad made in Gemini (prompt in the lecture folder); title sits on the plain right half
+  s.addImage({ path: path.join(IMG, "cover-alf-aclf-icu.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor illustration of a liver in dim night-time ICU light, on ivory paper" });
+  const tx = 7.1, tw = W - tx - 0.45;
   s.addText([
     { text: "Acute Liver Failure", options: { fontSize: 38, breakLine: true } },
     { text: "and ACLF in the ICU", options: { fontSize: 34 } },
