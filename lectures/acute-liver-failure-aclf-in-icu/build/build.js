@@ -1,6 +1,7 @@
 // Builds "ALF and ACLF in the ICU" in the style of Mohammad Almeqdadi's existing decks.
 const pptxgen = require("pptxgenjs");
 const path = require("path");
+const fs = require("fs");
 const { applyTheme } = require(process.env.SKILL + "/scripts/apply_theme.js");
 
 const OUT = process.argv[2];
@@ -149,6 +150,26 @@ function arrow(s, x1, y1, x2, y2) {
 }
 
 const IMG = path.join(__dirname, "img");
+
+// Picture at its own aspect ratio, fitted in a box and centered in it
+function pngSize(f) { const b = fs.readFileSync(f); return [b.readUInt32BE(16), b.readUInt32BE(20)]; }
+function pic(s, file, x, y, maxW, maxH, alt, o = {}) {
+  const f = path.join(IMG, file); const [pw, ph] = pngSize(f);
+  let w = maxW, h = (maxW * ph) / pw;
+  if (h > maxH) { h = maxH; w = (maxH * pw) / ph; }
+  const px = o.left ? x : x + (maxW - w) / 2;
+  s.addImage({ path: f, x: px, y, w, h, altText: alt });
+  if (o.line) s.addShape(pres.shapes.RECTANGLE, { x: px, y, w, h, fill: { type: "none" }, line: { color: "BFBFBF", width: 0.75 } });
+  return { x: px, y, w, h };
+}
+// The paper itself: title block from the PDF, then a figure or the authors' conclusion
+function paper(title, top, bottom, source, alt, topH = 3.0) {
+  const s = slide(title);
+  const a = pic(s, top, 1.4, 1.2, W - 2.8, topH, alt + ": title", { line: true });
+  if (bottom) pic(s, bottom, 1.4, a.y + a.h + 0.25, W - 2.8, 6.75 - (a.y + a.h + 0.25), alt, { line: true });
+  src(s, source);
+  return s;
+}
 
 // Bar chart in the deck's style: white, black and grey, red only for the harmful value, labels on the bars
 function bars(s, data, o) {
@@ -371,7 +392,8 @@ function caseA_apap(step) {
   body(s, [
     "Roommate: \"She was taking a lot of the Tylenol with codeine, plus cold medicine, for 3 days\"",
     { runs: ["Acetaminophen level: ", { t: "12 μg/mL", b: true }, ", time of last dose unknown"] },
-  ], { y: 1.5, h: 1.6, size: 21 });
+  ], { x: 0.7, y: 1.4, w: 7.7, h: 1.9, size: 20 });
+  pic(s, "dayquil.png", 8.7, 1.3, 4.0, 2.0, "Cold and flu box listing acetaminophen");
   q(s, "Can you use the nomogram?", 3.4);
   if (step === 2) {
     body(s, [
@@ -411,6 +433,9 @@ caseA_apap(1).addNotes("Combination products are where the hidden acetaminophen 
   s.addNotes("Show them what it is first: a semi-log plot, the line halves every 4 hours (a half-life of about 4 hours), and the US treatment line sits 25% below the original 200 line for a safety margin. Then try to put her on it. Her 12 crosses the treatment line at roughly 18 to 19 hours. Before that she looks fine, after that she needs NAC. The point to leave them with: the nomogram is a tool for deciding who can safely go without NAC after a single timed ingestion. It is not the trigger for starting NAC in someone who is already sick. Call poison control or toxicology early. Opioids, including the codeine in her Tylenol with codeine, can slow absorption, so a single early level can mislead after an acute ingestion. With repeated supratherapeutic dosing over 3 days there is no single ingestion time, so it can't clear her, and she gets NAC.");
 }
 caseA_apap(2).addNotes("An undetectable or low level late in the course does not exclude acetaminophen toxicity [PMID: 36001996]. NAC is safe enough that the threshold to start it is low. Dosing per your pharmacy protocol.");
+paper("NAC for every kind of acute liver failure?", "lee-title.png", "lee-concl.png",
+  "Lee WM et al. Gastroenterology 2009;137:856-64 [PMID: 19524577]", "Lee 2009 NAC trial")
+  .addNotes("The ALFSG trial: 173 adults with non-acetaminophen ALF, NAC or placebo for 72 hours, 24 US centers. Read their conclusion, then the numbers.");
 {
   const s = slide("NAC for every kind of acute liver failure?");
   body(s, [{ t: "Adult non-acetaminophen ALF, randomized, NAC vs placebo, 173 patients", nb: true, i: true, align: "center" }],
@@ -617,7 +642,8 @@ hypercap(2).addNotes("Low tidal volume still applies. What changes is the CO2 ta
     "Hypertension and bradycardia come late. Don't wait for them",
     "A normal head CT does not exclude raised ICP",
     "ICP monitors are not routine; SCCM suggests against (very low certainty)",
-  ], { size: 21, gap: 10 });
+  ], { x: 0.7, y: 1.4, w: 7.0, h: 5.4, size: 19, gap: 10 });
+  pic(s, "ct-edema.png", 7.9, 2.0, 4.9, 3.6, "Head CT: normal and with effaced sulci");
   src(s, "SCCM 2023 [PMID: 37052436]; practical update 2024 [PMID: 39170946]");
   s.addNotes("A new pupil asymmetry or a sudden change in the exam is enough to act. Treat first, then image if a bleed or another structural lesion is possible.");
 }
@@ -662,6 +688,13 @@ inr(2).addNotes("The INR is a great marker of liver function and a poor marker o
   s.addNotes("Both sides go down together. The INR only tests the left pan, so it makes the patient look much more anticoagulated than she is. Viscoelastic tests look at clot formation in whole blood and in ALF are often close to normal despite a high INR, though they miss the endothelium and the protein C system too. The balance is fragile: infection, kidney failure and procedures tip it, and thrombosis, including line-related clots, is real.");
 }
 {
+  const s = slide("INR 4.2. What does the TEG say?");
+  pic(s, "stravitz-teg.png", 2.4, 1.3, W - 4.8, 4.6, "Normal thromboelastogram in acute liver failure", { line: true });
+  body(s, [{ t: "Normal in all five TEG measures, in a patient with ALF and an INR of 4.2", nb: true, i: true, align: "center" }], { y: 6.05, h: 0.5, size: 18 });
+  src(s, "Stravitz RT et al. J Hepatol 2012;56:129-36 [PMID: 21703173]");
+  s.addNotes("51 patients with acute liver injury or failure, mean INR 3.4. Mean TEG values were normal, and all five TEG parameters were normal in 63%. Low clot strength showed up only with platelets under about 126,000. Factors V and VII were low, but so were the anticoagulant proteins, and factor VIII was high.");
+}
+{
   const s = slide("CRRT for ammonia: what to agree on with nephrology");
   table(s, [
     ["", "What to watch and say"],
@@ -694,6 +727,14 @@ inr(2).addNotes("The INR is a great marker of liver function and a poor marker o
   q(s, "It does. About half the clearance of urea, so dose and filter life matter", 5.9, { hl: true, size: 21 });
   src(s, "Fisher C et al. Blood Purif 2022 [PMID: 35042216]; Warrillow SJ et al. Crit Care Med 2020 [PMID: 31939790]; Slack AJ et al. Liver Int 2014");
   s.addNotes("You will hear this from nephrology. The physiology says otherwise: ammonia is a small, unbound, water-soluble molecule, and it moves across a high-flux filter with convection as well as diffusion. In Fisher's study of 12 patients with liver failure the three modalities gave similar ammonia clearance at the same effluent rate (no significant difference), and in the same patients urea clearance was about 50 mL/min and creatinine 42, so ammonia clears less well than urea but clearly clears. Why the doubt? The liver and the muscle keep making it, so the level falls slowly; a clotting circuit with a lot of downtime delivers much less than what was ordered; and at low effluent doses the effect is small. In Warrillow's cohort the fall tracked how long patients were on CRRT more than the hourly dose. Ask for a high effluent rate and an anticoagulation plan that keeps the filter running.");
+}
+{
+  const s = slide("Does early CRRT actually help?");
+  pic(s, "cardoso-fig1b.png", 1.9, 1.3, W - 3.8, 4.7, "Ammonia on days 1 to 3 with CRRT, intermittent RRT or no RRT", { line: true });
+  body(s, [{ t: "Ammonia fell from about 140 to under 90 μmol/L over 3 days on CRRT. Little change with intermittent RRT or no RRT", nb: true, i: true, align: "center" }],
+    { y: 6.1, h: 0.6, size: 17 });
+  src(s, "Cardoso FS et al. Hepatology 2018;67:711-20 [PMID: 28859230]");
+  s.addNotes("US ALF Study Group registry, 1,186 patients. Panel b of their Figure 1. The CRRT patients started higher, which is why they got CRRT. Observational, so it shows ammonia comes down on CRRT, not that CRRT saved them.");
 }
 {
   const s = slide("Does early CRRT actually help?");
@@ -800,6 +841,9 @@ function apxKcc() {
 }
 kcc(1).addNotes("Let them vote.");
 kcc(2).addNotes("King's College criteria are specific but not very sensitive. If you wait for them, the evaluation starts too late. Patient A now meets acetaminophen criteria by pH, but the call happened on admission. Transplant referral, listing and allocation are separate decisions; the transplant team handles the last two.");
+paper("Can plasma exchange buy time?", "larsen-title.png", "larsen-fig1.png",
+  "Larsen FS et al. J Hepatol 2016;64:69-78 [PMID: 26325537]", "Larsen 2016 plasma exchange trial", 2.4)
+  .addNotes("Their Figure 1: hospital survival, high-volume plasma exchange (HPV) vs standard medical treatment (SMT), log-rank p = 0.0058.");
 {
   const s = slide("Can plasma exchange buy time?");
   table(s, [
@@ -905,6 +949,13 @@ tap(2).addNotes("Diagnostic paracentesis is low risk and should not wait for cor
   q(s, "Usually more than one of these", 6.15, { size: 22 });
   src(s, "Surviving Sepsis 2026 [PMID: 41869847]; SCCM 2020 [PMID: 32058387]; EASL ACLF 2023 [PMID: 37364789]");
   s.addNotes("Albumin is a reasonable resuscitation fluid in cirrhosis, but every bag goes somewhere. Keep that in mind for the next few slides.");
+}
+{
+  const s = slide("Too little volume, or too much?");
+  pic(s, "ivc.png", 0.8, 1.4, W - 1.6, 4.3, "IVC on ultrasound: full and collapsing");
+  body(s, [{ t: "Left: a full, plethoric IVC. Right: an IVC that collapses", nb: true, i: true, align: "center" }], { y: 5.85, h: 0.45, size: 18 });
+  q(s, "Look before you give the next liter", 6.3, { size: 22 });
+  s.addNotes("Ascites and a tense belly change IVC size and collapse, so use it with the lungs, the heart and the trend, not alone. Edema in a cirrhotic doesn't mean the vessels are full.");
 }
 {
   const s = slide("Why is his pressure low to begin with?");
@@ -1058,6 +1109,12 @@ hrs(2).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours,
   src(s, "ADQI-ICA consensus 2024 [PMID: 38527522]");
   s.addNotes("These coexist and change over the admission. A diagnosis of HRS made on day 1 should be re-examined on day 2.");
 }
+{
+  const s = slide("Function and damage: four kinds of AKI");
+  pic(s, "adqi-fig4.png", 2.2, 1.25, W - 4.4, 5.5, "ADQI framework of AKI phenotypes by function and damage markers");
+  src(s, "Nadim MK et al. J Hepatol 2024;81:163-83 [PMID: 38527522], Fig. 4 (CC BY 2.0, adapted from ADQI)");
+  s.addNotes("HRS-AKI sits in the bottom row: dysfunction, with or without damage. ATN and HRS can coexist. Damage markers such as urine NGAL help where available; a urine sediment helps everywhere.");
+}
 function heB(step) {
   const s = slide("Night 1: more confused");
   body(s, [
@@ -1100,7 +1157,15 @@ function day2B(step) {
   return s;
 }
 day2B(1).addNotes("This is the hinge of the second case. The kidney is worse, and the reflex is to treat the kidney.");
-day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Fluid and albumin are a likely part of this, with B-lines and a full IVC. But think about pneumonia, ARDS and the heart too before you decide it's all volume.");
+const D2B = day2B(2);
+{
+  const s = slide("Day 2: what do his lungs look like?");
+  pic(s, "cxr-edema.png", 0.6, 1.3, 5.6, 5.4, "Chest X-ray with bilateral pulmonary edema");
+  pic(s, "blines.png", 6.5, 1.3, 6.2, 5.4, "Lung ultrasound with B-lines");
+  src(s, "Images for teaching, not this patient");
+  s.addNotes("Bilateral airspace disease on the film and many B-lines on ultrasound: water in the lungs. It could still be pneumonia or ARDS, so look at the whole picture before you call it all volume.");
+}
+D2B.addNotes("Kidney, circulation and now lungs: ACLF grade 3. Fluid and albumin are a likely part of this, with B-lines and a full IVC. But think about pneumonia, ARDS and the heart too before you decide it's all volume.");
 {
   const s = slide("Will fixing the kidney hurt the lungs?");
   body(s, [
@@ -1117,6 +1182,15 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Fluid and al
   s.addNotes("Before any terlipressin dose: baseline SpO2, lung exam, volume status, and whether he is ACLF grade 3. Norepinephrine is an ICU alternative for HRS when terlipressin is contraindicated or unavailable. RRT for volume overload or acidosis follows the usual ICU indications. RRT for HRS alone is a bridge to transplant; in a patient who is not a candidate, it is a goals-of-care conversation first, and a time-limited trial is one honest option.");
 }
 {
+  const s = slide("What each HRS drug does to the heart and lungs");
+  pic(s, "adqi-fig5.png", 1.4, 1.25, W - 2.8, 5.5, "Effects of HRS-AKI treatments on vascular beds, heart, kidney and lungs");
+  src(s, "Nadim MK et al. J Hepatol 2024;81:163-83 [PMID: 38527522], Fig. 5 (CC BY 2.0, adapted from ADQI)");
+  s.addNotes("Terlipressin raises kidney perfusion pressure but shunts splanchnic blood centrally, raises afterload and lowers cardiac output, and can constrict the pulmonary vessels. Add large doses of albumin and you get pulmonary edema. Norepinephrine raises cardiac output and causes less splanchnic shunting. Midodrine with octreotide gives only modest splanchnic constriction.");
+}
+paper("Does HRS reversal mean survival?", "confirm-title.png", "confirm-concl.png",
+  "Wong F et al. N Engl J Med 2021;384:818-28 [PMID: 33657294]", "CONFIRM trial")
+  .addNotes("CONFIRM: 300 patients with HRS type 1, terlipressin plus albumin vs placebo plus albumin, randomized 2:1. Their own conclusion already has the catch in it.");
+{
   const s = slide("Does HRS reversal mean survival?");
   bars(s, [
     { name: "Terlipressin + albumin", labels: ["Verified HRS reversal", "Respiratory death by day 90"], values: [32, 11] },
@@ -1132,6 +1206,9 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Fluid and al
   src(s, "Wong F et al. NEJM 2021 [PMID: 33657294]; TERLIVAZ prescribing information, revised 6/2026");
   s.addNotes("The respiratory harm clustered in patients with volume overload and ACLF grade 3, which is how the label language came about. The label's own reanalysis gives slightly different reversal numbers (29% vs 16%); either way the direction is the same.");
 }
+paper("Should we treat the albumin number?", "attire-title.png", "attire-concl.png",
+  "China L et al. N Engl J Med 2021;384:808-17 [PMID: 33657293]", "ATTIRE trial")
+  .addNotes("ATTIRE: 777 hospitalized patients with decompensated cirrhosis and albumin under 30 g/L, in 35 UK hospitals.");
 {
   const s = slide("Should we treat the albumin number?");
   table(s, [
@@ -1200,13 +1277,12 @@ divider("Who gets a liver?", "Transplant in ACLF").addNotes("Back to the questio
     "Irreversible brain injury",
     "Frailty and comorbidity",
     "Alcohol: centers now evaluate individually rather than by a fixed abstinence rule",
-  ], { x: 0.7, y: 1.4, w: 7.4, h: 5.4, size: 18 });
-  bars(s, [{ name: "1-year survival", labels: ["Transplanted (n = 73)", "Not transplanted"], values: [83.9, 7.9] }],
-    { x: 8.3, y: 1.5, w: 4.6, h: 4.9, max: 100, fmt: '0.0"%"', colors: ["000000", "A6A6A6"], gap: 70, catSize: 14,
-      title: "ACLF 3: 1-year survival" });
-  body(s, [{ t: "Selected patients, not randomized", nb: true, i: true, align: "center" }], { x: 8.3, y: 6.35, w: 4.6, h: 0.45, size: 16 });
+  ], { x: 0.6, y: 1.4, w: 6.9, h: 5.4, size: 18 });
+  const t = pic(s, "artru-title.png", 7.7, 1.3, 5.1, 1.4, "Artru 2017: title", { line: true });
+  pic(s, "artru-fig2.png", 7.7, t.y + t.h + 0.15, 5.1, 6.3 - (t.y + t.h + 0.15), "One-year survival, transplanted ACLF 3 vs non-transplanted controls");
+  body(s, [{ t: "Selected patients, not randomized", nb: true, i: true, align: "center" }], { x: 7.7, y: 6.35, w: 5.1, h: 0.45, size: 16 });
   src(s, "Artru F et al. J Hepatol 2017 [PMID: 28645736]; Lancet Gastroenterol Hepatol 2024 [PMID: 38309288]; AASLD/AST 2026 [PMID: 41405234]");
-  s.addNotes("Referral, candidacy, listing and allocation are four different decisions. The ICU team owns the referral and the information. Status 1A and other allocation rules: check current OPTN policy before quoting them. Artru's comparison is not randomized: the transplanted patients were selected, so the gap overstates what transplant adds for an unselected ACLF 3 patient. It still shows that ACLF 3 alone is not a reason to say no.");
+  s.addNotes("Referral, candidacy, listing and allocation are four different decisions. The ICU team owns the referral and the information. Status 1A and other allocation rules: check current OPTN policy before quoting them. Artru's comparison is not randomized: the transplanted patients were selected, so the gap overstates what transplant adds for an unselected ACLF 3 patient. It still shows that ACLF 3 alone is not a reason to say no. The curve shows 83.6% for all 73 transplanted patients; the abstract's 83.9% vs 7.9% is the matched comparison.");
 }
 function apxMathurin() {
   const s = slide("Appendix: early transplant for alcohol-associated hepatitis");
