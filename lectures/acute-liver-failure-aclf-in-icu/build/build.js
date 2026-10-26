@@ -505,8 +505,7 @@ paper("NAC for every kind of acute liver failure?", "lee-title.png", "lee-concl.
   src(s, "Lee WM et al. Gastroenterology 2009 [PMID: 19524577]");
   s.addNotes("Overall survival at 3 weeks was not different. The transplant-free survival benefit was in coma grade I-II, which is a subgroup. That doesn't support NAC in advanced non-acetaminophen ALF or in ACLF. ACG 2023 suggests NAC in non-acetaminophen ALF; this trial is why the early-coma patients are the ones most likely to benefit. And don't carry the grade III-IV result over to Patient A: in acetaminophen ALF, NAC continues when she gets worse.");
 }
-divider("Her brain", "Hour 12", { path: path.join(IMG, "astrocytes.png"), w: 4.6, h: 3.43,
-  alt: "Alzheimer type II astrocytes", caption: "Alzheimer type II astrocytes: the brain adapting over months of cirrhosis. In ALF there are no months" })
+divider("Her brain", "Hour 12")
   .addNotes("Astrocytes in chronic liver disease have time to adapt to ammonia. In hyperacute ALF they don't, and they swell.");
 const A10_ROWS = [
   ["", "Admission", "Hour 12"],
@@ -553,6 +552,34 @@ const A10_ROWS = [
   src(s, "Update 2022 [PMID: 36001996]; practical update 2024 [PMID: 39170946]");
   s.addNotes("This is why ammonia is actionable in ALF. The brain has no time to adapt, unlike in cirrhosis where astrocytes compensate over months. Every element of the bundle that follows maps to a box on this slide.");
 }
+// Why ALF brains swell and cirrhotic brains mostly don't: the histology, labeled
+twoStep((step) => {
+  const s = slide("Same ammonia, different brain");
+  if (step === 1) {
+    q(s, "Why do patients with cirrhosis rarely get cerebral edema, even with a high ammonia?", 3.0, { size: 26, h: 1.2 });
+    return s;
+  }
+  const ix = 0.6, iy = 1.3, iw = 5.4, ih = 4.03;
+  s.addImage({ path: path.join(IMG, "astrocytes.png"), x: ix, y: iy, w: iw, h: ih, altText: "Brain histology with an Alzheimer type II astrocyte and normal glial nuclei" });
+  const pt = (fx, fy) => [ix + fx * iw, iy + fy * ih];
+  const lab = (text, x, w, to) => {
+    s.addText(text, { x, y: 5.45, w, h: 0.6, fontFace: "Georgia", fontSize: 13, color: "000000", valign: "top", isTextBox: true, margin: 0 });
+    const [x2, y2] = to, x1 = x + 0.6, y1 = 5.42;
+    s.addShape(pres.shapes.LINE, { x: Math.min(x1, x2), y: Math.min(y1, y2), w: Math.abs(x2 - x1) || 0.001, h: Math.abs(y2 - y1),
+      flipH: x2 < x1, flipV: y2 < y1, line: { color: "000000", width: 2, endArrowType: "triangle" }, objectName: "Pointer" });
+  };
+  lab([{ text: "Alzheimer type II astrocyte: ", options: { bold: true } }, { text: "big, pale nucleus" }], ix, 3.3, pt(0.43, 0.60));
+  lab([{ text: "Normal glial nucleus: ", options: { bold: true } }, { text: "small and dark" }], ix + 3.5, 2.6, pt(0.78, 0.53));
+  body(s, [
+    "Astrocytes clear ammonia by turning it and glutamate into glutamine",
+    "Glutamine pulls water into the cell",
+    { runs: [{ t: "Cirrhosis: ", b: true }, "over months the astrocyte pushes out other solutes (myo-inositol, taurine) to make room. It swells only a little. This is the cell you see under the microscope"] },
+    { runs: [{ t: "ALF: ", b: true }, "the ammonia comes in days. No time to adapt, so the astrocytes swell and the brain swells with them"] },
+  ], { x: 6.6, y: 1.35, w: W - 7.2, h: 4.6, size: 18, gap: 10 });
+  q(s, "Cerebral edema is common in hyperacute ALF and rare in cirrhosis", 6.25, { hl: true, size: 20 });
+  s.addNotes("Alzheimer type II astrocytes are a sign of chronic hyperammonemia: cirrhosis, Wilson disease, urea cycle defects. They show adaptation. In hyperacute ALF the astrocytes don't get the time, which is why the young acetaminophen patient herniates at an ammonia a cirrhotic would tolerate. Point at the big pale nucleus in the middle, then the small dark normal nuclei.");
+  return s;
+});
 function apxAmmonia() {
   const s = slide("Appendix: arterial ammonia studies in ALF");
   table(s, [

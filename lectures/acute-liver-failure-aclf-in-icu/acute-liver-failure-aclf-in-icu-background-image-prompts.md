@@ -103,3 +103,19 @@ Clinical editorial watercolor over fine gray ink linework on warm ivory textured
 Image 10. closing-liver.png (slide 116, "Questions?")
 Clinical editorial watercolor over fine gray ink linework on warm ivory textured cold-press paper, in muted slate, ochre, dusty rose, sage and cream, with soft watercolor blooms and visible paper grain. 16:9 landscape, full-bleed, no border or frame. A companion to a cover image of a liver in a dark indigo wash: the same single anatomically correct human liver, anterior view, in the left third of the image. The right lobe is larger than the left, the falciform ligament runs between them, the gallbladder fundus just shows below the right lobe, and the capsule is smooth and normal. This time the wash behind it is warm and light, soft ochre and cream instead of indigo, as if the patient recovered. The right 55% is plain ivory paper with at most a very pale cream wash, with no shapes or detail, so a title can sit there. No text, no other organs, no people. No neon, glow, 3D render look or photorealism.
 ```
+
+## Added later: section page for "Her brain"
+
+| Filename | Slides | Mode | Scene summary |
+|---|---|---|---|
+| divider-brain.png | 25 ("Her brain", Hour 12) | Full-bleed, title on left half | Swollen brain in coronal section, effaced sulci, small ventricles, dark indigo wash |
+
+- **Clinical accuracy checks:** this should look like diffuse cerebral edema: gyri flattened and pressed together, sulci effaced, lateral ventricles reduced to slits. No hemorrhage, no tumor, no midline shift.
+- **Alt text:** "Watercolor of a swollen brain in coronal section."
+
+```
+Generate this image. It must not contain any text, letters, numbers, labels, logos or watermarks.
+
+divider-brain.png (section page "Her brain")
+Clinical editorial watercolor over fine gray ink linework on warm ivory textured cold-press paper, in muted slate, ochre, dusty rose, sage and cream, with soft watercolor blooms and visible paper grain. 16:9 landscape, full-bleed, no border or frame. A single human brain in coronal section, drawn like a plate in an old neuropathology atlas, placed in the right third of the image. It shows diffuse cerebral edema: the gyri are flattened and pressed together, the sulci are effaced, and the lateral ventricles are squeezed to narrow slits. The gray matter is in dusty rose and the white matter in cream, with thin confident gray ink contours. A soft localized wash of dark indigo sits behind the brain only. The left 55% is plain ivory paper with at most a very pale cream wash, with no shapes or detail. No skull, no blood, no hemorrhage, no tumor, no people, no text. No neon, glow, 3D render look or photorealism.
+```
