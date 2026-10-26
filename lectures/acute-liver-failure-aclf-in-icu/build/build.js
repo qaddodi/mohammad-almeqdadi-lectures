@@ -178,7 +178,7 @@ sec("Opening");
     "Do I wait for the creatinine before dialysis?",
     "Is this ACLF, and does the label change anything?",
     "Does he have HRS? Will fixing the kidney hurt the lungs?",
-    "When do I call the transplant center?",
+    "When do I call transplant hepatology?",
   ], { size: 24, gap: 14, x: 1.6, w: W - 3.2 });
   s.addNotes("Frame the talk as the questions they actually get paged about. We'll answer them through two patients who are in the unit on the same night.");
 }
@@ -277,7 +277,7 @@ caseA(3).addNotes("Liver failure is a clinical diagnosis: coagulopathy plus ence
     "No encephalopathy means not yet ALF",
     "But it can become ALF within hours",
     { t: "Check glucose often and examine the patient every few hours", lvl: 1 },
-    { t: "Call the transplant center early anyway", lvl: 1 },
+    { t: "Call transplant hepatology early anyway", lvl: 1 },
     "And the opposite trap:",
     { t: "Hypoglycemia, sedatives, sepsis, alcohol withdrawal and seizures can all look like encephalopathy", lvl: 1 },
   ], { size: 22 });
@@ -291,15 +291,15 @@ caseA(3).addNotes("Liver failure is a clinical diagnosis: coagulopathy plus ence
 {
   const s = slide("Three things, at the same time");
   table(s, [
-    ["Keep her alive", "Find and treat the cause", "Call the transplant center"],
+    ["Keep her alive", "Find and treat the cause", "Call transplant hepatology"],
     [
       { t: [{ t: "ICU bed", br: true }, { t: "Glucose every 1 to 2 hours", br: true }, { t: "Airway assessment", br: true }, { t: "Volume, perfusion, lactate", br: true }, { t: "Neuro checks" }] },
       { t: [{ t: "Acetaminophen level", br: true }, { t: "Viral, autoimmune, Wilson, toxicology", br: true }, { t: "Doppler ultrasound", br: true }, { t: "Pregnancy test", br: true }, { t: "Start NAC if acetaminophen is possible" }] },
-      { t: [{ t: "Now, not after the workup", br: true }, { t: "Transfer if you are not a transplant center", br: true }, { t: "Transfer before she needs intubation, if you can" }] },
+      { t: [{ t: "Now, not after the workup", br: true }, { t: "Transplant evaluation starts tonight", br: true }, { t: "Social work and psychiatry while she can still talk" }] },
     ],
   ], { x: 0.8, y: 1.6, w: W - 1.6, colW: [3.9, 3.9, 3.93], size: 18, rowH: [0.55, 2.4], valign: "top", align: ["left", "left", "left"] });
   q(s, "Not one after the other", 5.6, { hl: true });
-  s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then call. By then she is intubated and harder to move. Transfer while she can still be moved safely.");
+  s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then call hepatology. By then she is intubated and the evaluation has lost a day. Here the transplant evaluation runs in parallel from the first night, and the psychosocial part is much easier while she can still talk.");
 }
 {
   const s = slide("Which cause changes treatment tonight?");
@@ -334,6 +334,33 @@ function caseA_apap(step) {
   return s;
 }
 caseA_apap(1).addNotes("Combination products are where the hidden acetaminophen is. Ask about every over-the-counter product by name.");
+{
+  const s = slide("The Rumack-Matthew nomogram");
+  const hrs = ["4 h", "8 h", "12 h", "16 h", "20 h", "24 h"];
+  s.addChart(pres.charts.LINE, [
+    { name: "Original line (200 at 4 h)", labels: hrs, values: [200, 100, 50, 25, 12.5, 6.25] },
+    { name: "US treatment line (150 at 4 h)", labels: hrs, values: [150, 75, 37.5, 18.75, 9.38, 4.69] },
+    { name: "Her level, 12 μg/mL", labels: hrs, values: [12, 12, 12, 12, 12, 12] },
+  ], {
+    x: 0.6, y: 1.3, w: 7.4, h: 5.4, chartColors: ["7F7F7F", "000000", RED], lineDash: ["dash", "solid", "sysDot"],
+    lineSize: 2.5, lineDataSymbol: "none", valAxisLogScaleBase: 10, valAxisMinVal: 1, valAxisMaxVal: 1000,
+    showValAxisTitle: true, valAxisTitle: "Acetaminophen (μg/mL), log scale", valAxisTitleFontSize: 13, valAxisTitleFontFace: "Calibri",
+    showCatAxisTitle: true, catAxisTitle: "Hours after a single ingestion", catAxisTitleFontSize: 13, catAxisTitleFontFace: "Calibri",
+    catAxisLabelFontFace: "Calibri", valAxisLabelFontFace: "Calibri", catAxisLabelFontSize: 13, valAxisLabelFontSize: 12,
+    catAxisLabelColor: "404040", valAxisLabelColor: "404040", valGridLine: { color: "D9D9D9", size: 0.5 }, catGridLine: { style: "none" },
+    showLegend: true, legendPos: "b", legendFontFace: "Calibri", legendFontSize: 13,
+  });
+  body(s, [
+    "One acute ingestion, known time, plotted from 4 to 24 hours",
+    "Above the treatment line: NAC",
+    { t: "Now plot her", b: true, nb: true, gap: 18 },
+    "At 8 hours, 12 is well below the line",
+    "At 20 hours, it is above",
+    { runs: ["Three days of repeated doses: ", { t: "there is no time zero", b: true }] },
+  ], { x: 8.3, y: 1.5, w: 4.5, h: 5.2, size: 19 });
+  src(s, "Rumack BH, Matthew H. Pediatrics 1975; US treatment line 150 μg/mL at 4 hours");
+  s.addNotes("Show them what it is first: a semi-log plot, the line halves every 4 hours (a half-life of about 4 hours), and the US treatment line sits 25% below the original 200 line for a safety margin. Then try to put her on it. Her 12 crosses the treatment line at roughly 18 to 19 hours. Before that she looks fine, after that she needs NAC. With repeated supratherapeutic dosing over 3 days there is no single ingestion time, so the nomogram can't answer the question.");
+}
 caseA_apap(2).addNotes("An undetectable or low level late in the course does not exclude acetaminophen toxicity [PMID: 36001996]. NAC is safe enough that the threshold to start it is low. Dosing per your pharmacy protocol.");
 {
   const s = slide("NAC for every kind of acute liver failure?");
@@ -360,7 +387,7 @@ const A10_ROWS = [
   const s = slide(A_TITLE, { bold: true });
   table(s, A10_ROWS, { x: 1.5, y: 1.4, w: W - 3.0, colW: [3.0, 3.0, 4.33], size: 17, rowH: 0.5 });
   q(s, "What worries you most?", 5.8);
-  s.addNotes("Hour 10, still in your unit, transfer pending. Let them pick. Kidney? Lactate? The answer for a hyperacute patient with this ammonia is the brain.");
+  s.addNotes("Hour 10. Hepatology has seen her and the transplant evaluation is under way. Let them pick. Kidney? Lactate? The answer for a hyperacute patient with this ammonia is the brain.");
 }
 {
   const s = slide(A_TITLE, { bold: true });
@@ -452,7 +479,7 @@ hypercap(2).addNotes("Low tidal volume still applies. What changes is the CO2 ta
     "ICP monitors are not routine; SCCM suggests against (very low certainty)",
   ], { x: 7.0, y: 1.4, w: 5.7, h: 5.4, size: 19 });
   src(s, "SCCM 2023 [PMID: 37052436]; update 2022 [PMID: 36001996]; practical update 2024 [PMID: 39170946]");
-  s.addNotes("Sodium targets differ between sources: the 2022 update uses 145 to 155 for prevention, the 2024 practical review a lower range. Pick one with your transplant center and write it down. Hypertonic saline is a conditional SCCM recommendation for patients at risk of intracranial hypertension.");
+  s.addNotes("Sodium targets differ between sources: the 2022 update uses 145 to 155 for prevention, the 2024 practical review a lower range. Agree on one with transplant hepatology and write it in the orders. Hypertonic saline is a conditional SCCM recommendation for patients at risk of intracranial hypertension.");
 }
 function crrt(step) {
   const s = slide("The creatinine is only 1.3");
@@ -536,9 +563,9 @@ function inr(step) {
   return s;
 }
 inr(1).addNotes("Very common request from the procedure side.");
-inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask the transplant team before giving plasma: they need the native INR.");
+inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
 function kcc(step) {
-  const s = slide("When do you call the transplant center?");
+  const s = slide("When do you call transplant hepatology?");
   if (step === 1) {
     q(s, "When she meets King's College criteria?", 2.6, { size: 28 });
     q(s, "When MELD is high enough?", 3.4, { size: 28 });
@@ -566,14 +593,14 @@ function kcc(step) {
   return s;
 }
 kcc(1).addNotes("Let them vote.");
-kcc(2).addNotes("King's College criteria are specific but not very sensitive. If you wait for them, some patients become too sick to transfer. Patient A now meets acetaminophen criteria by pH, but the call happened on admission. Transplant referral, listing and allocation are separate decisions; the center handles the last two.");
+kcc(2).addNotes("King's College criteria are specific but not very sensitive. If you wait for them, the evaluation starts too late. Patient A now meets acetaminophen criteria by pH, but the call happened on admission. Transplant referral, listing and allocation are separate decisions; the transplant team handles the last two.");
 {
   const s = slide("Can plasma exchange buy time?");
   table(s, [
     ["Study", "Open randomized trial, ALF, high-volume plasma exchange for 3 days vs standard care, 182 patients"],
     ["Main finding", "Hospital survival 58.7% vs 47.8% (HR 0.56); best in patients who were not transplanted"],
     ["What it doesn't show", { t: "Not blinded; one regimen in one population. Says nothing about ACLF or about albumin dialysis devices", b: true }],
-    ["So", "A bridge to discuss with the transplant center. Not a reason to delay listing"],
+    ["So", "A bridge to discuss with transplant hepatology. Not a reason to delay listing"],
   ], { x: 0.9, y: 1.6, w: W - 1.8, colW: [2.8, 8.73], size: 18, rowH: [1.0, 1.0, 1.1, 0.9], header: false });
   src(s, "Larsen FS et al. J Hepatol 2016 [PMID: 26325537]");
   s.addNotes("High-volume plasma exchange removes cytokines and DAMPs and replaces coagulation factors. Note the INR after plasma exchange is no longer the patient's INR.");
@@ -853,7 +880,7 @@ trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kid
   s.addNotes("Referral, candidacy, listing and allocation are four different decisions. The ICU team owns the referral and the information. Status 1A and other allocation rules: check current OPTN policy before quoting them.");
 }
 {
-  const s = slide("The phone call: have this ready");
+  const s = slide("Calling hepatology: have this ready");
   table(s, [
     ["Patient A (ALF)", "Patient B (ACLF)"],
     [
@@ -877,7 +904,7 @@ trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kid
       ] },
     ],
   ], { x: 0.9, y: 1.5, w: W - 1.8, colW: [5.76, 5.77], size: 19, rowH: [0.5, 3.2], valign: "top" });
-  s.addNotes("A good transfer call makes the transplant team's decision faster. Trends, not single values.");
+  s.addNotes("A good call makes the transplant team's decision faster. Trends, not single values.");
 }
 {
   const s = slide("Same patient, different rules");
@@ -898,7 +925,7 @@ sec("Closing");
 {
   const s = slide("Back to our patients");
   body(s, [
-    "Which one needed a transplant call before the tests came back?",
+    "Which one needed transplant hepatology before the tests came back?",
     "Why did a falling ALT make you more worried?",
     "When is CRRT right before the creatinine is high?",
     "Why isn't lactulose for ACLF evidence for ALF?",
@@ -911,7 +938,7 @@ sec("Closing");
   const s = slide("Take home");
   body(s, [
     "Big enzymes don't make it liver failure. Get an INR and examine the patient",
-    "Stabilize, treat the cause and call transplant in the same hour",
+    "Stabilize, treat the cause and call transplant hepatology in the same hour",
     { runs: ["ALF: ", { t: "protect the brain", b: true }, ". Intubate at grade III, keep the CO2 normal and the sodium up, and dialyze the ammonia"] },
     "ACLF: count the organs, find the trigger",
     { runs: ["Treat the kidney with one eye on the lungs"] },
