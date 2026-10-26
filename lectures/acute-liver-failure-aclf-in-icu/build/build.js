@@ -505,7 +505,7 @@ paper("NAC for every kind of acute liver failure?", "lee-title.png", "lee-concl.
   src(s, "Lee WM et al. Gastroenterology 2009 [PMID: 19524577]");
   s.addNotes("Overall survival at 3 weeks was not different. The transplant-free survival benefit was in coma grade I-II, which is a subgroup. That doesn't support NAC in advanced non-acetaminophen ALF or in ACLF. ACG 2023 suggests NAC in non-acetaminophen ALF; this trial is why the early-coma patients are the ones most likely to benefit. And don't carry the grade III-IV result over to Patient A: in acetaminophen ALF, NAC continues when she gets worse.");
 }
-divider("Her brain", "Hour 12")
+bgDivider("Her brain", "Hour 12", "divider-brain.jpg", "Watercolor of a brain in coronal section")
   .addNotes("Astrocytes in chronic liver disease have time to adapt to ammonia. In hyperacute ALF they don't, and they swell.");
 const A10_ROWS = [
   ["", "Admission", "Hour 12"],
