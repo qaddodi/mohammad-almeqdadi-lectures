@@ -100,7 +100,7 @@ function body(s, items, box = {}) {
 // Table helper. rows: array of arrays of cell strings or {t, b, red, hl, fill, align, i}
 function table(s, rows, o) {
   const fs = o.size || 14;
-  const data = rows.map((r, ri) => r.map((c) => {
+  const data = rows.map((r, ri) => r.map((c, ci) => {
     if (c == null) c = "";
     if (typeof c === "string") c = { t: c };
     const header = o.header !== false && ri === 0;
@@ -110,6 +110,7 @@ function table(s, rows, o) {
       const ro = { fontFace: TBL_FONT, fontSize: rr.size || c.size || fs };
       if (rr.b || header || c.b) ro.bold = true;
       if (rr.red || c.red) ro.color = RED;
+      else if (rr.grey || c.grey) ro.color = "8C8C8C";
       if (rr.hl || c.hl) ro.highlight = HL;
       if (rr.i || c.i) ro.italic = true;
       if (rr.br) ro.breakLine = true;
@@ -117,7 +118,7 @@ function table(s, rows, o) {
     });
     return { text, options: {
       fill: { color: c.fill || (header ? (o.headFill || "F2F2F2") : "FFFFFF") },
-      align: c.align || (o.align && o.align[r.indexOf(c)]) || "left",
+      align: c.align || (o.align && o.align[ci]) || "left",
       valign: o.valign || "middle", color: "000000",
     } };
   }));
@@ -622,6 +623,22 @@ crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the litera
   s.addNotes("No universal dose or ammonia target to stop at; use your center's protocol. The common failure is not the decision to start, it's a circuit that keeps clotting so the delivered clearance is a fraction of what was ordered, and a sodium plan that nobody owns.");
 }
 {
+  const s = slide("\"CVVH doesn't clear ammonia\"");
+  body(s, [
+    "Ammonia is tiny (17 Da), water soluble and not protein bound",
+    "It crosses the filter with the water (convection, CVVH) or down its gradient (diffusion, CVVHD)",
+    "So what matters is effluent flow and hours on a working circuit, not the letters",
+    { runs: ["More effluent, more clearance: ", { t: "90 vs 35 mL/kg/h", b: true }, " (Slack 2014)"] },
+    { runs: ["54 ALF patients on CRRT: median ammonia ", { t: "151 → 52 μmol/L", b: true }, " by day 5 (Warrillow 2020)"] },
+  ], { x: 0.7, y: 1.4, w: 6.6, h: 4.3, size: 19, gap: 10 });
+  bars(s, [{ name: "Ammonia clearance", labels: ["CVVH", "CVVHD", "CVVHDF"], values: [27, 21, 20] }],
+    { x: 7.5, y: 1.35, w: 5.3, h: 4.3, max: 40, unit: 10, valFmt: "0", fmt: "0", colors: ["000000", "7F7F7F", "7F7F7F"], gap: 80,
+      title: "Ammonia clearance, mL/min (12 patients)" });
+  q(s, "It does. About half the clearance of urea, so dose and filter life matter", 5.9, { hl: true, size: 21 });
+  src(s, "Fisher C et al. Blood Purif 2022 [PMID: 35042216]; Warrillow SJ et al. Crit Care Med 2020 [PMID: 31939790]; Slack AJ et al. Liver Int 2014");
+  s.addNotes("You will hear this from nephrology. The physiology says otherwise: ammonia is a small, unbound, water-soluble molecule, and it moves across a high-flux filter with convection as well as diffusion. In Fisher's study of 12 patients with liver failure the three modalities gave similar ammonia clearance at the same effluent rate (no significant difference), and in the same patients urea clearance was about 50 mL/min and creatinine 42, so ammonia clears less well than urea but clearly clears. Why the doubt? The liver and the muscle keep making it, so the level falls slowly; a clotting circuit with a lot of downtime delivers much less than what was ordered; and at low effluent doses the effect is small. In Warrillow's cohort the fall tracked how long patients were on CRRT more than the hourly dose. Ask for a high effluent rate and an anticoagulation plan that keeps the filter running.");
+}
+{
   const s = slide("Does early CRRT actually help?");
   table(s, [
     ["", "US ALF Study Group cohort (2018)", "Pilot RCT (2026)"],
@@ -776,6 +793,17 @@ kcc(2).addNotes("King's College criteria are specific but not very sensitive. If
 
 // ---------------------------------------------------------------- Patient B
 sec("Patient B: ACLF");
+{
+  const s = slide("Back to the first night: bed 7");
+  table(s, [
+    [{ t: "Bed 4", grey: true }, { t: "Bed 7", hl: true }],
+    [{ t: "28-year-old woman", grey: true }, "56-year-old man"],
+    [{ t: "Acetaminophen ALF", grey: true }, "Alcohol-related cirrhosis with ascites"],
+    [{ t: "Intubated, on CRRT, transplant hepatology involved", grey: true }, "Fever, confusion, low blood pressure"],
+  ], { x: 2.2, y: 2.0, w: 8.9, colW: [4.45, 4.45], size: 20, rowH: 0.65, align: ["center", "center"] });
+  q(s, "Is this liver failure too?", 5.2, { size: 26 });
+  s.addNotes("While bed 4 is going on, the nurse from bed 7 calls: his pressure is 82/46. Same night, same unit, a sick liver again. Let them guess before the next slide whether this is the same disease.");
+}
 const B_TITLE = "56-year-old man with cirrhosis and fever";
 const B_LABS = [
   ["", "Now", "Baseline"],
@@ -1063,11 +1091,11 @@ function trajectory(step) {
     ["", "Day 1", "Day 2", "Day 3", "Day 5"],
     ["Norepinephrine (mcg/kg/min)", "0.15", "0.22", "0.12", "Off"],
     ["Oxygen, SpO2", "Venturi 0.35, 92%", "HFNC 0.6, 90%", "HFNC 0.4, 95%", "2 L, 97%"],
-    ["Lung failure?", "No (P/F 211)", { t: "Yes (S/F 150)", red: true, align: "left" }, "No (S/F 238)", "No"],
+    ["Lung failure?", "No (P/F 211)", { t: "Yes (S/F 150)", red: true }, "No (S/F 238)", "No"],
     ["Kidney", "Cr 2.6", "Cr 3.1", "CRRT started", "On CRRT"],
     ["Encephalopathy", "Grade II", "Grade II", "Grade I", "Grade I"],
     ["Bilirubin / INR", "5.8 / 2.1", "6.4 / 2.3", "6.1 / 2.2", "5.2 / 2.0"],
-    ["ACLF grade", "2", { t: "3", red: true, b: true, align: "left" }, "2", step === 2 ? { t: "1", hl: true, b: true, align: "left" } : "?"],
+    ["ACLF grade", "2", { t: "3", red: true, b: true }, "2", step === 2 ? { t: "1", hl: true, b: true } : "?"],
   ];
   table(s, rows, { x: 0.7, y: 1.3, w: W - 1.4, colW: [3.33, 2.15, 2.15, 2.15, 2.15], size: 16, rowH: 0.44, align: ["left", "center", "center", "center", "center"] });
   if (step === 1) q(s, "Better or worse? What do you tell his family?", 5.65, { size: 24 });
