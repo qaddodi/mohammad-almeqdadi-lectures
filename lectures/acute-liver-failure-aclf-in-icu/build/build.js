@@ -38,7 +38,6 @@ pres.defineSlideMaster({
     { placeholder: { options: { name: "title", type: "title", x: 0.6, y: 0.25, w: W - 1.2, h: 1.0,
       fontFace: "Georgia", fontSize: 30, color: "000000", align: "center", valign: "middle" }, text: "" } },
   ],
-  slideNumber: { x: W - 0.9, y: 7.0, w: 0.5, h: 0.3, fontSize: 9, color: "A6A6A6", fontFace: "Georgia", align: "right" },
 });
 pres.defineSlideMaster({
   title: "SECTION",
@@ -47,9 +46,29 @@ pres.defineSlideMaster({
     { placeholder: { options: { name: "title", type: "title", x: 0.8, y: 2.6, w: W - 1.6, h: 1.4,
       fontFace: "Georgia", fontSize: 44, color: "000000", align: "center", valign: "middle" }, text: "" } },
   ],
-  slideNumber: { x: W - 0.9, y: 7.0, w: 0.5, h: 0.3, fontSize: 9, color: "A6A6A6", fontFace: "Georgia", align: "right" },
 });
 pres.defineSlideMaster({ title: "BLANK", background: { color: "FFFFFF" } });
+
+// Slide numbers count ideas, not clicks: every step of a reveal shares one number, shown as "X/Y".
+// Call cont() right before building a reveal step that continues the previous slide.
+const NUMBERED = [];
+let LOGICAL = 0, CONT = false;
+const _addSlide = pres.addSlide.bind(pres);
+pres.addSlide = (o) => {
+  const s = _addSlide(o);
+  if (!CONT) LOGICAL++;
+  CONT = false;
+  NUMBERED.push({ s, n: LOGICAL });
+  return s;
+};
+function cont() { CONT = true; }
+function addSlideNumbers() {
+  NUMBERED.forEach(({ s, n }, i) => {
+    if (i === 0) return; // not on the cover
+    s.addText(`${n}/${LOGICAL}`, { x: W - 1.3, y: 7.0, w: 0.9, h: 0.3, fontSize: 9, color: "A6A6A6", fontFace: "Georgia",
+      align: "right", isTextBox: true, margin: 0, objectName: "SlideNumber" });
+  });
+}
 
 let section = null;
 function sec(title) { section = title; pres.addSection({ title }); }
@@ -153,7 +172,7 @@ const IMG = path.join(__dirname, "img");
 
 // Every question gets two slides: blank first, then the answer
 const ans = (step, v) => (step === 1 ? "" : v);
-function twoStep(fn) { fn(1); return fn(2); }
+function twoStep(fn) { fn(1); cont(); return fn(2); }
 
 // Picture at its own aspect ratio, fitted in a box and centered in it
 function pngSize(f) { const b = fs.readFileSync(f); return [b.readUInt32BE(16), b.readUInt32BE(20)]; }
@@ -245,8 +264,8 @@ sec("Opening");
   ], { x: tx, y: 4.0, w: tw, h: 1.6, fontFace: "Georgia", align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0, paraSpaceAfter: 4 });
   s.addImage({ path: LOGO_IMG, x: tx + 0.15, y: 5.85, w: 3.79, h: 0.77, altText: "Tufts University School of Medicine" });
   // QR to the PDF of these slides on GitHub
-  s.addImage({ path: path.join(IMG, "qr-slides.png"), x: W - 1.55, y: 5.45, w: 1.15, h: 1.15, altText: "QR code linking to the slides PDF" });
-  s.addText("Slides (PDF)", { x: W - 1.75, y: 6.62, w: 1.55, h: 0.3, fontFace: "Georgia", fontSize: 11, align: "center",
+  s.addImage({ path: path.join(IMG, "qr-slides.png"), x: W - 1.7, y: 5.3, w: 1.3, h: 1.3, altText: "QR code linking to the slides PDF" });
+  s.addText("Slides (PDF)", { x: W - 1.83, y: 6.65, w: 1.55, h: 0.3, fontFace: "Georgia", fontSize: 11, align: "center",
     color: "595959", isTextBox: true, margin: 0 });
   s.addText("Illustrations generated with Google Gemini", { x: 0.4, y: 7.0, w: 5, h: 0.3, fontFace: "Georgia", fontSize: 11,
     italic: true, color: "7F7F7F", isTextBox: true, margin: 0 });
@@ -270,7 +289,7 @@ sec("Opening");
 }
 
 // ---------------------------------------------------------------- Patient A
-sec("Patient A: acute liver failure");
+sec("Patient A");
 {
   const s = slide("Two patients, same ICU", { master: "CONTENT" });
   table(s, [
@@ -284,7 +303,7 @@ sec("Patient A: acute liver failure");
   s.addNotes("Introduce both up front so the contrast is there from the start. We'll start with bed 4 and come back to bed 7.");
 }
 
-bgDivider("Bed 4", "28F, acute liver failure", "divider-bed4.jpg", "Watercolor of an empty ICU bed with an IV pole and monitor").addNotes("First patient.");
+bgDivider("Bed 4", "28F, 4 days of nausea", "divider-bed4.jpg", "Watercolor of an empty ICU bed with an IV pole and monitor").addNotes("First patient.");
 const A_TITLE = "28F, 4 days of nausea";
 const A_LABS = [
   ["Test", "Result"],
@@ -319,8 +338,8 @@ function caseA(step) {
   return s;
 }
 caseA(1).addNotes("Let them commit. Most people will say yes because the numbers are huge. The aminotransferases tell you hepatocytes are dying. They don't tell you whether the liver is failing.");
-caseA(2).addNotes("This is the same distinction as in the acute liver injury lecture: the size of the enzyme rise is not the severity of the illness.");
-caseA(3).addNotes("Liver failure is a clinical diagnosis: coagulopathy plus encephalopathy in someone without cirrhosis. Ask for the INR and examine the patient.");
+cont(); caseA(2).addNotes("This is the same distinction as in the acute liver injury lecture: the size of the enzyme rise is not the severity of the illness.");
+cont(); caseA(3).addNotes("Liver failure is a clinical diagnosis: coagulopathy plus encephalopathy in someone without cirrhosis. Ask for the INR and examine the patient.");
 twoStep((step) => {
   const s = slide(A_TITLE);
   table(s, [
@@ -337,8 +356,7 @@ twoStep((step) => {
     "Ultrasound: smooth liver, no ascites, patent vessels, normal spleen",
     "No history or imaging suggesting cirrhosis",
   ], { x: 0.8, y: 1.5, w: 6.8, h: 3.0, size: 20 });
-  if (step === 1) q(s, "Now is it acute liver failure?", 4.9, { size: 28 });
-  else q(s, "This is acute liver failure", 4.9, { hl: true, size: 28 });
+  if (step === 2) q(s, "This is acute liver failure", 4.9, { hl: true, size: 28 });
   s.addNotes("Coagulopathy, encephalopathy, short course, no cirrhosis. Note the glucose: hypoglycemia is part of the picture, and it is also a reason the mental status can look worse than it is. Fix the glucose and re-examine.");
   return s;
 });
@@ -361,29 +379,30 @@ twoStep((step) => {
   s.addNotes("The time course is not trivia. The faster it comes on, the more you worry about the brain, and paradoxically the better the chance of spontaneous recovery. The slow ones have less cerebral edema but do worse without a transplant. Patient A is hyperacute.");
 }
 twoStep((step) => {
-  const s = slide("INR 2.4, wide awake. Acute liver failure?");
-  if (step === 1) { q(s, "What do you call this, and what do you do now?", 3.2, { size: 28 }); return s; }
+  const s = slide("Same patient, but wide awake");
+  body(s, [{ t: "Same labs and INR 2.4, but fully oriented with no asterixis", nb: true, i: true, align: "center" }], { y: 1.3, h: 0.5, size: 20 });
+  if (step === 1) { q(s, "What do you call this, and what do you do now?", 3.4, { size: 28 }); return s; }
   body(s, [
-    { runs: [{ t: "No. ", b: true }, "This is severe acute liver injury"] },
-    "No encephalopathy means not yet ALF",
+    { runs: [{ t: "Severe acute liver injury", b: true }, ", not ALF yet"] },
+    "No encephalopathy, so it doesn't meet the definition",
     "But it can become ALF within hours",
     { t: "Check glucose often and examine the patient every few hours", lvl: 1 },
     { t: "Call transplant hepatology early anyway", lvl: 1 },
     "And the opposite trap:",
     { t: "Hypoglycemia, sedatives, sepsis, alcohol withdrawal and seizures can all look like encephalopathy", lvl: 1 },
-  ], { size: 22 });
+  ], { y: 1.95, h: 4.9, size: 21 });
   s.addNotes("Two errors in opposite directions. Calling everything with a high INR liver failure, and blaming every change in mental status on the liver.");
   return s;
 });
 function features(step) {
-  const s = slide("What else fails?");
-  if (step === 1) { q(s, "It's called liver failure. Which other organs fail?", 3.2, { size: 28 }); return s; }
+  const s = slide("Which other organs fail in ALF?");
+  if (step === 1) return s;
   s.addImage({ path: path.join(IMG, "alf-features.png"), x: (W - 5.25) / 2, y: 1.3, w: 5.25, h: 5.33, altText: "Clinical features of acute liver failure by organ" });
   src(s, "Bernal W, Wendon J. N Engl J Med 2013;369:2525-34, Figure 1");
   return s;
 }
 features(1).addNotes("Let them list organs. Most will get brain and kidney. Fewer think of the adrenals, the marrow or the immune system.");
-features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia, lactic acidosis, vasodilatory shock, relative adrenal insufficiency, AKI, lung injury and a high risk of infection. The liver is one organ on this picture.");
+cont(); features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia, lactic acidosis, vasodilatory shock, relative adrenal insufficiency, AKI, lung injury and a high risk of infection. The liver is one organ on this picture.");
 {
   const s = slide(A_TITLE);
   q(s, "What's your next step?", 3.2, { size: 36, h: 1.0 });
@@ -616,7 +635,7 @@ function intubate(step) {
   return s;
 }
 intubate(1).addNotes("I'd intubate her now. Most fellows want to wait. In ALF the progression from grade II to grade IV can be fast, and an emergency intubation in a coagulopathic, hypotensive patient with a swollen brain is the worst version of this procedure.");
-intubate(2).addNotes("The goals are airway protection, controlled ventilation, and no swings in blood pressure or CO2. Peri-intubation hypotension drops cerebral perfusion pressure; coughing raises ICP. Plan it like a neuro intubation.");
+cont(); intubate(2).addNotes("The goals are airway protection, controlled ventilation, and no swings in blood pressure or CO2. Peri-intubation hypotension drops cerebral perfusion pressure; coughing raises ICP. Plan it like a neuro intubation.");
 function hypercap(step) {
   const s = slide("Can we use permissive hypercapnia?");
   body(s, [{ t: "After intubation: bilateral infiltrates, P/F 150 on PEEP 10", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
@@ -632,7 +651,7 @@ function hypercap(step) {
   return s;
 }
 hypercap(1).addNotes("This is the PCCM-specific tradeoff. ARDS teaching says accept hypercapnia. Neuro teaching says don't.");
-hypercap(2).addNotes("Low tidal volume still applies. What changes is the CO2 target. Prophylactic hyperventilation is out; brief hyperventilation as a bridge in impending herniation is a different thing.");
+cont(); hypercap(2).addNotes("Low tidal volume still applies. What changes is the CO2 target. Prophylactic hyperventilation is out; brief hyperventilation as a bridge in impending herniation is a different thing.");
 {
   const s = slide("CO2 and cerebral blood flow");
   // schematic: axes from (x0, y0), PaCO2 0 to 100 mmHg across gw inches
@@ -716,9 +735,9 @@ function crrt(step) {
   return s;
 }
 crrt(1).addNotes("Ask them. Nephrology will often say the creatinine doesn't meet criteria. That's the wrong frame for ALF.");
-crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the literature, not a universal threshold. Look at the trajectory and the neuro exam. Coordinate the CRRT fluid with the sodium plan or the dialysis will pull her sodium back down.");
+cont(); crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the literature, not a universal threshold. Look at the trajectory and the neuro exam. Coordinate the CRRT fluid with the sodium plan or the dialysis will pull her sodium back down.");
 inr(1).addNotes("Hour 12, CRRT is starting. Very common request from the procedure side.");
-inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
+cont(); inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
 {
   const s = slide("Rebalanced hemostasis");
   const cxm = W / 2;
@@ -844,7 +863,7 @@ function enzymes(step) {
   return s;
 }
 enzymes(1);
-enzymes(2);
+cont(); enzymes(2);
 function inr(step) {
   const s = slide("Should we correct this INR?");
   body(s, [{ t: "Hour 12: INR 4.1, platelets 88,000. She needs a dialysis catheter", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
@@ -902,7 +921,7 @@ function apxKcc() {
   s.addNotes("Specific but not sensitive. Use them to understand prognosis, not to decide when to call.");
 }
 kcc(1).addNotes("Let them vote.");
-kcc(2).addNotes("King's College criteria are specific but not very sensitive. If you wait for them, the evaluation starts too late. Patient A now meets acetaminophen criteria by pH, but the call happened on admission. Transplant referral, listing and allocation are separate decisions; the transplant team handles the last two.");
+cont(); kcc(2).addNotes("King's College criteria are specific but not very sensitive. If you wait for them, the evaluation starts too late. Patient A now meets acetaminophen criteria by pH, but the call happened on admission. Transplant referral, listing and allocation are separate decisions; the transplant team handles the last two.");
 paper("Can plasma exchange buy time?", "larsen-title.png", "larsen-fig1.png",
   "Larsen FS et al. J Hepatol 2016;64:69-78 [PMID: 26325537]", "Larsen 2016 plasma exchange trial", 2.4)
   .addNotes("Their Figure 1: hospital survival, high-volume plasma exchange (HPV) vs standard medical treatment (SMT), log-rank p = 0.0058.");
@@ -940,8 +959,8 @@ twoStep((step) => {
 }
 
 // ---------------------------------------------------------------- Patient B
-sec("Patient B: ACLF");
-bgDivider("Bed 7", "56M, cirrhosis and ACLF", "divider-bed7.jpg", "Watercolor of a shrunken nodular cirrhotic liver").addNotes("Second patient, in the unit at the same time.");
+sec("Patient B");
+bgDivider("Bed 7", "56M, cirrhosis and fever", "divider-bed7.jpg", "Watercolor of a shrunken nodular cirrhotic liver").addNotes("Second patient, in the unit at the same time.");
 {
   const s = slide("Back to day 1: bed 7");
   table(s, [
@@ -979,7 +998,7 @@ function caseB(step) {
   return s;
 }
 caseB(1).addNotes("Made-up patient. Same day, bed 7. After 2 L of fluid he is on norepinephrine 0.15 mcg/kg/min.");
-caseB(2).addNotes("Same as bed 4: treat first, label later. We'll count organs once the antibiotics are in.");
+cont(); caseB(2).addNotes("Same as bed 4: treat first, label later. We'll count organs once the antibiotics are in.");
 function tap(step) {
   const s = slide("What tipped him over?");
   if (step === 1) { q(s, "INR 2.1, platelets 62,000. Do you tap him?", 3.0, { size: 30 }); return s; }
@@ -999,7 +1018,7 @@ function tap(step) {
   return s;
 }
 tap(1).addNotes("Ask what tipped him over before showing the answer. Then the procedural question: people hesitate to tap a coagulopathic patient.");
-tap(2).addNotes("Diagnostic paracentesis is low risk and should not wait for correction of the INR or platelets. Infection is the most common precipitant of ACLF in Western cohorts.");
+cont(); tap(2).addNotes("Diagnostic paracentesis is low risk and should not wait for correction of the INR or platelets. Infection is the most common precipitant of ACLF in Western cohorts.");
 twoStep((step) => {
   const s = slide("Why is he hypotensive?");
   table(s, [
@@ -1063,7 +1082,7 @@ function organs(step) {
   return s;
 }
 organs(1).addNotes("Have the room count with you. Liver failure here means a bilirubin of 12, which surprises people.");
-organs(2).addNotes("Kidney and circulation. Respiratory is borderline: PaO2 74 on a Venturi mask at 0.35 is a P/F of 211. That's why he's on a Venturi mask here: nasal cannula doesn't give you a reliable FiO2, so if the grade depends on the lungs, get a gas on a known FiO2. Watch that row.");
+cont(); organs(2).addNotes("Kidney and circulation. Respiratory is borderline: PaO2 74 on a Venturi mask at 0.35 is a P/F of 211. That's why he's on a Venturi mask here: nasal cannula doesn't give you a reliable FiO2, so if the grade depends on the lungs, get a gas on a known FiO2. Watch that row.");
 {
   const s = slide("ACLF grades");
   table(s, [
@@ -1159,7 +1178,7 @@ function hrsDefs() {
 hrs(1).addNotes("The reflex in many units: oliguric cirrhotic, give albumin for 48 hours, then terlipressin.");
 hrsDefs().addNotes("The left column is what most of us were taught. The 48-hour albumin challenge is gone, and there is no fluid challenge at all for a patient who is already wet.");
 hrs(2).addNotes("Let the room fill it in.");
-hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours, or 50% or more within 7 days, and/or urine output 0.5 mL/kg/h or less for 6 hours or more. The mandatory 48-hour albumin challenge is gone, and a patient who is already wet doesn't need a fluid challenge to satisfy a clock. HRS physiology and tubular injury can coexist. Assessment is faster and individualized. But that cuts both ways: you also need to look for the other causes, and right now sepsis is the obvious one.");
+cont(); hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours, or 50% or more within 7 days, and/or urine output 0.5 mL/kg/h or less for 6 hours or more. The mandatory 48-hour albumin challenge is gone, and a patient who is already wet doesn't need a fluid challenge to satisfy a clock. HRS physiology and tubular injury can coexist. Assessment is faster and individualized. But that cuts both ways: you also need to look for the other causes, and right now sepsis is the obvious one.");
 {
   const s = slide("Kidney failure in cirrhosis is usually a mixture");
   body(s, [
@@ -1209,7 +1228,7 @@ function heB(step) {
   return s;
 }
 heB(1).addNotes("The reflex is to give more lactulose and recheck the ammonia. Let them say it.");
-heB(2).addNotes("In cirrhosis, HE is a clinical diagnosis. The ammonia level doesn't grade it, and chasing it doesn't help. Every worsening needs the same search for a precipitant as the admission did. Lactulose is right for overt HE, but too much gives you dehydration, hypernatremia and a worse kidney. Don't make every first episode an automatic two-drug start.");
+cont(); heB(2).addNotes("In cirrhosis, HE is a clinical diagnosis. The ammonia level doesn't grade it, and chasing it doesn't help. Every worsening needs the same search for a precipitant as the admission did. Lactulose is right for overt HE, but too much gives you dehydration, hypernatremia and a worse kidney. Don't make every first episode an automatic two-drug start.");
 const B2_ROWS = [
   ["", "Admission", "Day 2"],
   ["Albumin received", "", "110 g (SBP dose, 1.5 g/kg at 73 kg) + 2 L crystalloid"],
@@ -1230,7 +1249,7 @@ function day2B(step) {
   return s;
 }
 day2B(1).addNotes("This is the hinge of the second case. The kidney is worse, and the reflex is to treat the kidney.");
-const D2B = day2B(2);
+cont(); const D2B = day2B(2);
 {
   const s = slide("Day 2: what do his lungs look like?");
   pic(s, "cxr-edema.png", 0.6, 1.3, 5.6, 5.4, "Chest X-ray with bilateral pulmonary edema");
@@ -1345,7 +1364,7 @@ function trajectory(step) {
   return s;
 }
 trajectory(1).addNotes("Day 3: CRRT started for fluid overload and oliguria, while the transplant evaluation was under way. Ask the room whether he is better or worse.");
-trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kidney failure on RRT still counts as an organ failure. Bring palliative care in alongside, not instead of, full support. Document what the time-limited trial is and when you'll reassess.");
+cont(); trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kidney failure on RRT still counts as an organ failure. Bring palliative care in alongside, not instead of, full support. Document what the time-limited trial is and when you'll reassess.");
 bgDivider("Who gets a liver?", "Transplant in ACLF", "divider-transplant.jpg", "Watercolor of a donor liver in an organ bag on ice in a transport cooler").addNotes("Back to the question both families will ask.");
 twoStep((step) => {
   const s = slide("Too sick for a transplant, or sick enough to need one?");
@@ -1534,6 +1553,7 @@ apxMathurin();
 }
 
 (async () => {
+  addSlideNumbers();
   await pres.writeFile({ fileName: OUT });
   await applyTheme(OUT, THEME);
   console.log("wrote", OUT);

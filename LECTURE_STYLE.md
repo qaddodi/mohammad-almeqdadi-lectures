@@ -152,6 +152,23 @@ The inspected content includes both text-light diagrams and dense reference mate
 
 For future slides, preserve the instructional function: clear questions, visible evidence, comparison, and staged explanation. Treat font, color, slide dimensions, and exact layout as choices to confirm or derive from the specific reference deck. Do not invent a universal typography system from these samples. A cleaner reconstruction of a dense source figure can be useful, but that is an improvement proposal rather than an observed historical preference.
 
+## Rules Mohammad has set
+
+These come from Mohammad's direct instructions, not from the inspected decks, and they apply to every new deck.
+
+### Reveal sequences
+
+- Ask first, answer on the next slide. A slide that asks a question shows the answer hidden: table cells empty, the chart without its takeaway line, a paper with only its title block, or no prompt at all. The filled version is the next slide.
+- The question and the section headers must not give the answer away. Don't name the diagnosis on a case's section page, and don't ask "Is this acute liver failure?" when that is the answer. Leave the prompt empty, or ask something neutral, then reveal on the next slide ("This is acute liver failure").
+- No PowerPoint transitions or animations. Each reveal step is its own slide.
+- Keep everything else on the slide still between steps, so the audience sees only what changed.
+
+### Slide numbers
+
+- Show slide numbers as "X/Y", bottom right, small and grey. Leave the cover unnumbered.
+- Count ideas, not clicks. All steps of one reveal sequence (blank, then filled, or the same table with added text) share one number. Y is the number of distinct slides, not the number of physical slides.
+- A slide placed between two steps (for example, a definitions slide) gets its own number, and the step after it starts a new number.
+
 ## Specification for a new lecture outline
 
 The following workflow is a recommended application of the observed patterns, not a claim that every existing deck follows it.
