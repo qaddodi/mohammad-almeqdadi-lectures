@@ -505,8 +505,6 @@ paper("NAC for every kind of acute liver failure?", "lee-title.png", "lee-concl.
   src(s, "Lee WM et al. Gastroenterology 2009 [PMID: 19524577]");
   s.addNotes("Overall survival at 3 weeks was not different. The transplant-free survival benefit was in coma grade I-II, which is a subgroup. That doesn't support NAC in advanced non-acetaminophen ALF or in ACLF. ACG 2023 suggests NAC in non-acetaminophen ALF; this trial is why the early-coma patients are the ones most likely to benefit. And don't carry the grade III-IV result over to Patient A: in acetaminophen ALF, NAC continues when she gets worse.");
 }
-bgDivider("Her brain", "Hour 12", "divider-brain.jpg", "Watercolor of a brain in coronal section")
-  .addNotes("Astrocytes in chronic liver disease have time to adapt to ammonia. In hyperacute ALF they don't, and they swell.");
 const A10_ROWS = [
   ["", "Admission", "Hour 12"],
   ["Mental status", "Disoriented, asterixis", { t: "Responds only to voice (grade III)", red: true, b: true }],
@@ -523,6 +521,7 @@ const A10_ROWS = [
   q(s, "What worries you most?", 5.8);
   s.addNotes("Hour 12. Hepatology has seen her and the transplant evaluation is under way. Let them pick. Kidney? Lactate? The answer for a hyperacute patient with this ammonia is the brain.");
 }
+cont();
 {
   const s = slide(A_TITLE);
   table(s, A10_ROWS, { x: 1.5, y: 1.4, w: W - 3.0, colW: [3.0, 3.0, 4.33], size: 17, rowH: 0.5 });
@@ -531,6 +530,9 @@ const A10_ROWS = [
     { y: 6.1, h: 0.6, size: 20 });
   s.addNotes("Two decisions we own as intensivists. Before answering, why is the brain the problem?");
 }
+// brain section page comes after the reveal so the picture doesn't give the answer away
+bgDivider("Ammonia and the brain", null, "divider-brain.jpg", "Watercolor of a brain in coronal section")
+  .addNotes("Astrocytes in chronic liver disease have time to adapt to ammonia. In hyperacute ALF they don't, and they swell.");
 {
   const s = slide("Why does the brain swell?");
   const x = 0.8, bw = 3.0, bh = 0.85;
