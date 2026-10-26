@@ -168,6 +168,22 @@ function bars(s, data, o) {
   });
 }
 
+// Section divider: big centered title, grey subtitle, optional picture
+function divider(title, sub, img) {
+  const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
+  const ty = img ? 0.9 : 2.5;
+  s.addText(title, { x: 0.8, y: ty, w: W - 1.6, h: 1.2, fontFace: "Georgia", fontSize: 48, align: "center", valign: "middle",
+    color: "000000", isTextBox: true, margin: 0 });
+  if (sub) s.addText(sub, { x: 0.8, y: ty + 1.2, w: W - 1.6, h: 0.6, fontFace: "Georgia", fontSize: 24, align: "center",
+    color: "7F7F7F", isTextBox: true, margin: 0 });
+  if (img) {
+    s.addImage({ path: img.path, x: (W - img.w) / 2, y: 3.0, w: img.w, h: img.h, altText: img.alt });
+    if (img.caption) s.addText(img.caption, { x: 0.8, y: 3.05 + img.h, w: W - 1.6, h: 0.45, fontFace: "Georgia", fontSize: 15,
+      italic: true, align: "center", color: GREY, isTextBox: true, margin: 0 });
+  }
+  return s;
+}
+
 // ---------------------------------------------------------------- Cover
 sec("Opening");
 {
@@ -219,7 +235,8 @@ sec("Patient A: acute liver failure");
   s.addNotes("Introduce both up front so the contrast is there from the start. We'll start with bed 4 and come back to bed 7.");
 }
 
-const A_TITLE = "28-year-old woman with 4 days of nausea";
+divider("Bed 4", "28F, acute liver failure").addNotes("First patient.");
+const A_TITLE = "28F, 4 days of nausea";
 const A_LABS = [
   ["Test", "Result"],
   ["AST", { t: "6,820 U/L", red: true }],
@@ -229,7 +246,7 @@ const A_LABS = [
   ["Creatinine", "1.0 mg/dL"],
 ];
 function caseA(step) {
-  const s = slide(A_TITLE, { bold: true });
+  const s = slide(A_TITLE);
   body(s, [
     "Nausea, vomiting and poor intake for 4 days",
     "No known liver disease, no alcohol use",
@@ -256,7 +273,7 @@ caseA(1).addNotes("Let them commit. Most people will say yes because the numbers
 caseA(2).addNotes("This is the same distinction as in the acute liver injury lecture: the size of the enzyme rise is not the severity of the illness.");
 caseA(3).addNotes("Liver failure is a clinical diagnosis: coagulopathy plus encephalopathy in someone without cirrhosis. Ask for the INR and examine the patient.");
 {
-  const s = slide(A_TITLE, { bold: true });
+  const s = slide(A_TITLE);
   table(s, [
     ["Test", "Result"],
     ["AST", { t: "6,820 U/L", red: true }],
@@ -292,15 +309,6 @@ caseA(3).addNotes("Liver failure is a clinical diagnosis: coagulopathy plus ence
   src(s, "EASL ALF guideline 2017 [PMID: 28417882]; ACG ALF 2023 [PMID: 37377263]; Management of ALF: update 2022 [PMID: 36001996]");
   s.addNotes("The time course is not trivia. The faster it comes on, the more you worry about the brain, and paradoxically the better the chance of spontaneous recovery. The slow ones have less cerebral edema but do worse without a transplant. Patient A is hyperacute.");
 }
-function features(step) {
-  const s = slide("What else fails?");
-  if (step === 1) { q(s, "It's called liver failure. Which other organs fail?", 3.2, { size: 28 }); return s; }
-  s.addImage({ path: path.join(IMG, "alf-features.png"), x: (W - 5.25) / 2, y: 1.3, w: 5.25, h: 5.33, altText: "Clinical features of acute liver failure by organ" });
-  src(s, "Bernal W, Wendon J. N Engl J Med 2013;369:2525-34, Figure 1");
-  return s;
-}
-features(1).addNotes("Let them list organs. Most will get brain and kidney. Fewer think of the adrenals, the marrow or the immune system.");
-features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia, lactic acidosis, vasodilatory shock, relative adrenal insufficiency, AKI, lung injury and a high risk of infection. The liver is one organ on this picture.");
 {
   const s = slide("INR 2.4, wide awake. Acute liver failure?");
   body(s, [
@@ -314,8 +322,17 @@ features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia,
   ], { size: 22 });
   s.addNotes("Two errors in opposite directions. Calling everything with a high INR liver failure, and blaming every change in mental status on the liver.");
 }
+function features(step) {
+  const s = slide("What else fails?");
+  if (step === 1) { q(s, "It's called liver failure. Which other organs fail?", 3.2, { size: 28 }); return s; }
+  s.addImage({ path: path.join(IMG, "alf-features.png"), x: (W - 5.25) / 2, y: 1.3, w: 5.25, h: 5.33, altText: "Clinical features of acute liver failure by organ" });
+  src(s, "Bernal W, Wendon J. N Engl J Med 2013;369:2525-34, Figure 1");
+  return s;
+}
+features(1).addNotes("Let them list organs. Most will get brain and kidney. Fewer think of the adrenals, the marrow or the immune system.");
+features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia, lactic acidosis, vasodilatory shock, relative adrenal insufficiency, AKI, lung injury and a high risk of infection. The liver is one organ on this picture.");
 {
-  const s = slide(A_TITLE, { bold: true });
+  const s = slide(A_TITLE);
   q(s, "What's your next step?", 3.2, { size: 36, h: 1.0 });
   s.addNotes("Wait for answers. Usually people list tests in order. That's the trap.");
 }
@@ -344,12 +361,13 @@ features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia,
     ["Pregnancy (AFLP, HELLP)", "hCG", "Call obstetrics, plan delivery"],
     ["Budd-Chiari", "Doppler ultrasound or CT", "Anticoagulation, discuss TIPS or transplant"],
     ["Ischemic hepatitis", "Echo, history of shock", "Fix the circulation"],
-  ], { x: 0.7, y: 1.35, w: W - 1.4, colW: [2.9, 4.6, 4.43], size: 15, rowH: 0.56 });
+    ["Mushrooms (Amanita)", "Wild mushrooms, then diarrhea 6 to 24 hours later", "NAC, call poison control (silibinin if available)"],
+  ], { x: 0.7, y: 1.3, w: W - 1.4, colW: [2.9, 4.6, 4.43], size: 14, rowH: 0.5 });
   src(s, "Update 2022 [PMID: 36001996]; practical update 2024 [PMID: 39170946]; EASL AIH 2025 [PMID: 40348684]");
   s.addNotes("The point of the workup in the ICU is the column on the right. Some of these you start empirically before the test comes back: NAC, acyclovir. Negative autoimmune serologies do not exclude acute AIH. Wilson disease presenting as ALF basically means transplant.");
 }
 function caseA_apap(step) {
-  const s = slide(A_TITLE, { bold: true });
+  const s = slide(A_TITLE);
   body(s, [
     "Roommate: \"She was taking a lot of the Tylenol with codeine, plus cold medicine, for 3 days\"",
     { runs: ["Acetaminophen level: ", { t: "12 μg/mL", b: true }, ", time of last dose unknown"] },
@@ -410,6 +428,9 @@ caseA_apap(2).addNotes("An undetectable or low level late in the course does not
   src(s, "Lee WM et al. Gastroenterology 2009 [PMID: 19524577]");
   s.addNotes("Overall survival at 3 weeks was not different. The transplant-free survival benefit was in coma grade I-II, which is a subgroup. That doesn't support NAC in advanced non-acetaminophen ALF or in ACLF. ACG 2023 suggests NAC in non-acetaminophen ALF; this trial is why the early-coma patients are the ones most likely to benefit. And don't carry the grade III-IV result over to Patient A: in acetaminophen ALF, NAC continues when she gets worse.");
 }
+divider("Her brain", "Hour 12", { path: path.join(IMG, "astrocytes.png"), w: 4.6, h: 3.43,
+  alt: "Alzheimer type II astrocytes", caption: "Alzheimer type II astrocytes: the brain adapting over months of cirrhosis. In ALF there are no months" })
+  .addNotes("Astrocytes in chronic liver disease have time to adapt to ammonia. In hyperacute ALF they don't, and they swell.");
 const A10_ROWS = [
   ["", "Admission", "Hour 12"],
   ["Mental status", "Disoriented, asterixis", { t: "Responds only to voice (grade III)", red: true, b: true }],
@@ -421,13 +442,13 @@ const A10_ROWS = [
   ["Glucose", "54 mg/dL", "Needs D10"],
 ];
 {
-  const s = slide(A_TITLE, { bold: true });
+  const s = slide(A_TITLE);
   table(s, A10_ROWS, { x: 1.5, y: 1.4, w: W - 3.0, colW: [3.0, 3.0, 4.33], size: 17, rowH: 0.5 });
   q(s, "What worries you most?", 5.8);
   s.addNotes("Hour 12. Hepatology has seen her and the transplant evaluation is under way. Let them pick. Kidney? Lactate? The answer for a hyperacute patient with this ammonia is the brain.");
 }
 {
-  const s = slide(A_TITLE, { bold: true });
+  const s = slide(A_TITLE);
   table(s, A10_ROWS, { x: 1.5, y: 1.4, w: W - 3.0, colW: [3.0, 3.0, 4.33], size: 17, rowH: 0.5 });
   q(s, "Her brain", 5.55, { hl: true, size: 26 });
   body(s, [{ t: "When do you intubate?  Do you wait for the creatinine before dialysis?", nb: true, align: "center", i: true }],
@@ -520,7 +541,7 @@ intubate(1).addNotes("I'd intubate her now. Most fellows want to wait. In ALF th
 intubate(2).addNotes("The goals are airway protection, controlled ventilation, and no swings in blood pressure or CO2. Peri-intubation hypotension drops cerebral perfusion pressure; coughing raises ICP. Plan it like a neuro intubation.");
 function hypercap(step) {
   const s = slide("Can we use permissive hypercapnia?");
-  body(s, [{ t: "Day 1: bilateral infiltrates, P/F 150 on PEEP 10", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
+  body(s, [{ t: "After intubation: bilateral infiltrates, P/F 150 on PEEP 10", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
   if (step === 1) { q(s, "Lung protection or brain protection?", 3.3, { size: 28 }); return s; }
   table(s, [
     ["", "The lung wants", "The brain wants", "What we do"],
@@ -574,26 +595,31 @@ hypercap(2).addNotes("Low tidal volume still applies. What changes is the CO2 ta
   s.addNotes("Draw this on the board if you don't have the slide. It's the reason the ARDS habit of tolerating a high CO2 doesn't carry over to a patient with grade III-IV encephalopathy and a high ammonia.");
 }
 {
-  const s = slide("Protecting the brain: what we actually do");
+  const s = slide("Protecting the brain: every patient with grade III-IV");
   body(s, [
-    { t: "Every patient with grade III-IV encephalopathy", b: true, nb: true },
     "Head of bed 30°, neck neutral",
     "Treat fever, avoid hypoglycemia",
     { runs: ["Sodium ", { t: "145 to 155 mmol/L", b: true }, " with hypertonic saline (use your center's protocol)"] },
     "Avoid fluid overload",
     "Treat seizures, EEG if in doubt. No routine prophylaxis",
-  ], { x: 0.7, y: 1.4, w: 6.2, h: 5.4, size: 19 });
+    "No cooling: 34 °C did not prevent intracranial hypertension in an RCT",
+  ], { size: 21, gap: 12 });
+  src(s, "SCCM 2023 [PMID: 37052436]; update 2022 [PMID: 36001996]; Bernal W et al. J Hepatol 2016;65:273-9");
+  s.addNotes("Sodium targets differ between sources: the 2022 update uses 145 to 155 for prevention, the 2024 practical review a lower range. Agree on one with transplant hepatology and write it in the orders. Hypertonic saline is a conditional SCCM recommendation for patients at risk of intracranial hypertension. The cooling trial randomized intubated high-risk ALF patients to 34 vs 36 °C for 72 hours; no difference in intracranial hypertension or survival. Avoid fever, don't induce hypothermia.");
+}
+{
+  const s = slide("A surge: new hypertension, bradycardia or a pupil");
   body(s, [
-    { t: "Surge: new hypertension, bradycardia, pupils", b: true, nb: true },
     "Hyperosmolar bolus (hypertonic saline or mannitol)",
     "Brief hyperventilation as a bridge",
     "Call the transplant team now",
     { t: "Things to know", b: true, nb: true, gap: 18 },
+    "Hypertension and bradycardia come late. Don't wait for them",
     "A normal head CT does not exclude raised ICP",
     "ICP monitors are not routine; SCCM suggests against (very low certainty)",
-  ], { x: 7.0, y: 1.4, w: 5.7, h: 5.4, size: 19 });
-  src(s, "SCCM 2023 [PMID: 37052436]; update 2022 [PMID: 36001996]; practical update 2024 [PMID: 39170946]");
-  s.addNotes("Sodium targets differ between sources: the 2022 update uses 145 to 155 for prevention, the 2024 practical review a lower range. Agree on one with transplant hepatology and write it in the orders. Hypertonic saline is a conditional SCCM recommendation for patients at risk of intracranial hypertension.");
+  ], { size: 21, gap: 10 });
+  src(s, "SCCM 2023 [PMID: 37052436]; practical update 2024 [PMID: 39170946]");
+  s.addNotes("A new pupil asymmetry or a sudden change in the exam is enough to act. Treat first, then image if a bleed or another structural lesion is possible.");
 }
 function crrt(step) {
   const s = slide("The creatinine is only 1.3");
@@ -610,6 +636,31 @@ function crrt(step) {
 }
 crrt(1).addNotes("Ask them. Nephrology will often say the creatinine doesn't meet criteria. That's the wrong frame for ALF.");
 crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the literature, not a universal threshold. Look at the trajectory and the neuro exam. Coordinate the CRRT fluid with the sodium plan or the dialysis will pull her sodium back down.");
+inr(1).addNotes("Hour 12, CRRT is starting. Very common request from the procedure side.");
+inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
+{
+  const s = slide("Rebalanced hemostasis");
+  const cxm = W / 2;
+  // fulcrum and beam
+  s.addShape(pres.shapes.ISOSCELES_TRIANGLE, { x: cxm - 0.55, y: 4.42, w: 1.1, h: 1.0, fill: { color: "000000" }, line: { color: "000000" }, objectName: "Fulcrum" });
+  s.addShape(pres.shapes.RECTANGLE, { x: 1.4, y: 4.3, w: W - 2.8, h: 0.12, fill: { color: "000000" }, line: { color: "000000" }, objectName: "Beam" });
+  const pan = (x, head, lines) => {
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.55, w: 4.9, h: 2.65, fill: { color: "FFFFFF" }, line: { color: "000000", width: 1.25 }, objectName: "Pan" });
+    s.addText([{ text: head, options: { bold: true, fontSize: 20, breakLine: true } }]
+      .concat(lines.map((t, i) => ({ text: t, options: { fontSize: 17, breakLine: i < lines.length - 1, paraSpaceBefore: 6 } }))),
+      { x, y: 1.55, w: 4.9, h: 2.65, fontFace: "Georgia", align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 6 });
+  };
+  pan(1.6, "Favors bleeding", ["Low factors II, V, VII, IX, X", "Low fibrinogen when severe", "Low platelets"]);
+  pan(W - 1.6 - 4.9, "Favors clotting", ["Low protein C and protein S", "Low antithrombin", "High factor VIII and von Willebrand factor"]);
+  s.addText("The INR sees part of this side", { x: 1.6, y: 4.6, w: 4.9, h: 0.45, fontFace: "Georgia", fontSize: 18, bold: true, color: RED,
+    align: "center", isTextBox: true, margin: 0 });
+  s.addText("The INR doesn't see this side", { x: W - 1.6 - 4.9, y: 4.6, w: 4.9, h: 0.45, fontFace: "Georgia", fontSize: 18, bold: true,
+    color: RED, align: "center", isTextBox: true, margin: 0 });
+  body(s, [{ t: "Balanced in most patients, but easily tipped either way: both bleeding and thrombosis happen", nb: true, i: true, align: "center" }],
+    { y: 5.85, h: 0.7, size: 19 });
+  src(s, "Concept from Lisman T, Porte RJ. Blood 2010");
+  s.addNotes("Both sides go down together. The INR only tests the left pan, so it makes the patient look much more anticoagulated than she is. Viscoelastic tests look at clot formation in whole blood and in ALF are often close to normal despite a high INR, though they miss the endothelium and the protein C system too. The balance is fragile: infection, kidney failure and procedures tip it, and thrombosis, including line-related clots, is real.");
+}
 {
   const s = slide("CRRT for ammonia: what to agree on with nephrology");
   table(s, [
@@ -621,6 +672,12 @@ crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the litera
   ], { x: 0.8, y: 1.45, w: W - 1.6, colW: [1.8, 9.93], size: 18, rowH: [0.5, 1.05, 1.05, 1.05, 1.3] });
   src(s, "ACG ALF 2023 [PMID: 37377263]; Cardoso FS et al. Hepatology 2018 [PMID: 28859230]; update 2022 [PMID: 36001996]");
   s.addNotes("No universal dose or ammonia target to stop at; use your center's protocol. The common failure is not the decision to start, it's a circuit that keeps clotting so the delivered clearance is a fraction of what was ordered, and a sodium plan that nobody owns.");
+}
+{
+  const s = slide(null, { master: "BLANK" });
+  s.addText("I know what you're thinking...", { x: 0.8, y: 2.6, w: W - 1.6, h: 1.4, fontFace: "Georgia", fontSize: 44, italic: true,
+    align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  s.addNotes("Pause. Someone in the room has heard it from nephrology.");
 }
 {
   const s = slide("\"CVVH doesn't clear ammonia\"");
@@ -645,7 +702,7 @@ crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the litera
     ["Design", "Large registry, observational", "Open label, ALF with cerebral edema; both arms got plasma exchange"],
     ["Comparison", "CRRT vs no CRRT", "CRRT within 12 hours vs CRRT only if plasma exchange failed"],
     ["Finding", "CRRT linked to lower ammonia and better 21-day transplant-free survival", "Primary endpoint, 28-day survival: similar by intention to treat. Fewer deaths in the first 7 days (2.2% vs 17.8%)"],
-    ["Catch", { t: "Association. Sicker or healthier patients may have been picked for CRRT", b: true }, { t: "Small pilot, one center, many protocol violations. Worth a bigger trial, not a rule", b: true }],
+    ["Catch", { t: "Association. Sicker or healthier patients may have been picked for CRRT", b: true }, { t: "Small pilot, one center, many protocol violations. Needs a larger trial", b: true }],
   ], { x: 0.7, y: 1.5, w: W - 1.4, colW: [1.9, 5.0, 5.03], size: 16, rowH: [0.5, 0.8, 0.8, 1.2, 1.1] });
   src(s, "Cardoso FS et al. Hepatology 2018 [PMID: 28859230]; Aliment Pharmacol Ther 2026 [PMID: 42332991]");
   s.addNotes("The 2026 trial is interesting but don't oversell it. The early mortality signal is real in the abstract; 28-day survival by intention to treat was comparable, and the per-protocol analysis is biased by crossovers. Read the full methods before quoting more numbers.");
@@ -685,31 +742,6 @@ function enzymes(step) {
   s.addNotes("Falling AST and ALT don't prove recovery. A rising INR, rising lactate and worse encephalopathy mean she is getting worse despite lower enzymes. One explanation is that there is little liver left to release them; shock and other causes also push the lactate up. Read the whole trajectory, not one line [PMID: 36001996]. Point out the day 2 arterial pH of 7.26 after fluids. It comes back on the King's College slide.");
   return s;
 }
-inr(1).addNotes("Hour 12, CRRT is starting. Very common request from the procedure side.");
-inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
-{
-  const s = slide("Rebalanced hemostasis");
-  const cxm = W / 2;
-  // fulcrum and beam
-  s.addShape(pres.shapes.ISOSCELES_TRIANGLE, { x: cxm - 0.55, y: 4.42, w: 1.1, h: 1.0, fill: { color: "000000" }, line: { color: "000000" }, objectName: "Fulcrum" });
-  s.addShape(pres.shapes.RECTANGLE, { x: 1.4, y: 4.3, w: W - 2.8, h: 0.12, fill: { color: "000000" }, line: { color: "000000" }, objectName: "Beam" });
-  const pan = (x, head, lines) => {
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.55, w: 4.9, h: 2.65, fill: { color: "FFFFFF" }, line: { color: "000000", width: 1.25 }, objectName: "Pan" });
-    s.addText([{ text: head, options: { bold: true, fontSize: 20, breakLine: true } }]
-      .concat(lines.map((t, i) => ({ text: t, options: { fontSize: 17, breakLine: i < lines.length - 1, paraSpaceBefore: 6 } }))),
-      { x, y: 1.55, w: 4.9, h: 2.65, fontFace: "Georgia", align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 6 });
-  };
-  pan(1.6, "Favors bleeding", ["Low factors II, V, VII, IX, X", "Low fibrinogen when severe", "Low platelets"]);
-  pan(W - 1.6 - 4.9, "Favors clotting", ["Low protein C and protein S", "Low antithrombin", "High factor VIII and von Willebrand factor"]);
-  s.addText("The INR sees part of this side", { x: 1.6, y: 4.6, w: 4.9, h: 0.45, fontFace: "Georgia", fontSize: 18, bold: true, color: RED,
-    align: "center", isTextBox: true, margin: 0 });
-  s.addText("The INR doesn't see this side", { x: W - 1.6 - 4.9, y: 4.6, w: 4.9, h: 0.45, fontFace: "Georgia", fontSize: 18, bold: true,
-    color: RED, align: "center", isTextBox: true, margin: 0 });
-  body(s, [{ t: "Balanced in most patients, but easily tipped either way: both bleeding and thrombosis happen", nb: true, i: true, align: "center" }],
-    { y: 5.85, h: 0.7, size: 19 });
-  src(s, "Concept from Lisman T, Porte RJ. Blood 2010");
-  s.addNotes("Both sides go down together. The INR only tests the left pan, so it makes the patient look much more anticoagulated than she is. Viscoelastic tests look at clot formation in whole blood and in ALF are often close to normal despite a high INR, though they miss the endothelium and the protein C system too. The balance is fragile: infection, kidney failure and procedures tip it, and thrombosis, including line-related clots, is real.");
-}
 enzymes(1);
 enzymes(2);
 function inr(step) {
@@ -735,7 +767,7 @@ function kcc(step) {
     q(s, "When MELD is high enough?", 3.4, { size: 28 });
     return s;
   }
-  q(s, "You already called. When you first suspected ALF", 1.6, { hl: true, size: 26 });
+  q(s, "You should have called on admission, when you first suspected ALF", 1.6, { hl: true, size: 24 });
   body(s, [
     "King's College criteria predict death without transplant. They are specific, not sensitive",
     "They are not a referral threshold. If you wait for them, the evaluation starts too late",
@@ -779,20 +811,29 @@ kcc(2).addNotes("King's College criteria are specific but not very sensitive. If
   src(s, "Larsen FS et al. J Hepatol 2016 [PMID: 26325537]");
   s.addNotes("High-volume plasma exchange removes cytokines and DAMPs and replaces coagulation factors. Note the INR after plasma exchange is no longer the patient's INR.");
 }
+
 {
-  const s = slide("Patient A: what decides the next 24 hours?");
-  body(s, [
-    "Is she listed, and how urgently?",
-    "Pupils and the neuro exam, ammonia on CRRT, sodium on target",
-    "Vasopressor dose and lactate trend",
-    "New infection",
-    "Anything that would close the transplant window: fixed dilated pupils, uncontrolled sepsis, rising support despite everything",
-  ], { size: 22, gap: 14 });
-  s.addNotes("We are not going to tell you what happened to her. The point is what you reassess, and how often. Now, bed 7.");
+  const s = slide("Let's recap: bed 4, day 3");
+  table(s, [
+    ["Problem", "What she's on", "What we watch"],
+    ["Acetaminophen ALF, meets King's (pH 7.26)", "NAC. Listed status 1A on day 2", "Time to an offer"],
+    ["Grade III-IV encephalopathy, ammonia 182", "Intubated, normal CO2, sodium 145 to 155, CRRT", "Pupils, ammonia on CRRT, sodium"],
+    ["Lactate 5.8 and rising", "Volume and MAP, look for infection", "Lactate, MAP, pressor need"],
+    ["INR 5.6, not bleeding", "No plasma", "Bleeding, INR trend"],
+    ["Infection risk", "Surveillance cultures", "New fever or shock: low bar for antibiotics and antifungals"],
+  ], { x: 0.7, y: 1.4, w: W - 1.4, colW: [3.9, 4.1, 3.93], size: 16, rowH: [0.45, 0.75, 0.75, 0.6, 0.6, 0.75] });
+  src(s, "Made-up numbers for teaching");
+  s.addNotes("This is where she is while she waits. What would close the window: fixed dilated pupils, uncontrolled sepsis, rising support despite everything. If she becomes hypotensive: norepinephrine first, vasopressin next, hydrocortisone if refractory, and keep the MAP high enough for cerebral perfusion. Status 1A is the OPTN category for ALF in the ICU; check current policy before quoting details.");
+}
+{
+  const s = slide(null, { master: "BLANK" });
+  s.addText("Any questions so far?", { x: 0.8, y: 2.8, w: W - 1.6, h: 1.4, fontFace: "Georgia", fontSize: 48, align: "center",
+    valign: "middle", color: "000000", isTextBox: true, margin: 0 });
 }
 
 // ---------------------------------------------------------------- Patient B
 sec("Patient B: ACLF");
+divider("Bed 7", "56M, cirrhosis and ACLF").addNotes("Second patient, same night.");
 {
   const s = slide("Back to the first night: bed 7");
   table(s, [
@@ -804,7 +845,7 @@ sec("Patient B: ACLF");
   q(s, "Is this liver failure too?", 5.2, { size: 26 });
   s.addNotes("While bed 4 is going on, the nurse from bed 7 calls: his pressure is 82/46. Same night, same unit, a sick liver again. Let them guess before the next slide whether this is the same disease.");
 }
-const B_TITLE = "56-year-old man with cirrhosis and fever";
+const B_TITLE = "56M, cirrhosis and fever";
 const B_LABS = [
   ["", "Now", "Baseline"],
   ["Bilirubin (mg/dL)", { t: "5.8", red: true }, "2.1"],
@@ -816,7 +857,7 @@ const B_LABS = [
   ["Lactate (mmol/L)", { t: "3.9", red: true }, ""],
 ];
 function caseB(step) {
-  const s = slide(B_TITLE, { bold: true });
+  const s = slide(B_TITLE);
   body(s, [
     "Alcohol-related cirrhosis, ascites on diuretics; last drink 3 weeks ago",
     "Temp 38.4 °C, HR 112, BP 82/46",
@@ -825,15 +866,52 @@ function caseB(step) {
     "Urine output 15 mL/h",
   ], { x: 0.7, y: 1.5, w: 6.4, h: 3.7, size: 19 });
   table(s, B_LABS, { x: 7.4, y: 1.5, w: 5.3, colW: [2.5, 1.4, 1.4], size: 15, rowH: 0.42 });
-  if (step === 1) q(s, "Is this just decompensated cirrhosis?", 5.6);
-  if (step === 2) {
-    q(s, "Is this just decompensated cirrhosis?", 5.3, { size: 22 });
-    q(s, "What would make it ACLF? Count the failing organs", 5.95, { hl: true, size: 22 });
-  }
+  q(s, "What's your next step?", step === 1 ? 5.6 : 5.3, { size: step === 1 ? 24 : 22 });
+  if (step === 2) q(s, "Find the source: cultures, antibiotics, a diagnostic tap", 5.95, { hl: true, size: 22 });
   return s;
 }
 caseB(1).addNotes("Made-up patient. Same night, bed 7. After 2 L of fluid he is on norepinephrine 0.15 mcg/kg/min.");
-caseB(2).addNotes("Acute decompensation alone is not ACLF. ACLF means organ failure, and the definition you use matters.");
+caseB(2).addNotes("Same as bed 4: treat first, label later. We'll count organs once the antibiotics are in.");
+function tap(step) {
+  const s = slide("What tipped him over?");
+  if (step === 1) { q(s, "INR 2.1, platelets 62,000. Do you tap him?", 3.0, { size: 30 }); return s; }
+  body(s, [
+    { runs: [{ t: "Yes, now. ", b: true }, { t: "No plasma, no platelets", hl: true, b: true }] },
+    { runs: ["Ascitic fluid: ", { t: "PMN 1,240/mm³", b: true, red: true }, ". Spontaneous bacterial peritonitis"] },
+    { t: "Common triggers", b: true, nb: true, gap: 18 },
+    "Infection: SBP, pneumonia, urine, lines, C. difficile",
+    "Alcohol-associated hepatitis",
+    "GI bleeding",
+    "Drugs: NSAIDs, sedatives, too much diuretic",
+    "HBV flare, ischemia",
+    "No trigger is found in some patients. Repeat the search if he gets worse",
+  ], { y: 1.45, h: 5.4, size: 20 });
+  src(s, "EASL ACLF 2023 [PMID: 37364789]; SCCM 2023 [PMID: 37052436]");
+  return s;
+}
+tap(1).addNotes("Ask what tipped him over before showing the answer. Then the procedural question: people hesitate to tap a coagulopathic patient.");
+tap(2).addNotes("Diagnostic paracentesis is low risk and should not wait for correction of the INR or platelets. Infection is the most common precipitant of ACLF in Western cohorts.");
+{
+  const s = slide("Why is he hypotensive?");
+  table(s, [
+    ["Mechanism", "What you do"],
+    ["Sepsis (SBP)", "Cultures, antibiotics in the first hour, source control. Cover for prior exposure and local resistance"],
+    ["Splanchnic vasodilation of cirrhosis", "Norepinephrine. Start at MAP 65 and adjust to perfusion"],
+    ["Too little volume, or too much", "Ultrasound and dynamic measures. Edema does not mean the vessels are full"],
+    ["Hidden bleeding", "Hemoglobin, rectal exam, think varices"],
+    ["Relative adrenal insufficiency", "Hydrocortisone if shock is refractory"],
+    ["Cirrhotic cardiomyopathy", "Echo"],
+  ], { x: 0.8, y: 1.4, w: W - 1.6, colW: [4.0, 7.73], size: 17, rowH: [0.5, 0.85, 0.7, 0.7, 0.6, 0.6, 0.6] });
+  q(s, "Usually more than one of these", 6.15, { size: 22 });
+  src(s, "Surviving Sepsis 2026 [PMID: 41869847]; SCCM 2020 [PMID: 32058387]; EASL ACLF 2023 [PMID: 37364789]");
+  s.addNotes("Albumin is a reasonable resuscitation fluid in cirrhosis, but every bag goes somewhere. Keep that in mind for the next few slides.");
+}
+{
+  const s = slide("Why is his pressure low to begin with?");
+  s.addImage({ path: path.join(IMG, "splanchnic.png"), x: (W - 8.9) / 2, y: 1.3, w: 8.9, h: 5.35, altText: "Splanchnic vasodilation in cirrhosis" });
+  src(s, "Rondon-Berrios H, Velez JCQ. Clin Liver Dis 2022");
+  s.addNotes("Portal hypertension, nitric oxide, splanchnic vasodilation, a low effective arterial volume, then RAAS, sympathetic tone and vasopressin. That's his baseline MAP, his sodium of 127 and his kidney, before the infection even started.");
+}
 {
   const s = slide("ALF, decompensation or ACLF?");
   table(s, [
@@ -881,7 +959,7 @@ organs(2).addNotes("Kidney and circulation. Respiratory is borderline: PaO2 74 o
     ["ACLF 2", "Two organ failures"],
     ["ACLF 3", "Three or more"],
   ], { x: 0.9, y: 1.45, w: W - 1.8, colW: [2.0, 9.73], size: 18, rowH: [0.5, 1.4, 1.4, 0.55, 0.55] });
-  body(s, [{ t: "\"No ACLF\" is a label, not a promise. Use the CLIF-C calculator", nb: true, i: true, align: "center" }],
+  body(s, [{ t: "A patient with \"no ACLF\" can still be very sick. Use the CLIF-C calculator", nb: true, i: true, align: "center" }],
     { y: 6.0, h: 0.6, size: 18 });
   src(s, "Moreau R et al. Gastroenterology 2013 [PMID: 23474284]; EASL ACLF 2023 [PMID: 37364789]");
   s.addNotes("Grade 1 is the confusing one: kidney failure alone counts, but a single other organ failure counts only with some kidney dysfunction, or mild encephalopathy for the non-brain organs. Brain failure alone needs the creatinine of 1.5 to 1.9. A patient with grade III HE and a normal creatinine is 'no ACLF' by this system, and can still be very sick. Use the CLIF-C calculator rather than memorizing it. The grade at days 3 to 7 says more than the grade at admission.");
@@ -890,10 +968,31 @@ organs(2).addNotes("Kidney and circulation. Respiratory is borderline: PaO2 74 o
   const s = slide("28-day mortality by ACLF grade");
   bars(s, [{ name: "28-day mortality", labels: ["No ACLF", "ACLF 1", "ACLF 2", "ACLF 3"], values: [4.7, 22.1, 32.0, 76.7] }],
     { x: 2.0, y: 1.4, w: 9.3, h: 4.4, max: 100, fmt: '0.0"%"', colors: ["7F7F7F", "7F7F7F", "7F7F7F", RED], gap: 70, catSize: 17 });
-  body(s, [{ t: "CANONIC, 1,343 patients, 2013. These numbers describe groups, not your patient", nb: true, i: true, align: "center" }],
+  body(s, [{ t: "CANONIC, 1,343 patients, 2013", nb: true, i: true, align: "center" }],
     { y: 5.95, h: 0.6, size: 18 });
   src(s, "Moreau R et al. Gastroenterology 2013 [PMID: 23474284]");
   s.addNotes("Patient B is grade 2 tonight. That is a group number from a 2013 cohort, not his number. The jump to grade 3 is the one to remember. The grade at days 3 to 7 says more than the grade at admission, which comes back later.");
+}
+{
+  const s = slide("Why do the organs fail?");
+  const bw = 3.3, bh = 0.95, y1 = 1.6, y2 = 3.4;
+  box(s, 0.6, y1, bw, bh, "Trigger: SBP");
+  box(s, 4.95, y1, bw, bh, "Bacterial products and damaged-cell signals (PAMPs, DAMPs)");
+  box(s, 9.3, y1, bw, bh, "Systemic inflammation, cytokine storm", { b: true });
+  arrow(s, 0.6 + bw, y1 + bh / 2, 4.95, y1 + bh / 2);
+  arrow(s, 4.95 + bw, y1 + bh / 2, 9.3, y1 + bh / 2);
+  box(s, 9.3, y2, bw, bh, "Worse vasodilation on top of portal hypertension");
+  box(s, 4.95, y2, bw, bh, "Immune paralysis, mitochondrial failure");
+  box(s, 0.6, y2, bw, bh, "Organ failure", { b: true, color: RED, line: RED });
+  arrow(s, 9.3 + bw / 2, y1 + bh, 9.3 + bw / 2, y2);
+  arrow(s, 9.3, y2 + bh / 2, 4.95 + bw, y2 + bh / 2);
+  arrow(s, 4.95, y2 + bh / 2, 0.6 + bw, y2 + bh / 2);
+  body(s, [
+    { runs: ["Bed 7 so far: ", { t: "kidney", b: true, red: true }, " and ", { t: "circulation", b: true, red: true }, ". Lungs and brain are next in line"] },
+    "Treat the trigger early and support the organs; there is no drug for the inflammation itself",
+  ], { y: 4.8, h: 1.8, size: 20, gap: 10 });
+  src(s, "Concept from Arroyo V, Moreau R, Jalan R. N Engl J Med 2020");
+  s.addNotes("ALF had its 'why does the brain swell'. This is the ACLF version. The precipitant sets off systemic inflammation in a patient who is already vasodilated, and the organs fail from a mix of low perfusion, inflammation and mitochondrial dysfunction. The patient is both inflamed and immunosuppressed, which is why second infections are common.");
 }
 function apxWhichAclf() {
   const s = slide("Appendix: which ACLF?");
@@ -907,56 +1006,36 @@ function apxWhichAclf() {
   src(s, "Kyoto consensus 2025 [PMID: 39961976]; ACG ACLF 2022 [PMID: 35006099]; AASLD 2024 [PMID: 37939273]");
   s.addNotes("Not worth memorizing all three. Worth knowing that a paper's 'ACLF' may not be your patient's ACLF. The talk uses EASL-CLIF.");
 }
-function tap(step) {
-  const s = slide("What tipped him over?");
-  if (step === 1) { q(s, "INR 2.1, platelets 62,000. Do you tap him?", 3.0, { size: 30 }); return s; }
-  body(s, [
-    { runs: [{ t: "Yes, now. ", b: true }, { t: "No plasma, no platelets", hl: true, b: true }] },
-    { runs: ["Ascitic fluid: ", { t: "PMN 1,240/mm³", b: true, red: true }, ". Spontaneous bacterial peritonitis"] },
-    { t: "Common triggers", b: true, nb: true, gap: 18 },
-    "Infection: SBP, pneumonia, urine, lines, C. difficile",
-    "Alcohol-associated hepatitis",
-    "GI bleeding",
-    "Drugs: NSAIDs, sedatives, too much diuretic",
-    "HBV flare, ischemia",
-    "No trigger is found in some patients. Repeat the search if he gets worse",
-  ], { y: 1.45, h: 5.4, size: 20 });
-  src(s, "EASL ACLF 2023 [PMID: 37364789]; SCCM 2023 [PMID: 37052436]");
-  return s;
-}
-tap(1).addNotes("Ask what tipped him over before showing the answer. Then the procedural question: people hesitate to tap a coagulopathic patient.");
-tap(2).addNotes("Diagnostic paracentesis is low risk and should not wait for correction of the INR or platelets. Infection is the most common precipitant of ACLF in Western cohorts.");
-{
-  const s = slide("Why is he hypotensive?");
-  table(s, [
-    ["Mechanism", "What you do"],
-    ["Sepsis (SBP)", "Cultures, antibiotics in the first hour, source control. Cover for prior exposure and local resistance"],
-    ["Splanchnic vasodilation of cirrhosis", "Norepinephrine. Start at MAP 65 and adjust to perfusion"],
-    ["Too little volume, or too much", "Ultrasound and dynamic measures. Edema does not mean the vessels are full"],
-    ["Hidden bleeding", "Hemoglobin, rectal exam, think varices"],
-    ["Relative adrenal insufficiency", "Hydrocortisone if shock is refractory"],
-    ["Cirrhotic cardiomyopathy", "Echo"],
-  ], { x: 0.8, y: 1.4, w: W - 1.6, colW: [4.0, 7.73], size: 17, rowH: [0.5, 0.85, 0.7, 0.7, 0.6, 0.6, 0.6] });
-  q(s, "Usually more than one of these", 6.15, { size: 22 });
-  src(s, "Surviving Sepsis 2026 [PMID: 41869847]; SCCM 2020 [PMID: 32058387]; EASL ACLF 2023 [PMID: 37364789]");
-  s.addNotes("Albumin is a reasonable resuscitation fluid in cirrhosis, but every bag goes somewhere. Keep that in mind for the next few slides.");
-}
 function hrs(step) {
   const s = slide("Does he have HRS?");
   body(s, [{ t: "Evening: creatinine 3.0, urine 10 mL/h, still on norepinephrine", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 19 });
   if (step === 1) { q(s, "HRS? Start terlipressin?", 3.3, { size: 30 }); return s; }
+  table(s, [
+    ["HRS-AKI (ADQI-ICA 2024)", "Bed 7 tonight", ""],
+    ["Cirrhosis with ascites", "Yes", { t: "✅", align: "center" }],
+    ["AKI by creatinine and/or urine output", "Creatinine 0.9 → 3.0, urine 10 mL/h", { t: "✅", align: "center" }],
+    ["No improvement within 24 hours of volume resuscitation, if he needs it", "2 L given this afternoon. Too early to say", { t: "❌", align: "center" }],
+    ["No strong alternative explanation (shock, nephrotoxins, structural injury)", { t: "Septic shock on norepinephrine", b: true, red: true }, { t: "❌", align: "center" }],
+  ], { x: 0.7, y: 1.95, w: W - 1.4, colW: [5.6, 5.0, 1.33], size: 17, rowH: [0.45, 0.55, 0.65, 0.75, 0.75] });
+  q(s, "Not HRS tonight. Treat the shock first", 5.6, { hl: true, size: 24 });
+  src(s, "ADQI-ICA consensus, J Hepatol 2024 [PMID: 38527522]");
+  return s;
+}
+function hrsDefs() {
+  const s = slide("HRS-AKI: what changed in 2024");
   table(s, [
     ["What many of us learned (ICA 2015)", "Now (ADQI-ICA 2024)"],
     [
       { t: [{ t: "No response after 2 days of diuretic withdrawal and albumin 1 g/kg", br: true }, { t: "No shock", br: true }, { t: "No nephrotoxins, no structural kidney disease" }] },
       { t: [{ t: "Cirrhosis with ascites", br: true }, { t: "AKI by creatinine and/or urine output", br: true }, { t: "No improvement within 24 hours of volume resuscitation, if he needs it", br: true }, { t: "No albumin challenge if he is already euvolemic or wet", br: true }, { t: "No strong alternative explanation as the main cause" }] },
     ],
-  ], { x: 0.8, y: 2.0, w: W - 1.6, colW: [5.86, 5.87], size: 18, rowH: [0.5, 1.9], valign: "top" });
-  q(s, "Septic shock on norepinephrine is a strong alternative. Treat the shock first", 5.3, { hl: true, size: 21 });
-  src(s, "ADQI-ICA consensus, J Hepatol 2024 [PMID: 38527522]");
+  ], { x: 0.8, y: 1.5, w: W - 1.6, colW: [5.86, 5.87], size: 20, rowH: [0.55, 2.6], valign: "top" });
+  q(s, "Faster to call. But you still have to look for the other causes", 5.3, { size: 22 });
+  src(s, "Angeli P et al. J Hepatol 2015 (ICA); ADQI-ICA consensus, J Hepatol 2024 [PMID: 38527522]");
   return s;
 }
 hrs(1).addNotes("The reflex in many units: oliguric cirrhotic, give albumin for 48 hours, then terlipressin.");
+hrsDefs().addNotes("The left column is what most of us were taught. The 48-hour albumin challenge is gone, and there is no fluid challenge at all for a patient who is already wet.");
 hrs(2).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours, or 50% or more within 7 days, and/or urine output 0.5 mL/kg/h or less for 6 hours or more. The mandatory 48-hour albumin challenge is gone, and a patient who is already wet doesn't need a fluid challenge to satisfy a clock. HRS physiology and tubular injury can coexist. Assessment is faster and individualized. But that cuts both ways: you also need to look for the other causes, and right now sepsis is the obvious one.");
 {
   const s = slide("Kidney failure in cirrhosis is usually a mixture");
@@ -982,7 +1061,7 @@ hrs(2).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours,
 function heB(step) {
   const s = slide("Night 1: more confused");
   body(s, [
-    "Midnight: more confused, pulling at his lines. Rouses to voice, asterixis",
+    "Midnight: more disoriented, pulling at his lines, asterixis. Awake, follows commands",
     { runs: ["The nurse sent an ammonia: ", { t: "88 μmol/L", b: true }] },
   ], { y: 1.4, h: 1.2, size: 21 });
   if (step === 1) { q(s, "More lactulose? Repeat the ammonia in the morning?", 3.6, { size: 26 }); return s; }
@@ -1030,28 +1109,12 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Fluid and al
     { t: "Label: avoid in ACLF grade 3; volume overload raises the risk of respiratory failure", lvl: 1 },
     "Stop the albumin while he is wet",
     "He is already on a vasoconstrictor. Norepinephrine, titrated to perfusion",
-    "Still overloaded and not making urine despite this: RRT to take fluid off",
+    "RRT if he stays overloaded. For HRS, RRT is a bridge to transplant: if he isn't a candidate, talk about goals before you start",
     "Midodrine and octreotide? They work poorly, and not in someone on IV pressors",
   ], { y: 1.4, h: 4.6, size: 20 });
-  q(s, "Check oxygen and volume before any kidney treatment", 6.05, { hl: true, size: 20 });
+  q(s, "Check oxygen and volume before any kidney treatment", 6.05, { size: 20 });
   src(s, "TERLIVAZ prescribing information, revised 6/2026; ADQI-ICA 2024 [PMID: 38527522]");
-  s.addNotes("Before any terlipressin dose: baseline SpO2, lung exam, volume status, and whether he is ACLF grade 3. Norepinephrine is an ICU alternative for HRS when terlipressin is contraindicated or unavailable. RRT in ACLF should follow usual indications plus trajectory and transplant potential; avoid the rule 'dialysis only if listed'. A time-limited trial is reasonable.");
-}
-{
-  const s = slide("Midodrine and octreotide for HRS-AKI?");
-  bars(s, [
-    { name: "Terlipressin + albumin (n = 27)", labels: ["Complete response", "Complete or partial response"], values: [55.5, 70.4] },
-    { name: "Midodrine + octreotide + albumin (n = 21)", labels: ["Complete response", "Complete or partial response"], values: [4.8, 28.6] },
-  ], { x: 0.6, y: 1.4, w: 7.4, h: 5.3, max: 100, fmt: '0.0"%"', legend: true });
-  body(s, [
-    { t: "Randomized, 8 Italian centers, type 1 HRS. 49 randomized (27 vs 22), 48 analyzed", b: true, nb: true },
-    "Stopped early at the interim analysis because the difference was already clear",
-    "Blood pressure rose more with terlipressin",
-    "3-month survival 59% vs 43%; too small to tell",
-    { runs: [{ t: "Use it only if terlipressin and norepinephrine are not options", b: true, hl: true }] },
-  ], { x: 8.3, y: 1.5, w: 4.6, h: 5.2, size: 19, gap: 12 });
-  src(s, "Cavallin M et al. Hepatology 2015;62:567-74 [PMID: 25644760]; ADQI-ICA 2024 [PMID: 38527522]");
-  s.addNotes("Midodrine and octreotide were the US default for years because terlipressin wasn't available. In the randomized comparison with terlipressin, 1 of 21 analyzed patients had a complete response. It wasn't powered for mortality. Most of them are on the floor at the time, so the practical message for the ICU is simple: once he needs an ICU bed, norepinephrine with albumin is the alternative to terlipressin, not midodrine and octreotide. About half of the midodrine non-responders were rescued with terlipressin, and most of those then responded.");
+  s.addNotes("Before any terlipressin dose: baseline SpO2, lung exam, volume status, and whether he is ACLF grade 3. Norepinephrine is an ICU alternative for HRS when terlipressin is contraindicated or unavailable. RRT for volume overload or acidosis follows the usual ICU indications. RRT for HRS alone is a bridge to transplant; in a patient who is not a candidate, it is a goals-of-care conversation first, and a time-limited trial is one honest option.");
 }
 {
   const s = slide("Does HRS reversal mean survival?");
@@ -1085,6 +1148,22 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Fluid and al
   src(s, "China L et al. NEJM 2021 [PMID: 33657293]; ADQI-ICA 2024 [PMID: 38527522]");
   s.addNotes("ATTIRE doesn't invalidate albumin for its accepted uses. It does tell you that giving albumin to fix a number causes harm without benefit. Patient B got the right albumin for SBP and still got wet.");
 }
+{
+  const s = slide("Midodrine and octreotide for HRS-AKI?");
+  bars(s, [
+    { name: "Terlipressin + albumin (n = 27)", labels: ["Complete response", "Complete or partial response"], values: [55.5, 70.4] },
+    { name: "Midodrine + octreotide + albumin (n = 21)", labels: ["Complete response", "Complete or partial response"], values: [4.8, 28.6] },
+  ], { x: 0.6, y: 1.4, w: 7.4, h: 5.3, max: 100, fmt: '0.0"%"', legend: true });
+  body(s, [
+    { t: "Randomized, 8 Italian centers, type 1 HRS. 49 randomized (27 vs 22), 48 analyzed", b: true, nb: true },
+    "Stopped early at the interim analysis because the difference was already clear",
+    "Blood pressure rose more with terlipressin",
+    "3-month survival 59% vs 43%; too small to tell",
+    { runs: [{ t: "Use it only if terlipressin and norepinephrine are not options", b: true, hl: true }] },
+  ], { x: 8.3, y: 1.5, w: 4.6, h: 5.2, size: 19, gap: 12 });
+  src(s, "Cavallin M et al. Hepatology 2015;62:567-74 [PMID: 25644760]; ADQI-ICA 2024 [PMID: 38527522]");
+  s.addNotes("Midodrine and octreotide were the US default for years because terlipressin wasn't available. In the randomized comparison with terlipressin, 1 of 21 analyzed patients had a complete response. It wasn't powered for mortality. Most of them are on the floor at the time, so the practical message for the ICU is simple: once he needs an ICU bed, norepinephrine with albumin is the alternative to terlipressin, not midodrine and octreotide. About half of the midodrine non-responders were rescued with terlipressin, and most of those then responded.");
+}
 function trajectory(step) {
   const s = slide("What changed since yesterday?");
   const rows = [
@@ -1092,7 +1171,7 @@ function trajectory(step) {
     ["Norepinephrine (mcg/kg/min)", "0.15", "0.22", "0.12", "Off"],
     ["Oxygen, SpO2", "Venturi 0.35, 92%", "HFNC 0.6, 90%", "HFNC 0.4, 95%", "2 L, 97%"],
     ["Lung failure?", "No (P/F 211)", { t: "Yes (S/F 150)", red: true }, "No (S/F 238)", "No"],
-    ["Kidney", "Cr 2.6", "Cr 3.1", "CRRT started", "On CRRT"],
+    ["Kidney", "Cr 2.6", "Cr 3.1", "CRRT for fluid", "On CRRT"],
     ["Encephalopathy", "Grade II", "Grade II", "Grade I", "Grade I"],
     ["Bilirubin / INR", "5.8 / 2.1", "6.4 / 2.3", "6.1 / 2.2", "5.2 / 2.0"],
     ["ACLF grade", "2", { t: "3", red: true, b: true }, "2", step === 2 ? { t: "1", hl: true, b: true } : "?"],
@@ -1107,8 +1186,9 @@ function trajectory(step) {
   src(s, "Made-up numbers for teaching. CLIF-C ACLF score [PMID: 24950482]; EASL ACLF 2023 [PMID: 37364789]");
   return s;
 }
-trajectory(1).addNotes("We don't tell you how he does after day 5. The reassessment is the point.");
+trajectory(1).addNotes("Day 3: CRRT started for fluid overload and oliguria, while the transplant evaluation was under way. Ask the room whether he is better or worse.");
 trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kidney failure on RRT still counts as an organ failure. Bring palliative care in alongside, not instead of, full support. Document what the time-limited trial is and when you'll reassess.");
+divider("Who gets a liver?", "Transplant in ACLF").addNotes("Back to the question both families will ask.");
 {
   const s = slide("Too sick for a transplant, or sick enough to need one?");
   body(s, [
@@ -1170,20 +1250,38 @@ function apxMathurin() {
 }
 {
   const s = slide("ALF and ACLF: what changes at the bedside");
+  body(s, [{ t: "Both have a sick liver. Do they have the same disease?", nb: true, i: true, align: "center" }], { y: 1.15, h: 0.45, size: 18 });
   table(s, [
     ["", "Acute liver failure", "ACLF"],
     [{ t: "Ammonia", b: true }, "With the HE grade and the trend: brain risk, and when to start CRRT. No level rules out ICH", "Doesn't diagnose HE. Don't trend it to dose lactulose"],
     [{ t: "Lactulose", b: true }, "No proven benefit; bowel distension can get in the way of surgery", "Yes for overt HE, plus treat the trigger. Rifaximin as an add-on. Avoid dehydration"],
     [{ t: "Sodium", b: true }, "Grade III-IV or high ammonia: center protocol, often 145 to 155, matched to the CRRT fluid", "Often chronically low: correct slowly. In high-risk patients, no more than 8 mmol/L in 24 hours"],
-    [{ t: "Antibiotics", b: true }, "No routine prophylaxis; low threshold to treat", "Treat infection fast; prophylaxis with GI bleeding"],
+    [{ t: "Antibiotics", b: true }, "No routine prophylaxis. Surveillance cultures, low threshold to treat", "Treat infection fast; prophylaxis with GI bleeding"],
     [{ t: "INR", b: true }, "Tracks severity, poor at predicting bleeding. No plasma just for the number", "Same. Judge the procedure and the patient"],
-  ], { x: 0.6, y: 1.35, w: W - 1.2, colW: [1.9, 5.11, 5.12], size: 16, rowH: [0.45, 0.9, 0.9, 0.95, 0.6, 0.75] });
+  ], { x: 0.6, y: 1.7, w: W - 1.2, colW: [1.9, 5.11, 5.12], size: 16, rowH: [0.45, 0.9, 0.9, 0.95, 0.75, 0.75] });
   src(s, "ACG ALF 2023 [PMID: 37377263]; SCCM 2023 [PMID: 37052436]; update 2022 [PMID: 36001996]");
   s.addNotes("Probably the most useful slide to photograph. The sodium row is where people get hurt: an induced-hypernatremia target transferred into a chronically hyponatremic cirrhotic causes osmotic demyelination.");
 }
 
 // ---------------------------------------------------------------- Closing
 sec("Closing");
+{
+  const s = slide("What happened to them");
+  const tl = (y, label, marks) => {
+    s.addText(label, { x: 0.6, y: y - 0.75, w: 6, h: 0.45, fontFace: "Georgia", fontSize: 20, bold: true, color: "000000", isTextBox: true, margin: 0 });
+    s.addShape(pres.shapes.LINE, { x: 1.5, y, w: W - 3.0, h: 0, line: { color: "000000", width: 2 } });
+    marks.forEach(([pos, day, txt]) => {
+      const x = 1.5 + pos * (W - 3.0);
+      s.addShape(pres.shapes.OVAL, { x: x - 0.09, y: y - 0.09, w: 0.18, h: 0.18, fill: { color: "000000" }, line: { color: "000000" } });
+      s.addText([{ text: day, options: { bold: true, breakLine: true } }, { text: txt }], { x: x - 1.15, y: y + 0.18, w: 2.3, h: 0.95,
+        fontFace: "Georgia", fontSize: 14, align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0 });
+    });
+  };
+  tl(2.3, "Bed 4", [[0.0, "Day 0", "Admitted, NAC"], [0.22, "Day 1", "Intubated, CRRT"], [0.44, "Day 2", "Listed 1A"], [0.66, "Day 4", "Transplanted"], [1.0, "Day 19", "Home"]]);
+  tl(4.85, "Bed 7", [[0.0, "Day 1", "SBP, ACLF 2"], [0.2, "Day 2", "ACLF 3"], [0.42, "Day 5", "Off pressors, ACLF 1"], [0.66, "Day 12", "Off CRRT"], [1.0, "Day 21", "Home, transplant clinic"]]);
+  src(s, "Made-up outcomes for teaching");
+  s.addNotes("Both made it, which is not the usual story. Bed 7 could just as easily have stayed ACLF 3 on day 5, and then the conversation is the one on the transplant slide.");
+}
 {
   const s = slide("Back to our patients");
   body(s, [
@@ -1197,9 +1295,9 @@ sec("Closing");
   s.addNotes("Ask the room. Don't put the answers up.");
 }
 {
-  const s = slide("Take home");
+  const s = slide("Some tricks of the trade");
   body(s, [
-    "Big enzymes don't make it liver failure. Get an INR and examine the patient",
+    "High AST and ALT alone are not liver failure. Get an INR and examine the patient",
     "Stabilize, treat the cause and call transplant hepatology in the same hour",
     { runs: ["ALF: ", { t: "protect the brain", b: true }, ". Intubate at grade III, keep the CO2 normal, follow your center's sodium plan, and start CRRT for rising ammonia"] },
     "ACLF: count the organs, find the trigger",
