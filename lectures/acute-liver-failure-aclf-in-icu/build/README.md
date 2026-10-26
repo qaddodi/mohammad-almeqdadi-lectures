@@ -1,6 +1,6 @@
 # Rebuilding the deck
 
-`build.js` generates `ALF and ACLF in the ICU.pptx` with pptxgenjs 3.12. The cover reuses the liver illustration and logo from the July 2025 cirrhosis deck (`ppt/media/image1.png` and `image2.png`).
+`build.js` generates `ALF and ACLF in the ICU.pptx` with pptxgenjs 3.12. The cover reuses the liver illustration and logo from the July 2025 cirrhosis deck (`ppt/media/image1.png` and `image2.png`). Figures taken from your other decks (ALF body diagram, Mathurin curve, ammonia bottle) are in `img/`, which must sit next to `build.js`.
 
 ```
 npm install pptxgenjs@3.12.0

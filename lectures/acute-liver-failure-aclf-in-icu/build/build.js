@@ -147,6 +147,26 @@ function arrow(s, x1, y1, x2, y2) {
     line: { color: "000000", width: 1.5, endArrowType: "triangle" }, objectName: "Arrow" });
 }
 
+const IMG = path.join(__dirname, "img");
+
+// Bar chart in the deck's style: white, black and grey, red only for the harmful value, labels on the bars
+function bars(s, data, o) {
+  s.addChart(pres.charts.BAR, data, {
+    x: o.x, y: o.y, w: o.w, h: o.h, barDir: "col", barGrouping: "clustered", barGapWidthPct: o.gap || 60,
+    chartColors: o.colors || ["000000", "A6A6A6"],
+    valAxisMinVal: 0, valAxisMaxVal: o.max || 100, valAxisMajorUnit: o.unit || 25,
+    valAxisLabelFormatCode: o.valFmt || '0"%"', valAxisHidden: !!o.hideVal,
+    valGridLine: { color: "E3E3E3", size: 0.5 }, catGridLine: { style: "none" },
+    catAxisLabelFontFace: TBL_FONT, valAxisLabelFontFace: TBL_FONT, catAxisLabelFontSize: o.catSize || 15, valAxisLabelFontSize: 12,
+    catAxisLabelColor: "000000", valAxisLabelColor: GREY,
+    showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: o.fmt || '0"%"', dataLabelFontSize: o.labSize || 16,
+    dataLabelFontFace: TBL_FONT, dataLabelColor: "000000", dataLabelFontBold: true,
+    showLegend: !!o.legend, legendPos: "b", legendFontFace: TBL_FONT, legendFontSize: 14,
+    showTitle: !!o.title, title: o.title, titleFontFace: "Georgia", titleFontSize: 16, titleColor: "000000",
+    layout: o.layout,
+  });
+}
+
 // ---------------------------------------------------------------- Cover
 sec("Opening");
 {
@@ -259,17 +279,27 @@ caseA(3).addNotes("Liver failure is a clinical diagnosis: coagulopathy plus ence
     { runs: [{ t: "INR ≥ 1.5", b: true }, " and ", { t: "any degree of encephalopathy", b: true }] },
     "Illness of less than 26 weeks",
     "No pre-existing cirrhosis",
+    { t: "AASLD and ACG: chronic liver disease without cirrhosis still allows ALF. EASL: no prior liver disease at all", lvl: 1 },
     { t: "Wilson disease, autoimmune hepatitis and vertically acquired HBV can still count if recognized within 26 weeks", lvl: 1 },
-  ], { x: 0.8, y: 1.4, w: W - 1.6, h: 2.3, size: 21 });
+  ], { x: 0.8, y: 1.3, w: W - 1.6, h: 2.6, size: 20 });
   table(s, [
     ["Jaundice to encephalopathy", "Hyperacute (< 1 week)", "Acute (1 to 4 weeks)", "Subacute (4 to 12 weeks)"],
     ["Typical causes", "Acetaminophen, HAV, HEV, ischemia", "HBV", "Idiosyncratic drug injury, AIH, indeterminate"],
     ["Cerebral edema", { t: "Common", b: true }, "Less common", "Uncommon"],
     ["Recovery without transplant", "More likely", "Intermediate", { t: "Less likely", b: true }],
-  ], { x: 0.8, y: 4.0, w: W - 1.6, colW: [3.0, 2.9, 2.9, 2.93], size: 15, rowH: 0.55 });
-  src(s, "EASL ALF guideline 2017 [PMID: 28417882]; Management of ALF: update 2022 [PMID: 36001996]");
+  ], { x: 0.8, y: 4.15, w: W - 1.6, colW: [3.0, 2.9, 2.9, 2.93], size: 15, rowH: 0.55 });
+  src(s, "EASL ALF guideline 2017 [PMID: 28417882]; ACG ALF 2023 [PMID: 37377263]; Management of ALF: update 2022 [PMID: 36001996]");
   s.addNotes("The time course is not trivia. The faster it comes on, the more you worry about the brain, and paradoxically the better the chance of spontaneous recovery. The slow ones have less cerebral edema but do worse without a transplant. Patient A is hyperacute.");
 }
+function features(step) {
+  const s = slide("What else fails?");
+  if (step === 1) { q(s, "It's called liver failure. Which other organs fail?", 3.2, { size: 28 }); return s; }
+  s.addImage({ path: path.join(IMG, "alf-features.png"), x: (W - 5.25) / 2, y: 1.3, w: 5.25, h: 5.33, altText: "Clinical features of acute liver failure by organ" });
+  src(s, "Bernal W, Wendon J. N Engl J Med 2013;369:2525-34, Figure 1");
+  return s;
+}
+features(1).addNotes("Let them list organs. Most will get brain and kidney. Fewer think of the adrenals, the marrow or the immune system.");
+features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia, lactic acidosis, vasodilatory shock, relative adrenal insufficiency, AKI, lung injury and a high risk of infection. The liver is one organ on this picture.");
 {
   const s = slide("INR 2.4, wide awake. Acute liver failure?");
   body(s, [
@@ -364,12 +394,18 @@ caseA_apap(1).addNotes("Combination products are where the hidden acetaminophen 
 caseA_apap(2).addNotes("An undetectable or low level late in the course does not exclude acetaminophen toxicity [PMID: 36001996]. NAC is safe enough that the threshold to start it is low. Dosing per your pharmacy protocol.");
 {
   const s = slide("NAC for every kind of acute liver failure?");
-  table(s, [
-    ["Study", "Adult non-acetaminophen ALF, randomized, NAC vs placebo, 173 patients"],
-    ["Main finding", "Transplant-free survival 40% vs 27%; the benefit was in early encephalopathy (grade I-II): 52% vs 30%"],
-    ["What it doesn't show", { t: "Overall survival was not different (70% vs 66%). No benefit in grade III-IV coma", b: true }],
-    ["So", "Reasonable in early non-acetaminophen ALF. Don't extrapolate to advanced coma, children or ACLF"],
-  ], { x: 0.9, y: 1.6, w: W - 1.8, colW: [2.8, 8.73], size: 18, rowH: [0.9, 1.1, 1.0, 1.0], header: false });
+  body(s, [{ t: "Adult non-acetaminophen ALF, randomized, NAC vs placebo, 173 patients", nb: true, i: true, align: "center" }],
+    { y: 1.25, h: 0.5, size: 19 });
+  bars(s, [
+    { name: "NAC", labels: ["Coma grade I-II", "Coma grade III-IV", "All patients"], values: [52, 9, 40] },
+    { name: "Placebo", labels: ["Coma grade I-II", "Coma grade III-IV", "All patients"], values: [30, 22, 27] },
+  ], { x: 0.7, y: 1.8, w: 7.9, h: 4.1, max: 75, legend: true, title: "Transplant-free survival" });
+  bars(s, [
+    { name: "NAC", labels: ["All patients"], values: [70] },
+    { name: "Placebo", labels: ["All patients"], values: [66] },
+  ], { x: 8.9, y: 1.8, w: 3.7, h: 3.62, max: 75, title: "Overall survival", gap: 80 });
+  body(s, [{ t: "Reasonable in early non-acetaminophen ALF. Don't extrapolate to advanced coma, children or ACLF", nb: true, align: "center", b: true }],
+    { y: 6.05, h: 0.7, size: 19 });
   src(s, "Lee WM et al. Gastroenterology 2009 [PMID: 19524577]");
   s.addNotes("Transplant-free survival is a softer endpoint than overall survival, and part of the effect is that fewer patients needed transplant. Still, it is cheap and safe, so most centers give it in early non-acetaminophen ALF.");
 }
@@ -420,6 +456,7 @@ const A10_ROWS = [
 }
 {
   const s = slide("Ammonia: how high is too high?");
+  s.addImage({ path: path.join(IMG, "ammonia-bottle.png"), x: 0.35, y: 0.12, w: 0.5, h: 1.1, altText: "Bottle of household ammonia" });
   table(s, [
     ["Study (arterial ammonia)", "Patients", "What they found", "The catch"],
     ["Clemmesen 1999, Copenhagen", "44 ALF", { t: [{ t: "14 herniated. Mean ammonia 230 vs 118 μmol/L; every herniation was above 146", b: true }] }, "Small, one center"],
@@ -432,6 +469,26 @@ const A10_ROWS = [
     { y: 6.1, h: 0.6, size: 18 });
   src(s, "Clemmesen Hepatology 1999;29:648-53; Bhatia Gut 2006; Bernal Hepatology 2007 [PMID: 17685471]; Kumar Clin Gastroenterol Hepatol 2012");
   s.addNotes("All four used arterial ammonia, measured in micromoles per liter. The pattern is consistent: higher and more persistent ammonia, more cerebral edema and death. But no single cutoff works on its own. In Bernal's King's cohort, more than 200 meant intracranial hypertension in 55%, yet most patients who developed ICH were below 200. So use it as a risk marker together with the grade of encephalopathy, the time course and the trend. Patient A went 182 then 214. That's the trajectory you act on with CRRT. Practical point: whatever you send, arterial or venous, put it on ice and get it run quickly. A delayed sample reads falsely high. In cirrhosis, by contrast, a single ammonia doesn't diagnose HE and shouldn't be trended to dose lactulose.");
+}
+{
+  const s = slide("Higher and persistent ammonia, more brain swelling");
+  // plot area fixed so the 146 line can be drawn at the right height
+  const cx = 0.6, cy = 1.4, cw = 5.6, ch = 4.9, lay = { x: 0.14, y: 0.14, w: 0.82, h: 0.72 };
+  bars(s, [{ name: "Mean arterial ammonia", labels: ["Herniated (n = 14)", "No herniation (n = 30)"], values: [230, 118] }],
+    { x: cx, y: cy, w: cw, h: ch, max: 250, unit: 50, valFmt: "0", fmt: "0", colors: [RED, "A6A6A6"], gap: 90,
+      title: "Clemmesen 1999: ammonia, μmol/L", layout: lay });
+  const y146 = cy + ch * (lay.y + lay.h * (1 - 146 / 250));
+  s.addShape(pres.shapes.LINE, { x: cx + cw * lay.x, y: y146, w: cw * lay.w, h: 0,
+    line: { color: "000000", width: 1.5, dashType: "dash" }, objectName: "Line146" });
+  s.addText("146", { x: cx + cw * (lay.x + lay.w) - 0.6, y: y146 - 0.36, w: 0.6, h: 0.32, fontFace: TBL_FONT, fontSize: 14,
+    bold: true, align: "right", color: "000000", isTextBox: true, margin: 0 });
+  body(s, [{ t: "Every herniation was above 146", nb: true, i: true, align: "center" }], { x: cx, y: 6.3, w: cw, h: 0.45, size: 17 });
+  bars(s, [
+    { name: "Ammonia ≥ 122 for 3 days", labels: ["Survival", "Cerebral edema"], values: [23, 71] },
+    { name: "Ammonia falling", labels: ["Survival", "Cerebral edema"], values: [72, 37] },
+  ], { x: 6.8, y: 1.4, w: 6.0, h: 4.9, max: 100, colors: [RED, "A6A6A6"], legend: true, title: "Kumar 2012: 295 patients" });
+  src(s, "Clemmesen JO et al. Hepatology 1999;29:648-53; Kumar R et al. Clin Gastroenterol Hepatol 2012;10:925-31");
+  s.addNotes("Two of the studies from the last slide as pictures. Left: in Copenhagen, the patients who herniated had about twice the arterial ammonia of those who didn't, and none of them were below 146. Right: in Delhi, ammonia that stayed at or above 122 for three days went with a third of the survival and twice the cerebral edema of ammonia that came down. That is why we trend it and why we start CRRT to bring it down.");
 }
 function intubate(step) {
   const s = slide("When do you intubate?");
@@ -474,6 +531,45 @@ function hypercap(step) {
 }
 hypercap(1).addNotes("This is the PCCM-specific tradeoff. ARDS teaching says accept hypercapnia. Neuro teaching says don't.");
 hypercap(2).addNotes("Low tidal volume still applies. What changes is the CO2 target. Prophylactic hyperventilation is out; brief hyperventilation as a bridge in impending herniation is a different thing.");
+{
+  const s = slide("CO2 and cerebral blood flow");
+  // schematic: axes from (x0, y0), PaCO2 0 to 100 mmHg across gw inches
+  const x0 = 1.5, y0 = 6.0, gw = 6.6, top = 1.6;
+  const px = (v) => x0 + (v / 100) * gw;
+  s.addShape(pres.shapes.RECTANGLE, { x: px(35), y: top, w: px(45) - px(35), h: y0 - top, fill: { color: "EDEDED" }, line: { type: "none" }, objectName: "Target" });
+  s.addText("Aim here", { x: px(28), y: top - 0.38, w: px(52) - px(28), h: 0.34, fontFace: "Georgia", fontSize: 14, bold: true,
+    align: "center", color: "000000", isTextBox: true, margin: 0 });
+  s.addShape(pres.shapes.LINE, { x: x0, y: y0, w: gw + 0.2, h: 0, line: { color: "000000", width: 1.25 }, objectName: "XAxis" });
+  s.addShape(pres.shapes.LINE, { x: x0, y: top - 0.1, w: 0, h: y0 - top + 0.1, line: { color: "000000", width: 1.25 }, objectName: "YAxis" });
+  [20, 40, 60, 80, 100].forEach((v) => {
+    s.addShape(pres.shapes.LINE, { x: px(v), y: y0, w: 0, h: 0.08, line: { color: "000000", width: 1 } });
+    s.addText(String(v), { x: px(v) - 0.3, y: y0 + 0.1, w: 0.6, h: 0.3, fontFace: TBL_FONT, fontSize: 14, align: "center", color: "000000", isTextBox: true, margin: 0 });
+  });
+  s.addText("PaCO2 (mmHg)", { x: x0, y: y0 + 0.42, w: gw, h: 0.35, fontFace: TBL_FONT, fontSize: 15, align: "center", color: "000000", isTextBox: true, margin: 0 });
+  s.addText("Cerebral blood flow", { x: x0 - 2.05, y: (top + y0) / 2 - 0.18, w: 3.4, h: 0.36, rotate: 270, fontFace: TBL_FONT, fontSize: 15,
+    align: "center", color: "000000", isTextBox: true, margin: 0 });
+  // flat below 20, roughly linear from 20 to 80, flat above 80
+  const ylo = 5.15, yhi = 2.2, cTop = yhi - 0.05;
+  const pts = [[5, ylo + 0.05], [15, ylo], [25, ylo - 0.25], [75, yhi + 0.25], [85, yhi], [97, yhi - 0.05]];
+  s.addShape(pres.shapes.CUSTOM_GEOMETRY, { x: px(0), y: cTop, w: gw, h: ylo + 0.15 - cTop, line: { color: "000000", width: 3 },
+    points: [
+      { x: px(5) - px(0), y: pts[0][1] - cTop },
+      { x: px(15) - px(0), y: pts[1][1] - cTop },
+      { x: px(85) - px(0), y: pts[4][1] - cTop, curve: { type: "cubic", x1: px(30) - px(0), y1: ylo - cTop, x2: px(70) - px(0), y2: yhi - cTop } },
+      { x: px(97) - px(0), y: pts[5][1] - cTop },
+    ], objectName: "CBFcurve" });
+  s.addText("Hyperventilation: less flow, lower ICP for a short time, then ischemia", { x: px(1), y: 3.2, w: 2.0, h: 1.3,
+    fontFace: "Georgia", fontSize: 14, color: "000000", isTextBox: true, margin: 0, valign: "bottom" });
+  s.addText("Permissive hypercapnia: more flow, more blood volume, higher ICP", { x: px(64), y: 3.9, w: 2.3, h: 1.3,
+    fontFace: "Georgia", fontSize: 14, color: RED, isTextBox: true, margin: 0, valign: "top" });
+  body(s, [
+    "Between about 20 and 80 mmHg, cerebral blood flow rises with PaCO2",
+    "In a swollen brain, more blood volume means a higher ICP",
+    "Keep PaCO2 normal. Hyperventilate only as a short bridge for herniation",
+  ], { x: 8.7, y: 1.6, w: 4.2, h: 4.6, size: 19, gap: 14 });
+  src(s, "Schematic, not to scale. Standard cerebral physiology");
+  s.addNotes("Draw this on the board if you don't have the slide. It's the reason the ARDS habit of tolerating a high CO2 doesn't carry over to a patient with grade III-IV encephalopathy and a high ammonia.");
+}
 {
   const s = slide("Protecting the brain: what we actually do");
   body(s, [
@@ -562,6 +658,29 @@ function enzymes(step) {
 }
 inr(1).addNotes("Hour 12, CRRT is starting. Very common request from the procedure side.");
 inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
+{
+  const s = slide("Rebalanced hemostasis");
+  const cxm = W / 2;
+  // fulcrum and beam
+  s.addShape(pres.shapes.ISOSCELES_TRIANGLE, { x: cxm - 0.55, y: 4.42, w: 1.1, h: 1.0, fill: { color: "000000" }, line: { color: "000000" }, objectName: "Fulcrum" });
+  s.addShape(pres.shapes.RECTANGLE, { x: 1.4, y: 4.3, w: W - 2.8, h: 0.12, fill: { color: "000000" }, line: { color: "000000" }, objectName: "Beam" });
+  const pan = (x, head, lines) => {
+    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.55, w: 4.9, h: 2.65, fill: { color: "FFFFFF" }, line: { color: "000000", width: 1.25 }, objectName: "Pan" });
+    s.addText([{ text: head, options: { bold: true, fontSize: 20, breakLine: true } }]
+      .concat(lines.map((t, i) => ({ text: t, options: { fontSize: 17, breakLine: i < lines.length - 1, paraSpaceBefore: 6 } }))),
+      { x, y: 1.55, w: 4.9, h: 2.65, fontFace: "Georgia", align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 6 });
+  };
+  pan(1.6, "Less clotting", ["Low factors II, V, VII, IX, X", "Low fibrinogen when severe", "Low platelets"]);
+  pan(W - 1.6 - 4.9, "Less anticoagulation", ["Low protein C and protein S", "Low antithrombin", "High factor VIII and von Willebrand factor"]);
+  s.addText("The INR measures this side", { x: 1.6, y: 4.6, w: 4.9, h: 0.45, fontFace: "Georgia", fontSize: 18, bold: true, color: RED,
+    align: "center", isTextBox: true, margin: 0 });
+  s.addText("The INR doesn't see this side", { x: W - 1.6 - 4.9, y: 4.6, w: 4.9, h: 0.45, fontFace: "Georgia", fontSize: 18, bold: true,
+    color: RED, align: "center", isTextBox: true, margin: 0 });
+  body(s, [{ t: "Balanced in most patients, but easily tipped either way: both bleeding and thrombosis happen", nb: true, i: true, align: "center" }],
+    { y: 5.85, h: 0.7, size: 19 });
+  src(s, "Concept from Lisman T, Porte RJ. Blood 2010");
+  s.addNotes("Both sides go down together. The INR only tests the left pan, so it makes the patient look much more anticoagulated than she is. Viscoelastic tests look at the whole clot and in ALF are often close to normal despite a high INR. The balance is fragile: infection, kidney failure and procedures tip it, and thrombosis, including line-related clots, is real.");
+}
 enzymes(1);
 enzymes(2);
 function inr(step) {
@@ -700,16 +819,23 @@ organs(2).addNotes("Kidney and circulation. Respiratory is borderline: 92% on 4 
 {
   const s = slide("ACLF grades");
   table(s, [
-    ["Grade", "What it takes", "28-day mortality (CANONIC)"],
-    ["No ACLF", "No organ failure, or one non-kidney failure with creatinine < 1.5 and no encephalopathy", "About 5%"],
-    ["ACLF 1", "Kidney failure alone; or one other organ failure plus creatinine 1.5 to 1.9 and/or grade I-II encephalopathy", "About 22%"],
-    ["ACLF 2", "Two organ failures", "About 32%"],
-    ["ACLF 3", "Three or more", { t: "More than 75%", b: true, red: true }],
-  ], { x: 0.7, y: 1.5, w: W - 1.4, colW: [1.9, 6.9, 3.13], size: 17, rowH: [0.5, 1.0, 1.15, 0.6, 0.6] });
-  body(s, [{ t: "Population numbers from a 2013 cohort. They describe groups, not your patient", nb: true, i: true, align: "center" }],
-    { y: 5.7, h: 0.6, size: 18 });
+    ["Grade", "What it takes"],
+    ["No ACLF", "No organ failure, or one non-kidney failure with creatinine < 1.5 and no encephalopathy"],
+    ["ACLF 1", "Kidney failure alone; or one other organ failure plus creatinine 1.5 to 1.9 and/or grade I-II encephalopathy"],
+    ["ACLF 2", "Two organ failures"],
+    ["ACLF 3", "Three or more"],
+  ], { x: 0.9, y: 1.6, w: W - 1.8, colW: [2.0, 9.73], size: 19, rowH: [0.55, 0.95, 0.95, 0.6, 0.6] });
   src(s, "Moreau R et al. Gastroenterology 2013 [PMID: 23474284]; EASL ACLF 2023 [PMID: 37364789]");
   s.addNotes("Grade 1 is the confusing one: kidney failure alone counts, but a single non-kidney organ failure counts only with some kidney dysfunction or mild encephalopathy. Use the CLIF-C calculator rather than memorizing it. The grade at days 3 to 7 says more than the grade at admission.");
+}
+{
+  const s = slide("28-day mortality by ACLF grade");
+  bars(s, [{ name: "28-day mortality", labels: ["No ACLF", "ACLF 1", "ACLF 2", "ACLF 3"], values: [4.7, 22.1, 32.0, 76.7] }],
+    { x: 2.0, y: 1.4, w: 9.3, h: 4.4, max: 100, fmt: '0.0"%"', colors: ["7F7F7F", "7F7F7F", "7F7F7F", RED], gap: 70, catSize: 17 });
+  body(s, [{ t: "CANONIC, 1,343 patients, 2013. These numbers describe groups, not your patient", nb: true, i: true, align: "center" }],
+    { y: 5.95, h: 0.6, size: 18 });
+  src(s, "Moreau R et al. Gastroenterology 2013 [PMID: 23474284]");
+  s.addNotes("Patient B is grade 2 tonight: about one in three. The jump to grade 3 is the one to remember. The grade at days 3 to 7 says more than the grade at admission, which comes back later.");
 }
 {
   const s = slide("Which ACLF?");
@@ -833,12 +959,17 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Respiratory 
 }
 {
   const s = slide("Does HRS reversal mean survival?");
-  table(s, [
-    ["Study", "CONFIRM: terlipressin + albumin vs placebo + albumin, type 1 HRS, 300 patients"],
-    ["Main finding", "Verified HRS reversal 32% vs 17%"],
-    ["The catch", { t: "Death from respiratory disorders by day 90: 11% vs 2%. Respiratory failure about 14% vs 5% (label)", b: true }],
-    ["What it doesn't show", "A survival benefit. 90-day mortality was not different"],
-  ], { x: 0.9, y: 1.6, w: W - 1.8, colW: [2.8, 8.73], size: 18, rowH: [0.9, 0.8, 1.1, 0.9], header: false });
+  bars(s, [
+    { name: "Terlipressin + albumin", labels: ["Verified HRS reversal", "Respiratory death by day 90"], values: [32, 11] },
+    { name: "Placebo + albumin", labels: ["Verified HRS reversal", "Respiratory death by day 90"], values: [17, 2] },
+  ], { x: 0.6, y: 1.4, w: 7.4, h: 5.3, max: 40, unit: 10, legend: true });
+  body(s, [
+    { t: "CONFIRM: type 1 HRS, 300 patients", b: true, nb: true },
+    "More kidneys recovered",
+    { t: "More patients died of respiratory failure", red: true, b: true },
+    "90-day mortality was not different",
+    "Label: respiratory failure about 14% vs 5%",
+  ], { x: 8.3, y: 1.6, w: 4.5, h: 5.0, size: 20, gap: 12 });
   src(s, "Wong F et al. NEJM 2021 [PMID: 33657294]; TERLIVAZ prescribing information, revised 6/2026");
   s.addNotes("The respiratory harm clustered in patients with volume overload and ACLF grade 3, which is how the label language came about. The label's own reanalysis gives slightly different reversal numbers (29% vs 16%); either way the direction is the same.");
 }
@@ -892,9 +1023,24 @@ trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kid
     "Irreversible brain injury",
     "Frailty and comorbidity",
     "Alcohol: centers now evaluate individually rather than by a fixed abstinence rule",
-  ], { y: 1.4, h: 5.4, size: 20 });
-  src(s, "Lancet Gastroenterol Hepatol 2024 [PMID: 38309288]; AASLD/AST candidate evaluation 2026 [PMID: 41405234]; EASL ACLF 2023 [PMID: 37364789]");
-  s.addNotes("Referral, candidacy, listing and allocation are four different decisions. The ICU team owns the referral and the information. Status 1A and other allocation rules: check current OPTN policy before quoting them.");
+  ], { x: 0.7, y: 1.4, w: 7.4, h: 5.4, size: 18 });
+  bars(s, [{ name: "1-year survival", labels: ["Transplanted (n = 73)", "Not transplanted"], values: [83.9, 7.9] }],
+    { x: 8.3, y: 1.5, w: 4.6, h: 4.9, max: 100, fmt: '0.0"%"', colors: ["000000", "A6A6A6"], gap: 70, catSize: 14,
+      title: "ACLF 3: 1-year survival" });
+  src(s, "Artru F et al. J Hepatol 2017 [PMID: 28645736]; Lancet Gastroenterol Hepatol 2024 [PMID: 38309288]; AASLD/AST 2026 [PMID: 41405234]");
+  s.addNotes("Referral, candidacy, listing and allocation are four different decisions. The ICU team owns the referral and the information. Status 1A and other allocation rules: check current OPTN policy before quoting them. Artru's comparison is not randomized: the transplanted patients were selected, so the gap overstates what transplant adds for an unselected ACLF 3 patient. It still shows that ACLF 3 alone is not a reason to say no.");
+}
+{
+  const s = slide("Early transplant for severe alcohol-associated hepatitis");
+  s.addImage({ path: path.join(IMG, "mathurin-km.png"), x: 0.5, y: 1.4, w: 7.4, h: 5.25, altText: "Survival with early transplant vs matched controls" });
+  body(s, [
+    "26 patients with a first episode of severe alcohol-associated hepatitis, not responding to steroids",
+    "Highly selected: good family support, no prior liver disease diagnosis",
+    { runs: ["6-month survival ", { t: "77% vs 23%", b: true }] },
+    "Recent drinking alone is not a reason to skip the call",
+  ], { x: 8.2, y: 1.6, w: 4.7, h: 5.0, size: 19, gap: 12 });
+  src(s, "Mathurin P et al. N Engl J Med 2011;365:1790-800");
+  s.addNotes("This is the study that broke the six-month rule. The selection was strict, and later US data (ACCELERATE-AH) showed similar results in selected patients. For Patient B, it means the alcohol history is a question for the transplant team, not a decision the ICU makes alone.");
 }
 {
   const s = slide("Calling hepatology: have this ready");
