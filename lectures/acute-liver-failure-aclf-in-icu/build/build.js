@@ -163,7 +163,6 @@ function pic(s, file, x, y, maxW, maxH, alt, o = {}) {
   if (h > maxH) { h = maxH; w = (maxH * pw) / ph; }
   const px = o.left ? x : x + (maxW - w) / 2;
   s.addImage({ path: f, x: px, y, w, h, altText: alt });
-  if (o.line) s.addShape(pres.shapes.RECTANGLE, { x: px, y, w, h, fill: { type: "none" }, line: { color: "BFBFBF", width: 0.75 } });
   return { x: px, y, w, h };
 }
 // The paper itself: title block from the PDF, then a figure or the authors' conclusion
@@ -246,7 +245,11 @@ sec("Opening");
     { text: "Assistant Professor of Medicine and Surgery", options: { fontSize: 16, breakLine: true } },
     { text: "X: @mfalmeqdadi", options: { fontSize: 16, color: "595959" } },
   ], { x: tx, y: 4.0, w: tw, h: 1.6, fontFace: "Georgia", align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0, paraSpaceAfter: 4 });
-  s.addImage({ path: LOGO_IMG, x: tx + (tw - 3.79) / 2, y: 5.85, w: 3.79, h: 0.77, altText: "Tufts University School of Medicine" });
+  s.addImage({ path: LOGO_IMG, x: tx + 0.15, y: 5.85, w: 3.79, h: 0.77, altText: "Tufts University School of Medicine" });
+  // QR to the PDF of these slides on GitHub
+  s.addImage({ path: path.join(IMG, "qr-slides.png"), x: W - 1.55, y: 5.45, w: 1.15, h: 1.15, altText: "QR code linking to the slides PDF" });
+  s.addText("Slides (PDF)", { x: W - 1.75, y: 6.62, w: 1.55, h: 0.3, fontFace: "Georgia", fontSize: 11, align: "center",
+    color: "595959", isTextBox: true, margin: 0 });
   s.addText("Illustrations generated with Google Gemini", { x: 0.4, y: 7.0, w: 5, h: 0.3, fontFace: "Georgia", fontSize: 11,
     italic: true, color: "7F7F7F", isTextBox: true, margin: 0 });
   s.addNotes("Pulmonary and critical care fellows. About 60 minutes with questions as we go. Two patients in the unit at the same time. Everything in the cases is made up for teaching; none of it is a real patient.");
