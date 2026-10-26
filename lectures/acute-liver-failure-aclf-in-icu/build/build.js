@@ -381,15 +381,16 @@ caseA_apap(1).addNotes("Combination products are where the hidden acetaminophen 
     showLegend: true, legendPos: "b", legendFontFace: "Calibri", legendFontSize: 13,
   });
   body(s, [
-    "One acute ingestion, known time, plotted from 4 to 24 hours",
-    "Above the treatment line: NAC",
+    "One acute ingestion, known time, level at 4 to 24 hours",
+    { runs: [{ t: "It tells you when NOT to give NAC", b: true, hl: true }] },
+    "Below the line: no NAC needed. Above it: NAC",
     { t: "Now plot her", b: true, nb: true, gap: 18 },
-    "At 8 hours, 12 is well below the line",
-    "At 20 hours, it is above",
-    { runs: ["Three days of repeated doses: ", { t: "there is no time zero", b: true }] },
-  ], { x: 8.3, y: 1.5, w: 4.5, h: 5.2, size: 19 });
+    "At 8 hours, 12 is below the line: no NAC",
+    "At 20 hours, it is above: NAC",
+    { runs: ["Three days of repeated doses: ", { t: "there is no time zero", b: true }, ", so the nomogram can't tell you to hold NAC. Give it"] },
+  ], { x: 8.3, y: 1.4, w: 4.6, h: 5.4, size: 18 });
   src(s, "Rumack BH, Matthew H. Pediatrics 1975; US treatment line 150 μg/mL at 4 hours");
-  s.addNotes("Show them what it is first: a semi-log plot, the line halves every 4 hours (a half-life of about 4 hours), and the US treatment line sits 25% below the original 200 line for a safety margin. Then try to put her on it. Her 12 crosses the treatment line at roughly 18 to 19 hours. Before that she looks fine, after that she needs NAC. With repeated supratherapeutic dosing over 3 days there is no single ingestion time, so the nomogram can't answer the question.");
+  s.addNotes("Show them what it is first: a semi-log plot, the line halves every 4 hours (a half-life of about 4 hours), and the US treatment line sits 25% below the original 200 line for a safety margin. Then try to put her on it. Her 12 crosses the treatment line at roughly 18 to 19 hours. Before that she looks fine, after that she needs NAC. The point to leave them with: the nomogram is a tool for deciding who can safely go without NAC after a single timed ingestion. It is not the trigger for starting NAC in someone who is already sick. With repeated supratherapeutic dosing over 3 days there is no single ingestion time, so it can't clear her, and she gets NAC.");
 }
 caseA_apap(2).addNotes("An undetectable or low level late in the course does not exclude acetaminophen toxicity [PMID: 36001996]. NAC is safe enough that the threshold to start it is low. Dosing per your pharmacy protocol.");
 {
