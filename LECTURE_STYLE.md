@@ -6,6 +6,8 @@ Reviewed 2026-10-26 against `qaddodi/mohammad-almeqdadi-lectures`, `main` commit
 
 ## How to use this guide
 
+For background images and cover art, follow [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md).
+
 Read the style summary, choose the lecture format that fits the audience, then use the outline specification below. The goal is to reproduce the teaching decisions visible in these lectures: what the learner sees first, what they must decide, how the explanation develops, and what they should do with it.
 
 **Working synthesis:** These decks teach clinical reasoning through questions and staged disclosure. They repeatedly connect a concrete finding to its mechanism, use that mechanism to distinguish competing explanations, and turn the distinction into a diagnostic or management decision. The tone is conversational, sometimes playful or provocative, and grounded in clinical practice. Specialist lectures add substantial evidence review, limitations, and transplant-specific implications.
