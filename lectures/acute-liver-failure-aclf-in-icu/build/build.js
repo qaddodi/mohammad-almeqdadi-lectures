@@ -952,11 +952,27 @@ day2B(2).addNotes("Kidney, circulation and now lungs: ACLF grade 3. Respiratory 
     "Stop the albumin while he is wet",
     "He is already on a vasoconstrictor. Norepinephrine, titrated to perfusion",
     "If he can't make urine, RRT to take the fluid off",
-    "Midodrine and octreotide? Not in someone on IV pressors",
+    "Midodrine and octreotide? They work poorly, and not in someone on IV pressors",
   ], { y: 1.4, h: 4.6, size: 20 });
   q(s, "Check oxygen and volume before any kidney treatment", 6.05, { hl: true, size: 20 });
   src(s, "TERLIVAZ prescribing information, revised 6/2026; ADQI-ICA 2024 [PMID: 38527522]");
   s.addNotes("Before any terlipressin dose: baseline SpO2, lung exam, volume status, and whether he is ACLF grade 3. Norepinephrine is an ICU alternative for HRS when terlipressin is contraindicated or unavailable. RRT in ACLF should follow usual indications plus trajectory and transplant potential; avoid the rule 'dialysis only if listed'. A time-limited trial is reasonable.");
+}
+{
+  const s = slide("Midodrine and octreotide for HRS-AKI?");
+  bars(s, [
+    { name: "Terlipressin + albumin (n = 27)", labels: ["Complete response", "Complete or partial response"], values: [55.5, 70.4] },
+    { name: "Midodrine + octreotide + albumin (n = 21)", labels: ["Complete response", "Complete or partial response"], values: [4.8, 28.6] },
+  ], { x: 0.6, y: 1.4, w: 7.4, h: 5.3, max: 100, fmt: '0.0"%"', legend: true });
+  body(s, [
+    { t: "Randomized, 8 Italian centers, type 1 HRS", b: true, nb: true },
+    "Stopped early at the interim analysis because the difference was already clear",
+    "Blood pressure rose more with terlipressin",
+    "3-month survival 59% vs 43%; too small to tell",
+    { runs: [{ t: "Use it only if terlipressin and norepinephrine are not options", b: true, hl: true }] },
+  ], { x: 8.3, y: 1.5, w: 4.6, h: 5.2, size: 19, gap: 12 });
+  src(s, "Cavallin M et al. Hepatology 2015;62:567-74 [PMID: 25644760]; ADQI-ICA 2024 [PMID: 38527522]");
+  s.addNotes("Midodrine and octreotide were the US default for years because terlipressin wasn't available. The only head-to-head trial shows a complete response in 1 of 21 patients. Most of them are on the floor at the time, so the practical message for the ICU is simple: once he needs an ICU bed, norepinephrine with albumin is the alternative to terlipressin, not midodrine and octreotide. About half of the midodrine non-responders were rescued with terlipressin, and most of those then responded.");
 }
 {
   const s = slide("Does HRS reversal mean survival?");
