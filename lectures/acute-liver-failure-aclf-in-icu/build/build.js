@@ -185,12 +185,13 @@ function pic(s, file, x, y, maxW, maxH, alt, o = {}) {
   return { x: px, y, w, h };
 }
 // The paper itself: title block from the PDF, then a figure or the authors' conclusion
-function paper(title, top, bottom, source, alt, topH = 3.0) {
-  return twoStep((step) => paperStep(step, title, top, bottom, source, alt, topH));
+function paper(title, top, bottom, source, alt, topH = 3.0, top1) {
+  return twoStep((step) => paperStep(step, title, top, bottom, source, alt, topH, top1));
 }
-function paperStep(step, title, top, bottom, source, alt, topH) {
+// top1: a crop of the title block without the paper's title, when the title itself gives away the result
+function paperStep(step, title, top, bottom, source, alt, topH, top1) {
   const s = slide(title);
-  const a = pic(s, top, 1.4, 1.2, W - 2.8, topH, alt + ": title", { line: true });
+  const a = pic(s, step === 1 && top1 ? top1 : top, 1.4, 1.2, W - 2.8, topH, alt + ": title", { line: true });
   if (step === 1) q(s, "What do you think they found?", a.y + a.h + 0.6, { size: 24 });
   if (step === 2 && bottom) pic(s, bottom, 1.4, a.y + a.h + 0.25, W - 2.8, 6.75 - (a.y + a.h + 0.25), alt, { line: true });
   src(s, source);
@@ -278,11 +279,10 @@ sec("Opening");
   body(s, [{ t: "By the end of this talk you should be able to:", nb: true, i: true }], { x: 1.6, w: W - 3.2, y: 1.35, h: 0.5, size: 22 });
   body(s, [
     "Tell acute liver failure apart from severe acute liver injury and from ACLF",
-    "Start the first-hour care of ALF: cause, NAC, glucose, airway",
-    "Protect the brain in ALF and know when to intubate",
-    "Start CRRT for ammonia without waiting for a renal indication",
-    "Diagnose and grade ACLF, and find the trigger",
-    "Work through AKI in cirrhosis, including HRS-AKI, without hurting the lungs",
+    "Plan the first hour of care in ALF",
+    "Manage the brain and the ammonia in ALF",
+    "Recognize and grade ACLF, and find the trigger",
+    "Work through AKI in cirrhosis",
     "Know when to call transplant hepatology",
   ], { size: 22, gap: 12, x: 1.6, w: W - 3.2, y: 2.05, h: 4.8 });
   s.addNotes("We'll get to each of these through two patients who are in the unit at the same time.");
@@ -387,7 +387,6 @@ twoStep((step) => {
     "No encephalopathy, so it doesn't meet the definition",
     "But it can become ALF within hours",
     { t: "Check glucose often and examine the patient every few hours", lvl: 1 },
-    { t: "Call transplant hepatology early anyway", lvl: 1 },
     "And the opposite trap:",
     { t: "Hypoglycemia, sedatives, sepsis, alcohol withdrawal and seizures can all look like encephalopathy", lvl: 1 },
   ], { y: 1.95, h: 4.9, size: 21 });
@@ -409,17 +408,16 @@ cont(); features(2).addNotes("This is why these patients are ICU patients. Hypog
   s.addNotes("Wait for answers. Usually people list tests in order. That's the trap.");
 }
 {
-  const s = slide("Three things, at the same time");
+  const s = slide("Two things at the same time");
   table(s, [
-    ["Keep her alive", "Find and treat the cause", "Call transplant hepatology"],
+    ["Keep her alive", "Find the cause"],
     [
-      { t: [{ t: "ICU bed", br: true }, { t: "Glucose every 1 to 2 hours", br: true }, { t: "Airway assessment", br: true }, { t: "Volume, perfusion, lactate", br: true }, { t: "Neuro checks" }] },
-      { t: [{ t: "Acetaminophen level", br: true }, { t: "Viral, autoimmune, Wilson, toxicology", br: true }, { t: "Doppler ultrasound", br: true }, { t: "Pregnancy test", br: true }, { t: "Start NAC if acetaminophen is possible" }] },
-      { t: [{ t: "Now, not after the workup", br: true }, { t: "Transplant evaluation starts on admission", br: true }, { t: "Social work and psychiatry while she can still talk" }] },
+      { t: [{ t: "ICU bed", br: true }, { t: "Glucose every 1 to 2 hours", br: true }, { t: "Volume, perfusion, lactate", br: true }, { t: "Neuro checks" }] },
+      { t: [{ t: "Acetaminophen level", br: true }, { t: "Viral, autoimmune, Wilson, toxicology", br: true }, { t: "Doppler ultrasound", br: true }, { t: "Pregnancy test" }] },
     ],
-  ], { x: 0.8, y: 1.6, w: W - 1.6, colW: [3.9, 3.9, 3.93], size: 18, rowH: [0.55, 2.4], valign: "top", align: ["left", "left", "left"] });
-  q(s, "All three start in the first hour", 5.6, { hl: true });
-  s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then call hepatology. By then she is intubated and the evaluation has lost a day. Here the transplant evaluation runs in parallel from admission, and the psychosocial part is much easier while she can still talk.");
+  ], { x: 1.6, y: 1.6, w: W - 3.2, colW: [5.07, 5.06], size: 20, rowH: [0.55, 2.2], valign: "top", align: ["left", "left"] });
+  q(s, "Both start in the first hour", 4.9, { hl: true });
+  s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then act. Support and workup run in parallel. Who else to call, and when, comes later in the talk.");
 }
 twoStep((step) => {
   const s = slide("Which cause changes treatment right away?");
@@ -457,6 +455,7 @@ function caseA_apap(step) {
   return s;
 }
 caseA_apap(1).addNotes("Combination products are where the hidden acetaminophen is. Ask about every over-the-counter product by name.");
+cont(); caseA_apap(2).addNotes("An undetectable or low level late in the course does not exclude acetaminophen toxicity [PMID: 36001996]. NAC is safe enough that the threshold to start it is low. Dosing per your pharmacy protocol.");
 {
   const s = slide("The Rumack-Matthew nomogram");
   const hrs = ["4 h", "8 h", "12 h", "16 h", "20 h", "24 h"];
@@ -484,9 +483,8 @@ caseA_apap(1).addNotes("Combination products are where the hidden acetaminophen 
   src(s, "Rumack BH, Matthew H. Pediatrics 1975; US/Canada acetaminophen consensus 2023 [PMID: 37552484]");
   s.addNotes("Show them what it is first: a semi-log plot, the line halves every 4 hours (a half-life of about 4 hours), and the US treatment line sits 25% below the original 200 line for a safety margin. Then try to put her on it. Her 12 crosses the treatment line at roughly 18 to 19 hours. Before that she looks fine, after that she needs NAC. The point to leave them with: the nomogram is a tool for deciding who can safely go without NAC after a single timed ingestion. It is not the trigger for starting NAC in someone who is already sick. Call poison control or toxicology early. Opioids, including the codeine in her Tylenol with codeine, can slow absorption, so a single early level can mislead after an acute ingestion. With repeated supratherapeutic dosing over 3 days there is no single ingestion time, so it can't clear her, and she gets NAC.");
 }
-caseA_apap(2).addNotes("An undetectable or low level late in the course does not exclude acetaminophen toxicity [PMID: 36001996]. NAC is safe enough that the threshold to start it is low. Dosing per your pharmacy protocol.");
 paper("NAC for every kind of acute liver failure?", "lee-title.png", "lee-concl.png",
-  "Lee WM et al. Gastroenterology 2009;137:856-64 [PMID: 19524577]", "Lee 2009 NAC trial")
+  "Lee WM et al. Gastroenterology 2009;137:856-64 [PMID: 19524577]", "Lee 2009 NAC trial", 3.0, "lee-title-notitle.png")
   .addNotes("The ALFSG trial: 173 adults with non-acetaminophen ALF, NAC or placebo for 72 hours, 24 US centers. Read their conclusion, then the numbers.");
 {
   const s = slide("NAC for every kind of acute liver failure?");
@@ -548,7 +546,7 @@ bgDivider("Ammonia and the brain", null, "divider-brain.jpg", "Watercolor of a b
   box(s, x, 3.0, bw, bh, "Intracranial hypertension, herniation", { b: true, color: RED, line: RED });
   arrow(s, x + 3.6, 3.0 + bh / 2, x + bw, 3.0 + bh / 2);
   body(s, [
-    { runs: [{ t: "Makes it worse: ", b: true }, "inflammation and infection, loss of autoregulation, fever, low sodium, high CO2"] },
+    { runs: [{ t: "Makes it worse: ", b: true }, "inflammation and infection, loss of autoregulation, fever, low sodium"] },
     { runs: [{ t: "Highest risk: ", b: true }, "hyperacute course, young, grade III-IV encephalopathy, ammonia persistently above 150 to 200 μmol/L, AKI, vasopressors"] },
   ], { y: 4.4, h: 2.4, size: 19 });
   src(s, "Update 2022 [PMID: 36001996]; practical update 2024 [PMID: 39170946]");
@@ -606,9 +604,9 @@ twoStep((step) => {
     { x: cx, y: cy, w: cw, h: ch, max: 250, unit: 50, valFmt: "0", fmt: "0", colors: [RED, "A6A6A6"], gap: 90,
       title: "Clemmesen 1999: ammonia, μmol/L", layout: lay });
   const y146 = cy + ch * (lay.y + lay.h * (1 - 146 / 250));
-  s.addShape(pres.shapes.LINE, { x: cx + cw * lay.x, y: y146, w: cw * lay.w, h: 0,
+  if (step === 2) s.addShape(pres.shapes.LINE, { x: cx + cw * lay.x, y: y146, w: cw * lay.w, h: 0,
     line: { color: "000000", width: 1.5, dashType: "dash" }, objectName: "Line146" });
-  s.addText("146", { x: cx + cw * (lay.x + lay.w) - 0.6, y: y146 - 0.36, w: 0.6, h: 0.32, fontFace: TBL_FONT, fontSize: 14,
+  if (step === 2) s.addText("146", { x: cx + cw * (lay.x + lay.w) - 0.6, y: y146 - 0.36, w: 0.6, h: 0.32, fontFace: TBL_FONT, fontSize: 14,
     bold: true, align: "right", color: "000000", isTextBox: true, margin: 0 });
   bars(s, [
     { name: "Ammonia ≥ 122 for 3 days", labels: ["Survival", "Cerebral edema"], values: [23, 71] },
@@ -634,7 +632,7 @@ twoStep((step) => {
     ["Ammonia drives the brain swelling", { t: "No proven benefit. ALFSG matched comparison: a little longer survival time, no difference in encephalopathy or outcome", b: true }],
     ["It's what we do in cirrhosis", "Gas-distended bowel gets in the surgeon's way at transplant"],
     ["Cheap, and the AASLD position paper allows it in early grades, short of diarrhea", "Diarrhea means free water loss and volume swings, which fight your sodium target"],
-    ["", "Liquid by mouth or tube in a patient who can't protect her airway: aspiration"],
+    ["", "Liquid by mouth or tube: aspiration risk"],
   ], { x: 0.8, y: 2.0, w: W - 1.6, colW: [5.0, 6.73], size: 17, rowH: [0.5, 0.95, 0.7, 0.85, 0.7], valign: "middle" });
   q(s, "Not for her", 6.05, { hl: true, size: 22 });
   src(s, "AASLD position paper 2011, rec. 26; Alba L, Hay JE, Lee WM et al. J Hepatol 2002;36(Suppl 1):33 (abstract); ACG ALF 2023 [PMID: 37377263]");
@@ -657,7 +655,7 @@ function intubate(step) {
     [
       { t: [{ t: "Preoxygenate", br: true }, { t: "Norepinephrine ready", br: true }, { t: "Check glucose", br: true }, { t: "Head of bed 30°, neck neutral" }] },
       { t: [{ t: "Avoid hypotension (perfusion pressure)", br: true }, { t: "Avoid coughing and bucking (ICP spikes)", br: true }, { t: "Most experienced operator" }] },
-      { t: [{ t: "Propofol: short-acting, may lower ICP", br: true }, { t: "Avoid long-acting benzodiazepines", br: true }, { t: "Aim for normal CO2, check a gas", br: true }, { t: "Sedation hides the neuro exam: check pupils" }] },
+      { t: [{ t: "Propofol: short-acting, may lower ICP", br: true }, { t: "Avoid long-acting benzodiazepines", br: true }, { t: "Sedation hides the neuro exam: check pupils" }] },
     ],
   ], { x: 0.8, y: 2.3, w: W - 1.6, colW: [3.6, 4.1, 4.03], size: 18, rowH: [0.5, 1.9], valign: "top" });
   src(s, "Practical update 2024 [PMID: 39170946]; ACG ALF 2023 [PMID: 37377263]; SCCM 2020 [PMID: 32058387]");
@@ -1023,7 +1021,7 @@ function caseB(step) {
   ], { x: 0.7, y: 1.5, w: 6.4, h: 3.7, size: 19 });
   table(s, B_LABS, { x: 7.4, y: 1.5, w: 5.3, colW: [2.5, 1.4, 1.4], size: 15, rowH: 0.42 });
   q(s, "What's your next step?", step === 1 ? 5.6 : 5.3, { size: step === 1 ? 24 : 22 });
-  if (step === 2) q(s, "Find the source: cultures, antibiotics, a diagnostic tap", 5.95, { hl: true, size: 22 });
+  if (step === 2) q(s, "Find the source: cultures, antibiotics", 5.95, { hl: true, size: 22 });
   return s;
 }
 caseB(1).addNotes("Made-up patient. Same day, bed 7. After 2 L of fluid he is on norepinephrine 0.15 mcg/kg/min.");
@@ -1054,7 +1052,7 @@ twoStep((step) => {
     ["Mechanism", "What you do"],
     [ans(step, "Sepsis (SBP)"), ans(step, "Cultures, antibiotics in the first hour, source control. Cover for prior exposure and local resistance")],
     [ans(step, "Splanchnic vasodilation of cirrhosis"), ans(step, "Norepinephrine. Start at MAP 65 and adjust to perfusion")],
-    [ans(step, "Too little volume, or too much"), ans(step, "Ultrasound and dynamic measures. Edema does not mean the vessels are full")],
+    [ans(step, "Too little volume, or too much"), ans(step, "Ultrasound and dynamic measures")],
     [ans(step, "Hidden bleeding"), ans(step, "Hemoglobin, rectal exam, think varices")],
     [ans(step, "Relative adrenal insufficiency"), ans(step, "Hydrocortisone if shock is refractory")],
     [ans(step, "Cirrhotic cardiomyopathy"), ans(step, "Echo")],
@@ -1066,7 +1064,7 @@ twoStep((step) => {
 });
 twoStep((step) => {
   const s = slide("Too little volume, or too much?");
-  pic(s, "ivc.png", 0.8, 1.4, W - 1.6, 4.3, "IVC on ultrasound: full and collapsing");
+  pic(s, step === 1 ? "ivc-q.png" : "ivc.png", 0.8, 1.4, W - 1.6, 4.3, "IVC on ultrasound, two patients");
   if (step === 1) { q(s, "Which one would you give more fluid?", 6.0, { size: 24 }); return s; }
   body(s, [{ t: "Left: a full, plethoric IVC. Right: an IVC that collapses", nb: true, i: true, align: "center" }], { y: 5.85, h: 0.45, size: 18 });
   q(s, "Look before you give the next liter", 6.3, { size: 22 });
@@ -1074,7 +1072,7 @@ twoStep((step) => {
   return s;
 });
 {
-  const s = slide("Why is his pressure low to begin with?");
+  const s = slide("Splanchnic vasodilation in cirrhosis");
   s.addImage({ path: path.join(IMG, "splanchnic.png"), x: (W - 8.9) / 2, y: 1.3, w: 8.9, h: 5.35, altText: "Splanchnic vasodilation in cirrhosis" });
   src(s, "Rondon-Berrios H, Velez JCQ. Clin Liver Dis 2022");
   s.addNotes("Portal hypertension, nitric oxide, splanchnic vasodilation, a low effective arterial volume, then RAAS, sympathetic tone and vasopressin. That's his baseline MAP, his sodium of 127 and his kidney, before the infection even started.");
@@ -1156,7 +1154,7 @@ cont(); organs(2).addNotes("Kidney and circulation. Respiratory is borderline: P
   arrow(s, 9.3, y2 + bh / 2, 4.95 + bw, y2 + bh / 2);
   arrow(s, 4.95, y2 + bh / 2, 0.6 + bw, y2 + bh / 2);
   body(s, [
-    { runs: ["Bed 7 so far: ", { t: "kidney", b: true, red: true }, " and ", { t: "circulation", b: true, red: true }, ". Lungs and brain are next in line"] },
+    { runs: ["Bed 7 so far: ", { t: "kidney", b: true, red: true }, " and ", { t: "circulation", b: true, red: true }] },
     "Treat the trigger early and support the organs; there is no drug for the inflammation itself",
   ], { y: 4.8, h: 1.8, size: 20, gap: 10 });
   src(s, "Concept from Arroyo V, Moreau R, Jalan R. N Engl J Med 2020");
@@ -1288,16 +1286,15 @@ cont(); const D2B = day2B(2);
 }
 D2B.addNotes("Kidney, circulation and now lungs: ACLF grade 3. Fluid and albumin are a likely part of this, with B-lines and a full IVC. But think about pneumonia, ARDS and the heart too before you decide it's all volume.");
 twoStep((step) => {
-  const s = slide("Will fixing the kidney hurt the lungs?");
-  if (step === 1) { q(s, "Terlipressin, more albumin, dialysis: what would you do for him today?", 3.2, { size: 26 }); return s; }
+  const s = slide("What would you do for his kidney today?");
+  if (step === 1) { q(s, "Terlipressin, more albumin, or dialysis?", 3.2, { size: 28 }); return s; }
   body(s, [
     { runs: [{ t: "Terlipressin: not for him today", b: true }] },
-    { t: "Label: contraindicated with hypoxia or worsening respiratory symptoms; don't start if SpO2 < 90%, stop if it falls below 90%", lvl: 1 },
-    { t: "Label: avoid in ACLF grade 3; volume overload raises the risk of respiratory failure", lvl: 1 },
+    { t: "Label: don't start if SpO2 < 90% or breathing is getting worse", lvl: 1 },
+    { t: "Label: avoid in ACLF grade 3 and in volume overload", lvl: 1 },
     "Stop the albumin while he is wet",
     "He is already on a vasoconstrictor. Norepinephrine, titrated to perfusion",
     "RRT if he stays overloaded. For HRS, RRT is a bridge to transplant: if he isn't a candidate, talk about goals before you start",
-    "Midodrine and octreotide? They work poorly, and not in someone on IV pressors",
   ], { y: 1.4, h: 4.6, size: 20 });
   q(s, "Check oxygen and volume before any kidney treatment", 6.05, { size: 20 });
   src(s, "TERLIVAZ prescribing information, revised 6/2026; ADQI-ICA 2024 [PMID: 38527522]");
@@ -1364,8 +1361,9 @@ twoStep((step) => {
     "Stopped early at the interim analysis because the difference was already clear",
     "Blood pressure rose more with terlipressin",
     "3-month survival 59% vs 43%; too small to tell",
+    "Not a substitute for IV pressors in the ICU",
     { runs: [{ t: "Use it only if terlipressin and norepinephrine are not options", b: true, hl: true }] },
-  ], { x: 8.3, y: 1.5, w: 4.6, h: 5.2, size: 19, gap: 12 });
+  ], { x: 8.3, y: 1.5, w: 4.6, h: 5.2, size: 17, gap: 8 });
   src(s, "Cavallin M et al. Hepatology 2015;62:567-74 [PMID: 25644760]; ADQI-ICA 2024 [PMID: 38527522]");
   s.addNotes("Midodrine and octreotide were the US default for years because terlipressin wasn't available. In the randomized comparison with terlipressin, 1 of 21 analyzed patients had a complete response. It wasn't powered for mortality. Most of them are on the floor at the time, so the practical message for the ICU is simple: once he needs an ICU bed, norepinephrine with albumin is the alternative to terlipressin, not midodrine and octreotide. About half of the midodrine non-responders were rescued with terlipressin, and most of those then responded.");
   return s;
