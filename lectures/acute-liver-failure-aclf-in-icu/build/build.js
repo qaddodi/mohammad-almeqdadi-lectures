@@ -621,7 +621,7 @@ twoStep((step) => {
     { y: 6.1, h: 0.6, size: 18 });
   }
   src(s, "Clemmesen JO et al. Hepatology 1999 [PMID: 10051463]; Kumar R et al. Clin Gastroenterol Hepatol 2012 [PMID: 22521861]; more studies in the appendix");
-  s.addNotes("Left: in Copenhagen, ammonia was drawn at the onset of grade III encephalopathy. The 14 patients who herniated had about twice the arterial ammonia of those who didn't, and all of them were above 146. Right: in Delhi, ammonia that stayed at or above 122 for three days went with a third of the survival and twice the cerebral edema of ammonia that came down. These are associations, not proof that lowering the number saves the patient, but they are why we trend it and start CRRT. In Bernal's King's cohort, more than 200 meant intracranial hypertension in 55%, yet most patients who developed ICH were below 200. Practical point: whatever you send, put it on ice and get it run quickly. A delayed sample reads falsely high. In cirrhosis, a single ammonia doesn't diagnose HE and shouldn't be trended to dose lactulose.");
+  s.addNotes("Left: in Copenhagen, ammonia was drawn at the onset of grade III encephalopathy. The 14 patients who herniated had about twice the arterial ammonia of those who didn't, and all of them were above 146. Right: in Delhi, ammonia that stayed at or above 122 for three days went with a third of the survival and twice the cerebral edema of ammonia that came down. These are associations, not proof that lowering the number saves the patient, but they are why we trend it. In Bernal's King's cohort, more than 200 meant intracranial hypertension in 55%, yet most patients who developed ICH were below 200. Practical point: whatever you send, put it on ice and get it run quickly. A delayed sample reads falsely high. In cirrhosis, a single ammonia doesn't diagnose HE and shouldn't be trended to dose lactulose.");
   return s;
 });
 twoStep((step) => {
@@ -636,10 +636,10 @@ twoStep((step) => {
     ["Cheap, and the AASLD position paper allows it in early grades, short of diarrhea", "Diarrhea means free water loss and volume swings, which fight your sodium target"],
     ["", "Liquid by mouth or tube in a patient who can't protect her airway: aspiration"],
   ], { x: 0.8, y: 2.0, w: W - 1.6, colW: [5.0, 6.73], size: 17, rowH: [0.5, 0.95, 0.7, 0.85, 0.7], valign: "middle" });
-  q(s, "Not for her: CRRT for the ammonia, protect the airway, keep the sodium up", 6.05, { hl: true, size: 20 });
+  q(s, "Not for her", 6.05, { hl: true, size: 22 });
   src(s, "AASLD position paper 2011, rec. 26; Alba L, Hay JE, Lee WM et al. J Hepatol 2002;36(Suppl 1):33 (abstract); ACG ALF 2023 [PMID: 37377263]");
   return s;
-}).addNotes("The ALF Study Group data were a retrospective comparison presented only as an abstract: a small increase in survival time with lactulose, no difference in encephalopathy grade or overall outcome. The 2011 AASLD position paper allowed lactulose in early encephalopathy, orally or rectally, but not to the point of diarrhea, and warned about bowel distension during transplant. Neither the 2023 ACG guideline nor EASL 2017 recommends it. Once she is grade III-IV the tools that lower ammonia are CRRT and time. In ACLF it's the opposite: lactulose is first-line for overt HE.");
+}).addNotes("The ALF Study Group data were a retrospective comparison presented only as an abstract: a small increase in survival time with lactulose, no difference in encephalopathy grade or overall outcome. The 2011 AASLD position paper allowed lactulose in early encephalopathy, orally or rectally, but not to the point of diarrhea, and warned about bowel distension during transplant. Neither the 2023 ACG guideline nor EASL 2017 recommends it. What actually lowers her ammonia comes in a few slides; don't give it away here. In ACLF it's the opposite: lactulose is first-line for overt HE.");
 function intubate(step) {
   const s = slide("When do you intubate?");
   if (step === 1) {
