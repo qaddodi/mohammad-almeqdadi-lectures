@@ -218,43 +218,47 @@ sec("Opening");
 {
   const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
   // watercolor cover Mohammad made in Gemini (prompt in the lecture folder); title sits on the plain right half
-  s.addImage({ path: path.join(IMG, "cover-alf-aclf-icu.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor illustration of a liver in dim night-time ICU light, on ivory paper" });
+  s.addImage({ path: path.join(IMG, "cover-alf-aclf-icu.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor illustration of a liver in dim ICU light, on ivory paper" });
   const tx = 7.1, tw = W - tx - 0.45;
   s.addText([
     { text: "Acute Liver Failure", options: { fontSize: 38, breakLine: true } },
     { text: "and ACLF in the ICU", options: { fontSize: 34 } },
   ], { x: tx, y: 1.3, w: tw, h: 1.45, fontFace: "Georgia", bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
-  s.addText("A guide for the night shift", { x: tx, y: 2.9, w: tw, h: 0.5, fontFace: "Georgia", fontSize: 22,
+  s.addText("For pulmonary and critical care fellows", { x: tx - 0.2, y: 2.9, w: tw + 0.4, h: 0.5, fontFace: "Georgia", fontSize: 20,
     italic: true, align: "center", color: "595959", isTextBox: true, margin: 0 });
   s.addShape(pres.shapes.LINE, { x: tx + 1.2, y: 3.75, w: tw - 2.4, h: 0, line: { color: "A6A6A6", width: 1 } });
   s.addText([
     { text: "Mohammad Almeqdadi, MD", options: { bold: true, fontSize: 20, breakLine: true } },
     { text: "Transplant Hepatologist and Gastroenterologist", options: { fontSize: 16, breakLine: true } },
-    { text: "Assistant Professor of Medicine and Surgery", options: { fontSize: 16 } },
-  ], { x: tx, y: 4.0, w: tw, h: 1.25, fontFace: "Georgia", align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0, paraSpaceAfter: 4 });
-  s.addImage({ path: LOGO_IMG, x: tx + (tw - 3.79) / 2, y: 5.55, w: 3.79, h: 0.77, altText: "Tufts University School of Medicine" });
-  s.addNotes("Pulmonary and critical care fellows. About 60 minutes with questions as we go. Two patients, one night. Everything in the cases is made up for teaching; none of it is a real patient.");
+    { text: "Assistant Professor of Medicine and Surgery", options: { fontSize: 16, breakLine: true } },
+    { text: "X: @mfalmeqdadi", options: { fontSize: 16, color: "595959" } },
+  ], { x: tx, y: 4.0, w: tw, h: 1.6, fontFace: "Georgia", align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0, paraSpaceAfter: 4 });
+  s.addImage({ path: LOGO_IMG, x: tx + (tw - 3.79) / 2, y: 5.85, w: 3.79, h: 0.77, altText: "Tufts University School of Medicine" });
+  s.addText("Illustrations generated with Google Gemini", { x: 0.4, y: 7.0, w: 5, h: 0.3, fontFace: "Georgia", fontSize: 11,
+    italic: true, color: "7F7F7F", isTextBox: true, margin: 0 });
+  s.addNotes("Pulmonary and critical care fellows. About 60 minutes with questions as we go. Two patients in the unit at the same time. Everything in the cases is made up for teaching; none of it is a real patient.");
 }
 
 // ---------------------------------------------------------------- Roadmap
 {
-  const s = slide("Tonight's questions");
+  const s = slide("Objectives");
+  body(s, [{ t: "By the end of this talk you should be able to:", nb: true, i: true }], { x: 1.6, w: W - 3.2, y: 1.35, h: 0.5, size: 22 });
   body(s, [
-    "Is this liver failure?",
-    "What do I do in the first hour?",
-    "When do I intubate, and how do I protect the brain?",
-    "Do I wait for the creatinine before dialysis?",
-    "Is this ACLF, and does the label change anything?",
-    "Does he have HRS? Will fixing the kidney hurt the lungs?",
-    "When do I call transplant hepatology?",
-  ], { size: 24, gap: 14, x: 1.6, w: W - 3.2 });
-  s.addNotes("Frame the talk as the questions they actually get paged about. We'll answer them through two patients who are in the unit on the same night.");
+    "Tell acute liver failure apart from severe acute liver injury and from ACLF",
+    "Start the first-hour care of ALF: cause, NAC, glucose, airway",
+    "Protect the brain in ALF and know when to intubate",
+    "Start CRRT for ammonia without waiting for a renal indication",
+    "Diagnose and grade ACLF, and find the trigger",
+    "Work through AKI in cirrhosis, including HRS-AKI, without hurting the lungs",
+    "Know when to call transplant hepatology",
+  ], { size: 22, gap: 12, x: 1.6, w: W - 3.2, y: 2.05, h: 4.8 });
+  s.addNotes("We'll get to each of these through two patients who are in the unit at the same time.");
 }
 
 // ---------------------------------------------------------------- Patient A
 sec("Patient A: acute liver failure");
 {
-  const s = slide("Two patients, same night", { master: "CONTENT" });
+  const s = slide("Two patients, same ICU", { master: "CONTENT" });
   table(s, [
     ["Bed 4", "Bed 7"],
     ["28-year-old woman", "56-year-old man"],
@@ -344,7 +348,7 @@ twoStep((step) => {
 }
 twoStep((step) => {
   const s = slide("INR 2.4, wide awake. Acute liver failure?");
-  if (step === 1) { q(s, "What do you call this, and what do you do tonight?", 3.2, { size: 28 }); return s; }
+  if (step === 1) { q(s, "What do you call this, and what do you do now?", 3.2, { size: 28 }); return s; }
   body(s, [
     { runs: [{ t: "No. ", b: true }, "This is severe acute liver injury"] },
     "No encephalopathy means not yet ALF",
@@ -378,14 +382,14 @@ features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia,
     [
       { t: [{ t: "ICU bed", br: true }, { t: "Glucose every 1 to 2 hours", br: true }, { t: "Airway assessment", br: true }, { t: "Volume, perfusion, lactate", br: true }, { t: "Neuro checks" }] },
       { t: [{ t: "Acetaminophen level", br: true }, { t: "Viral, autoimmune, Wilson, toxicology", br: true }, { t: "Doppler ultrasound", br: true }, { t: "Pregnancy test", br: true }, { t: "Start NAC if acetaminophen is possible" }] },
-      { t: [{ t: "Now, not after the workup", br: true }, { t: "Transplant evaluation starts tonight", br: true }, { t: "Social work and psychiatry while she can still talk" }] },
+      { t: [{ t: "Now, not after the workup", br: true }, { t: "Transplant evaluation starts on admission", br: true }, { t: "Social work and psychiatry while she can still talk" }] },
     ],
   ], { x: 0.8, y: 1.6, w: W - 1.6, colW: [3.9, 3.9, 3.93], size: 18, rowH: [0.55, 2.4], valign: "top", align: ["left", "left", "left"] });
   q(s, "All three start in the first hour", 5.6, { hl: true });
-  s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then call hepatology. By then she is intubated and the evaluation has lost a day. Here the transplant evaluation runs in parallel from the first night, and the psychosocial part is much easier while she can still talk.");
+  s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then call hepatology. By then she is intubated and the evaluation has lost a day. Here the transplant evaluation runs in parallel from admission, and the psychosocial part is much easier while she can still talk.");
 }
 twoStep((step) => {
-  const s = slide("Which cause changes treatment tonight?");
+  const s = slide("Which cause changes treatment right away?");
   table(s, [
     ["If you suspect", "Send", "Don't wait for the result to"],
     ["Acetaminophen", "Level, ingestion history, combination products", ans(step, "Start NAC")],
@@ -690,7 +694,7 @@ function crrt(step) {
   body(s, [
     "ACG 2023: suggests early CRRT for hyperammonemia with grade II or higher encephalopathy, even without a renal indication (conditional, very low certainty)",
     "Continuous, not intermittent: fewer swings in blood pressure and brain water",
-    "Call nephrology tonight, not in the morning",
+    "Call nephrology now",
   ], { y: 2.8, h: 4.0, size: 20 });
   src(s, "ACG ALF guideline 2023 [PMID: 37377263]; update 2022 [PMID: 36001996]");
   return s;
@@ -918,9 +922,9 @@ twoStep((step) => {
 
 // ---------------------------------------------------------------- Patient B
 sec("Patient B: ACLF");
-divider("Bed 7", "56M, cirrhosis and ACLF").addNotes("Second patient, same night.");
+divider("Bed 7", "56M, cirrhosis and ACLF").addNotes("Second patient, in the unit at the same time.");
 {
-  const s = slide("Back to the first night: bed 7");
+  const s = slide("Back to day 1: bed 7");
   table(s, [
     [{ t: "Bed 4", grey: true }, { t: "Bed 7", hl: true }],
     [{ t: "28-year-old woman", grey: true }, "56-year-old man"],
@@ -928,7 +932,7 @@ divider("Bed 7", "56M, cirrhosis and ACLF").addNotes("Second patient, same night
     [{ t: "Intubated, on CRRT, transplant hepatology involved", grey: true }, "Fever, confusion, low blood pressure"],
   ], { x: 2.2, y: 2.0, w: 8.9, colW: [4.45, 4.45], size: 20, rowH: 0.65, align: ["center", "center"] });
   q(s, "Is this liver failure too?", 5.2, { size: 26 });
-  s.addNotes("While bed 4 is going on, the nurse from bed 7 calls: his pressure is 82/46. Same night, same unit, a sick liver again. Let them guess before the next slide whether this is the same disease.");
+  s.addNotes("While bed 4 is going on, the nurse from bed 7 calls: his pressure is 82/46. Same day, same unit, a sick liver again. Let them guess before the next slide whether this is the same disease.");
 }
 const B_TITLE = "56M, cirrhosis and fever";
 const B_LABS = [
@@ -955,7 +959,7 @@ function caseB(step) {
   if (step === 2) q(s, "Find the source: cultures, antibiotics, a diagnostic tap", 5.95, { hl: true, size: 22 });
   return s;
 }
-caseB(1).addNotes("Made-up patient. Same night, bed 7. After 2 L of fluid he is on norepinephrine 0.15 mcg/kg/min.");
+caseB(1).addNotes("Made-up patient. Same day, bed 7. After 2 L of fluid he is on norepinephrine 0.15 mcg/kg/min.");
 caseB(2).addNotes("Same as bed 4: treat first, label later. We'll count organs once the antibiotics are in.");
 function tap(step) {
   const s = slide("What tipped him over?");
@@ -1067,7 +1071,7 @@ organs(2).addNotes("Kidney and circulation. Respiratory is borderline: PaO2 74 o
   body(s, [{ t: "CANONIC, 1,343 patients, 2013", nb: true, i: true, align: "center" }],
     { y: 5.95, h: 0.6, size: 18 });
   src(s, "Moreau R et al. Gastroenterology 2013 [PMID: 23474284]");
-  s.addNotes("Patient B is grade 2 tonight. That is a group number from a 2013 cohort, not his number. The jump to grade 3 is the one to remember. The grade at days 3 to 7 says more than the grade at admission, which comes back later.");
+  s.addNotes("Patient B is grade 2 on day 1. That is a group number from a 2013 cohort, not his number. The jump to grade 3 is the one to remember. The grade at days 3 to 7 says more than the grade at admission, which comes back later.");
 }
 {
   const s = slide("Why do the organs fail?");
@@ -1104,18 +1108,18 @@ function apxWhichAclf() {
 }
 function hrs(step) {
   const s = slide("Does he have HRS?");
-  body(s, [{ t: "Evening: creatinine 3.0, urine 10 mL/h, still on norepinephrine", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 19 });
+  body(s, [{ t: "12 hours later: creatinine 3.0, urine 10 mL/h, still on norepinephrine", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 19 });
   if (step === 1) { q(s, "HRS? Start terlipressin?", 3.3, { size: 30 }); return s; }
   const a = (v) => (step === 2 ? "" : v);
   table(s, [
-    ["HRS-AKI (ADQI-ICA 2024)", "Bed 7 tonight", ""],
+    ["HRS-AKI (ADQI-ICA 2024)", "Bed 7, day 1", ""],
     ["Cirrhosis with ascites", a("Yes"), { t: a("✅"), align: "center" }],
     ["AKI by creatinine and/or urine output", a("Creatinine 0.9 → 3.0, urine 10 mL/h"), { t: a("✅"), align: "center" }],
-    ["No improvement within 24 hours of volume resuscitation, if he needs it", a("2 L given this afternoon. Too early to say"), { t: a("❌"), align: "center" }],
+    ["No improvement within 24 hours of volume resuscitation, if he needs it", a("2 L given on arrival. Too early to say"), { t: a("❌"), align: "center" }],
     ["No strong alternative explanation (shock, nephrotoxins, structural injury)", { t: a("Septic shock on norepinephrine"), b: true, red: true }, { t: a("❌"), align: "center" }],
   ], { x: 0.7, y: 1.95, w: W - 1.4, colW: [5.6, 5.0, 1.33], size: 17, rowH: [0.45, 0.55, 0.65, 0.75, 0.75] });
   if (step === 2) q(s, "Go down the list for him. Which boxes does he tick?", 5.6, { size: 24 });
-  else q(s, "Not HRS tonight. Treat the shock first", 5.6, { hl: true, size: 24 });
+  else q(s, "Not HRS yet. Treat the shock first", 5.6, { hl: true, size: 24 });
   src(s, "ADQI-ICA consensus, J Hepatol 2024 [PMID: 38527522]");
   return s;
 }
@@ -1164,12 +1168,12 @@ hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours,
   s.addNotes("HRS-AKI sits in the bottom row: dysfunction, with or without damage. ATN and HRS can coexist. Damage markers such as urine NGAL help where available; a urine sediment helps everywhere.");
 }
 function heB(step) {
-  const s = slide("Night 1: more confused");
+  const s = slide("Day 1: more confused");
   body(s, [
-    "Midnight: more disoriented, pulling at his lines, asterixis. Awake, follows commands",
+    "More disoriented, pulling at his lines, asterixis. Awake, follows commands",
     { runs: ["The nurse sent an ammonia: ", { t: "88 μmol/L", b: true }] },
   ], { y: 1.4, h: 1.2, size: 21 });
-  if (step === 1) { q(s, "More lactulose? Repeat the ammonia in the morning?", 3.6, { size: 26 }); return s; }
+  if (step === 1) { q(s, "More lactulose? Repeat the ammonia in 6 hours?", 3.6, { size: 26 }); return s; }
   q(s, "Look for the reason first. The ammonia doesn't tell you", 2.75, { hl: true, size: 22 });
   body(s, [
     "Glucose, sodium, oxygen and CO2",
