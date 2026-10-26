@@ -213,6 +213,19 @@ function divider(title, sub, img) {
   return s;
 }
 
+// Section page on one of Mohammad's Gemini watercolors: full-bleed, title on the plain half
+function bgDivider(title, sub, file, alt, side = "left") {
+  const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
+  s.addImage({ path: path.join(IMG, file), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: alt });
+  const tx = side === "left" ? 0.6 : 7.1, tw = 5.7;
+  // bottom-anchored so a two-line title grows upward instead of into the subtitle
+  s.addText(title, { x: tx, y: 1.55, w: tw, h: 2.2, fontFace: "Georgia", fontSize: 48, align: "center", valign: "bottom",
+    color: "000000", isTextBox: true, margin: 0 });
+  if (sub) s.addText(sub, { x: tx, y: 3.75, w: tw, h: 0.6, fontFace: "Georgia", fontSize: 24, align: "center",
+    color: "595959", isTextBox: true, margin: 0 });
+  return s;
+}
+
 // ---------------------------------------------------------------- Cover
 sec("Opening");
 {
@@ -270,7 +283,7 @@ sec("Patient A: acute liver failure");
   s.addNotes("Introduce both up front so the contrast is there from the start. We'll start with bed 4 and come back to bed 7.");
 }
 
-divider("Bed 4", "28F, acute liver failure").addNotes("First patient.");
+bgDivider("Bed 4", "28F, acute liver failure", "divider-bed4.jpg", "Watercolor of an empty ICU bed with an IV pole and monitor").addNotes("First patient.");
 const A_TITLE = "28F, 4 days of nausea";
 const A_LABS = [
   ["Test", "Result"],
@@ -667,7 +680,8 @@ hypercap(2).addNotes("Low tidal volume still applies. What changes is the CO2 ta
     "Avoid fluid overload",
     "Treat seizures, EEG if in doubt. No routine prophylaxis",
     "No cooling: 34 °C did not prevent intracranial hypertension in an RCT",
-  ], { size: 21, gap: 12 });
+  ], { size: 21, gap: 12, w: 7.9 });
+  s.addImage({ path: path.join(IMG, "head-of-bed-30.png"), x: 8.75, y: 1.5, w: 4.2, h: 4.2, altText: "Watercolor of an empty ICU bed with the head raised about 30 degrees" });
   src(s, "SCCM 2023 [PMID: 37052436]; update 2022 [PMID: 36001996]; Bernal W et al. J Hepatol 2016;65:273-9");
   s.addNotes("Sodium targets differ between sources: the 2022 update uses 145 to 155 for prevention, the 2024 practical review a lower range. Agree on one with transplant hepatology and write it in the orders. Hypertonic saline is a conditional SCCM recommendation for patients at risk of intracranial hypertension. The cooling trial randomized intubated high-risk ALF patients to 34 vs 36 °C for 72 hours; no difference in intracranial hypertension or survival. Avoid fever, don't induce hypothermia.");
 }
@@ -695,7 +709,8 @@ function crrt(step) {
     "ACG 2023: suggests early CRRT for hyperammonemia with grade II or higher encephalopathy, even without a renal indication (conditional, very low certainty)",
     "Continuous, not intermittent: fewer swings in blood pressure and brain water",
     "Call nephrology now",
-  ], { y: 2.8, h: 4.0, size: 20 });
+  ], { y: 2.8, h: 4.0, size: 20, w: 8.0 });
+  s.addImage({ path: path.join(IMG, "crrt-machine.png"), x: 9.05, y: 2.65, w: 3.85, h: 3.85, altText: "Watercolor of a CRRT machine with filter and circuit" });
   src(s, "ACG ALF guideline 2023 [PMID: 37377263]; update 2022 [PMID: 36001996]");
   return s;
 }
@@ -850,6 +865,7 @@ function kcc(step) {
   if (step === 1) {
     q(s, "When she meets King's College criteria?", 2.6, { size: 28 });
     q(s, "When MELD is high enough?", 3.4, { size: 28 });
+    s.addImage({ path: path.join(IMG, "phone.png"), x: (W - 2.9) / 2, y: 4.2, w: 2.9, h: 2.9, altText: "Watercolor of a desk phone with the handset off the hook" });
     return s;
   }
   q(s, "You should have called on admission, when you first suspected ALF", 1.6, { hl: true, size: 24 });
@@ -857,7 +873,8 @@ function kcc(step) {
     "King's College criteria predict death without transplant. They are specific, not sensitive",
     "They are not a referral threshold. If you wait for them, the evaluation starts too late",
     { runs: ["Patient A: arterial pH ", { t: "7.26", b: true, red: true }, " on day 2 after fluids. She now meets the acetaminophen criteria"] },
-  ], { y: 2.6, h: 3.4, size: 21, gap: 14 });
+  ], { y: 2.6, h: 3.4, size: 21, gap: 14, w: 8.4 });
+  s.addImage({ path: path.join(IMG, "phone.png"), x: 9.4, y: 2.6, w: 3.5, h: 3.5, altText: "Watercolor of a desk phone with the handset off the hook" });
   src(s, "O'Grady 1989 criteria, as summarized in EASL 2017 [PMID: 28417882]; full criteria in the appendix");
   return s;
 }
@@ -916,13 +933,14 @@ twoStep((step) => {
 }
 {
   const s = slide(null, { master: "BLANK" });
-  s.addText("Any questions so far?", { x: 0.8, y: 2.8, w: W - 1.6, h: 1.4, fontFace: "Georgia", fontSize: 48, align: "center",
+  s.addImage({ path: path.join(IMG, "pause-stethoscope.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a coiled stethoscope on ivory paper" });
+  s.addText("Any questions so far?", { x: 0.8, y: 1.9, w: W - 1.6, h: 1.4, fontFace: "Georgia", fontSize: 48, align: "center",
     valign: "middle", color: "000000", isTextBox: true, margin: 0 });
 }
 
 // ---------------------------------------------------------------- Patient B
 sec("Patient B: ACLF");
-divider("Bed 7", "56M, cirrhosis and ACLF").addNotes("Second patient, in the unit at the same time.");
+bgDivider("Bed 7", "56M, cirrhosis and ACLF", "divider-bed7.jpg", "Watercolor of a shrunken nodular cirrhotic liver").addNotes("Second patient, in the unit at the same time.");
 {
   const s = slide("Back to day 1: bed 7");
   table(s, [
@@ -974,7 +992,8 @@ function tap(step) {
     "Drugs: NSAIDs, sedatives, too much diuretic",
     "HBV flare, ischemia",
     "No trigger is found in some patients. Repeat the search if he gets worse",
-  ], { y: 1.45, h: 5.4, size: 20 });
+  ], { y: 1.45, h: 5.4, size: 20, w: 8.3 });
+  s.addImage({ path: path.join(IMG, "paracentesis.png"), x: 9.25, y: 1.7, w: 3.75, h: 3.75, altText: "Watercolor of a paracentesis set with tubes of ascitic fluid and a culture bottle" });
   src(s, "EASL ACLF 2023 [PMID: 37364789]; SCCM 2023 [PMID: 37052436]");
   return s;
 }
@@ -1149,7 +1168,8 @@ hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours,
     "HRS physiology",
     "Tense ascites (abdominal compartment)",
     "Congestion",
-  ], { x: 0.7, y: 1.4, w: 5.8, h: 5.0, size: 20 });
+  ], { x: 0.6, y: 1.4, w: 4.4, h: 5.0, size: 19 });
+  s.addImage({ path: path.join(IMG, "kidney.png"), x: 5.0, y: 1.75, w: 3.3, h: 3.3, altText: "Watercolor of a kidney with its hilar vessels and ureter" });
   body(s, [
     { t: "Look", b: true, nb: true },
     "Urinalysis and sediment",
@@ -1157,7 +1177,7 @@ hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours,
     "Ultrasound: kidneys, bladder, IVC, heart, lungs",
     "Bladder pressure if the belly is tight",
     { runs: ["A low urine sodium is ", { t: "not", b: true }, " proof of HRS"] },
-  ], { x: 6.8, y: 1.4, w: 5.9, h: 5.0, size: 20 });
+  ], { x: 8.3, y: 1.4, w: 4.5, h: 5.0, size: 19 });
   src(s, "ADQI-ICA consensus 2024 [PMID: 38527522]");
   s.addNotes("These coexist and change over the admission. A diagnosis of HRS made on day 1 should be re-examined on day 2.");
 }
@@ -1325,7 +1345,7 @@ function trajectory(step) {
 }
 trajectory(1).addNotes("Day 3: CRRT started for fluid overload and oliguria, while the transplant evaluation was under way. Ask the room whether he is better or worse.");
 trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kidney failure on RRT still counts as an organ failure. Bring palliative care in alongside, not instead of, full support. Document what the time-limited trial is and when you'll reassess.");
-divider("Who gets a liver?", "Transplant in ACLF").addNotes("Back to the question both families will ask.");
+bgDivider("Who gets a liver?", "Transplant in ACLF", "divider-transplant.jpg", "Watercolor of a donor liver in an organ bag on ice in a transport cooler").addNotes("Back to the question both families will ask.");
 twoStep((step) => {
   const s = slide("Too sick for a transplant, or sick enough to need one?");
   if (step === 1) { q(s, "Ventilator, pressors, CRRT, ACLF 3. Is he too sick?", 3.2, { size: 28 }); return s; }
@@ -1446,7 +1466,8 @@ sec("Closing");
 }
 {
   const s = slide(null, { master: "BLANK" });
-  s.addText("Questions?", { x: 0.8, y: 2.8, w: W - 1.6, h: 1.4, fontFace: "Georgia", fontSize: 54, align: "center",
+  s.addImage({ path: path.join(IMG, "closing-liver.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a healthy liver in warm light on ivory paper" });
+  s.addText("Questions?", { x: 7.1, y: 2.8, w: 5.7, h: 1.4, fontFace: "Georgia", fontSize: 54, align: "center",
     valign: "middle", color: "000000", isTextBox: true, margin: 0 });
 }
 
