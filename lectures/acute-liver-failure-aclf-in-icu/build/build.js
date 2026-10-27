@@ -686,11 +686,17 @@ bgDivider("Ammonia and the brain", null, "divider-brain.jpg", "Watercolor of a b
 }
 // Why ALF brains swell and cirrhotic brains mostly don't: the histology, labeled
 twoStep((step) => {
-  const s = slide("Same ammonia, different brain");
   if (step === 1) {
-    q(s, "Why do patients with cirrhosis rarely get cerebral edema, even with a high ammonia?", 3.0, { size: 26, h: 1.2 });
+    const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
+    s.addImage({ path: path.join(IMG, "brain-background.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5,
+      altText: "Watercolor of a normal human brain, side view, on ivory paper" });
+    s.addText("Same ammonia, different brain", { x: 6.2, y: 0.45, w: 6.9, h: 0.8, fontFace: "Georgia", fontSize: 30,
+      align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+    s.addText("Why do patients with cirrhosis rarely get cerebral edema, even with a high ammonia?", { x: 6.6, y: 2.6, w: 6.1, h: 2.0,
+      fontFace: "Georgia", fontSize: 28, bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0, objectName: "Question" });
     return s;
   }
+  const s = slide("Same ammonia, different brain");
   const ix = 0.6, iy = 1.3, iw = 5.4, ih = 4.03;
   s.addImage({ path: path.join(IMG, "astrocytes.png"), x: ix, y: iy, w: iw, h: ih, altText: "Brain histology with an Alzheimer type II astrocyte and normal glial nuclei" });
   const pt = (fx, fy) => [ix + fx * iw, iy + fy * ih];
@@ -1238,22 +1244,35 @@ function tap(step) {
 }
 tap(1).addNotes("Ask what tipped him over before showing the answer. Then the procedural question: people hesitate to tap a coagulopathic patient.");
 cont(); tap(2).addNotes("Diagnostic paracentesis is low risk and should not wait for correction of the INR or platelets. Infection is the most common precipitant of ACLF in Western cohorts.");
-twoStep((step) => {
-  const s = slide("Why is he hypotensive?");
-  table(s, [
-    ["Mechanism", "What you do"],
-    [ans(step, "Sepsis (SBP)"), ans(step, "Cultures, antibiotics within 1 h, source control")],
-    [ans(step, "Splanchnic vasodilation"), ans(step, "Norepinephrine, MAP 65, adjust to perfusion")],
-    [ans(step, "Too little volume, or too much"), ans(step, "Ultrasound and dynamic measures")],
-    [ans(step, "Hidden bleeding"), ans(step, "Hemoglobin, rectal exam, think varices")],
-    [ans(step, "Relative adrenal insufficiency"), ans(step, "Hydrocortisone if shock is refractory")],
-    [ans(step, "Cirrhotic cardiomyopathy"), ans(step, "Echo")],
-  ], { x: 0.8, y: 1.4, w: W - 1.6, size: 20, minRowH: 0.6 });
-  if (step === 2) q(s, "Usually more than one of these", 6.15, { size: 22 });
-  src(s, "Surviving Sepsis 2026 [PMID: 41869847]; SCCM 2020 [PMID: 32058387]; EASL ACLF 2023 [PMID: 37364789]");
-  s.addNotes("For SBP, cover for prior antibiotic exposure and local resistance. Albumin is a reasonable resuscitation fluid in cirrhosis, but every bag goes somewhere. Keep that in mind for the next few slides.");
+// Mohammad's Gemini figure: empty outline on the question step, causes labeled on the answer step
+function hypotension(step) {
+  const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
+  s.addImage({ path: path.join(IMG, step === 1 ? "organs-alf-empty.jpg" : "hypotension-cirrhosis.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5,
+    altText: step === 1 ? "Watercolor outline of a human figure with no organs drawn in"
+      : "Watercolor figure of a man with cirrhosis showing the heart, IVC, nodular liver, varices, adrenals, ascites and dilated mesenteric vessels" });
+  s.addText("Why is he hypotensive?", { x: 0.45, y: 0.35, w: 5.6, h: 1.2, fontFace: "Georgia", fontSize: 30,
+    valign: "top", color: "000000", isTextBox: true, margin: 0 });
+  if (step === 1) return s;
+  const label = (side, ly, name, detail, px, py) => {
+    const lx = side === "L" ? 0.3 : 8.5, lw = side === "L" ? 4.8 : 4.65;
+    s.addText([{ text: name, options: { bold: true, fontSize: 18, breakLine: true } }, { text: detail, options: { fontSize: 14, color: "404040" } }],
+      { x: lx, y: ly - 0.45, w: lw, h: 0.9, fontFace: "Georgia", align: side === "L" ? "right" : "left", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+    const x1 = side === "L" ? lx + lw + 0.1 : lx - 0.1;
+    s.addShape(pres.shapes.LINE, { x: Math.min(x1, px), y: Math.min(ly, py), w: Math.abs(px - x1) || 0.001, h: Math.abs(py - ly) || 0.001,
+      flipH: px < x1, flipV: py < ly, line: { color: "595959", width: 1, endArrowType: "oval" }, objectName: "Leader" });
+  };
+  label("L", 2.75, "Too little volume, or too much", "Ultrasound and dynamic measures", 6.55, 3.6);
+  label("L", 5.5, "Sepsis (SBP)", "Cultures, antibiotics within 1 h, source control", 5.95, 6.25);
+  label("R", 2.4, "Cirrhotic cardiomyopathy", "Echo", 7.2, 3.2);
+  label("R", 3.6, "Hidden bleeding", "Hemoglobin, rectal exam, think varices", 6.95, 3.98);
+  label("R", 4.75, "Relative adrenal insufficiency", "Hydrocortisone if shock is refractory", 7.05, 4.43);
+  label("R", 5.9, "Splanchnic vasodilation", "Norepinephrine, MAP 65, adjust to perfusion", 6.85, 5.5);
+  s.addText("Usually more than one of these", { x: 0.45, y: 6.55, w: 5.4, h: 0.45, fontFace: "Georgia", fontSize: 20, bold: true,
+    highlight: HL, align: "left", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
   return s;
-});
+}
+hypotension(1).addNotes("Let them list causes before you show the figure. Most will say sepsis and volume.");
+cont(); hypotension(2).addNotes("For SBP, cover for prior antibiotic exposure and local resistance. Albumin is a reasonable resuscitation fluid in cirrhosis, but every bag goes somewhere. Keep that in mind for the next few slides. Sources: Surviving Sepsis 2026 [PMID: 41869847]; SCCM 2020 [PMID: 32058387]; EASL ACLF 2023 [PMID: 37364789].");
 twoStep((step) => {
   const s = slide("Too little volume, or too much?");
   pic(s, step === 1 ? "ivc-q.png" : "ivc.png", 0.8, 1.4, W - 1.6, 4.3, "IVC on ultrasound, two patients");
