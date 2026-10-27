@@ -20,7 +20,7 @@ Read these first:
 | Finished files | `lectures/<lecture-slug>/<Title>.pptx` and a PDF of it |
 | His local folder (PDFs, images, older decks) | `/Users/qaddodi/Downloads/Lectures` on his Mac |
 
-Work on a branch, and push to `main` when he says the lecture is ready.
+Work on a branch, and push to `main` when he says the lecture is ready. `main` is the default branch. Once the work is on `main`, delete the working branch and any other leftover branch whose commits are already in `main`. If a branch has commits that aren't in `main`, ask him before deleting it.
 
 ## Part 1: a new lecture
 
