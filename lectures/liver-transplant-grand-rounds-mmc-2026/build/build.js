@@ -600,10 +600,10 @@ cont(); women(2).addNotes("Transplants to women went from 37.0% to 41.7%, and 90
   pic(s, "phone.jpg", 8.9, 1.4, 4.1, 3.6, "Watercolor of a desk phone with the handset off the hook");
   txt(s, [
     { text: "ALF: ", options: { bold: true } },
-    { text: "call “in the first few hours after presentation, and prior to meeting ALF diagnostic criteria,” because complications can make the transfer unsafe (statements 3-4). " },
-    { text: "ACLF: ", options: { bold: true } },
+    { text: "call “in the first few hours after presentation, and prior to meeting ALF diagnostic criteria,” because complications can make the transfer unsafe (statements 3-4)", options: { breakLine: true } },
+    { text: "ACLF: ", options: { bold: true, paraSpaceBefore: 10 } },
     { text: "refer (statement 2). Insurance, substance use or infection shouldn't hold up the call." },
-  ], 0.6, 5.35, W - 1.2, 1.4, { size: 17, align: "center" });
+  ], 0.6, 5.3, W - 1.2, 1.5, { size: 17, align: "center" });
   src(s, G1 + ". ACG ALF guideline 2023 [PMID: 37377263]");
   s.addNotes("This is the one that matters most for a hospital without a transplant program. About a third of ALF patients get a transplant, a third recover, and the transplant center can help with both. Don't wait for King's College criteria or for encephalopathy to get worse. The guideline says barriers like insurance, substance use or infection should be sorted out quickly but shouldn't stop the referral. The ICU side of ALF and ACLF is in my ALF lecture.");
 }
