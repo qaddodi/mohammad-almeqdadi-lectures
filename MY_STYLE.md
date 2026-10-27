@@ -139,6 +139,10 @@ Mohammad (2026-10-27): when a slide asks whether a result held up in the US, the
 
 Mohammad (2026-10-27): when James Pomposelli or Fredric Gordon is an author of a paper on a slide, highlight the name in yellow, both in the title block image and in the source line. Both work with him at Tufts.
 
+## Medical history
+
+Mohammad (2026-10-27): he loves medical history. Give a talk its historic context where it fits, briefly (a couple of slides early on, or one slide where a tool or idea started, like where MELD came from). The best version shows the original: an excerpt or a screenshot of the first paper, even one from the 1900s, or a period news story (the New York Times obituary of Thomas Starzl in the transplant talks). Keep the transplant history and the Starzl slide in transplant talks. For the public repo copy, keep newspaper pages to the headline; the full page with the photo goes only in the talk copy.
+
 ## Slide numbers
 
 - "X/Y", bottom right. The cover has no number.
