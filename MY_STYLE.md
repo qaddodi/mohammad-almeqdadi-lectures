@@ -107,7 +107,8 @@ Mohammad's rule (2026-10-27): a table cell should read on one line.
 - A table that fills in on the reveal is the same table on both steps: same columns, column widths, position, font size and alignment. The answer column is there on the question step, with its header and empty cells sized for the answers. Never add or drop a column between steps.
 - No PowerPoint transitions or animations. Every step is its own slide.
 - Pure teaching slides ("Why does the brain swell?") can stay single.
-- Paper slides go in two steps: title block with "What do you think they found?", then their figure or conclusion.
+- Paper slides for trainees go in two steps: title block with "What do you think they found?", then their figure or conclusion.
+- Specialist audiences (conference talks to practicing hepatologists, attendings): no "What do you think they found?" or similar guessing prompts on paper slides. Mohammad finds them redundant there. Show the title block and the result together on one slide (rule set 2026-10-27, TLM EHR talk).
 
 ## No spoilers
 
