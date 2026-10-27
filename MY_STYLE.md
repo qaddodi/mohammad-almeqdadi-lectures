@@ -63,7 +63,7 @@ Copy the old decks, not a template.
 | Titles | Centered, black, about 30 pt. Section titles about 48 pt |
 | Bullets | Plain en-dash bullets, about 20 to 22 pt, sub-bullets smaller |
 | Color | Black text. Red (#C00000) for abnormal labs and the harmful value. Yellow highlight on the revealed answer. Grey for sources and slide numbers |
-| Tables | Thin grey borders, light grey header row, real lab values with units |
+| Tables | Thin grey borders, light grey header row, real lab values with units, one line per cell (see Tables below) |
 | Charts | Native PowerPoint charts in black and grey, values on the bars, red only for the harmful bar |
 | Sources | Small grey italic line at the bottom left, with PMID |
 | Slide numbers | "X/Y", bottom right, small and grey. None on the cover |
@@ -83,6 +83,17 @@ Where to get figures, in this order:
 5. **Gemini watercolors** for the cover, section pages, pause slides and spot objects (an ICU bed, a CRRT machine, a phone). See [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md).
 
 A figure has a job: say what the learner should find in it. "Add an image" isn't a plan; "show the same lab table again with the discriminating value in red" is.
+
+## Tables
+
+Mohammad's rule (2026-10-27): a table cell should read on one line.
+
+- **One line per cell.** Shorten the wording before you shrink the font or let a cell wrap. Use the abbreviations the room already knows (INR, HE, CRRT, MAP, Na, Cr, ALP, DILI, AIH, PBW). Lists inside a cell, one item per line, are fine.
+- **Columns sized to the text.** Give short columns what they need and let the longest column take the rest. Don't split the width evenly by habit.
+- **Alignment.** The first column holds the row labels and is left-aligned. The header row and the value columns are centered. A column whose cells still wrap, or that holds a list, is left-aligned as a whole, never mixed within one column. Comparison tables with no label column (Bed 4 vs Bed 7) are centered throughout.
+- **Bold sparingly.** Row labels in a comparison grid, and the one value or verdict per table that matters. Abnormal values stay red. Never bold an answer on the question step of a reveal.
+- **Use the space.** If the table leaves half the slide empty, raise the font (Calibri 18 to 22) instead of leaving small text floating at the top.
+- In build.js the `table()` helper does the sizing, row heights and alignment. Pass `noLabel: true` for tables without a label column, and check the build log for `wrap:` lines.
 
 ## Reveals: ask first, answer next
 

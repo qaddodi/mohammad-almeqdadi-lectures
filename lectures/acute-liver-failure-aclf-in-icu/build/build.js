@@ -118,14 +118,98 @@ function body(s, items, box = {}) {
 }
 
 // Table helper. rows: array of arrays of cell strings or {t, b, red, hl, fill, align, i}
+// Columns are sized from the measured text so cells stay on one line when they can.
+// First column (labels) is left-aligned; the header and the value cells are centered unless the text has to wrap.
+const CW = JSON.parse(fs.readFileSync(path.join(__dirname, "carlito-widths.json"), "utf8"));
+const TBL_PAD = 0.24; // cell margins plus a little slack, inches
+function textW(t, size, bold) {
+  const m = bold ? CW.b : CW.r;
+  let w = 0;
+  for (const ch of String(t)) w += m[ch] != null ? m[ch] : 0.55;
+  return (w * size) / 72;
+}
+// hidden answers (ans) are measured but not shown, so both steps of a reveal get the same layout
+const unhide = (x) => (x && typeof x === "object" && "hidden" in x ? x.hidden : x);
+function cellLines(c, fs, header) {
+  c = unhide(c);
+  if (c == null) c = "";
+  if (typeof c === "string") c = { t: c };
+  const runs = Array.isArray(unhide(c.t)) ? unhide(c.t) : [{ ...c, t: unhide(c.t) }];
+  const lines = [[]];
+  runs.forEach((rr) => {
+    rr = unhide(rr);
+    if (typeof rr === "string") rr = { t: rr };
+    lines[lines.length - 1].push({ t: String(unhide(rr.t) ?? ""), size: rr.size || c.size || fs, b: !!(rr.b || c.b || header) });
+    if (rr.br) lines.push([]);
+  });
+  return lines;
+}
+function lineW(line) { return line.reduce((a, r) => a + textW(r.t, r.size, r.b), 0); }
+function wrapCount(line, width) {
+  // greedy word wrap of one line of runs
+  let n = 1, cur = 0;
+  line.forEach((r) => r.t.split(/(\s+)/).forEach((word) => {
+    const ww = textW(word, r.size, r.b);
+    if (cur + ww > width && cur > 0 && word.trim()) { n++; cur = textW(word.trimStart(), r.size, r.b); }
+    else cur += ww;
+  }));
+  return n;
+}
 function table(s, rows, o) {
   const fs = o.size || 14;
+  const nc = Math.max(...rows.map((r) => r.length));
+  const hasHead = o.header !== false;
+  const meas = rows.map((r, ri) => r.map((c) => cellLines(c, fs, hasHead && ri === 0)));
+  // column widths: water-fill so short columns get what they need and long ones share the rest
+  let colW = o.colW;
+  if (!o.keepW) {
+    const need = [...Array(nc)].map((_, ci) => Math.max(0.5, ...meas.map((r) => (r[ci] ? Math.max(...r[ci].map(lineW)) : 0))) + TBL_PAD);
+    const total = need.reduce((a, b) => a + b, 0);
+    if (total <= o.w) {
+      const extra = o.w - total;
+      colW = need.map((n) => n + (extra * n) / total);
+    } else {
+      colW = Array(nc).fill(0);
+      let open = need.map((_, i) => i), left = o.w, changed = true;
+      // the label column keeps its width if it is not too greedy
+      if (need[0] <= 0.4 * o.w) { colW[0] = need[0]; left -= need[0]; open = open.slice(1); }
+      while (changed && open.length) {
+        changed = false;
+        const fair = left / open.length;
+        const fit = open.filter((i) => need[i] <= fair);
+        if (fit.length) {
+          fit.forEach((i) => { colW[i] = need[i]; left -= need[i]; });
+          open = open.filter((i) => !fit.includes(i)); changed = true;
+        }
+      }
+      const sumOpen = open.reduce((a, i) => a + need[i], 0);
+      open.forEach((i) => { colW[i] = (left * need[i]) / sumOpen; });
+    }
+    colW = colW.map((w) => Math.round(w * 100) / 100);
+    colW[nc - 1] = Math.round((o.w - colW.slice(0, -1).reduce((a, b) => a + b, 0)) * 100) / 100;
+  }
+  // row heights from the number of lines each cell needs
+  const lineH = (fs * 1.22) / 72, rowPad = 0.14;
+  const lines = meas.map((r) => r.map((cl, ci) => cl.reduce((a, l) => a + wrapCount(l, colW[ci] - TBL_PAD + 0.1), 0)));
+  const rowH = lines.map((r) => Math.max(o.minRowH || Math.max(0.4, fs * 0.026), Math.max(...r) * lineH + rowPad));
+  lines.forEach((r, ri) => r.forEach((n, ci) => {
+    if (n > meas[ri][ci].length) console.warn(`wrap: slide ${NUMBERED.length} r${ri} c${ci} (${n} lines): ${meas[ri][ci].map((l) => l.map((x) => x.t).join("")).join(" / ").slice(0, 70)}`);
+  }));
+  // a column is centered only if every body cell in it is a single line
+  const first = hasHead ? 1 : 0;
+  const colCenter = [...Array(nc)].map((_, ci) => lines.slice(first).every((r, k) => {
+    const m = meas[first + k][ci];
+    return !m || (m.length === 1 && r[ci] <= 1);
+  }));
   const data = rows.map((r, ri) => r.map((c, ci) => {
+    if (c && typeof c === "object" && "hidden" in c) c = "";
     if (c == null) c = "";
     if (typeof c === "string") c = { t: c };
-    const header = o.header !== false && ri === 0;
+    if (c.t && typeof c.t === "object" && "hidden" in c.t) c = { ...c, t: "" };
+    const header = hasHead && ri === 0;
     const runs = Array.isArray(c.t) ? c.t : [c];
-    const text = runs.map((rr, k) => {
+    const text = runs.map((rr) => {
+      if (rr && typeof rr === "object" && "hidden" in rr) rr = "";
       if (typeof rr === "string") rr = { t: rr };
       const ro = { fontFace: TBL_FONT, fontSize: rr.size || c.size || fs };
       if (rr.b || header || c.b) ro.bold = true;
@@ -136,15 +220,18 @@ function table(s, rows, o) {
       if (rr.br) ro.breakLine = true;
       return { text: rr.t, options: ro };
     });
+    const label = ci === 0 && !o.noLabel;
+    const auto = label ? "left" : (header || colCenter[ci] ? "center" : "left");
     return { text, options: {
       fill: { color: c.fill || (header ? (o.headFill || "F2F2F2") : "FFFFFF") },
-      align: c.align || (o.align && o.align[ci]) || "left",
-      valign: o.valign || "middle", color: "000000",
+      align: c.align || auto,
+      valign: o.valign === "top" && !header ? "top" : "middle", color: "000000",
     } };
   }));
-  s.addTable(data, { x: o.x, y: o.y, w: o.w, colW: o.colW, rowH: o.rowH,
+  s.addTable(data, { x: o.x, y: o.y, w: o.w, colW, rowH,
     border: { type: "solid", pt: 0.75, color: "A6A6A6" }, margin: o.margin || [3, 6, 3, 6],
     fontFace: TBL_FONT, fontSize: fs, color: "000000", autoPage: false, objectName: o.name || "Table" });
+  return { h: rowH.reduce((a, b) => a + b, 0), colW };
 }
 
 function q(s, text, y, opts = {}) {
@@ -171,7 +258,7 @@ function arrow(s, x1, y1, x2, y2) {
 const IMG = path.join(__dirname, "img");
 
 // Every question gets two slides: blank first, then the answer
-const ans = (step, v) => (step === 1 ? "" : v);
+const ans = (step, v) => (step === 1 ? { hidden: v } : v);
 function twoStep(fn) { fn(1); cont(); return fn(2); }
 
 // Picture at its own aspect ratio, fitted in a box and centered in it
@@ -297,7 +384,7 @@ sec("Patient A");
     ["28-year-old woman", "56-year-old man"],
     ["No known liver disease", "Alcohol-related cirrhosis with ascites"],
     ["Nausea and vomiting for 4 days", "Fever, confusion, low blood pressure"],
-  ], { x: 2.2, y: 2.0, w: 8.9, colW: [4.45, 4.45], size: 20, rowH: 0.65, align: ["center", "center"] });
+  ], { x: 2.2, y: 2.0, w: 8.9, size: 20, noLabel: true });
   body(s, [{ t: "Both have a sick liver. Do they have the same disease?", nb: true, i: true, align: "center" }],
     { y: 5.1, h: 0.8, size: 22 });
   s.addNotes("Introduce both up front so the contrast is there from the start. We'll start with bed 4 and come back to bed 7.");
@@ -309,8 +396,8 @@ const A_LABS = [
   ["Test", "Result"],
   ["AST", { t: "6,820 U/L", red: true }],
   ["ALT", { t: "5,940 U/L", red: true }],
-  ["Alkaline phosphatase", "128 U/L"],
-  ["Total bilirubin", { t: "2.9 mg/dL", red: true }],
+  ["ALP", "128 U/L"],
+  ["Bilirubin", { t: "2.9 mg/dL", red: true }],
   ["Creatinine", "1.0 mg/dL"],
 ];
 function caseA(step) {
@@ -346,7 +433,7 @@ twoStep((step) => {
     ["Test", "Result"],
     ["AST", { t: "6,820 U/L", red: true }],
     ["ALT", { t: "5,940 U/L", red: true }],
-    ["Total bilirubin", { t: "2.9 mg/dL", red: true }],
+    ["Bilirubin", { t: "2.9 mg/dL", red: true }],
     [{ t: "INR", b: true }, { t: "3.2", red: true, b: true }],
     [{ t: "Glucose", b: true }, { t: "54 mg/dL", red: true, b: true }],
   ], { x: 8.0, y: 1.5, w: 4.6, colW: [2.6, 2.0], size: 15, rowH: 0.42 });
@@ -371,10 +458,10 @@ twoStep((step) => {
   ], { x: 0.8, y: 1.3, w: W - 1.6, h: 2.6, size: 20 });
   table(s, [
     ["Jaundice to encephalopathy", "Hyperacute (< 1 week)", "Acute (1 to 4 weeks)", "Subacute (4 to 12 weeks)"],
-    ["Typical causes", "Acetaminophen, HAV, HEV, ischemia", "HBV", "Idiosyncratic drug injury, AIH, indeterminate"],
+    ["Typical causes", "Acetaminophen, HAV, HEV, ischemia", "HBV", "DILI, AIH, unknown cause"],
     ["Cerebral edema", { t: "Common", b: true }, "Less common", "Uncommon"],
-    ["Recovery without transplant", "More likely", "Intermediate", { t: "Less likely", b: true }],
-  ], { x: 0.8, y: 4.15, w: W - 1.6, colW: [3.0, 2.9, 2.9, 2.93], size: 15, rowH: 0.55 });
+    ["Spontaneous recovery", "More likely", "Intermediate", { t: "Less likely", b: true }],
+  ], { x: 0.8, y: 4.15, w: W - 1.6, size: 16 });
   src(s, "EASL ALF guideline 2017 [PMID: 28417882]; ACG ALF 2023 [PMID: 37377263]; Management of ALF: update 2022 [PMID: 36001996]");
   s.addNotes("The time course is not trivia. The faster it comes on, the more you worry about the brain, and paradoxically the better the chance of spontaneous recovery. The slow ones have less cerebral edema but do worse without a transplant. Patient A is hyperacute.");
 }
@@ -415,7 +502,7 @@ cont(); features(2).addNotes("This is why these patients are ICU patients. Hypog
       { t: [{ t: "ICU bed", br: true }, { t: "Glucose every 1 to 2 hours", br: true }, { t: "Volume, perfusion, lactate", br: true }, { t: "Neuro checks" }] },
       { t: [{ t: "Acetaminophen level", br: true }, { t: "Viral, autoimmune, Wilson, toxicology", br: true }, { t: "Doppler ultrasound", br: true }, { t: "Pregnancy test" }] },
     ],
-  ], { x: 1.6, y: 1.6, w: W - 3.2, colW: [5.07, 5.06], size: 20, rowH: [0.55, 2.2], valign: "top", align: ["left", "left"] });
+  ], { x: 1.6, y: 1.6, w: W - 3.2, size: 20, valign: "top", noLabel: true });
   q(s, "Both start in the first hour", 4.9, { hl: true });
   s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then act. Support and workup run in parallel. Who else to call, and when, comes later in the talk.");
 }
@@ -423,16 +510,16 @@ twoStep((step) => {
   const s = slide("Which cause changes treatment right away?");
   table(s, [
     ["If you suspect", "Send", "Don't wait for the result to"],
-    ["Acetaminophen", "Level, ingestion history, combination products", ans(step, "Start NAC")],
+    ["Acetaminophen", "Level, history, combination products", ans(step, "Start NAC")],
     ["Herpes simplex", "HSV PCR (blood)", ans(step, "Start IV acyclovir")],
     ["Hepatitis B", "HBsAg, anti-HBc IgM, HBV DNA", ans(step, "Start entecavir or tenofovir")],
-    ["Autoimmune hepatitis", "ANA, ASMA, IgG (can be negative)", ans(step, "Discuss steroids with hepatology, list in parallel")],
+    ["Autoimmune hepatitis", "ANA, ASMA, IgG (can be negative)", ans(step, "Steroids with hepatology; list in parallel")],
     ["Wilson disease", "Ceruloplasmin, urine copper, hemolysis, low ALP", ans(step, "Prepare for urgent transplant")],
     ["Pregnancy (AFLP, HELLP)", "hCG", ans(step, "Call obstetrics, plan delivery")],
-    ["Budd-Chiari", "Doppler ultrasound or CT", ans(step, "Anticoagulation, discuss TIPS or transplant")],
+    ["Budd-Chiari", "Doppler ultrasound or CT", ans(step, "Anticoagulate; TIPS or transplant")],
     ["Ischemic hepatitis", "Echo, history of shock", ans(step, "Fix the circulation")],
-    ["Mushrooms (Amanita)", "Wild mushrooms, then diarrhea 6 to 24 hours later", ans(step, "NAC, call poison control (silibinin if available)")],
-  ], { x: 0.7, y: 1.3, w: W - 1.4, colW: [2.9, 4.6, 4.43], size: 14, rowH: 0.5 });
+    ["Mushrooms (Amanita)", "Wild mushrooms, diarrhea 6-24 h later", ans(step, "NAC, poison control, silibinin")],
+  ], { x: 0.7, y: 1.3, w: W - 1.4, size: 17 });
   src(s, "Update 2022 [PMID: 36001996]; practical update 2024 [PMID: 39170946]; EASL AIH 2025 [PMID: 40348684]");
   s.addNotes("The point of the workup in the ICU is the column on the right. Some of these you start empirically before the test comes back: NAC, acyclovir. Negative autoimmune serologies do not exclude acute AIH. Wilson disease presenting as ALF basically means transplant.");
   return s;
@@ -583,12 +670,12 @@ twoStep((step) => {
 function apxAmmonia() {
   const s = slide("Appendix: arterial ammonia studies in ALF");
   table(s, [
-    ["Study (arterial ammonia)", "Patients", "What they found", "The catch"],
-    ["Clemmesen 1999, Copenhagen", "44 ALF", { t: [{ t: "14 herniated. Mean ammonia 230 vs 118 μmol/L; every herniation was above 146", b: true }] }, "Small, one center"],
-    ["Bhatia 2006, Delhi", "80 ALF", "Admission ammonia ≥ 124 predicted death (sensitivity 79%, specificity 76%)", "One center; the endpoint was death, not ICH"],
-    ["Bernal 2007, King's", "165 ALF, grade III-IV", { t: [{ t: "> 100 predicted severe HE (70% accuracy). ", br: false }, { t: "> 200: ICH in 55%", b: true }] }, "200 missed most of the ICH cases"],
-    ["Kumar 2012, Delhi", "295 ALF", { t: [{ t: "≥ 122 for 3 days: survival 23% vs 72%", b: true }, { t: ", cerebral edema 71% vs 37%" }] }, "One center, but the trend beat a single value"],
-  ], { x: 0.6, y: 1.35, w: W - 1.2, colW: [2.9, 2.0, 4.9, 2.33], size: 16, rowH: [0.5, 0.95, 0.85, 0.85, 0.85] });
+    ["Study (arterial, μmol/L)", "Patients", "What they found", "The catch"],
+    ["Clemmesen 1999", "44 ALF", { t: "Herniated: mean 230 vs 118; all above 146", b: true }, "Small, one center"],
+    ["Bhatia 2006", "80 ALF", "≥ 124 on admission predicted death", "Endpoint was death, not ICH"],
+    ["Bernal 2007", "165, HE III-IV", { t: [{ t: "> 100: severe HE. " }, { t: "> 200: ICH in 55%", b: true }] }, "200 missed most ICH"],
+    ["Kumar 2012", "295 ALF", { t: "≥ 122 for 3 days: survival 23% vs 72%", b: true }, "Trend beat a single value"],
+  ], { x: 0.6, y: 1.35, w: W - 1.2, size: 18 });
   q(s, "Above 150 to 200 and not falling: worry about the brain", 5.55, { hl: true, size: 22 });
   body(s, [{ t: "ICH can occur below 200. Interpret the level with the HE grade and the trend", nb: true, i: true, align: "center" }],
     { y: 6.1, h: 0.6, size: 18 });
@@ -629,11 +716,11 @@ twoStep((step) => {
   if (step === 1) { q(s, "Yes or no?", 3.2, { size: 34 }); return s; }
   table(s, [
     ["Why people give it", "Why not"],
-    ["Ammonia drives the brain swelling", { t: "No proven benefit. ALFSG matched comparison: a little longer survival time, no difference in encephalopathy or outcome", b: true }],
-    ["It's what we do in cirrhosis", "Gas-distended bowel gets in the surgeon's way at transplant"],
-    ["Cheap, and the AASLD position paper allows it in early grades, short of diarrhea", "Diarrhea means free water loss and volume swings, which fight your sodium target"],
+    ["Ammonia drives brain swelling", { t: "No proven benefit in ALF (ALFSG)", b: true }],
+    ["It's what we do in cirrhosis", "Distended bowel gets in the way at transplant"],
+    ["Cheap; AASLD 2011 allowed it early", "Diarrhea: free water loss, sodium swings"],
     ["", "Liquid by mouth or tube: aspiration risk"],
-  ], { x: 0.8, y: 2.0, w: W - 1.6, colW: [5.0, 6.73], size: 17, rowH: [0.5, 0.95, 0.7, 0.85, 0.7], valign: "middle" });
+  ], { x: 0.8, y: 2.0, w: W - 1.6, size: 20, noLabel: true });
   q(s, "Not for her", 6.05, { hl: true, size: 22 });
   src(s, "AASLD position paper 2011, rec. 26; Alba L, Hay JE, Lee WM et al. J Hepatol 2002;36(Suppl 1):33 (abstract); ACG ALF 2023 [PMID: 37377263]");
   return s;
@@ -654,10 +741,10 @@ function intubate(step) {
     ["Before", "During", "After"],
     [
       { t: [{ t: "Preoxygenate", br: true }, { t: "Norepinephrine ready", br: true }, { t: "Check glucose", br: true }, { t: "Head of bed 30°, neck neutral" }] },
-      { t: [{ t: "Avoid hypotension (perfusion pressure)", br: true }, { t: "Avoid coughing and bucking (ICP spikes)", br: true }, { t: "Most experienced operator" }] },
-      { t: [{ t: "Propofol: short-acting, may lower ICP", br: true }, { t: "Avoid long-acting benzodiazepines", br: true }, { t: "Sedation hides the neuro exam: check pupils" }] },
+      { t: [{ t: "Avoid hypotension (CPP)", br: true }, { t: "No coughing or bucking (ICP)", br: true }, { t: "Most experienced operator" }] },
+      { t: [{ t: "Propofol: short-acting, may lower ICP", br: true }, { t: "Avoid long-acting benzodiazepines", br: true }, { t: "Check pupils: sedation hides the exam" }] },
     ],
-  ], { x: 0.8, y: 2.3, w: W - 1.6, colW: [3.6, 4.1, 4.03], size: 18, rowH: [0.5, 1.9], valign: "top" });
+  ], { x: 0.8, y: 2.3, w: W - 1.6, size: 19, valign: "top", noLabel: true });
   src(s, "Practical update 2024 [PMID: 39170946]; ACG ALF 2023 [PMID: 37377263]; SCCM 2020 [PMID: 32058387]");
   return s;
 }
@@ -669,11 +756,11 @@ function hypercap(step) {
   if (step === 1) { q(s, "Lung protection or brain protection?", 3.3, { size: 28 }); return s; }
   table(s, [
     ["", "The lung wants", "The brain wants", "What we do"],
-    [{ t: "Tidal volume", b: true }, "6 mL/kg predicted body weight", "Fine, but low volumes can push the CO2 up", "Do it, and raise the rate to hold the CO2"],
-    [{ t: "CO2", b: true }, "Tolerate a high CO2", "High CO2 dilates vessels and raises ICP", { t: "Aim for normal CO2. No permissive hypercapnia when ICP is a concern", b: true }],
-    [{ t: "Hyperventilation", b: true }, "No", "Lowers ICP briefly; if overdone or prolonged, can cause ischemia", "Only as a short rescue for herniation"],
-    [{ t: "PEEP", b: true }, "Recruit", "Very high pressures can impair venous return", "Set it for oxygen and blood pressure. PEEP is not forbidden"],
-  ], { x: 0.7, y: 2.0, w: W - 1.4, colW: [2.1, 2.9, 3.4, 3.53], size: 16, rowH: [0.5, 0.75, 1.1, 0.85, 0.85] });
+    [{ t: "Tidal volume", b: true }, "6 mL/kg PBW", "Watch the CO2", "6 mL/kg, raise the rate"],
+    [{ t: "CO2", b: true }, "Tolerate a high CO2", "High CO2 raises ICP", { t: "Keep the CO2 normal", b: true }],
+    [{ t: "Hyperventilation", b: true }, "No", "Lowers ICP briefly", "Short rescue for herniation only"],
+    [{ t: "PEEP", b: true }, "Recruit", "High PEEP: less venous return", "Set for O2 and BP; PEEP is fine"],
+  ], { x: 0.7, y: 2.0, w: W - 1.4, size: 19 });
   src(s, "SCCM 2020 [PMID: 32058387]; practical update 2024 [PMID: 39170946]");
   return s;
 }
@@ -882,12 +969,12 @@ twoStep((step) => {
 twoStep((step) => {
   const s = slide("Does early CRRT actually help?");
   table(s, [
-    ["", "US ALF Study Group cohort (2018)", "Pilot RCT (2026)"],
-    ["Design", "Large registry, observational", "Open label, ALF with cerebral edema"],
-    ["Comparison", "CRRT vs no CRRT", "CRRT within 12 hours vs delayed CRRT"],
-    ["Finding", ans(step, "CRRT linked to lower ammonia and better 21-day transplant-free survival"), ans(step, "Primary endpoint, 28-day survival: similar by intention to treat. Fewer deaths in the first 7 days (2.2% vs 17.8%)")],
-    ["Catch", { t: ans(step, "Association. Sicker or healthier patients may have been picked for CRRT"), b: true }, { t: ans(step, "Small pilot, one center, many protocol violations. Needs a larger trial"), b: true }],
-  ], { x: 0.7, y: 1.5, w: W - 1.4, colW: [1.9, 5.0, 5.03], size: 16, rowH: [0.5, 0.8, 0.8, 1.2, 1.1] });
+    ["", "US ALF Study Group (2018)", "Pilot RCT (2026)"],
+    ["Design", "Registry, observational", "Open label, ALF with cerebral edema"],
+    ["Comparison", "CRRT vs no CRRT", "CRRT within 12 h vs delayed"],
+    ["Finding", ans(step, "Lower ammonia, better survival"), ans(step, "Same 28-day survival; fewer deaths by day 7")],
+    ["Catch", { t: ans(step, "Association; selection bias"), b: true }, { t: ans(step, "Small, one center, protocol violations"), b: true }],
+  ], { x: 0.7, y: 1.5, w: W - 1.4, size: 21 });
   src(s, "Cardoso FS et al. Hepatology 2018 [PMID: 28859230]; Aliment Pharmacol Ther 2026 [PMID: 42332991]");
   s.addNotes("The 2026 trial is interesting but don't oversell it. The early mortality signal is real in the abstract; 28-day survival by intention to treat was comparable, and the per-protocol analysis is biased by crossovers. Read the full methods before quoting more numbers.");
   return s;
@@ -975,11 +1062,11 @@ function apxKcc() {
       ] },
       { t: [
         { t: "INR > 6.5", br: true, b: true }, { t: "or any three of:", br: true, i: true },
-        { t: "Age < 10 or > 40", br: true }, { t: "Drug reaction, or indeterminate cause", br: true },
+        { t: "Age < 10 or > 40", br: true }, { t: "Drug reaction or unknown cause", br: true },
         { t: "Jaundice to encephalopathy > 7 days", br: true }, { t: "INR > 3.5", br: true }, { t: "Bilirubin > 17.5 mg/dL" },
       ] },
     ],
-  ], { x: 1.2, y: 1.5, w: W - 2.4, colW: [5.47, 5.47], size: 17, rowH: [0.45, 2.6], valign: "top" });
+  ], { x: 1.2, y: 1.5, w: W - 2.4, size: 18, valign: "top", noLabel: true });
   body(s, [{ t: "Original O'Grady criteria; the lactate line is the later modification", nb: true, i: true, align: "center" }],
     { y: 4.75, h: 0.6, size: 17 });
   src(s, "O'Grady 1989 criteria, as summarized in EASL 2017 [PMID: 28417882] and update 2022 [PMID: 36001996]");
@@ -993,11 +1080,11 @@ paper("Can plasma exchange buy time?", "larsen-title.png", "larsen-fig1.png",
 twoStep((step) => {
   const s = slide("Can plasma exchange buy time?");
   table(s, [
-    ["Study", "Open randomized trial, ALF, high-volume plasma exchange for 3 days vs standard care, 182 patients"],
-    ["Main finding", "Hospital survival 58.7% vs 47.8% (HR 0.56); best in patients who were not transplanted"],
-    ["What it doesn't show", { t: ans(step, "Not blinded; one regimen in one population. Says nothing about ACLF or about albumin dialysis devices"), b: true }],
-    ["So", ans(step, "A bridge to discuss with transplant hepatology. Not a reason to delay listing")],
-  ], { x: 0.9, y: 1.6, w: W - 1.8, colW: [2.8, 8.73], size: 18, rowH: [1.0, 1.0, 1.1, 0.9], header: false });
+    [{ t: "Study", b: true }, "RCT, 182 ALF: high-volume plasma exchange × 3 days"],
+    [{ t: "Finding", b: true }, "Hospital survival 58.7% vs 47.8% (HR 0.56)"],
+    [{ t: "Limits", b: true }, { t: ans(step, "Not blinded; nothing on ACLF"), b: true }],
+    [{ t: "So", b: true }, ans(step, "A bridge; don't delay listing")],
+  ], { x: 0.9, y: 1.6, w: W - 1.8, size: 22, header: false, minRowH: 0.7 });
   src(s, "Larsen FS et al. J Hepatol 2016 [PMID: 26325537]");
   s.addNotes("High-volume plasma exchange removes cytokines and DAMPs and replaces coagulation factors. Note the INR after plasma exchange is no longer the patient's INR.");
   return s;
@@ -1007,12 +1094,12 @@ twoStep((step) => {
   const s = slide("Let's recap: bed 4, day 3");
   table(s, [
     ["Problem", "What she's on", "What we watch"],
-    ["Acetaminophen ALF, meets King's (pH 7.26)", "NAC. Listed status 1A on day 2", "Time to an offer"],
-    ["Grade III-IV encephalopathy, ammonia 182", "Intubated, normal CO2, sodium 145 to 155, CRRT", "Pupils, ammonia on CRRT, sodium"],
-    ["Lactate 5.8 and rising", "Volume and MAP, look for infection", "Lactate, MAP, pressor need"],
-    ["INR 5.6, not bleeding", "No plasma", "Bleeding, INR trend"],
-    ["Infection risk", "Surveillance cultures", "New fever or shock: low bar for antibiotics and antifungals"],
-  ], { x: 0.7, y: 1.4, w: W - 1.4, colW: [3.9, 4.1, 3.93], size: 16, rowH: [0.45, 0.75, 0.75, 0.6, 0.6, 0.75] });
+    ["Acetaminophen ALF, pH 7.26", "NAC; listed 1A on day 2", "Time to an offer"],
+    ["HE III-IV, ammonia 182", "Intubated, CO2 normal, Na 145-155, CRRT", "Pupils, ammonia, Na"],
+    ["Lactate 5.8 and rising", "Volume, MAP, look for infection", "Lactate, MAP, pressors"],
+    ["INR 5.6, not bleeding", { t: "No plasma", b: true }, "Bleeding, INR trend"],
+    ["Infection risk", "Surveillance cultures", "Low bar for antimicrobials"],
+  ], { x: 0.7, y: 1.4, w: W - 1.4, size: 20, minRowH: 0.6 });
   src(s, "Made-up numbers for teaching");
   s.addNotes("This is where she is while she waits. What would close the window: fixed dilated pupils, uncontrolled sepsis, rising support despite everything. If she becomes hypotensive: norepinephrine first, vasopressin next, hydrocortisone if refractory, and keep the MAP high enough for cerebral perfusion. Status 1A is the OPTN category for ALF in the ICU; check current policy before quoting details.");
 }
@@ -1032,8 +1119,8 @@ bgDivider("Bed 7", "56M, cirrhosis and fever", "divider-bed7.jpg", "Watercolor o
     [{ t: "Bed 4", grey: true }, { t: "Bed 7", hl: true }],
     [{ t: "28-year-old woman", grey: true }, "56-year-old man"],
     [{ t: "Acetaminophen ALF", grey: true }, "Alcohol-related cirrhosis with ascites"],
-    [{ t: "Intubated, on CRRT, transplant hepatology involved", grey: true }, "Fever, confusion, low blood pressure"],
-  ], { x: 2.2, y: 2.0, w: 8.9, colW: [4.45, 4.45], size: 20, rowH: 0.65, align: ["center", "center"] });
+    [{ t: "Intubated, on CRRT", grey: true }, "Fever, confusion, low blood pressure"],
+  ], { x: 2.2, y: 2.0, w: 8.9, size: 20, noLabel: true });
   q(s, "Is this liver failure too?", 5.2, { size: 26 });
   s.addNotes("While bed 4 is going on, the nurse from bed 7 calls: his pressure is 82/46. Same day, same unit, a sick liver again. Let them guess before the next slide whether this is the same disease.");
 }
@@ -1088,16 +1175,16 @@ twoStep((step) => {
   const s = slide("Why is he hypotensive?");
   table(s, [
     ["Mechanism", "What you do"],
-    [ans(step, "Sepsis (SBP)"), ans(step, "Cultures, antibiotics in the first hour, source control. Cover for prior exposure and local resistance")],
-    [ans(step, "Splanchnic vasodilation of cirrhosis"), ans(step, "Norepinephrine. Start at MAP 65 and adjust to perfusion")],
+    [ans(step, "Sepsis (SBP)"), ans(step, "Cultures, antibiotics within 1 h, source control")],
+    [ans(step, "Splanchnic vasodilation"), ans(step, "Norepinephrine, MAP 65, adjust to perfusion")],
     [ans(step, "Too little volume, or too much"), ans(step, "Ultrasound and dynamic measures")],
     [ans(step, "Hidden bleeding"), ans(step, "Hemoglobin, rectal exam, think varices")],
     [ans(step, "Relative adrenal insufficiency"), ans(step, "Hydrocortisone if shock is refractory")],
     [ans(step, "Cirrhotic cardiomyopathy"), ans(step, "Echo")],
-  ], { x: 0.8, y: 1.4, w: W - 1.6, colW: [4.0, 7.73], size: 17, rowH: [0.5, 0.85, 0.7, 0.7, 0.6, 0.6, 0.6] });
+  ], { x: 0.8, y: 1.4, w: W - 1.6, size: 20, minRowH: 0.6 });
   if (step === 2) q(s, "Usually more than one of these", 6.15, { size: 22 });
   src(s, "Surviving Sepsis 2026 [PMID: 41869847]; SCCM 2020 [PMID: 32058387]; EASL ACLF 2023 [PMID: 37364789]");
-  s.addNotes("Albumin is a reasonable resuscitation fluid in cirrhosis, but every bag goes somewhere. Keep that in mind for the next few slides.");
+  s.addNotes("For SBP, cover for prior antibiotic exposure and local resistance. Albumin is a reasonable resuscitation fluid in cirrhosis, but every bag goes somewhere. Keep that in mind for the next few slides.");
   return s;
 });
 twoStep((step) => {
@@ -1119,12 +1206,12 @@ twoStep((step) => {
   const s = slide("ALF, decompensation or ACLF?");
   table(s, [
     ["", "Acute liver failure", "Acute decompensation", "ACLF"],
-    [{ t: "Liver before", b: true }, ans(step, "No cirrhosis"), ans(step, "Cirrhosis"), ans(step, "Cirrhosis (or chronic liver disease, depending on definition)")],
-    [{ t: "What defines it", b: true }, ans(step, "INR ≥ 1.5 + encephalopathy"), ans(step, "Ascites, bleeding, encephalopathy, jaundice"), ans(step, "Decompensation + organ failure")],
-    [{ t: "What usually kills", b: true }, ans(step, "Brain, multiorgan failure, sepsis"), ans(step, "Bleeding, infection. Can turn into ACLF"), ans(step, "Infection, shock, multiorgan failure")],
-    [{ t: "ICU focus", b: true }, ans(step, "Brain, ammonia, early CRRT"), ans(step, "Treat the trigger"), ans(step, "Source control, shock, kidney vs lung")],
-    [{ t: "Transplant", b: true }, ans(step, "Urgent listing pathway"), ans(step, "Refer when MELD or the complication calls for it"), ans(step, "Narrow window; reassess daily")],
-  ], { x: 0.6, y: 1.4, w: W - 1.2, colW: [2.2, 3.2, 3.2, 3.53], size: 16, rowH: [0.5, 0.95, 0.8, 0.8, 0.8, 0.8] });
+    [{ t: "Liver before", b: true }, ans(step, "No cirrhosis"), ans(step, "Cirrhosis"), ans(step, "Cirrhosis or chronic liver disease")],
+    [{ t: "Defined by", b: true }, ans(step, "INR ≥ 1.5 + HE"), ans(step, "Ascites, bleeding, HE, jaundice"), ans(step, "Decompensation + organ failure")],
+    [{ t: "Usually kills", b: true }, ans(step, "Brain, sepsis"), ans(step, "Bleeding, infection"), ans(step, "Infection, shock, organ failure")],
+    [{ t: "ICU focus", b: true }, ans(step, "Brain, ammonia, early CRRT"), ans(step, "Treat the trigger"), ans(step, "Source, shock, kidney vs lung")],
+    [{ t: "Transplant", b: true }, ans(step, "Urgent listing"), ans(step, "Refer by MELD or complication"), ans(step, "Narrow window; reassess daily")],
+  ], { x: 0.6, y: 1.4, w: W - 1.2, size: 17, minRowH: 0.6 });
   src(s, "EASL ALF 2017 [PMID: 28417882]; EASL ACLF 2023 [PMID: 37364789]");
   s.addNotes("Patient A is in the first column, patient B in the last. The words sound alike; the ICU problems are different.");
   return s;
@@ -1153,16 +1240,16 @@ cont(); organs(2).addNotes("Kidney and circulation. Respiratory is borderline: P
   table(s, [
     ["Grade", "What it takes"],
     ["No ACLF", { t: [
-      { t: "No organ failure; or", br: true },
-      { t: "one failure of liver, clotting, circulation or lungs, with creatinine < 1.5 and no HE; or", br: true },
-      { t: "brain failure alone, with creatinine < 1.5" } ] }],
+      { t: "No organ failure", br: true },
+      { t: "or one liver, clotting, circulation or lung failure, creatinine < 1.5, no HE", br: true },
+      { t: "or brain failure alone, creatinine < 1.5" } ] }],
     ["ACLF 1", { t: [
-      { t: "Kidney failure alone; or", br: true },
-      { t: "one failure of liver, clotting, circulation or lungs, with creatinine 1.5 to 1.9 and/or grade I-II HE; or", br: true },
-      { t: "brain failure alone, with creatinine 1.5 to 1.9" } ] }],
-    ["ACLF 2", "Two organ failures"],
-    ["ACLF 3", "Three or more"],
-  ], { x: 0.9, y: 1.45, w: W - 1.8, colW: [2.0, 9.73], size: 18, rowH: [0.5, 1.4, 1.4, 0.55, 0.55] });
+      { t: "Kidney failure alone", br: true },
+      { t: "or one liver, clotting, circulation or lung failure + creatinine 1.5-1.9 or HE I-II", br: true },
+      { t: "or brain failure alone + creatinine 1.5-1.9" } ] }],
+    ["ACLF 2", { t: "Two organ failures", b: true }],
+    ["ACLF 3", { t: "Three or more", b: true }],
+  ], { x: 0.9, y: 1.45, w: W - 1.8, size: 18 });
   body(s, [{ t: "A patient with \"no ACLF\" can still be very sick. Use the CLIF-C calculator", nb: true, i: true, align: "center" }],
     { y: 6.0, h: 0.6, size: 18 });
   src(s, "Moreau R et al. Gastroenterology 2013 [PMID: 23474284]; EASL ACLF 2023 [PMID: 37364789]");
@@ -1202,10 +1289,10 @@ function apxWhichAclf() {
   const s = slide("Appendix: which ACLF?");
   table(s, [
     ["", "EASL-CLIF", "NACSELD", "APASL"],
-    ["Who", "Cirrhosis with acute decompensation", "Cirrhosis, hospitalized", "Chronic liver disease, with or without cirrhosis"],
-    ["Defined by", "Organ failures (CLIF-C)", "Two or more extrahepatic failures: shock, grade III-IV HE, dialysis, ventilation", "Jaundice (bilirubin ≥ 5) and INR ≥ 1.5, then ascites or HE within 4 weeks"],
-    ["Picks up", "Broader, earlier", "Sicker patients", "A primary liver insult"],
-  ], { x: 0.6, y: 1.5, w: W - 1.2, colW: [1.8, 3.4, 3.6, 3.33], size: 16, rowH: [0.5, 0.9, 1.4, 0.75] });
+    [{ t: "Who", b: true }, "Decompensated cirrhosis", "Cirrhosis, inpatient", "CLD ± cirrhosis"],
+    [{ t: "Defined by", b: true }, "Organ failures (CLIF-C)", "≥ 2 extrahepatic failures", "Liver insult: jaundice + INR ≥ 1.5"],
+    [{ t: "Picks up", b: true }, "Broader, earlier", "Sicker patients", "A primary liver insult"],
+  ], { x: 0.6, y: 1.5, w: W - 1.2, size: 20, minRowH: 0.65 });
   q(s, "They find different patients. Say which one you're using", 5.6, { size: 22 });
   src(s, "Kyoto consensus 2025 [PMID: 39961976]; ACG ACLF 2022 [PMID: 35006099]; AASLD 2024 [PMID: 37939273]");
   s.addNotes("Not worth memorizing all three. Worth knowing that a paper's 'ACLF' may not be your patient's ACLF. The talk uses EASL-CLIF.");
@@ -1214,14 +1301,14 @@ function hrs(step) {
   const s = slide("Does he have HRS?");
   body(s, [{ t: "12 hours later: creatinine 3.0, urine 10 mL/h, still on norepinephrine", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 19 });
   if (step === 1) { q(s, "HRS? Start terlipressin?", 3.3, { size: 30 }); return s; }
-  const a = (v) => (step === 2 ? "" : v);
+  const a = (v) => (step === 2 ? { hidden: v } : v);
   table(s, [
     ["HRS-AKI (ADQI-ICA 2024)", "Bed 7, day 1", ""],
     ["Cirrhosis with ascites", a("Yes"), { t: a("✅"), align: "center" }],
-    ["AKI by creatinine and/or urine output", a("Creatinine 0.9 → 3.0, urine 10 mL/h"), { t: a("✅"), align: "center" }],
-    ["No improvement within 24 hours of volume resuscitation, if he needs it", a("2 L given on arrival. Too early to say"), { t: a("❌"), align: "center" }],
-    ["No strong alternative explanation (shock, nephrotoxins, structural injury)", { t: a("Septic shock on norepinephrine"), b: true, red: true }, { t: a("❌"), align: "center" }],
-  ], { x: 0.7, y: 1.95, w: W - 1.4, colW: [5.6, 5.0, 1.33], size: 17, rowH: [0.45, 0.55, 0.65, 0.75, 0.75] });
+    ["AKI by creatinine or urine output", a("Cr 0.9 → 3.0, urine 10 mL/h"), { t: a("✅"), align: "center" }],
+    ["No response to 24 h of volume, if needed", a("2 L on arrival; too early"), { t: a("❌"), align: "center" }],
+    ["No other main cause (shock, toxins, structural)", { t: a("Septic shock on norepinephrine"), b: true, red: true }, { t: a("❌"), align: "center" }],
+  ], { x: 0.7, y: 1.95, w: W - 1.4, size: 19, minRowH: 0.55 });
   if (step === 2) q(s, "Go down the list for him. Which boxes does he tick?", 5.6, { size: 24 });
   else q(s, "Not HRS yet. Treat the shock first", 5.6, { hl: true, size: 24 });
   src(s, "ADQI-ICA consensus, J Hepatol 2024 [PMID: 38527522]");
@@ -1232,10 +1319,10 @@ function hrsDefs() {
   table(s, [
     ["What many of us learned (ICA 2015)", "Now (ADQI-ICA 2024)"],
     [
-      { t: [{ t: "No response after 2 days of diuretic withdrawal and albumin 1 g/kg", br: true }, { t: "No shock", br: true }, { t: "No nephrotoxins, no structural kidney disease" }] },
-      { t: [{ t: "Cirrhosis with ascites", br: true }, { t: "AKI by creatinine and/or urine output", br: true }, { t: "No improvement within 24 hours of volume resuscitation, if he needs it", br: true }, { t: "No albumin challenge if he is already euvolemic or wet", br: true }, { t: "No strong alternative explanation as the main cause" }] },
+      { t: [{ t: "No response to 2 days off diuretics + albumin", br: true }, { t: "No shock", br: true }, { t: "No nephrotoxins, no structural kidney disease" }] },
+      { t: [{ t: "Cirrhosis with ascites", br: true }, { t: "AKI by creatinine or urine output", br: true }, { t: "No response to 24 h of volume, if needed", br: true }, { t: "No albumin challenge if euvolemic or wet", br: true }, { t: "No other main cause" }] },
     ],
-  ], { x: 0.8, y: 1.5, w: W - 1.6, colW: [5.86, 5.87], size: 20, rowH: [0.55, 2.6], valign: "top" });
+  ], { x: 0.8, y: 1.5, w: W - 1.6, size: 20, valign: "top", noLabel: true });
   q(s, "Faster to call. But you still have to look for the other causes", 5.3, { size: 22 });
   src(s, "Angeli P et al. J Hepatol 2015 (ICA); ADQI-ICA consensus, J Hepatol 2024 [PMID: 38527522]");
   return s;
@@ -1370,10 +1457,10 @@ paper("Should we treat the albumin number?", "attire-title.png", "attire-concl.p
 {
   const s = slide("Should we treat the albumin number?");
   table(s, [
-    ["Study", "ATTIRE: daily albumin to keep serum albumin ≥ 30 g/L vs standard care, hospitalized decompensated cirrhosis, 777 patients"],
-    ["Main finding", "Composite of new infection, kidney dysfunction or death: 29.7% vs 30.2%"],
-    ["The catch", { t: "More serious adverse events with albumin, including fluid overload and pulmonary edema", b: true }],
-  ], { x: 0.9, y: 1.4, w: W - 1.8, colW: [2.8, 8.73], size: 17, rowH: [1.0, 0.75, 0.85], header: false });
+    [{ t: "Study", b: true }, "777 inpatients: albumin to ≥ 30 g/L vs standard care"],
+    [{ t: "Finding", b: true }, "Infection, kidney dysfunction or death: 29.7% vs 30.2%"],
+    [{ t: "The catch", b: true }, { t: "More serious adverse events, including pulmonary edema", b: true }],
+  ], { x: 0.9, y: 1.4, w: W - 1.8, size: 20, header: false, minRowH: 0.6 });
   body(s, [
     { t: "When albumin is indicated", b: true, nb: true },
     "SBP: 1.5 g/kg on day 1, 1 g/kg on day 3",
@@ -1469,7 +1556,7 @@ function apxMathurin() {
     ["Patient A (ALF)", "Patient B (ACLF)"],
     [
       { t: [
-        { t: "Cause and time course (days from jaundice to encephalopathy)", br: true },
+        { t: "Cause, days from jaundice to HE", br: true },
         { t: "Encephalopathy grade, pupils, sedation", br: true },
         { t: "Airway and ventilator settings", br: true },
         { t: "Ammonia, sodium, CRRT", br: true },
@@ -1487,7 +1574,7 @@ function apxMathurin() {
         { t: "Prior transplant evaluation, support" },
       ] },
     ],
-  ], { x: 0.9, y: 2.15, w: W - 1.8, colW: [5.76, 5.77], size: 18, rowH: [0.5, 3.0], valign: "top" });
+  ], { x: 0.9, y: 2.15, w: W - 1.8, size: 20, valign: "top", noLabel: true });
   q(s, "Call first. Gather this while you wait for the call back", 1.45, { hl: true, size: 22 });
   s.addNotes("Nothing on this list should delay the first call. A good call makes the transplant team's decision faster. Trends, not single values. Referral, candidacy, listing and allocation are separate decisions; the first one is ours.");
 }
@@ -1496,12 +1583,12 @@ twoStep((step) => {
   body(s, [{ t: "Both have a sick liver. Do they have the same disease?", nb: true, i: true, align: "center" }], { y: 1.15, h: 0.45, size: 18 });
   table(s, [
     ["", "Acute liver failure", "ACLF"],
-    [{ t: "Ammonia", b: true }, ans(step, "With the HE grade and the trend: brain risk, and when to start CRRT. No level rules out ICH"), ans(step, "Doesn't diagnose HE. Don't trend it to dose lactulose")],
-    [{ t: "Lactulose", b: true }, ans(step, "No proven benefit; bowel distension can get in the way of surgery"), ans(step, "Yes for overt HE, plus treat the trigger. Rifaximin as an add-on. Avoid dehydration")],
-    [{ t: "Sodium", b: true }, ans(step, "Grade III-IV or high ammonia: center protocol, often 145 to 155, matched to the CRRT fluid"), ans(step, "Often chronically low: correct slowly. In high-risk patients, no more than 8 mmol/L in 24 hours")],
-    [{ t: "Antibiotics", b: true }, ans(step, "No routine prophylaxis. Surveillance cultures, low threshold to treat"), ans(step, "Treat infection fast; prophylaxis with GI bleeding")],
-    [{ t: "INR", b: true }, ans(step, "Tracks severity, poor at predicting bleeding. No plasma just for the number"), ans(step, "Same. Judge the procedure and the patient")],
-  ], { x: 0.6, y: 1.7, w: W - 1.2, colW: [1.9, 5.11, 5.12], size: 16, rowH: [0.45, 0.9, 0.9, 0.95, 0.75, 0.75] });
+    [{ t: "Ammonia", b: true }, ans(step, "With HE grade and trend: brain risk, CRRT"), ans(step, "Doesn't diagnose HE; don't trend it")],
+    [{ t: "Lactulose", b: true }, ans(step, "No proven benefit; distends the bowel"), ans(step, "Yes for overt HE ± rifaximin")],
+    [{ t: "Sodium", b: true }, ans(step, "HE III-IV: often 145-155, match CRRT"), ans(step, "Often low: ≤ 8 mmol/L per 24 h")],
+    [{ t: "Antibiotics", b: true }, ans(step, "No routine prophylaxis; low threshold"), ans(step, "Treat fast; prophylaxis with GI bleed")],
+    [{ t: "INR", b: true }, ans(step, "Tracks severity, not bleeding"), ans(step, "Same; judge the procedure")],
+  ], { x: 0.6, y: 1.7, w: W - 1.2, size: 20, minRowH: 0.65 });
   src(s, "ACG ALF 2023 [PMID: 37377263]; SCCM 2023 [PMID: 37052436]; update 2022 [PMID: 36001996]");
   s.addNotes("Probably the most useful slide to photograph. The sodium row is where people get hurt: an induced-hypernatremia target transferred into a chronically hyponatremic cirrhotic causes osmotic demyelination.");
   return s;
@@ -1564,9 +1651,9 @@ sec("Appendix");
     ["Grade", "What you see"],
     ["I", "Short attention, mild confusion, reversed sleep, subtle personality change"],
     ["II", "Lethargy, disorientation to time, obvious personality change, asterixis"],
-    ["III", "Somnolent but rousable to voice or pain, grossly disoriented, bizarre behavior"],
+    ["III", "Somnolent but rousable, grossly disoriented, bizarre behavior"],
     ["IV", "Coma"],
-  ], { x: 1.2, y: 1.6, w: W - 2.4, colW: [1.4, 9.53], size: 18, rowH: [0.5, 0.8, 0.8, 0.8, 0.6] });
+  ], { x: 1.2, y: 1.6, w: W - 2.4, size: 20, minRowH: 0.65 });
   s.addNotes("In ALF, grade III-IV is the intubation and ICP-risk threshold.");
 }
 apxKcc();
