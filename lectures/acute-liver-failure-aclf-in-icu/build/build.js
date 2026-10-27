@@ -765,14 +765,34 @@ crrt(1).addNotes("Ask them. Nephrology will often say the creatinine doesn't mee
 cont(); crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the literature, not a universal threshold. Look at the trajectory and the neuro exam. Coordinate the CRRT fluid with the sodium plan or the dialysis will pull her sodium back down.");
 inr(1).addNotes("Hour 12, CRRT is starting. Very common request from the procedure side.");
 cont(); inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
+// Stravitz 2012: what the TEG shows when the INR is high in ALF
 twoStep((step) => {
-  const s = slide("INR 4.2. What does the TEG say?");
-  pic(s, "stravitz-teg.png", 2.4, 1.3, W - 4.8, 4.6, "Normal thromboelastogram in acute liver failure", { line: true });
-  if (step === 2) body(s, [{ t: "Normal in all five TEG measures, in a patient with ALF and an INR of 4.2", nb: true, i: true, align: "center" }], { y: 6.05, h: 0.5, size: 18 });
+  const s = slide("Is her blood thin?");
+  if (step === 1) {
+    s.addImage({ path: path.join(IMG, "stravitz-teg.png"), x: 0.7, y: 1.5, w: 5.6, h: 3.93, altText: "TEG tracing with R, K, alpha-angle, maximum amplitude and lysis at 30 minutes labeled" });
+    body(s, [
+      { t: "What a TEG measures in whole blood", b: true, nb: true },
+      { runs: [{ t: "R: ", b: true }, "time until the clot starts (clotting factors)"] },
+      { runs: [{ t: "K and α-angle: ", b: true }, "how fast the clot builds (fibrinogen)"] },
+      { runs: [{ t: "MA: ", b: true }, "how strong the clot gets (platelets, fibrinogen)"] },
+      { runs: [{ t: "Ly30: ", b: true }, "how much of the clot breaks down in 30 minutes"] },
+    ], { x: 6.7, y: 1.6, w: 6.2, h: 3.8, size: 19, gap: 10 });
+    q(s, "Her INR is 4.1. What will her TEG show?", 5.9, { size: 26 });
+    return s;
+  }
+  bars(s, [{ name: "Patients", labels: ["All 5 normal", "1-2 low", "3-4 low", "Hypercoagulable"], values: [63, 25, 12, 8] }],
+    { x: 0.5, y: 1.3, w: 6.3, h: 4.5, max: 75, colors: ["000000"], gap: 70, title: "TEG in 51 patients, mean INR 3.4", catSize: 14 });
+  body(s, [
+    { t: "Stravitz 2012: acute liver injury or ALF, TEG on admission", b: true, nb: true },
+    "Most had a completely normal TEG, even with INRs up to 9.6",
+    "A weak clot (low MA) only when platelets were below about 126,000",
+    "Patients with encephalopathy had stronger clots than those without",
+    "Factors V and VII were low, but protein C, protein S and antithrombin fell too, and factor VIII was about 4 times normal",
+  ], { x: 7.1, y: 1.4, w: 5.8, h: 4.5, size: 17, gap: 8 });
+  q(s, "A high INR doesn't mean she will bleed", 6.05, { hl: true, size: 24 });
   src(s, "Stravitz RT et al. J Hepatol 2012;56:129-36 [PMID: 21703173]");
-  s.addNotes("51 patients with acute liver injury or failure, mean INR 3.4. Mean TEG values were normal, and all five TEG parameters were normal in 63%. Low clot strength showed up only with platelets under about 126,000. Factors V and VII were low, but so were the anticoagulant proteins, and factor VIII was high.");
   return s;
-});
+}).addNotes("Answer to the question: in most patients, normal. 51 patients with acute liver injury (INR at least 1.5) or ALF (the same plus encephalopathy), mean INR 3.4, range 1.5 to 9.6. 32 of 51 (63%) had all five TEG parameters normal; 8 had one abnormal in the hypocoagulable direction, 5 had two, 4 had three, 2 had four. 4 patients (8%) had parameters in the hypercoagulable range. Lysis at 30 minutes was normal in all 51. The INR measures only the procoagulant factors the liver makes; the liver also makes the anticoagulants, which fall just as far, and the endothelium pours out factor VIII and von Willebrand factor. The TEG sees the whole balance. That's why spontaneous bleeding is uncommon and why plasma before a line is not needed. Caveat: TEG is not validated to predict procedural bleeding, and a low platelet count or low fibrinogen still matters.");
 {
   const s = slide("Rebalanced hemostasis");
   const cxm = W / 2;
