@@ -64,7 +64,7 @@ Copy the old decks, not a template.
 | Bullets | Plain en-dash bullets, about 20 to 22 pt, sub-bullets smaller |
 | Color | Black text. Red (#C00000) for abnormal labs and the harmful value. Yellow highlight on the revealed answer. Grey for sources and slide numbers |
 | Tables | Thin grey borders, light grey header row, real lab values with units, one line per cell (see Tables below) |
-| Charts | Native PowerPoint charts in black and grey, values on the bars, red only for the harmful bar |
+| Charts | Native PowerPoint charts in a muted, professional palette (Mohammad, 2026-10-27: "more colorful, not too colorful"): navy #1F4E79 for the bar that matters, soft slate blue #9DB4CA for the rest; stacked parts in navy, teal #2E7D8C, sage #6F9A72, ochre #C08A3E, mauve #8E7C99. Values on the bars, red only for the harmful bar. No bright or saturated colors |
 | Sources | Small grey italic line at the bottom left, with PMID |
 | Slide numbers | "X/Y", bottom right, small and grey. None on the cover |
 
