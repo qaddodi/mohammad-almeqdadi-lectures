@@ -532,8 +532,7 @@ bgDivider("When to refer", null, "divider-referral.jpg", "Watercolor of a clinic
 {
   const s = slide("Is there benefit below MELD 15 with a living donor?");
   titleBlock(s, "jackson-ldlt-title.png", 1.25, 1.2, "Jackson WE et al. JAMA Surg 2022", 6.5);
-  const f = pic(s, "jackson-ldlt-fig.png", 0.6, 2.6, 6.2, 3.85, "Figure 1A: unadjusted one-year hazard ratio of death with living donor LT vs staying on the list, by MELD-Na category");
-  txt(s, "Figure 1A, unadjusted", f.x, f.y + f.h + 0.03, f.w, 0.3, { size: 13, align: "center", i: true, color: GREY });
+  pic(s, "jackson-ldlt-fig1b.png", 0.6, 2.6, 6.2, 4.2, "Figure 1B: covariate-adjusted one-year hazard ratio of death with living donor LT vs staying on the list, by MELD-Na category");
   body(s, [
     { t: "Adjusted, compared with staying on the list:", nb: true, i: true },
     "MELD-Na 11-13: aHR 0.64 (0.47-0.88)",
@@ -542,7 +541,7 @@ bgDivider("When to refer", null, "divider-referral.jpg", "Watercolor of a clinic
   ], { size: 19, gap: 14, x: 7.0, w: 6.0, y: 2.9, h: 3.8 });
   src(s, [{ text: "Jackson WE, Malamon JS, Kaplan B, Saben JL, Schold JD, " }, { text: "Pomposelli JJ", options: { highlight: HL } },
     { text: ", Pomfret EA. JAMA Surg 2022;157(10):926-932 [PMID: 35921119]" }]);
-  s.addNotes("With a living donor the benefit starts well below 15, so living donation is worth raising before a patient reaches the old deceased donor threshold. The figure is the unadjusted panel; the numbers on the right are the adjusted ones from Figure 1B. James Pomposelli, one of the authors, is now our colleague at Tufts.");
+  s.addNotes("With a living donor the benefit starts well below 15, so living donation is worth raising before a patient reaches the old deceased donor threshold. Figure 1B, adjusted for age at listing, sex and primary diagnosis. James Pomposelli, one of the authors, is now our colleague at Tufts.");
 }
 {
   const s = slide("Where did MELD come from?");
