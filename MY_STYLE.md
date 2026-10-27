@@ -126,9 +126,18 @@ Nothing before a reveal may give the answer away. This was the most common mista
 
 Mohammad's rule (2026-10-27): Tufts program data (transplant volume, diagnoses, where patients live, outcomes) never go public.
 
-- In the talk, use rough numbers: "about 130 since mid-2023", "about one in five from Maine". No exact counts.
+- In the talk, use rough numbers ("about N since mid-year", "about one in X from a state"), never exact counts. The real values stay in the project folder.
 - Keep them out of the repo copy and the PDF the QR code serves. Drop those slides or leave the values off in the public version.
 - Don't show program survival unless he asks for it.
+- Don't show death rates or mortality for the audience's own region (Maine liver deaths, distance-mortality data at a Maine talk) (Mohammad, 2026-10-27).
+
+## Where a study was done
+
+Mohammad (2026-10-27): when a slide asks whether a result held up in the US, the slide before it says plainly where that study was done ("France and Belgium, not the US").
+
+## Tufts colleagues in papers
+
+Mohammad (2026-10-27): when James Pomposelli or Fredric Gordon is an author of a paper on a slide, highlight the name in yellow, both in the title block image and in the source line. Both work with him at Tufts.
 
 ## Slide numbers
 
