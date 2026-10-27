@@ -918,32 +918,34 @@ inr(1).addNotes("Hour 12, CRRT is starting. Very common request from the procedu
 cont(); inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
 // Stravitz 2012: what the TEG shows when the INR is high in ALF
 twoStep((step) => {
-  const s = slide("Is her blood thin?");
+  // Mohammad's Gemini TEG tracing as the background, text on the right, question below
+  const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
+  s.addImage({ path: path.join(IMG, "teg-background.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5,
+    altText: "Watercolor of a normal TEG tracing with R, K, alpha angle, MA and Ly30 marked" });
+  s.addText("Is her blood thin?", { x: 0.5, y: 0.3, w: W - 1, h: 0.85, fontFace: "Georgia", fontSize: 34,
+    align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
   if (step === 1) {
-    s.addImage({ path: path.join(IMG, "stravitz-teg.png"), x: 0.7, y: 1.5, w: 5.6, h: 3.93, altText: "TEG tracing with R, K, alpha-angle, maximum amplitude and lysis at 30 minutes labeled" });
     body(s, [
       { t: "What a TEG measures in whole blood", b: true, nb: true },
       { runs: [{ t: "R: ", b: true }, "time until the clot starts (clotting factors)"] },
       { runs: [{ t: "K and α-angle: ", b: true }, "how fast the clot builds (fibrinogen)"] },
       { runs: [{ t: "MA: ", b: true }, "how strong the clot gets (platelets, fibrinogen)"] },
       { runs: [{ t: "Ly30: ", b: true }, "how much of the clot breaks down in 30 minutes"] },
-    ], { x: 6.7, y: 1.6, w: 6.2, h: 3.8, size: 19, gap: 10 });
-    q(s, "Her INR is 4.1. What will her TEG show?", 5.9, { size: 26 });
+    ], { x: 8.4, y: 1.5, w: 4.6, h: 4.4, size: 19, gap: 10 });
+    q(s, "Her INR is 4.1. What will her TEG show?", 6.35, { size: 26 });
     return s;
   }
   bars(s, [{ name: "Patients", labels: ["All 5 normal", "1-2 low", "3-4 low", "Hypercoagulable"], values: [63, 25, 12, 8] }],
-    { x: 0.5, y: 1.3, w: 6.3, h: 4.5, max: 75, colors: ["000000"], gap: 70, title: "TEG in 51 patients, mean INR 3.4", catSize: 14 });
+    { x: 8.3, y: 1.3, w: 4.75, h: 2.9, max: 75, colors: ["000000"], gap: 60, title: "51 patients, mean INR 3.4", catSize: 12 });
   body(s, [
-    { t: "Stravitz 2012: acute liver injury or ALF, TEG on admission", b: true, nb: true },
     "Most had a completely normal TEG, even with INRs up to 9.6",
     "A weak clot (low MA) only when platelets were below about 126,000",
-    "Patients with encephalopathy had stronger clots than those without",
-    "Factors V and VII were low, but protein C, protein S and antithrombin fell too, and factor VIII was about 4 times normal",
-  ], { x: 7.1, y: 1.4, w: 5.8, h: 4.5, size: 17, gap: 8 });
-  q(s, "A high INR doesn't mean she will bleed", 6.05, { hl: true, size: 24 });
+    "Encephalopathy: stronger clots, not weaker",
+  ], { x: 8.4, y: 4.25, w: 4.6, h: 1.85, size: 16, gap: 6 });
+  q(s, "A high INR doesn't mean she will bleed", 6.35, { hl: true, size: 26 });
   src(s, "Stravitz RT et al. J Hepatol 2012;56:129-36 [PMID: 21703173]");
   return s;
-}).addNotes("Answer to the question: in most patients, normal. 51 patients with acute liver injury (INR at least 1.5) or ALF (the same plus encephalopathy), mean INR 3.4, range 1.5 to 9.6. 32 of 51 (63%) had all five TEG parameters normal; 8 had one abnormal in the hypocoagulable direction, 5 had two, 4 had three, 2 had four. 4 patients (8%) had parameters in the hypercoagulable range. Lysis at 30 minutes was normal in all 51. The INR measures only the procoagulant factors the liver makes; the liver also makes the anticoagulants, which fall just as far, and the endothelium pours out factor VIII and von Willebrand factor. The TEG sees the whole balance. That's why spontaneous bleeding is uncommon and why plasma before a line is not needed. Caveat: TEG is not validated to predict procedural bleeding, and a low platelet count or low fibrinogen still matters.");
+}).addNotes("Answer to the question: in most patients, normal. 51 patients with acute liver injury (INR at least 1.5) or ALF (the same plus encephalopathy), mean INR 3.4, range 1.5 to 9.6. 32 of 51 (63%) had all five TEG parameters normal; 8 had one abnormal in the hypocoagulable direction, 5 had two, 4 had three, 2 had four. 4 patients (8%) had parameters in the hypercoagulable range. Lysis at 30 minutes was normal in all 51. Factors V and VII were low, but protein C, protein S and antithrombin fell too, and factor VIII was about 4 times normal. The INR measures only the procoagulant factors the liver makes; the liver also makes the anticoagulants, which fall just as far, and the endothelium pours out factor VIII and von Willebrand factor. The TEG sees the whole balance. That's why spontaneous bleeding is uncommon and why plasma before a line is not needed. Caveat: TEG is not validated to predict procedural bleeding, and a low platelet count or low fibrinogen still matters.");
 {
   const s = slide("Rebalanced hemostasis");
   const cxm = W / 2;
