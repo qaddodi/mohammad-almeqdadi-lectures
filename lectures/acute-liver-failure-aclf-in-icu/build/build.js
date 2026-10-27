@@ -509,19 +509,19 @@ cont(); features(2).addNotes("This is why these patients are ICU patients. Hypog
 twoStep((step) => {
   const s = slide("Which cause changes treatment right away?");
   table(s, [
-    ["If you suspect", "Send", "Don't wait for the result to"],
-    ["Acetaminophen", "Level, history, combination products", ans(step, "Start NAC")],
-    ["Herpes simplex", "HSV PCR (blood)", ans(step, "Start IV acyclovir")],
-    ["Hepatitis B", "HBsAg, anti-HBc IgM, HBV DNA", ans(step, "Start entecavir or tenofovir")],
-    ["Autoimmune hepatitis", "ANA, ASMA, IgG (can be negative)", ans(step, "Steroids with hepatology; list in parallel")],
-    ["Wilson disease", "Ceruloplasmin, urine copper, hemolysis, low ALP", ans(step, "Prepare for urgent transplant")],
-    ["Pregnancy (AFLP, HELLP)", "hCG", ans(step, "Call obstetrics, plan delivery")],
-    ["Budd-Chiari", "Doppler ultrasound or CT", ans(step, "Anticoagulate; TIPS or transplant")],
-    ["Ischemic hepatitis", "Echo, history of shock", ans(step, "Fix the circulation")],
-    ["Mushrooms (Amanita)", "Wild mushrooms, diarrhea 6-24 h later", ans(step, "NAC, poison control, silibinin")],
-  ], { x: 0.7, y: 1.3, w: W - 1.4, size: 17 });
+    ["If you suspect", "Clues", "Send", "Don't wait to"],
+    ["Acetaminophen", "AST/ALT in the thousands, OTC use", "Level, combination products", ans(step, "Start NAC")],
+    ["Herpes simplex", "Fever, very high AST/ALT, little jaundice", "HSV PCR (blood)", ans(step, "Start IV acyclovir")],
+    ["Hepatitis B", "Endemic area, chemo or immunosuppression", "HBsAg, anti-HBc IgM, DNA", ans(step, "Entecavir or tenofovir")],
+    ["Autoimmune hepatitis", "Woman, other autoimmune disease", "ANA, ASMA, IgG", ans(step, "Steroids with hepatology")],
+    ["Wilson disease", "Under 40, Coombs-negative hemolysis", "Ceruloplasmin, urine copper", ans(step, "Urgent transplant")],
+    ["AFLP, HELLP", "Third trimester, high BP, low platelets", "hCG", ans(step, "Obstetrics: delivery")],
+    ["Budd-Chiari", "Pain, ascites, big liver", "Doppler or CT", ans(step, "Anticoagulate; TIPS")],
+    ["Ischemic hepatitis", "Shock or arrest, very high LDH", "Echo", ans(step, "Fix the circulation")],
+    ["Amanita", "Wild mushrooms, diarrhea 6-24 h later", "Poison control", ans(step, "NAC, silibinin")],
+  ], { x: 0.5, y: 1.3, w: W - 1.0, size: 16 });
   src(s, "Update 2022 [PMID: 36001996]; practical update 2024 [PMID: 39170946]; EASL AIH 2025 [PMID: 40348684]");
-  s.addNotes("The point of the workup in the ICU is the column on the right. Some of these you start empirically before the test comes back: NAC, acyclovir. Negative autoimmune serologies do not exclude acute AIH. Wilson disease presenting as ALF basically means transplant.");
+  s.addNotes("Clues: acetaminophen gives the highest aminotransferases with a low bilirubin early. HSV is often anicteric with fever and leukopenia, and a rash is absent in about half. HBV reactivation follows chemotherapy, rituximab or steroids. Wilson: young, Coombs-negative hemolysis, ALP disproportionately low (ALP to bilirubin ratio under 4), AST to ALT over 2.2. Ischemic hepatitis peaks early with a very high LDH and falls fast once the circulation is fixed. The point of the workup in the ICU is the column on the right. Some of these you start empirically before the test comes back: NAC, acyclovir. Negative autoimmune serologies do not exclude acute AIH. Wilson disease presenting as ALF basically means transplant.");
   return s;
 });
 function caseA_apap(step) {
