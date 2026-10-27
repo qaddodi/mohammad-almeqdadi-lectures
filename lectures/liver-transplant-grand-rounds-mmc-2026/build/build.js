@@ -657,17 +657,21 @@ bgDivider("Who can get a liver now", null, "divider-waiting-chair.jpg", "Waterco
   src(s, "EASL CPG on liver transplantation. J Hepatol 2024;81(6):1040-86, p.1044 [PMID: 39487043]. Jophlin LL et al. Am J Gastroenterol 2024;119(1):30-54 [PMID: 38174913]. " + G1.replace("Dove L et al. AASLD/AST candidate evaluation guideline. ", "Dove L et al. "));
   s.addNotes("EASL and ACG speak directly to selected patients with severe alcohol-associated hepatitis. The AASLD/AST guideline has no numbered statement on early transplant for alcohol-associated hepatitis itself; it says to refer early and not to use the length of abstinence alone to exclude. It also says patients on methadone or buprenorphine shouldn't be denied or made to taper (statement 41).");
 }
-if (!PUBLIC) {
+// Tufts diagnoses as a guess-first reveal (Mohammad, 2026-10-27): empty chart, then the bars
+if (!PUBLIC) twoStep((step) => {
   const s = slide("What do we transplant for at Tufts?");
-  const t = TUFTS.dx;
+  const t = TUFTS.dx, z = step === 1;
   bars(s, [
-    { name: "Alcohol", labels: t.labels, values: t.alcohol },
-    { name: "Other", labels: t.labels, values: t.other },
+    { name: "Alcohol", labels: t.labels, values: z ? t.alcohol.map(() => 0) : t.alcohol },
+    { name: "Other", labels: t.labels, values: z ? t.other.map(() => 0) : t.other },
   ], { x: 1.4, y: 1.35, w: W - 2.8, h: 4.4, max: t.max, unit: t.unit, noVal: true, hideVal: true, grouping: "stacked", colors: [NAVY, SLATE], catSize: 18 });
-  txt(s, t.line, 0.9, 5.95, W - 1.8, 0.8, { size: 20, align: "center" });
+  if (z) q(s, "What share of our transplants do you think is for alcohol?", 5.95, { size: 22 });
+  else txt(s, t.line, 0.9, 5.95, W - 1.8, 0.8, { size: 20, align: "center" });
   src(s, TUFTS.source);
-  s.addNotes(t.notes + " These go through our multidisciplinary alcohol program, which follows patients before and after transplant.");
-}
+  s.addNotes(z ? "Ask the room to guess before showing it. Most people guess a third or so."
+    : t.notes + " These go through our multidisciplinary alcohol program, which follows patients before and after transplant.");
+  return s;
+});
 function usDx(step) {
   const s = slide(PUBLIC ? "What do US adults get a liver for?" : "Is that just Tufts?");
   const z = step === 1;

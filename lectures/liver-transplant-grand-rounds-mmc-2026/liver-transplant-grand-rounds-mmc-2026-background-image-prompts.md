@@ -29,7 +29,7 @@ No text, letters, numbers, labels, captions, road-sign lettering, logos, waterma
 |---|---|---|---|---|
 | cover-coast-road.png | cover, 46 | Full-bleed background | Title over the left 55% | Full again on Questions |
 | divider-referral.png | 6 | Full-bleed section page | Left 55% | |
-| divider-road-south.png | 15 | Full-bleed section page | Left 55% | |
+| divider-road-south.png | 15 | Full-bleed section page | Left 55% | Version 2 has the sign text painted in |
 | divider-waiting-chair.png | 20 | Full-bleed section page | Left 55% | |
 | divider-organ-cooler.png | 32 | Full-bleed section page | Left 55% | |
 | divider-pill-box.png | 40 | Full-bleed section page | Left 55% | |
@@ -78,6 +78,23 @@ Wide 16:9 landscape image, 1920 x 1080, full-bleed: the paper texture and wash e
 ### Full prompt
 
 Wide 16:9 landscape image, 1920 x 1080, full-bleed: the paper texture and wash extend to all four edges, no white margin, no border. Clinical editorial watercolor over fine gray ink linework on warm ivory textured cold-press paper, in muted slate, ochre, sage and cream, with soft watercolor blooms and visible paper grain. Place the subject in the right 40 percent of the frame: a two-lane winter highway running away from the viewer between snowy pine trees, wet grey pavement, snow banks along the shoulders, and one plain dark green overhead highway sign with a completely blank face. Overcast pale winter sky. The left 55 percent is empty ivory paper with at most a very pale grey-cream wash, with no shapes, lines or detail, so a title can sit there. No text, letters, numbers, arrows or symbols on the sign, no logos, watermarks or signatures. No people, no cars. No neon, glow, 3D render look or photorealism. No borders, torn edges, visible paper edge, square crop, white background or centered composition.
+
+## divider-road-south.png, version 2 (sign text painted in)
+
+- **Slides:** 30 in the talk copy (section page "From Maine to Boston")
+- **Why:** Mohammad, 2026-10-27: the sign lettering should be part of the painting, not typed over a blank sign. Replaces version 1 above; once it is in build/img/, drop the "Sign" text box from build.js.
+- **Mode:** background with two lines of text on the sign, nothing else
+- **Clinical accuracy checks:** the sign must read "I-95 SOUTH" over "Boston", spelled exactly. Check the spelling before using it; regenerate only if it is misspelled.
+- **Alt text:** "Watercolor of a snowy highway heading south, with a sign for I-95 South to Boston."
+
+### Copy-paste block for Gemini
+
+```
+Generate the following images:
+
+1. divider-road-south.png
+Wide 16:9 landscape image, 1920 x 1080, full-bleed: the paper texture and wash extend to all four edges, no white margin, no border. Clinical editorial watercolor over fine gray ink linework on warm ivory textured cold-press paper, in muted slate, ochre, sage and cream, with soft watercolor blooms and visible paper grain. Place the subject in the right 40 percent of the frame: a two-lane winter highway running away from the viewer between snowy pine trees, wet grey pavement, snow banks along the shoulders, and one dark green overhead highway sign on a plain grey steel gantry, in the upper right of the frame and about a fifth of the image wide. The sign has a thin white border and white highway lettering in two centered lines: the top line reads exactly "I-95 SOUTH" in smaller capital letters, and the bottom line reads exactly "Boston" in larger letters. The lettering is crisp, evenly spaced and easy to read, painted in the same watercolor and ink as the rest of the picture, not pasted on. Overcast pale winter sky. The left 55 percent is empty ivory paper with at most a very pale grey-cream wash, with no shapes, lines or detail, so a title can sit there. No other text anywhere: no exit numbers, arrows, shields, mile markers, logos, watermarks or signatures. No people, no cars. No neon, glow, 3D render look or photorealism. No borders, torn edges, visible paper edge, square crop, white background or centered composition.
+```
 
 ## divider-waiting-chair.png
 
