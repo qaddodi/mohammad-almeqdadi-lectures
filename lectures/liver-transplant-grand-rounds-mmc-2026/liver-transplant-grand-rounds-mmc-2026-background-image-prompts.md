@@ -51,6 +51,20 @@ No text, letters, numbers, labels, captions, road-sign lettering, logos, waterma
 
 Wide 16:9 landscape image, 1920 x 1080, full-bleed: the paper texture and wash extend to all four edges, no white margin, no border. Clinical editorial watercolor over fine gray ink linework on warm ivory textured cold-press paper, in muted slate, ochre, dusty rose, sage and cream, with soft watercolor blooms and visible paper grain. Place the subject in the right 45 percent of the frame: a quiet two-lane coastal road in Maine curving away from the viewer toward the south, with dark sage pine trees on one side and grey rocky shoreline and calm slate-blue sea on the other. Far down the road, small and pale on the horizon, the faint outline of a city skyline. Late autumn light, calm mood. The left 55 percent is empty ivory paper with only a very pale cream and slate sky wash, even in tone, with no shapes, lines or detail, so a dark title can be set over it. No text, letters, numbers, road-sign lettering, logos, watermarks or signatures. No people, no faces, no readable cars. No neon, glow, lens flare, 3D render look, glossy shading or photorealism. No borders, torn edges, visible paper edge, square crop, white background or centered composition.
 
+## cover-coast-road.png, version 2 (ocean on the left)
+
+- **Why:** Mohammad, 2026-10-27: driving south from Maine the ocean is on the east, the driver's left. Version 1 has the sea on the right.
+- **Check:** sea to the left of the road, pines to the right, title space still empty on the left 55%.
+
+### Copy-paste block for Gemini
+
+```
+Generate the following images:
+
+1. cover-coast-road.png
+Wide 16:9 landscape image, 1920 x 1080, full-bleed: the paper texture and wash extend to all four edges, no white margin, no border. Clinical editorial watercolor over fine gray ink linework on warm ivory textured cold-press paper, in muted slate, ochre, dusty rose, sage and cream, with soft watercolor blooms and visible paper grain. Place the scene in the right 45 percent of the frame. The viewer is driving south along the coast of Maine, looking ahead down a quiet two-lane coastal road that curves away into the distance. The sea is on the LEFT side of the road: a strip of grey rocky shoreline and calm slate-blue Atlantic water between the road and the empty paper, with the water fading softly into the ivory paper toward the left. On the RIGHT side of the road, dark sage pine trees and a few autumn shrubs in ochre and dusty rose. Far down the road, small and pale on the horizon where the coast and the road meet, the faint outline of a city skyline. Late autumn light, calm mood. The left 55 percent is empty ivory paper with only a very pale cream and slate sky wash, even in tone, with no shapes, lines or detail, so a dark title can be set over it. No text, letters, numbers, road-sign lettering, logos, watermarks or signatures. No people, no faces, no readable cars. No neon, glow, lens flare, 3D render look, glossy shading or photorealism. No borders, torn edges, visible paper edge, square crop, white background or centered composition.
+```
+
 ## divider-referral.png
 
 - **Slides:** 6 (section page "When to refer")
