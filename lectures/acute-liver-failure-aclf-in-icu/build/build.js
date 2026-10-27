@@ -508,7 +508,7 @@ function featuresAnswer() {
   label("L", 5.05, "Kidneys", "AKI", 6.16, 4.97);
   label("R", 5.75, "Pancreas", "pancreatitis", 6.75, 4.62);
   label("L", 6.2, "Bone marrow", "suppression", 5.83, 6.6);
-  s.addText("Figure content after Bernal W, Wendon J. N Engl J Med 2013;369:2525-34", { x: 0.45, y: 6.95, w: 7, h: 0.35, fontFace: "Georgia",
+  s.addText("Figure content after Bernal W, Wendon J.\nN Engl J Med 2013;369:2525-34", { x: 0.45, y: 6.8, w: 4.3, h: 0.5, fontFace: "Georgia",
     fontSize: 10, italic: true, color: GREY, isTextBox: true, margin: 0, valign: "bottom", objectName: "Source" });
   return s;
 }
