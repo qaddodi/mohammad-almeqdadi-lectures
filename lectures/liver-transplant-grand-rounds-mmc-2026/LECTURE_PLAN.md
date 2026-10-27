@@ -2,7 +2,7 @@
 
 Grand rounds at Maine Medical Center, 11/18/2026. One hour: about 45 minutes of talk, then questions. Built on the Nov 2025 Liver Transplant Basics deck ([LT-BASICS](../liver-transplant/2025-11-10%20Liver%20Transplant%20Basics%20Compressed.pptx)).
 
-**Status:** revised 2026-10-27 after an outside review, Mohammad's own comments and a whole-deck critique (cut for time, accuracy fixes, donor part reordered). 49 numbered slides in the talk copy with the Tufts slides (47 in this public copy), counting the cover as 1, about 49 minutes at a minute a slide. Reveals: MELD 3.0 and women, the warm ischemia clock and NRP in both copies, plus the Tufts diagnosis guess in the talk copy (the public copy keeps the US diagnosis slide instead). Appendix: iCCA, TA-NRP vs A-NRP, then four slides of sources. Revert points: commit cf029f2 (before the critique) and 6bb7789 (before the follow-the-patient reorder). [Deck](Liver%20Transplantation%20When%20to%20Refer%20and%20Whats%20New.pptx), [PDF](LT-grand-rounds-MMC-2026-slides.pdf).
+**Status:** revised 2026-10-27 after an outside review, Mohammad's own comments and a whole-deck critique (cut for time, accuracy fixes, donor part reordered). 54 numbered slides in the talk copy with the Tufts slides (50 in this public copy), counting the cover as 1. Mohammad felt the cut version ran short, so the five critique cuts went back in (2026-10-27). Reveals: MELD 3.0 and women, US diagnosis mix, the warm ischemia clock and NRP in both copies, plus the Tufts diagnosis guess in the talk copy. Appendix: iCCA, then four slides of sources. Revert points: commit cf029f2 (before the critique) and 6bb7789 (before the follow-the-patient reorder). [Deck](Liver%20Transplantation%20When%20to%20Refer%20and%20Whats%20New.pptx), [PDF](LT-grand-rounds-MMC-2026-slides.pdf).
 
 **Audience:** GI and hepatology faculty plus faculty, specialists, residents and fellows from across the hospital. Specialist room, so slide titles are clinical questions, paper slides show the title block and result together, and there are no "What do you think they found?" prompts. No patient case.
 
@@ -12,14 +12,14 @@ Grand rounds at Maine Medical Center, 11/18/2026. One hour: about 45 minutes of 
 
 | Part | Slides | What it covers |
 |---|---|---|
-| Opening, history and Tufts | 1-9 | Timeline of liver transplant with Starzl's boxes marked; Starzl and his NYT obituary (headline only in this copy); the 1963 paper (title page and excerpt); SRTR mortality figure; US volume; Tufts volume and where recipients live on one slide (talk copy only) |
-| When to refer | 10-17 | Where MELD came from (Malinchoc 2000, Fredric Gordon highlighted); why MELD 15 (Merion 2005 bands next to Malamon 2023 MELD-Na ≥12, referral kept separate from benefit); MELD 3.0 and women; the 2025 referral figure; who needs a call the same day (Tufts transfer line in the talk copy) |
-| Who can get a liver now | 18-28 | Early LT for alcohol-associated hepatitis (Mathurin, ACCELERATE-AH, QuickTrans, guidelines), Tufts diagnosis guess (national 41% said on the reveal), ACLF (CHANCE), what no longer rules a patient out, exception points (three rows), TransMet with the US numbers as one line |
-| From Maine to Boston | 29-33 | The evaluation (QR in the talk copy; phone and fax only on Questions), frailty, what the Maine team does while the patient waits, acuity circles as the bridge to donors |
-| Where the livers come from | 34-45 | Donor types, DCD growth, ischemic cholangiopathy, the warm ischemia clock (ILTS 2021), what the machines do, the three RCTs, NRP outcomes (Brubaker 2024) and the US rules, living donors, Jackson |
-| Your patient had a transplant | 46-53 | Coming home to Maine (talk copy only), abnormal liver tests, MRCP vs ERCP, tacrolimus interactions, one primary care table, take-home points, Questions (referral lines, QR and Q&A prep in the notes) |
+| Opening, history and Tufts | 1-10 | Timeline of liver transplant with Starzl's boxes marked; Starzl and his NYT obituary (headline only in this copy); the 1963 paper (title page and excerpt); SRTR mortality figure; US volume; Tufts volume and where recipients live (talk copy only) |
+| When to refer | 11-18 | Where MELD came from (Malinchoc 2000, Fredric Gordon highlighted); why MELD 15 (Merion 2005 bands next to Malamon 2023 MELD-Na ≥12, referral kept separate from benefit); MELD 3.0 and women; the 2025 referral figure; who needs a call the same day (Tufts transfer line in the talk copy) |
+| Who can get a liver now | 19-32 | Early LT for alcohol-associated hepatitis (Mathurin, ACCELERATE-AH, QuickTrans, guidelines), Tufts diagnosis guess, US diagnosis mix, ACLF (CHANCE), what no longer rules a patient out, exception points (three rows), TransMet, US colorectal data |
+| From Maine to Boston | 33-37 | The evaluation (QR in the talk copy; phone and fax only on Questions), frailty, what the Maine team does while the patient waits, acuity circles as the bridge to donors |
+| Where the livers come from | 38-50 | Donor types, DCD growth, ischemic cholangiopathy, the warm ischemia clock (ILTS 2021), what the machines do, the three RCTs, TA-NRP vs A-NRP (Cureus CC BY figure), NRP outcomes (Brubaker 2024) and the US rules, living donors, Jackson |
+| Your patient had a transplant | 51-59 | Coming home to Maine (talk copy only), abnormal liver tests, MRCP vs ERCP, tacrolimus interactions, two primary care tables, take-home points, Questions (referral lines, QR and Q&A prep in the notes) |
 
-Slide numbers above are for the talk copy. If the timed run-through is still long, cut in this order: the Zarrinpar timeline (slide 5 has the dates), why MELD 15 became the rule (one sentence on the referral slide), exception points. Checkpoints: same-day slide by minute 15, Maine divider by minute 26, post-transplant divider by minute 38.
+Slide numbers above are for the talk copy. If the timed run-through is long, cut in this order: "Is that just Tufts?", TA-NRP vs A-NRP (to the appendix), the second primary care table, the US colorectal slide, the Zarrinpar timeline, why MELD 15 became the rule. Checkpoints: same-day slide by minute 15, Maine divider by minute 26, post-transplant divider by minute 38.
 
 ## Decisions (Mohammad, 2026-10-27)
 
@@ -48,3 +48,5 @@ NRP rules slide (2026-10-27): no US federal or state law names NRP; OPTN/HRSA sa
 ## Critique applied (2026-10-27)
 
 From /mnt/project-files/mmc-grand-rounds/critique.md, with Mohammad's go-ahead. Kept against the critique: the Zarrinpar timeline (he wants the history) and the Merion slide (he asked about MELD 15-17); the trials table keeps EAD and NAS spelled out (his request). Humor lines are in the notes, marked optional. Verify before the talk: Portland-Boston distance (notes, acuity circles), that Maine donor hospitals work with New England Donor Services, Maine Med's kidney program line, NRP policy status, the DCD safeguards date.
+
+Later the same day Mohammad said the talk felt short and chose to restore everything the critique cut (TA vs A-NRP, US diagnosis mix, US colorectal, both PCP tables, the two Tufts charts). The other critique fixes stay.

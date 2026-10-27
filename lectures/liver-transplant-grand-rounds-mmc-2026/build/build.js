@@ -461,21 +461,29 @@ sec("Is it worth it?");
   src(s, "OPTN/SRTR Annual Data Reports, Liver, 2020-2024 [PMIDs: 35266621, 37132348, 38431359, 39947804, 42276697]");
   s.addNotes("Every year since 2020 has been a record. The 2024 report gives 70.3% more than in 2014. Part of the growth is more DCD livers and machine perfusion, which we'll come back to.");
 }
-// Tufts volume and where recipients live, side by side: talk copy only, rough numbers, no values on the bars.
-// No Maine mortality data on this slide or in its notes (Mohammad, 2026-10-27).
 if (!PUBLIC) {
-  const s = slide("How many does Tufts do, and from where?");
-  const t = TUFTS.perYear, u = TUFTS.byState;
+  const s = slide("Liver transplants at Tufts Medical Center");
+  // rough numbers only (MY_STYLE.md): bars without values, exact counts stay in the project folder
+  const t = TUFTS.perYear;
   bars(s, [{ name: "Liver transplants", labels: t.labels, values: t.values }],
-    { x: 0.4, y: 1.3, w: 6.2, h: 4.4, max: t.max, unit: t.unit, noVal: true, hideVal: true, colors: [NAVY], catSize: 13, title: "Liver transplants a year" });
-  bars(s, [
-    { name: "Maine", labels: u.labels, values: u.maine },
-    { name: "Other states", labels: u.labels, values: u.other },
-  ], { x: 6.8, y: 1.3, w: 6.1, h: 4.4, max: u.max, unit: u.unit, noVal: true, hideVal: true, grouping: "stacked", colors: [NAVY, SLATE], catSize: 13, title: "Where recipients live" });
-  txt(s, t.line, 0.4, 5.85, 6.2, 0.8, { size: 18, align: "center" });
-  txt(s, u.line, 6.8, 5.85, 6.1, 0.8, { size: 18, align: "center" });
+    { x: 1.4, y: 1.35, w: W - 2.8, h: 4.6, max: t.max, unit: t.unit, noVal: true, hideVal: true, colors: [NAVY], catSize: 16 });
+  txt(s, t.line, 0.9, 6.1, W - 1.8, 0.55, { size: 22, align: "center" });
   src(s, TUFTS.source);
-  s.addNotes(t.notes + " " + u.notes + "Maine has no liver transplant center, so each of them made the drive south for the evaluation and the transplant.");
+  s.addNotes(t.notes);
+}
+
+// Tufts recipients by home state: talk copy only. No Maine mortality data on this slide or in its notes (Mohammad, 2026-10-27).
+if (!PUBLIC) {
+  const s = slide("Where do Tufts recipients live?");
+  // share by home state, no values on the bars (rough numbers only)
+  const t = TUFTS.byState;
+  bars(s, [
+    { name: "Maine", labels: t.labels, values: t.maine },
+    { name: "Other states", labels: t.labels, values: t.other },
+  ], { x: 1.4, y: 1.35, w: W - 2.8, h: 4.4, max: t.max, unit: t.unit, noVal: true, hideVal: true, grouping: "stacked", colors: [NAVY, SLATE], catSize: 18 });
+  txt(s, t.line, 0.9, 5.95, W - 1.8, 0.6, { size: 21, align: "center" });
+  src(s, TUFTS.source);
+  s.addNotes(t.notes + "Maine has no liver transplant center, so each of them made the drive south for the evaluation and the transplant.");
 }
 // ---------------------------------------------------------------- Part 2. When to refer
 sec("When to refer");
@@ -666,9 +674,9 @@ if (!PUBLIC) twoStep((step) => {
   ], { x: 1.4, y: 1.35, w: W - 2.8, h: 4.4, max: t.max, unit: t.unit, noVal: true, hideVal: true, grouping: "stacked", colors: [NAVY, SLATE], catSize: 18 });
   if (z) q(s, "What share of our transplants do you think is for alcohol?", 5.95, { size: 22 });
   else txt(s, t.line, 0.9, 5.95, W - 1.8, 0.8, { size: 20, align: "center" });
-  src(s, TUFTS.source + (z ? "" : ". US: OPTN/SRTR 2024 Annual Data Report, Table LI 7 [PMID: 42276697]"));
+  src(s, TUFTS.source);
   s.addNotes(z ? "Ask the room to guess before showing it. Most people guess a third or so. Let them guess out loud, then wait a beat on the reveal."
-    : t.notes + " These go through our multidisciplinary alcohol program, which follows patients before and after transplant. Is that just us? Nationally, alcohol-associated liver disease is 41% of adult recipients, and 7% are transplanted for alcohol-associated hepatitis.");
+    : t.notes + " These go through our multidisciplinary alcohol program, which follows patients before and after transplant. Next: is that just us?");
   return s;
 });
 function usDx(step) {
@@ -687,8 +695,8 @@ function usDx(step) {
   src(s, "OPTN/SRTR 2024 Annual Data Report, Table LI 7. " + SRTR);
   return s;
 }
-if (PUBLIC) usDx(1).addNotes("Share of US adult recipients in 2024 with alcohol-associated liver disease.");
-if (PUBLIC) { cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associated cirrhosis and 7% with alcohol-associated hepatitis."); }
+usDx(1).addNotes("Share of US adult recipients in 2024 with alcohol-associated liver disease.");
+cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associated cirrhosis and 7% with alcohol-associated hepatitis.");
 {
   const s = slide("Can patients with ACLF get a liver?");
   bars(s, [
@@ -740,10 +748,23 @@ if (PUBLIC) { cont(); usDx(2).addNotes("41% of adult recipients, a third with al
     "94 randomized: age 18-65, BRAF wild-type, primary resected, permanently unresectable liver-only disease responding to chemotherapy",
     "5-year survival (intention to treat): 56.6% with LT plus chemotherapy vs 12.6% with chemotherapy",
     "72% of transplanted patients recurred, mostly in the lungs; almost half of recurrences were resected or ablated",
-    { t: "In the US: 158 transplants at 33 centers, 3-year survival 67%, about half from living donors", b: true },
-  ], { size: 16, gap: 10, x: 8.0, w: 4.95, y: 1.35, h: 5.5 });
-  src(s, "Adam R, Piedvache C, Chiche L, et al. Lancet 2024;404(10458):1107-18 [PMID: 39306468]. Chávez-Villa M et al. Liver Transpl 2026;32(4):508-17 [PMID: 41086433]");
-  s.addNotes("A randomized trial, which is rare in transplant. HR 0.37 (0.21-0.65), p=0.0003. Recurrence is common but often treatable: of 36 transplanted per protocol, 26 recurred, and 12 had the recurrence resected or ablated. The US series ran from December 2017 to March 2025, and exception points have gone through the review board since February 2025. If a patient with colorectal metastases asks about transplant, it's worth a call.");
+  ], { size: 17, gap: 12, x: 8.0, w: 4.95, y: 1.4, h: 5.4 });
+  src(s, "Adam R, Piedvache C, Chiche L, et al. Lancet 2024;404(10458):1107-18 [PMID: 39306468]");
+  s.addNotes("A randomized trial, which is rare in transplant. HR 0.37 (0.21-0.65), p=0.0003. Recurrence is common but often treatable: of 36 transplanted per protocol, 26 recurred, and 12 had the recurrence resected or ablated.");
+}
+{
+  const s = slide("And in the US?");
+  bars(s, [{ name: "3-year survival", labels: ["Living donor", "Deceased donor"], values: [74.1, 57.3] }],
+    { x: 0.6, y: 1.3, w: 6.6, h: 4.95, max: 100, unit: 25, fmt: '0.0"%"', colors: [NAVY], catSize: 18, title: "3-year survival" });
+  txt(s, "Registry comparison, not adjusted", 0.6, 6.3, 6.6, 0.4, { size: 14, align: "center", i: true, color: GREY });
+  body(s, [
+    "158 transplants for colorectal metastases at 33 US centers, Dec 2017 to Mar 2025",
+    "About half from living donors",
+    "3-year survival 66.7%, disease-free 44.0%",
+    "Exception points by review since Feb 2025",
+  ], { size: 19, gap: 16, x: 7.6, w: 5.3, y: 1.6, h: 5.1 });
+  src(s, "Chávez-Villa M, Sasaki K, Nakayama T, et al. Liver Transpl 2026;32(4):508-17 [PMID: 41086433]");
+  s.addNotes("Half of these were living donor transplants. The donor groups differ in who was selected and in the grafts: 68.2% of the deceased donor livers were out-of-sequence offers. So the bars don't show that the donor type caused the difference. If a patient with colorectal metastases asks about transplant, it's worth a call.");
 }
 // ---------------------------------------------------------------- Part 3. From Maine to a transplant center
 sec("From Maine to Boston");
@@ -951,7 +972,18 @@ twoStep((step) => {
   src(s, "Nasralla D et al. Nature 2018 [PMID: 29670285]. Markmann JF et al. JAMA Surg 2022 [PMID: 34985503]. van Rijn R et al. N Engl J Med 2021 [PMID: 33626248]. Te HS et al. 2026, statements 6-10 [PMID: 40844852]. EASL 2024, p.1062");
   s.addNotes("Early allograft dysfunction is the Olthoff definition: bilirubin 10 or more or INR 1.6 or more on day 7, or AST or ALT over 2000 in the first week. Non-anastomotic strictures are the ischemic cholangiopathy from two slides back. Nasralla randomized 220 transplants and measured graft injury as peak AST. PROTECT's ischemic biliary complications are at 12 months, and it also used 51% of the DCD livers it assessed vs 26% in the control arm. Nasralla's machine kept livers 54% longer. The three trials studied different livers and end points; none compared one machine with another. They are the basis for the guideline recommendations on the line below.");
 }
-// NRP outcomes and where the rules stand (Mohammad, 2026-10-27); the TA vs A-NRP figure is in the appendix
+// TA-NRP vs A-NRP before the NRP outcomes (figure Mohammad picked, Cureus, CC BY); back in the main talk 2026-10-27
+{
+  const s = slide("How do TA-NRP and A-NRP differ?");
+  pic(s, "nrp-ta-vs-a.png", 1.35, 1.2, W - 2.7, 4.3, "Thoraco-abdominal and abdominal normothermic regional perfusion circuits: reservoir, roller pump, oxygenator, gas mixer and heat exchanger");
+  txt(s, [{ text: "TA-NRP: ", options: { bold: true } }, { text: "the chest is opened and the arteries to the head are clamped, cut and vented. The heart beats again, so heart, lungs and abdominal organs can all be used." }],
+    0.6, 5.55, 5.9, 1.3, { size: 15, align: "center" });
+  txt(s, [{ text: "A-NRP: ", options: { bold: true } }, { text: "the aorta is blocked above the celiac and cut above the block. Only the abdominal organs get blood; the heart doesn't restart." }],
+    W - 6.5, 5.55, 5.9, 1.3, { size: 15, align: "center" });
+  src(s, "Figure: Alamouti-Fard E, Garg P, Wadiwala IJ, et al. Cureus 2022;14(6):e26437, CC BY 4.0. Vessel steps: OPTN/HRSA NRP safety notice, November 21, 2025");
+  s.addNotes("Both start only after death is declared and the no-touch wait is over. The circuit is basically ECMO: reservoir, pump, oxygenator and heater. The liver gets warm oxygenated blood again, usually for an hour or two, and the team follows lactate and liver tests to decide whether to use it. "
+    + "TA-NRP is one of the two ways DCD hearts are recovered in the US; the other takes the heart straight onto a machine. Cutting and venting the vessels is what keeps blood from reaching the brain. The November 2025 OPTN/HRSA safety notice spelled those steps out for both setups after concerns about unintended brain reperfusion.");
+}
 twoStep((step) => {
   const s = slide("Does NRP help the liver, and is it allowed?");
   const a = (v) => ans(step, v);
@@ -970,7 +1002,7 @@ twoStep((step) => {
   ], { size: 20, gap: 18, x: 7.6, w: 5.3, y: 1.5, h: 5.0 });
   src(s, "Brubaker AL et al. JAMA Surg 2024;159(6):677-85 [PMID: 38568597]. OPTN/HRSA NRP safety notice, November 21, 2025. HRSA, NRP policy issue page (accessed 10/2026)");
   s.addNotes(step === 1 ? "Ask the room: would you expect better or worse livers, and do you think it is legal everywhere?"
-    : "NRP comes in two forms: abdominal only, or thoraco-abdominal, where the heart beats again in the body (diagram in the appendix). The vessels to the brain are clamped and cut first either way. This is a retrospective US multicenter study, not a trial; the Spanish and UK registry data point the same way, with fewer bile duct problems after NRP. "
+    : "This is a retrospective US multicenter study, not a trial; the Spanish and UK registry data point the same way, with fewer bile duct problems after NRP. "
       + "On the rules: the US has no statute that permits or bans NRP. Critics, including the American College of Physicians, argue that restarting circulation after death is declared may not fit the Uniform Determination of Death Act, which almost every state has adopted. HRSA has been asking the OPTN for NRP data since 2024, the November 2025 safety notice made the vessel steps explicit, and the OPTN workgroup's draft policy still has to go to the board. This is likely to change, so check before the talk.");
   return s;
 });
@@ -1073,15 +1105,28 @@ if (!PUBLIC) {
   const s = slide("What does the primary care doctor need to do?");
   table(s, [
     ["", "What the 2025 AASLD/AST guideline says"],
-    ["Vaccines", "ACIP schedule for immunocompromised adults; no live vaccines"],
-    ["Skin", "Skin exam every year, plus age-appropriate cancer screening"],
-    ["Alcohol", "None, whatever the original liver disease"],
-    ["Type 2 diabetes", "GLP-1 RA or SGLT2i first if high CV, heart failure or CKD risk"],
+    ["Screening", "BP, weight, glucose and lipids every year"],
+    ["Type 2 diabetes", "Metformin; GLP-1 RA or SGLT2i first if high CV, HF or CKD risk"],
+    ["Hypertension", "Amlodipine or felodipine; ACEi or ARB if CVD or CKD"],
     ["Lipids", "Hydrophilic statin first"],
-    ["Elective surgery", "At least 3 months after transplant, with stable graft function"],
+    ["Obesity", "GLP-1 RA if diet and exercise aren't enough"],
+    ["CKD", "Consider nephrology at stage 4"],
   ], { x: 0.5, y: 1.5, w: W - 1.0, size: 20, minRowH: 0.72 });
-  src(s, G3 + ", statements 9, 19-20, 44-45, 59, 62, 83");
-  s.addNotes("After the first year, the long-term problems are cardiovascular disease, kidney disease, cancer and the side effects of immunosuppression, more than the graft. Skin cancer is the most common cancer after transplant. Also in the guideline: BP, weight, glucose and lipids every year; metformin first for diabetes otherwise; amlodipine or felodipine for blood pressure, or an ACE inhibitor or ARB with CVD or CKD; GLP-1 RA for obesity; nephrology at CKD stage 4, and for CKD the transplant team lowers tacrolimus, so please don't stop it. Pregnancy waits a year with 6 months of stable graft function, and mycophenolate is stopped 6 weeks before conception in women and 90 days in men. The guideline also covers bone health and a yearly check for depression and alcohol use. The transplant team manages immunosuppression around surgery.");
+  src(s, G3 + ", statements 53, 58-62, 64, 76, 79, 82");
+  s.addNotes("After the first year, the long-term problems are cardiovascular disease, kidney disease, cancer and the side effects of immunosuppression, more than the graft. For CKD the transplant team lowers tacrolimus; please don't stop it.");
+}
+{
+  const s = slide("What else does the primary care doctor need to do?");
+  table(s, [
+    ["", "What the 2025 AASLD/AST guideline says"],
+    ["Cancer", "Age-appropriate screening; skin exam every year"],
+    ["Vaccines", "ACIP schedule for immunocompromised adults; no live vaccines"],
+    ["Alcohol", "None, whatever the original liver disease"],
+    ["Elective surgery", "At least 3 months after LT, with stable graft function"],
+    ["Pregnancy", "Wait a year, with 6 months of stable graft function"],
+  ], { x: 0.5, y: 1.5, w: W - 1.0, size: 20, minRowH: 0.8 });
+  src(s, G3 + ", statements 9, 19-20, 24, 26, 44-45, 83-84");
+  s.addNotes("Skin cancer is the most common cancer after transplant. Mycophenolate has to be stopped 6 weeks before conception in women and 90 days in men. The transplant team manages immunosuppression around surgery. The guideline also covers bone health and a yearly check for depression and alcohol use.");
 }
 {
   const s = slide("Take-home points");
@@ -1133,18 +1178,6 @@ sec("Appendix");
   s.addNotes("Cut if running long. Small tumors in cirrhosis, often found on the explant, did well, which is where this started. The guideline says under 3 cm; the OPTN review guidance says 3 cm or less. The treatment before listing can be local or systemic. Once listed, imaging every 3 months has to show no growth and no new tumors.");
 }
 
-// TA-NRP vs A-NRP, moved to the appendix after the critique (figure Mohammad picked, Cureus, CC BY)
-{
-  const s = slide("How do TA-NRP and A-NRP differ?");
-  pic(s, "nrp-ta-vs-a.png", 1.35, 1.2, W - 2.7, 4.3, "Thoraco-abdominal and abdominal normothermic regional perfusion circuits: reservoir, roller pump, oxygenator, gas mixer and heat exchanger");
-  txt(s, [{ text: "TA-NRP: ", options: { bold: true } }, { text: "the chest is opened and the arteries to the head are clamped, cut and vented. The heart beats again, so heart, lungs and abdominal organs can all be used." }],
-    0.6, 5.55, 5.9, 1.3, { size: 15, align: "center" });
-  txt(s, [{ text: "A-NRP: ", options: { bold: true } }, { text: "the aorta is blocked above the celiac and cut above the block. Only the abdominal organs get blood; the heart doesn't restart." }],
-    W - 6.5, 5.55, 5.9, 1.3, { size: 15, align: "center" });
-  src(s, "Figure: Alamouti-Fard E, Garg P, Wadiwala IJ, et al. Cureus 2022;14(6):e26437, CC BY 4.0. Vessel steps: OPTN/HRSA NRP safety notice, November 21, 2025");
-  s.addNotes("Both start only after death is declared and the no-touch wait is over. The circuit is basically ECMO: reservoir, pump, oxygenator and heater. The liver gets warm oxygenated blood again, usually for an hour or two, and the team follows lactate and liver tests to decide whether to use it. "
-    + "TA-NRP is one of the two ways DCD hearts are recovered in the US; the other takes the heart straight onto a machine. Cutting and venting the vessels is what keeps blood from reaching the brain. The November 2025 OPTN/HRSA safety notice spelled those steps out for both setups after concerns about unintended brain reperfusion.");
-}
 
 const SOURCES = [
   [
