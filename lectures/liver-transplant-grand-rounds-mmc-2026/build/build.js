@@ -577,11 +577,11 @@ cont(); women(2).addNotes("Transplants to women went from 37.0% to 41.7%, and 90
   });
   box(s, 5.15, 3.2, W - 10.3, 1.12, "Refer for liver transplant evaluation", { size: 18, b: true, fill: "F2F2F2" });
   txt(s, [
-    { text: "Statement 1: ", options: { bold: true } },
+    { text: "The 2025 guideline: ", options: { bold: true } },
     { text: "refer after any decompensating event. Without one, the MELD threshold is unclear: benefit may start at 12 in waitlisted patients, and most of the writing group still sees 15 as reasonable. “MELD score alone should not be a barrier to referral.”" },
   ], 0.9, 5.45, W - 1.8, 1.3, { size: 17, align: "center" });
-  src(s, "Figure 1 and statement 1 redrawn from " + G1);
-  s.addNotes("This is Figure 1 of the new guideline, redrawn; the MELD 3.0 ≥12 box is theirs. Any one of these events is a reason to call. The 2013 guideline said MELD 15. The MELD 12 number comes from studies of patients already on the waitlist, which weren't designed to answer when to refer. So without complications there is no firm cutoff, and 15 is still reasonable. With uncontrolled portal hypertensive complications, refer at any MELD.");
+  src(s, "Figure 1 redrawn from " + G1 + ", statement 1");
+  s.addNotes("This is Figure 1 of the new guideline, redrawn. The 2025 AASLD/AST guidelines number each recommendation as a statement; the numbers are in the footers if anyone wants to look one up. In the figure, the MELD 3.0 ≥12 box is theirs. Any one of these events is a reason to call. The 2013 guideline said MELD 15. The MELD 12 number comes from studies of patients already on the waitlist, which weren't designed to answer when to refer. So without complications there is no firm cutoff, and 15 is still reasonable. With uncontrolled portal hypertensive complications, refer at any MELD.");
 }
 {
   const s = slide("Who needs a call the same day?");
@@ -600,11 +600,11 @@ cont(); women(2).addNotes("Transplants to women went from 37.0% to 41.7%, and 90
   pic(s, "phone.jpg", 8.9, 1.4, 4.1, 3.6, "Watercolor of a desk phone with the handset off the hook");
   txt(s, [
     { text: "ALF: ", options: { bold: true } },
-    { text: "call “in the first few hours after presentation, and prior to meeting ALF diagnostic criteria,” because complications can make the transfer unsafe (statements 3-4)", options: { breakLine: true } },
+    { text: "call “in the first few hours after presentation, and prior to meeting ALF diagnostic criteria,” because complications can make the transfer unsafe", options: { breakLine: true } },
     { text: "ACLF: ", options: { bold: true, paraSpaceBefore: 10 } },
-    { text: "refer (statement 2). Insurance, substance use or infection shouldn't hold up the call." },
+    { text: "refer. Insurance, substance use or infection shouldn't hold up the call." },
   ], 0.6, 5.3, W - 1.2, 1.5, { size: 17, align: "center" });
-  src(s, G1 + ". ACG ALF guideline 2023 [PMID: 37377263]");
+  src(s, G1 + ", statements 2-4. ACG ALF guideline 2023 [PMID: 37377263]");
   s.addNotes("This is the one that matters most for a hospital without a transplant program. About a third of ALF patients get a transplant, a third recover, and the transplant center can help with both. Don't wait for King's College criteria or for encephalopathy to get worse. The guideline says barriers like insurance, substance use or infection should be sorted out quickly but shouldn't stop the referral. The ICU side of ALF and ACLF is in my ALF lecture.");
 }
 // ---------------------------------------------------------------- Part 4. Who can get a liver now
@@ -709,15 +709,15 @@ cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associat
 {
   const s = slide("What no longer rules a patient out?");
   table(s, [
-    ["On its own", "2025 AASLD/AST guideline", "Statement"],
-    ["Length of abstinence", "Duration alone doesn't exclude", "38"],
-    ["Methadone or buprenorphine", "No denial, no taper needed", "41"],
-    ["BMI >40 or <18.5", "Screen nutrition and muscle; BMI alone doesn't exclude", "48-49"],
-    ["ACLF or MELD >40", "Doesn't exclude by itself", "2, 43"],
-    ["Older age (living donor LT)", "Not an exclusion", "51"],
+    ["On its own", "What the 2025 AASLD/AST guideline says"],
+    ["Length of abstinence", "Duration alone doesn't exclude"],
+    ["Methadone or buprenorphine", "No denial, no taper needed"],
+    ["BMI >40 or <18.5", "Screen nutrition and muscle; BMI alone doesn't exclude"],
+    ["ACLF or MELD >40", "Doesn't exclude by itself"],
+    ["Older age (living donor LT)", "Not an exclusion"],
   ], { x: 0.6, y: 1.5, w: W - 1.2, size: 18, minRowH: 0.58 });
   txt(s, "Each one is still weighed with the rest of the picture, case by case.", 0.9, 5.4, W - 1.8, 0.5, { size: 19, align: "center", i: true });
-  src(s, G1);
+  src(s, G1 + ", statements 2, 38, 41, 43, 48-49, 51");
   s.addNotes("None of these should stop a first referral on its own. The 2025 guideline says each is weighed with everything else, not used as a cutoff.");
 }
 
@@ -764,14 +764,7 @@ cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associat
 // ---------------------------------------------------------------- Part 3. From Maine to a transplant center
 sec("From Maine to Boston");
 {
-  const s = bgDivider("From Maine to Boston", null, "divider-road-south.jpg", "Watercolor of a snowy highway heading south through pine trees");
-  // white highway lettering on the blank green sign (sign is x 1699-2055, y 373-539 px of the 2400 x 1340 picture)
-  const k = 13.43 / 2400;
-  s.addText([
-    { text: "I-95 SOUTH", options: { fontSize: 13, breakLine: true } },
-    { text: "Boston", options: { fontSize: 26 } },
-  ], { x: -0.05 + 1699 * k, y: 373 * k, w: 356 * k, h: 166 * k, fontFace: TBL_FONT, bold: true, color: "FFFFFF", align: "center", valign: "middle",
-    isTextBox: true, margin: 2, objectName: "Sign" });
+  const s = bgDivider("From Maine to Boston", null, "divider-road-south.jpg", "Watercolor of a snowy highway heading south, with a sign for I-95 South to Boston");
   s.addNotes("Maine has no liver transplant program, so for many patients here transplant care means travel out of state. Travel, lodging and a caregiver are part of the plan from the first visit.");
 }
 {
@@ -817,11 +810,11 @@ sec("From Maine to Boston");
     });
   arrow(s, 3.95, 4.25, 3.95, sy);
   body(s, [
-    "Measure it with a standard tool (statement 33)",
-    "Frailty raises the risk after transplant, but alone it doesn't rule a patient out (44-45)",
+    "Measure it with a standard tool",
+    "Frailty raises the risk after transplant, but alone it doesn't rule a patient out",
     "Frailty also predicts death on the waitlist",
   ], { size: 20, gap: 18, x: 7.8, w: 5.1, y: 1.7, h: 4.8 });
-  src(s, "Lai JC, Tandon P, Bernal W, et al. Hepatology 2021;74(3):1611-44 [PMID: 34233031]. " + G1.replace("Dove L et al. AASLD/AST candidate evaluation guideline. ", "Dove L et al. "));
+  src(s, "Lai JC, Tandon P, Bernal W, et al. Hepatology 2021;74(3):1611-44 [PMID: 34233031]. " + G1.replace("Dove L et al. AASLD/AST candidate evaluation guideline. ", "Dove L et al. ") + ", statements 33, 44-45");
   s.addNotes("Takes about 3 minutes in clinic. The calculator is free online. Frailty is something the referring team can work on while the patient waits.");
 }
 {
@@ -901,6 +894,52 @@ bgDivider("Where the livers come from", null, "divider-organ-cooler.jpg", "Water
   src(s, "Seehofer D, Eurich D, Veltzke-Schlieker W, Neuhaus P. Am J Transplant 2013;13(2):253-65 [PMID: 23331505]");
   s.addNotes("This is the complication that kept DCD use low for years, and it's what the perfusion machines are meant to prevent.");
 }
+// DCD timeline with the warm ischemia windows (Mohammad, 2026-10-27). Drawn, not a figure: step 1 is the events, step 2 adds the clocks
+twoStep((step) => {
+  const s = slide("When does the warm ischemia clock start?");
+  const z = step === 1;
+  const X = [1.1, 4.4, 6.5, 8.1, 9.7, 11.6]; // withdrawal, threshold, arrest, death declared, cold flush, liver out
+  const AX = 3.55, ZERO = 3.42, TH = 2.6;
+  txt(s, "Donor blood pressure and oxygen saturation", 1.9, 1.3, 6, 0.35, { size: 14, i: true, color: GREY });
+  // schematic curve: steady, then falling through the threshold to zero at arrest, flat until the flush
+  s.addShape(pres.shapes.CUSTOM_GEOMETRY, { x: X[0], y: 1.6, w: X[4] - X[0], h: ZERO - 1.6, line: { color: NAVY, width: 2.5 }, objectName: "Curve",
+    points: [
+      { x: 0, y: 0 }, { x: 0.8, y: 0 },
+      { x: X[1] - X[0], y: TH - 1.6, curve: { type: "cubic", x1: 1.9, y1: 0, x2: 2.6, y2: 0.55 } },
+      { x: X[2] - X[0], y: ZERO - 1.6, curve: { type: "cubic", x1: 4.0, y1: 1.45, x2: 4.6, y2: ZERO - 1.6 } },
+      { x: X[4] - X[0], y: ZERO - 1.6 },
+    ] });
+  if (!z) {
+    s.addShape(pres.shapes.LINE, { x: 0.9, y: TH, w: X[4] - 0.9, h: 0, line: { color: RED, width: 1.25, dashType: "dash" }, objectName: "Threshold" });
+    txt(s, "SpO2 <80% or MAP <60", 0.9, TH + 0.05, 3.0, 0.35, { size: 14, color: RED });
+  }
+  // time axis with the events under it
+  arrow(s, 0.8, AX, 12.6, AX);
+  const ev = ["Withdrawal of life support", "Below threshold", "Circulation stops", "Death declared, after a 5-min wait", "Cold flush", "Liver out, on ice"];
+  ev.forEach((t, i) => {
+    if (z && i === 1) return;
+    s.addShape(pres.shapes.LINE, { x: X[i], y: AX - 0.12, w: 0, h: 0.24, line: { color: "000000", width: 1.5 }, objectName: "Tick" });
+    txt(s, t, X[i] - 0.8, AX + 0.18, 1.6, 1.0, { size: 14, align: "center", color: i === 1 ? RED : "000000" });
+  });
+  // the clocks, all ending at the cold flush
+  if (!z) {
+    const bar = (x1, x2, y, t, fill, color, b) => {
+      s.addShape(pres.shapes.RECTANGLE, { x: x1, y, w: x2 - x1, h: 0.4, fill: { color: fill }, line: { color: fill }, objectName: "Window" });
+      txt(s, t, x1, y, x2 - x1, 0.4, { size: 14, align: "center", valign: "middle", color, b });
+    };
+    bar(X[0], X[4], 4.85, "Total donor warm ischemia", SLATE, "000000");
+    bar(X[4], X[5], 4.85, "Hepatectomy", "E7E6E6", "000000");
+    bar(X[1], X[4], 5.35, "Functional warm ischemia: limit about 30 min", NAVY, "FFFFFF");
+    bar(X[2], X[4], 5.85, "Asystolic warm ischemia", TEAL, "FFFFFF");
+    txt(s, "With NRP, warm oxygenated blood reaches the liver again soon after death is declared", 0.9, 6.35, W - 1.8, 0.45, { size: 17, align: "center" });
+  }
+  src(s, "Kalisvaart M et al. ILTS consensus on donor warm ischemia time in DCD liver transplantation. Transplantation 2021;105(6):1156-64 [PMID: 34048418]");
+  s.addNotes(z ? "Walk through what happens in a DCD donation before showing the clocks. Ask: when do you think the liver starts to suffer?"
+    : "Withdrawal happens in the ICU or the OR, usually with the family there. The clock that matters most is functional warm ischemia: from the moment saturation drops below 80% or mean pressure below 60, to the cold flush. That is the ILTS definition; the UK uses systolic below 50, and US programs vary. Most programs decline the liver if it runs past about 30 minutes, and if the donor doesn't die within the program's window after withdrawal, the liver isn't used. "
+      + "The wait after the heart stops is usually 5 minutes in the US. Nobody touches the donor during it, and death is declared by a team that has nothing to do with the transplant. Hepatectomy time, from the flush until the liver is on ice, matters too. After that come cold storage and the recipient's own warm ischemia during the implant. "
+      + "NRP restarts warm oxygenated blood flow to the abdominal organs after death is declared, and in observational studies NRP livers have had fewer bile duct problems.");
+  return s;
+});
 {
   const s = slide("What does a perfusion machine do?");
   pic(s, "schneeberger-life.png", 0.3, 1.3, 6.9, 3.9, "Cold storage vs normothermic machine perfusion of a donor liver", { left: true });
@@ -918,14 +957,14 @@ bgDivider("Where the livers come from", null, "divider-organ-cooler.jpg", "Water
   table(s, [
     ["Trial", "Machine", "Main result"],
     ["Nasralla, Nature 2018 (220 LTs)", "NMP", "Peak AST and discard 50% lower"],
-    ["PROTECT, JAMA Surg 2022", "NMP (OCS)", { t: [{ t: "EAD 18% vs 31%", br: true }, { t: "Ischemic biliary 2.6% vs 9.9%" }] }],
-    ["DHOPE-DCD, NEJM 2021", "DHOPE", { t: [{ t: "Symptomatic NAS 6% vs 18%", br: true }, { t: "at 6 months (RR 0.36)" }] }],
+    ["PROTECT, JAMA Surg 2022", "NMP (OCS)", { t: [{ t: "Early allograft dysfunction", br: true }, { t: "18% vs 31%", br: true }, { t: "Ischemic biliary 2.6% vs 9.9%" }] }],
+    ["DHOPE-DCD, NEJM 2021", "DHOPE", { t: [{ t: "Symptomatic non-anastomotic", br: true }, { t: "strictures 6% vs 18%", br: true }, { t: "at 6 months (RR 0.36)" }] }],
   ], { x: 0.4, y: 1.5, w: 8.0, size: 17, minRowH: 0.8 });
   pic(s, "dhope-fig.png", 8.6, 1.3, 4.45, 3.9, "DHOPE-DCD Figure 1: cumulative incidence of non-anastomotic strictures, machine perfusion vs control");
   txt(s, "The 2025 AASLD/AST and 2024 EASL guidelines both recommend machine perfusion for DCD and extended-criteria livers.",
     0.9, 5.55, W - 1.8, 0.9, { size: 19, align: "center" });
   src(s, "Nasralla D et al. Nature 2018 [PMID: 29670285]. Markmann JF et al. JAMA Surg 2022 [PMID: 34985503]. van Rijn R et al. N Engl J Med 2021 [PMID: 33626248]. Te HS et al. 2026, statements 6-10 [PMID: 40844852]. EASL 2024, p.1062");
-  s.addNotes("Nasralla measured graft injury as peak AST. PROTECT's ischemic biliary complications are at 12 months, and it also used 51% of the DCD livers it assessed vs 26% in the control arm. Nasralla's machine kept livers 54% longer. The three trials studied different livers and end points; none compared one machine with another. They are the basis for the guideline recommendations on the line below.");
+  s.addNotes("Early allograft dysfunction is the Olthoff definition: bilirubin 10 or more or INR 1.6 or more on day 7, or AST or ALT over 2000 in the first week. Non-anastomotic strictures are the ischemic cholangiopathy from two slides back. Nasralla measured graft injury as peak AST. PROTECT's ischemic biliary complications are at 12 months, and it also used 51% of the DCD livers it assessed vs 26% in the control arm. Nasralla's machine kept livers 54% longer. The three trials studied different livers and end points; none compared one machine with another. They are the basis for the guideline recommendations on the line below.");
 }
 {
   const s = slide("What about living donors?");
@@ -1003,28 +1042,28 @@ bgDivider("Your patient had a transplant", null, "divider-pill-box.jpg", "Waterc
 {
   const s = slide("What does the primary care doctor need to do?");
   table(s, [
-    ["", "2025 guideline", "Statement"],
-    ["Screening", "BP, weight, glucose and lipids every year", "53"],
-    ["Type 2 diabetes", "Metformin; GLP-1 RA or SGLT2i first if high CV, HF or CKD risk", "58-59"],
-    ["Hypertension", "Amlodipine or felodipine; ACEi or ARB if CVD or CKD", "60-61"],
-    ["Lipids", "Hydrophilic statin first", "62"],
-    ["Obesity", "GLP-1 RA if diet and exercise aren't enough", "64"],
-    ["CKD", "Consider nephrology at stage 4", "76, 79, 82"],
+    ["", "What the 2025 AASLD/AST guideline says"],
+    ["Screening", "BP, weight, glucose and lipids every year"],
+    ["Type 2 diabetes", "Metformin; GLP-1 RA or SGLT2i first if high CV, HF or CKD risk"],
+    ["Hypertension", "Amlodipine or felodipine; ACEi or ARB if CVD or CKD"],
+    ["Lipids", "Hydrophilic statin first"],
+    ["Obesity", "GLP-1 RA if diet and exercise aren't enough"],
+    ["CKD", "Consider nephrology at stage 4"],
   ], { x: 0.5, y: 1.5, w: W - 1.0, size: 20, minRowH: 0.72 });
-  src(s, G3);
+  src(s, G3 + ", statements 53, 58-62, 64, 76, 79, 82");
   s.addNotes("After the first year, the long-term problems are cardiovascular disease, kidney disease, cancer and the side effects of immunosuppression, more than the graft. For CKD the transplant team lowers tacrolimus; please don't stop it.");
 }
 {
   const s = slide("What else does the primary care doctor need to do?");
   table(s, [
-    ["", "2025 guideline", "Statement"],
-    ["Cancer", "Age-appropriate screening; skin exam every year", "44-45"],
-    ["Vaccines", "ACIP schedule for immunocompromised adults; no live vaccines", "19-20"],
-    ["Alcohol", "None, whatever the original liver disease", "9"],
-    ["Elective surgery", "At least 3 months after LT, with stable graft function", "83-84"],
-    ["Pregnancy", "Wait a year, with 6 months of stable graft function", "24, 26"],
+    ["", "What the 2025 AASLD/AST guideline says"],
+    ["Cancer", "Age-appropriate screening; skin exam every year"],
+    ["Vaccines", "ACIP schedule for immunocompromised adults; no live vaccines"],
+    ["Alcohol", "None, whatever the original liver disease"],
+    ["Elective surgery", "At least 3 months after LT, with stable graft function"],
+    ["Pregnancy", "Wait a year, with 6 months of stable graft function"],
   ], { x: 0.5, y: 1.5, w: W - 1.0, size: 20, minRowH: 0.8 });
-  src(s, G3);
+  src(s, G3 + ", statements 9, 19-20, 24, 26, 44-45, 83-84");
   s.addNotes("Skin cancer is the most common cancer after transplant. Mycophenolate has to be stopped 6 weeks before conception in women and 90 days in men. The transplant team manages immunosuppression around surgery. The guideline also covers bone health and a yearly check for depression and alcohol use.");
 }
 {

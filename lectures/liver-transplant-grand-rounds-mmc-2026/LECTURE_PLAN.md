@@ -2,7 +2,7 @@
 
 Grand rounds at Maine Medical Center, 11/18/2026. One hour: about 45 minutes of talk, then questions. Built on the Nov 2025 Liver Transplant Basics deck ([LT-BASICS](../liver-transplant/2025-11-10%20Liver%20Transplant%20Basics%20Compressed.pptx)).
 
-**Status:** revised 2026-10-27 after an outside review (accuracy, labels, tone) and Mohammad's request to keep the transplant history. 50 numbered slides in the talk copy with the Tufts slides (47 in this public copy), counting the cover as 1, two reveals (three in the talk copy: the Tufts diagnosis chart starts empty so the room can guess the alcohol share). Appendix: iCCA, then three slides of sources. Slide order reworked 2026-10-27 to follow the patient (proposal approved by Mohammad; the previous order is commit 6bb7789 if he wants it back). [Deck](Liver%20Transplantation%20When%20to%20Refer%20and%20Whats%20New.pptx), [PDF](LT-grand-rounds-MMC-2026-slides.pdf).
+**Status:** revised 2026-10-27 after an outside review (accuracy, labels, tone) and Mohammad's request to keep the transplant history. 51 numbered slides in the talk copy with the Tufts slides (48 in this public copy), counting the cover as 1, three reveals (four in the talk copy: the Tufts diagnosis chart starts empty so the room can guess the alcohol share). Appendix: iCCA, then three slides of sources. Slide order reworked 2026-10-27 to follow the patient (proposal approved by Mohammad; the previous order is commit 6bb7789 if he wants it back). [Deck](Liver%20Transplantation%20When%20to%20Refer%20and%20Whats%20New.pptx), [PDF](LT-grand-rounds-MMC-2026-slides.pdf).
 
 **Audience:** GI and hepatology faculty plus faculty, specialists, residents and fellows from across the hospital. Specialist room, so slide titles are clinical questions, paper slides show the title block and result together, and there are no "What do you think they found?" prompts. No patient case.
 
@@ -16,8 +16,8 @@ Grand rounds at Maine Medical Center, 11/18/2026. One hour: about 45 minutes of 
 | When to refer | 11-17 | Where MELD came from (Malinchoc 2000, Fredric Gordon highlighted), why MELD 15, MELD 3.0 and women, the 2025 referral figure with the threshold qualified as statement 1 does, who needs a call the same day (ALF, severe acute liver injury, ACLF; Tufts transfer line in the talk copy) |
 | Who can get a liver now | 18-29 | Early LT for alcohol-associated hepatitis (Mathurin, ACCELERATE-AH, QuickTrans, guidelines), Tufts and US diagnosis mix, ACLF (CHANCE), what no longer rules a patient out, exception points, TransMet and US colorectal data |
 | From Maine to Boston | 30-34 | The evaluation (Tufts referral lines and QR in the talk copy), frailty, what the Maine team does while the patient waits, acuity circles as the bridge to donors |
-| Where the livers come from | 35-42 | Donor types, DCD growth and machine perfusion, ischemic cholangiopathy, how the machines work, the three RCTs, living donors, then Jackson's LDLT benefit below MELD 15 |
-| Your patient had a transplant | 43-50 | Abnormal liver tests, MRCP vs ERCP, tacrolimus interactions, the primary care checklist, take-home points, Questions (referral lines and QR in the talk copy) |
+| Where the livers come from | 35-43 | Donor types, DCD growth and machine perfusion, ischemic cholangiopathy, the DCD timeline with the warm ischemia clocks (drawn; ILTS 2021 definitions), how the machines work, the three RCTs, living donors, then Jackson's LDLT benefit below MELD 15 |
+| Your patient had a transplant | 44-51 | Abnormal liver tests, MRCP vs ERCP, tacrolimus interactions, the primary care checklist, take-home points, Questions (referral lines and QR in the talk copy) |
 
 Slide numbers above are for the talk copy. Cut first if long, in this order: the US diagnosis mix ("Is that just Tufts?"), why MELD 15 became the rule (one sentence on the referral slide instead), and the US colorectal slide. iCCA is already in the appendix.
 
@@ -36,3 +36,9 @@ Slide numbers above are for the talk copy. Cut first if long, in this order: the
 PMIDs were checked against PubMed on 2026-10-27, and the key numbers against the full PDFs of the 2025 candidate evaluation and non-graft guidelines, TransMet, QuickTrans, Rinella and DHOPE-DCD. The full list is on the three appendix slides. Without a PMID: OPTN Policy 9 and the oncology review guidance, the Prograf label, and the NYT obituary. The PMIDs for Perkins, Seehofer, Schneeberger, the J Clin Exp Hepatol 2024 review and ASGE came from the outside review and could not be opened from the build machine; Zarrinpar (23752825) and Starzl 1963 (14100514) were matched through secondary listings. Jackson Figure 1B (adjusted) is from the full PDF Mohammad sent.
 
 Images: [background image prompts](liver-transplant-grand-rounds-mmc-2026-background-image-prompts.md). Build: [build/README.md](build/README.md).
+
+## Guideline statement numbers (2026-10-27)
+
+Mohammad asked what the statement numbers were. They are the numbered recommendations in the three 2025 AASLD/AST transplant guidelines. They now appear only in the source footers; slide text says "the 2025 guideline" and the tables no longer have a Statement column.
+
+Unverified from here: Kalisvaart 2021 ILTS warm ischemia report, PMID 34048418 (from a Google Scholar link); its fDWIT definition (SpO2 <80% and/or MAP <60, limit 30 min) comes from secondary sources, since the journal and PubMed are blocked.
