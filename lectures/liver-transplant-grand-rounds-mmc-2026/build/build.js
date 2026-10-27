@@ -941,6 +941,40 @@ twoStep((step) => {
       + "NRP restarts warm oxygenated blood flow to the abdominal organs after death is declared, and in observational studies NRP livers have had fewer bile duct problems.");
   return s;
 });
+// NRP: the two setups, then outcomes and where the rules stand (Mohammad, 2026-10-27; figure he picked, Cureus, CC BY)
+{
+  const s = slide("How do TA-NRP and A-NRP differ?");
+  pic(s, "nrp-ta-vs-a.png", 1.35, 1.2, W - 2.7, 4.3, "Thoraco-abdominal and abdominal normothermic regional perfusion circuits: reservoir, roller pump, oxygenator, gas mixer and heat exchanger");
+  txt(s, [{ text: "TA-NRP: ", options: { bold: true } }, { text: "the chest is opened and the arteries to the head are clamped, cut and vented. The heart beats again, so heart, lungs and abdominal organs can all be used." }],
+    0.6, 5.55, 5.9, 1.3, { size: 15, align: "center" });
+  txt(s, [{ text: "A-NRP: ", options: { bold: true } }, { text: "the aorta is blocked above the celiac and cut above the block. Only the abdominal organs get blood; the heart doesn't restart." }],
+    W - 6.5, 5.55, 5.9, 1.3, { size: 15, align: "center" });
+  src(s, "Figure: Alamouti-Fard E, Garg P, Wadiwala IJ, et al. Cureus 2022;14(6):e26437, CC BY 4.0. Vessel steps: OPTN/HRSA NRP safety notice, November 21, 2025");
+  s.addNotes("Both start only after death is declared and the no-touch wait is over. The circuit is basically ECMO: reservoir, pump, oxygenator and heater. The liver gets warm oxygenated blood again, usually for an hour or two, and the team follows lactate and liver tests to decide whether to use it. "
+    + "TA-NRP is one of the two ways DCD hearts are recovered in the US; the other takes the heart straight onto a machine. Cutting and venting the vessels is what keeps blood from reaching the brain. The November 2025 OPTN/HRSA safety notice spelled those steps out for both setups after concerns about unintended brain reperfusion.");
+}
+twoStep((step) => {
+  const s = slide("Does NRP help the liver, and is it allowed?");
+  const a = (v) => ans(step, v);
+  table(s, [
+    ["17 US centers, 2017-2023", "NRP (106) vs super-rapid (136)"],
+    ["Ischemic cholangiopathy", a("Lower with NRP")],
+    ["Early allograft dysfunction", a("Lower with NRP")],
+    ["Hospital stay, median", a("7 vs 10 days")],
+    ["Primary nonfunction", a("0 vs 2 grafts")],
+    ["Patient and graft survival", a("Similar")],
+  ], { x: 0.5, y: 1.5, w: 6.8, size: 19, minRowH: 0.78 });
+  if (step === 2) body(s, [
+    "No federal or state law names NRP; the argument is over the dead donor rule",
+    "November 2025: OPTN/HRSA safety notice on cutting and venting the vessels to the brain",
+    "An OPTN workgroup has been drafting national NRP policy since October 2025",
+  ], { size: 20, gap: 18, x: 7.6, w: 5.3, y: 1.5, h: 5.0 });
+  src(s, "Schnickel GT et al. JAMA Surg 2024;159(6):677-85. OPTN/HRSA NRP safety notice, November 21, 2025. HRSA, NRP policy issue page (accessed 10/2026)");
+  s.addNotes(step === 1 ? "Ask the room: would you expect better or worse livers, and do you think it is legal everywhere?"
+    : "This is a retrospective US multicenter study, not a trial; the Spanish and UK registry data point the same way, with fewer bile duct problems after NRP. "
+      + "On the rules: the US has no statute that permits or bans NRP. Critics, including the American College of Physicians, argue that restarting circulation after death is declared may not fit the Uniform Determination of Death Act, which almost every state has adopted. HRSA has been asking the OPTN for NRP data since 2024, the November 2025 safety notice made the vessel steps explicit, and the OPTN workgroup's draft policy still has to go to the board. This is likely to change, so check before the talk.");
+  return s;
+});
 {
   const s = slide("What does a perfusion machine do?");
   pic(s, "schneeberger-life.png", 0.3, 1.3, 6.9, 3.9, "Cold storage vs normothermic machine perfusion of a donor liver", { left: true });
