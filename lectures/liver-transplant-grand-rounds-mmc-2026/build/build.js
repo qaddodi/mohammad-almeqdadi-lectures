@@ -507,28 +507,35 @@ bgDivider("When to refer", null, "divider-referral.jpg", "Watercolor of a clinic
 }
 {
   const s = slide("Why did MELD 15 become the rule?");
-  // survival benefit by MELD band, drawn from the old slide's summary of Merion 2005 (no hazard ratios on the slide)
-  const x0 = 0.9, x1 = W - 0.9, y = 2.2, h = 1.0;
-  const edge = { 6: 0, 12: 3.1, 15: 5.4, 18: 7.7, 40: x1 - x0 };
-  const meld = (m) => x0 + edge[m];
-  const bands = [
-    [6, 12, "MELD 6-11", "C00000", "FFFFFF", "Transplant raised the 1-year risk of death vs staying on the list"],
-    [12, 15, "12-14", "E8B4B4", "000000", "Still raised it"],
-    [15, 18, "15-17", "D9D9D9", "000000", "Crossover: benefit begins"],
-    [18, 40, "18 and up", NAVY, "FFFFFF", "Clear benefit, larger as MELD rises"],
-  ];
-  bands.forEach(([a, b, lab, fill, col, under]) => {
-    s.addShape(pres.shapes.RECTANGLE, { x: meld(a), y, w: meld(b) - meld(a), h, fill: { color: fill }, line: { color: "FFFFFF", width: 1.5 } });
-    txt(s, lab, meld(a), y, meld(b) - meld(a), h, { size: 16, align: "center", valign: "middle", color: col, b: true, font: TBL_FONT });
-    txt(s, under, meld(a) + 0.03, y + h + 0.12, meld(b) - meld(a) - 0.06, 1.3, { size: 16, align: "center", font: TBL_FONT });
-  });
-  body(s, [
-    "US waitlist candidates: transplant vs staying on the list, by MELD updated on the list and just before transplant",
-    "A 2009 decision analysis came to the same threshold of 15",
-    "Both were before MELD-Na, MELD 3.0 and today's donor pool",
-  ], { size: 20, gap: 10, y: 4.65, h: 2.1 });
-  src(s, "Merion RM et al. Am J Transplant 2005;5(2):307-13 [PMID: 15643990]. Perkins JD et al. Liver Transpl 2009;15(2):242-54 [PMID: 19177441]");
-  s.addNotes("This is where 15 came from. Merion used MELD as it changed on the list, not just the listing score. Below 15, transplant raised the one-year risk of death compared with staying on the list. At 15-17 the risk tipped toward benefit, though not yet significantly, and from 18 up the benefit was clear and grew with MELD. So 15 was the crossover. It set the old benefit threshold for transplant; it was never a study of when to refer. That was 2005 data. Next: what MELD 3.0 changed, and what the new guideline says about 15.");
+  // survival benefit by MELD band: Merion 2005 on top, the MELD-Na/MELD 3.0 analyses under it, on the same scale
+  const x0 = 2.75, h = 0.75;
+  const edge = { 6: 0, 12: 2.6, 15: 4.6, 18: 6.6, 40: W - 0.6 - x0 };
+  const mx = (m) => x0 + edge[m];
+  const strip = (y, label, bands) => {
+    txt(s, label, 0.5, y, x0 - 0.65, h, { size: 15, b: true, valign: "middle", align: "right" });
+    bands.forEach(([a, b, lab, fill, col, under]) => {
+      s.addShape(pres.shapes.RECTANGLE, { x: mx(a), y, w: mx(b) - mx(a), h, fill: { color: fill }, line: { color: "FFFFFF", width: 1.5 } });
+      txt(s, lab, mx(a), y, mx(b) - mx(a), h, { size: 16, align: "center", valign: "middle", color: col, b: true, font: TBL_FONT });
+      txt(s, under, mx(a) + 0.03, y + h + 0.06, mx(b) - mx(a) - 0.06, 0.75, { size: 14, align: "center", font: TBL_FONT });
+    });
+  };
+  strip(1.5, [{ text: "2005", options: { breakLine: true } }, { text: "MELD", options: { fontSize: 13, bold: false } }], [
+    [6, 12, "MELD 6-11", "C00000", "FFFFFF", "Transplant raised the 1-year risk of death (HR 3.6)"],
+    [12, 15, "12-14", "E8B4B4", "000000", "Still raised it (HR 2.4)"],
+    [15, 18, "15-17", "D9D9D9", "000000", "No significant difference: the crossover"],
+    [18, 40, "18 and up", NAVY, "FFFFFF", "38% lower risk at 18-20, 96% lower at 40"],
+  ]);
+  strip(3.25, [{ text: "2023-2025", options: { breakLine: true } }, { text: "newer MELD", options: { fontSize: 13, bold: false } }], [
+    [6, 12, "Below 12", "E8B4B4", "000000", "No significant benefit"],
+    [12, 15, "12-14", SLATE, "000000", "46% lower risk with MELD 3.0"],
+    [15, 40, "15 and up", NAVY, "FFFFFF", "Benefit, larger as MELD rises"],
+  ]);
+  txt(s, "Why refer before the benefit starts? Evaluation and listing take weeks to months, and MELD keeps rising. Referring early means the patient is ready when transplant starts to help.",
+    0.9, 5.25, W - 1.8, 1.0, { size: 19, align: "center" });
+  src(s, "Merion RM et al. Am J Transplant 2005;5(2):307-13 [PMID: 15643990]. Malamon JS et al. Int J Surg 2023;109(9):2714-20. MELD 3.0 survival benefit analysis, Liver Transpl 2025 [PMID: 41378690]");
+  s.addNotes("This is where 15 came from. Merion used MELD as it changed on the list, comparing transplant with staying on the list. Below 15, transplant raised the one-year risk of death. At 15-17 there was no significant difference either way; that was the crossover. From 18 up the benefit was clear and grew with MELD. A 2009 decision analysis (Perkins) came to the same threshold. "
+    + "The newer data move it down. Malamon 2023, in the MELD-Na era, found a one-year benefit for everyone at MELD-Na 12 or more (HR 0.74), whether or not they had HCC. The MELD 3.0 analysis found 46% lower mortality at MELD 3.0 12-14 (HR 0.54) and no significant benefit below 12. That is what the 2025 guideline means by 'may start at 12'. "
+    + "These are waitlist studies: they compare transplant with staying on the list, not when to refer. Referral is set at or below the benefit threshold because the evaluation and the wait take time.");
 }
 {
   const s = slide("What's new in MELD 3.0?");
@@ -1032,6 +1039,28 @@ twoStep((step) => {
 sec("Your patient had a transplant");
 bgDivider("Your patient had a transplant", null, "divider-pill-box.jpg", "Watercolor of an open weekly pill organizer and a glass of water")
   .addNotes("For everyone who admits or follows a transplant patient.");
+// Coming home to Maine: the follow-up schedule and who sees the patient (Mohammad, 2026-10-27; talk copy only, it's Tufts practice)
+if (!PUBLIC) {
+  const s = slide("What happens when the patient comes home?");
+  const x0 = 0.9, x1 = W - 0.9, y = 1.7, h = 0.95, span = x1 - x0;
+  // months 0-3, 3-6, 6-12, then years; the last block is drawn shorter than its real length
+  const seg = [[0, 0.22, "Weekly", "Months 0-3", NAVY, "FFFFFF"], [0.22, 0.44, "Every 2 weeks", "Months 3-6", TEAL, "FFFFFF"],
+    [0.44, 0.72, "Monthly", "Months 6-12", SLATE, "000000"], [0.72, 1, "Every 3-6 months", "After 1 year", "D9D9D9", "000000"]];
+  seg.forEach(([a, b, lab, when, fill, col]) => {
+    s.addShape(pres.shapes.RECTANGLE, { x: x0 + a * span, y, w: (b - a) * span, h, fill: { color: fill }, line: { color: "FFFFFF", width: 1.5 } });
+    txt(s, lab, x0 + a * span, y, (b - a) * span, h, { size: 18, align: "center", valign: "middle", color: col, b: true, font: TBL_FONT });
+    txt(s, when, x0 + a * span, y + h + 0.05, (b - a) * span, 0.4, { size: 15, align: "center", color: GREY });
+  });
+  txt(s, "Labs and visits after transplant, if all goes well", x0, y - 0.42, span, 0.4, { size: 15, i: true, color: GREY });
+  body(s, [
+    "Labs can be drawn close to home",
+    "Visits in Boston, or by video: our hepatologists are licensed in Maine",
+    "Or shared follow-up with a hepatologist here at Maine Medical, which we've done with several patients",
+    "Complications mean more visits; call us the same day",
+  ], { size: 20, gap: 14, y: 3.55, h: 3.2 });
+  src(s, "Tufts Medical Center liver transplant program practice");
+  s.addNotes("This is the usual schedule when nothing goes wrong. The first three months are the busiest, and that's when the trip matters most. After that, most of the follow-up can happen in Maine, with labs here and visits by video, and some patients are followed jointly with the hepatologists at Maine Medical. The primary care doctor stays central the whole time; the next slides are about that.");
+}
 {
   const s = slide("Abnormal liver tests after transplant: what next?");
   body(s, [
