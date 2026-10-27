@@ -482,13 +482,38 @@ twoStep((step) => {
 });
 function features(step) {
   const s = slide("Which other organs fail in ALF?");
-  if (step === 1) return s;
-  s.addImage({ path: path.join(IMG, "alf-features.png"), x: (W - 5.25) / 2, y: 1.3, w: 5.25, h: 5.33, altText: "Clinical features of acute liver failure by organ" });
-  src(s, "Bernal W, Wendon J. N Engl J Med 2013;369:2525-34, Figure 1");
+  return s;
+}
+// Answer step: Mohammad's Gemini anatomical figure, labels on the quiet thirds pointing at each organ
+function featuresAnswer() {
+  const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
+  s.addImage({ path: path.join(IMG, "organs-alf.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5,
+    altText: "Watercolor anatomical figure showing the brain, lungs, heart, liver, pancreas, adrenals, kidneys, spleen and bone marrow" });
+  s.addText("Which other organs fail in ALF?", { x: 0.45, y: 0.35, w: 4.6, h: 1.2, fontFace: "Georgia", fontSize: 30,
+    valign: "top", color: "000000", isTextBox: true, margin: 0 });
+  const label = (side, ly, name, detail, px, py) => {
+    const lx = side === "L" ? 0.5 : 8.85, lw = 4.0;
+    s.addText([{ text: name, options: { bold: true, fontSize: 18, breakLine: true } }, { text: detail, options: { fontSize: 16, color: "404040" } }],
+      { x: lx, y: ly - 0.35, w: lw, h: 0.7, fontFace: "Georgia", align: side === "L" ? "right" : "left", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+    const x1 = side === "L" ? lx + lw + 0.1 : lx - 0.1;
+    s.addShape(pres.shapes.LINE, { x: Math.min(x1, px), y: Math.min(ly, py), w: Math.abs(px - x1) || 0.001, h: Math.abs(py - ly) || 0.001,
+      flipH: px < x1, flipV: py < ly, line: { color: "595959", width: 1, endArrowType: "oval" }, objectName: "Leader" });
+  };
+  label("R", 1.0, "Brain", "encephalopathy, cerebral edema", 6.55, 1.0);
+  label("L", 3.0, "Lungs", "ARDS", 5.99, 3.14);
+  label("R", 2.9, "Heart and vessels", "vasodilatory shock", 6.75, 3.3);
+  label("L", 4.1, "Liver", "hypoglycemia, lactate, INR", 6.1, 4.25);
+  label("R", 3.85, "Spleen and immune system", "infection", 7.34, 4.17);
+  label("R", 4.8, "Adrenals", "relative insufficiency", 7.07, 4.62);
+  label("L", 5.05, "Kidneys", "AKI", 6.16, 4.97);
+  label("R", 5.75, "Pancreas", "pancreatitis", 6.75, 4.62);
+  label("L", 6.2, "Bone marrow", "suppression", 5.83, 6.6);
+  s.addText("Figure content after Bernal W, Wendon J. N Engl J Med 2013;369:2525-34", { x: 0.45, y: 6.95, w: 7, h: 0.35, fontFace: "Georgia",
+    fontSize: 10, italic: true, color: GREY, isTextBox: true, margin: 0, valign: "bottom", objectName: "Source" });
   return s;
 }
 features(1).addNotes("Let them list organs. Most will get brain and kidney. Fewer think of the adrenals, the marrow or the immune system.");
-cont(); features(2).addNotes("This is why these patients are ICU patients. Hypoglycemia, lactic acidosis, vasodilatory shock, relative adrenal insufficiency, AKI, lung injury and a high risk of infection. The liver is one organ on this picture.");
+cont(); featuresAnswer().addNotes("This is why these patients are ICU patients. Hypoglycemia, lactic acidosis, vasodilatory shock, relative adrenal insufficiency, AKI, lung injury and a high risk of infection. The liver is one organ on this picture.");
 {
   const s = slide(A_TITLE);
   q(s, "What's your next step?", 3.2, { size: 36, h: 1.0 });
