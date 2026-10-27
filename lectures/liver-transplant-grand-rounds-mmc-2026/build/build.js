@@ -384,7 +384,7 @@ sec("Opening");
     color: "595959", isTextBox: true, margin: 0 });
   s.addText("Illustrations generated with Google Gemini", { x: 0.4, y: 7.08, w: 5, h: 0.3, fontFace: "Georgia", fontSize: 11,
     italic: true, color: "7F7F7F", isTextBox: true, margin: 0 });
-  s.addNotes("Maine Medical Center grand rounds. About 45 minutes, then questions. After a short history, five parts that follow the patient: when to refer, who can be a candidate now, what happens after the referral, where the livers come from, and what to do when a transplant patient lands on your service.");
+  s.addNotes("Maine Medical Center grand rounds. About 45 minutes, then questions. After a short history, five parts that follow the patient: when to refer, who can be a candidate now, what happens after the referral, where the livers come from, and what to do when a transplant patient lands on your service. Start by thanking the people who invited me, by name, and the Maine Med hepatology group.");
 }
 {
   const s = slide("Disclosures");
@@ -400,7 +400,7 @@ sec("Opening");
     "Understand where donor livers come from now",
     "Care for a transplant recipient on your service",
   ], { size: 21, gap: 16, x: 0.5, w: 6.2, y: 1.6, h: 5.0 });
-  s.addNotes("Five parts, in the order a patient goes through them. The first two are for everyone who sees patients with liver disease, the donor part has the newer data, and the last part is for anyone who admits a transplant patient.");
+  s.addNotes("Five parts, in the order a patient goes through them. The first two are for everyone who sees patients with liver disease, the donor part has the newer data, and the last part is for anyone who admits a transplant patient. Say that last sentence out loud, so the cardiologists and surgeons know to stay.");
 }
 
 // ---------------------------------------------------------------- Part 1. How we got here
@@ -442,7 +442,7 @@ sec("How we got here");
   ], { size: 19, gap: 14, x: 0.5, w: 6.4, y: 4.75, h: 2.0 });
   pic(s, "starzl-1963-excerpt.png", 7.2, 1.3, 5.7, 5.5, "Excerpt from the 1963 paper describing the three patients and patient 1");
   src(s, "Starzl TE et al. Surg Gynecol Obstet 1963;117:659-76 [PMID: 14100514]. Scan: University of Pittsburgh D-Scholarship");
-  s.addNotes("The original paper, from Denver. The first child died on the table of hemorrhage from a profound clotting defect, which the paper describes in detail. The next two lived long enough to show the operation could be done, and both died of pulmonary emboli. After more deaths, programs stopped in 1964 until Starzl tried again in 1967.");
+  s.addNotes("The original paper, from Denver. The first child died on the table of hemorrhage from a profound clotting defect, which the paper describes in detail. The next two lived long enough to show the operation could be done, and both died of pulmonary emboli. After more deaths, programs stopped in 1964 until Starzl tried again in 1967. Optional line: \"The case report gives his alkaline phosphatase in Bodansky units. I had to look that up.\"");
 }
 
 // ---------------------------------------------------------------- Part 2. Is it worth it?
@@ -461,29 +461,21 @@ sec("Is it worth it?");
   src(s, "OPTN/SRTR Annual Data Reports, Liver, 2020-2024 [PMIDs: 35266621, 37132348, 38431359, 39947804, 42276697]");
   s.addNotes("Every year since 2020 has been a record. The 2024 report gives 70.3% more than in 2014. Part of the growth is more DCD livers and machine perfusion, which we'll come back to.");
 }
+// Tufts volume and where recipients live, side by side: talk copy only, rough numbers, no values on the bars.
+// No Maine mortality data on this slide or in its notes (Mohammad, 2026-10-27).
 if (!PUBLIC) {
-  const s = slide("Liver transplants at Tufts Medical Center");
-  // rough numbers only (MY_STYLE.md): bars without values, exact counts stay in the project folder
-  const t = TUFTS.perYear;
+  const s = slide("How many does Tufts do, and from where?");
+  const t = TUFTS.perYear, u = TUFTS.byState;
   bars(s, [{ name: "Liver transplants", labels: t.labels, values: t.values }],
-    { x: 1.4, y: 1.35, w: W - 2.8, h: 4.6, max: t.max, unit: t.unit, noVal: true, hideVal: true, colors: [NAVY], catSize: 16 });
-  txt(s, t.line, 0.9, 6.1, W - 1.8, 0.55, { size: 22, align: "center" });
-  src(s, TUFTS.source);
-  s.addNotes(t.notes);
-}
-
-// Tufts recipients by home state: talk copy only. No Maine mortality data on this slide or in its notes (Mohammad, 2026-10-27).
-if (!PUBLIC) {
-  const s = slide("Where do Tufts recipients live?");
-  // share by home state, no values on the bars (rough numbers only)
-  const t = TUFTS.byState;
+    { x: 0.4, y: 1.3, w: 6.2, h: 4.4, max: t.max, unit: t.unit, noVal: true, hideVal: true, colors: [NAVY], catSize: 13, title: "Liver transplants a year" });
   bars(s, [
-    { name: "Maine", labels: t.labels, values: t.maine },
-    { name: "Other states", labels: t.labels, values: t.other },
-  ], { x: 1.4, y: 1.35, w: W - 2.8, h: 4.4, max: t.max, unit: t.unit, noVal: true, hideVal: true, grouping: "stacked", colors: [NAVY, SLATE], catSize: 18 });
-  txt(s, t.line, 0.9, 5.95, W - 1.8, 0.6, { size: 21, align: "center" });
+    { name: "Maine", labels: u.labels, values: u.maine },
+    { name: "Other states", labels: u.labels, values: u.other },
+  ], { x: 6.8, y: 1.3, w: 6.1, h: 4.4, max: u.max, unit: u.unit, noVal: true, hideVal: true, grouping: "stacked", colors: [NAVY, SLATE], catSize: 13, title: "Where recipients live" });
+  txt(s, t.line, 0.4, 5.85, 6.2, 0.8, { size: 18, align: "center" });
+  txt(s, u.line, 6.8, 5.85, 6.1, 0.8, { size: 18, align: "center" });
   src(s, TUFTS.source);
-  s.addNotes(t.notes + "Maine has no liver transplant center, so each of them made the drive south for the evaluation and the transplant.");
+  s.addNotes(t.notes + " " + u.notes + "Maine has no liver transplant center, so each of them made the drive south for the evaluation and the transplant.");
 }
 // ---------------------------------------------------------------- Part 2. When to refer
 sec("When to refer");
@@ -503,7 +495,7 @@ bgDivider("When to refer", null, "divider-referral.jpg", "Watercolor of a clinic
   ], { size: 20, gap: 18, x: 8.0, w: 4.9, y: 1.8, h: 4.8 });
   src(s, [{ text: "Malinchoc M, Kamath PS, " }, { text: "Gordon FD", options: { highlight: HL } },
     { text: ", et al. Hepatology 2000;31(4):864-71 [PMID: 10733541]. Kamath PS et al. Hepatology 2001;33(2):464-70 [PMID: 11172350]" }]);
-  s.addNotes("MELD started as a TIPS score. Fredric Gordon, one of the authors of the original paper, is our colleague at Tufts.");
+  s.addNotes("MELD started as a TIPS score. Fredric Gordon, one of the authors of the original paper, is our colleague at Tufts. Optional line: \"MELD was built to predict who would die after a TIPS. A year later it was deciding who gets a liver.\"");
 }
 {
   const s = slide("Why did MELD 15 become the rule?");
@@ -525,17 +517,17 @@ bgDivider("When to refer", null, "divider-referral.jpg", "Watercolor of a clinic
     [15, 18, "15-17", "D9D9D9", "000000", "No significant difference: the crossover"],
     [18, 40, "18 and up", NAVY, "FFFFFF", "38% lower risk at 18-20, 96% lower at 40"],
   ]);
-  strip(3.25, [{ text: "2023-2025", options: { breakLine: true } }, { text: "newer MELD", options: { fontSize: 13, bold: false } }], [
+  strip(3.25, [{ text: "2023", options: { breakLine: true } }, { text: "MELD-Na", options: { fontSize: 13, bold: false } }], [
     [6, 12, "Below 12", "E8B4B4", "000000", "No significant benefit"],
-    [12, 15, "12-14", SLATE, "000000", "46% lower risk with MELD 3.0"],
-    [15, 40, "15 and up", NAVY, "FFFFFF", "Benefit, larger as MELD rises"],
+    [12, 40, "12 and up", NAVY, "FFFFFF", "1-year benefit (HR 0.74), more than 9 life-years gained at 12"],
   ]);
-  txt(s, "Why refer before the benefit starts? Evaluation and listing take weeks to months, and MELD keeps rising. Referring early means the patient is ready when transplant starts to help.",
+  txt(s, "Neither number has been set for MELD 3.0. Referral is a separate question: refer after any decompensating event, whatever the MELD. Without one, 15 is still reasonable.",
     0.9, 5.25, W - 1.8, 1.0, { size: 19, align: "center" });
-  src(s, "Merion RM et al. Am J Transplant 2005;5(2):307-13 [PMID: 15643990]. Malamon JS et al. Int J Surg 2023;109(9):2714-20. MELD 3.0 survival benefit analysis, Liver Transpl 2025 [PMID: 41378690]");
+  src(s, "Merion RM et al. Am J Transplant 2005;5(2):307-13 [PMID: 15643990]. Malamon JS et al. Int J Surg 2023;109(9):2714-20 [PMID: 37226874]. Dove L et al. Hepatology 2026, statement 1 [PMID: 41405234]");
   s.addNotes("This is where 15 came from. Merion used MELD as it changed on the list, comparing transplant with staying on the list. Below 15, transplant raised the one-year risk of death. At 15-17 there was no significant difference either way; that was the crossover. From 18 up the benefit was clear and grew with MELD. A 2009 decision analysis (Perkins) came to the same threshold. "
-    + "The newer data move it down. Malamon 2023, in the MELD-Na era, found a one-year benefit for everyone at MELD-Na 12 or more (HR 0.74), whether or not they had HCC. The MELD 3.0 analysis found 46% lower mortality at MELD 3.0 12-14 (HR 0.54) and no significant benefit below 12. That is what the 2025 guideline means by 'may start at 12'. "
-    + "These are waitlist studies: they compare transplant with staying on the list, not when to refer. Referral is set at or below the benefit threshold because the evaluation and the wait take time.");
+    + "The newer data move it down. Malamon 2023, in the MELD-Na era, found a one-year benefit from deceased donor transplant starting at MELD-Na 12 (HR 0.74), whether or not the patient had HCC. That is what the 2025 guideline cites for 'may start at 12'. With a living donor, Jackson 2022 found benefit from MELD-Na 11; that's later in the talk. The guideline says there isn't contemporary data for a MELD 3.0 threshold. "
+    + "These are waitlist studies: they compare transplant with staying on the list, not when to refer. Refer after any decompensation whatever the score; without one, the guideline's writing group still sees 15 as reasonable. Evaluation and listing take time, so referral comes before the point of benefit, not at it. "
+    + "Backup if asked: a 2025 Liver Transplantation analysis reported benefit at MELD 3.0 12-14 (PMID 41378690); I haven't verified it, and the guideline doesn't use it.");
 }
 {
   const s = slide("What's new in MELD 3.0?");
@@ -555,7 +547,7 @@ bgDivider("When to refer", null, "divider-referral.jpg", "Watercolor of a clinic
     "In simulation, at least 20 fewer waitlist deaths a year",
   ], { size: 20, gap: 16, x: 8.2, w: 4.7, y: 1.9, h: 4.6 });
   src(s, "Kim WR, Mannalithara A, Heimbach JK, et al. Gastroenterology 2021;161(6):1887-1895.e4 [PMID: 34481845]");
-  s.addNotes("MELD 3.0 = 1.33 (if female) + 4.56 ln(bilirubin) + 0.82 (137 − Na) − 0.24 (137 − Na) ln(bilirubin) + 9.09 ln(INR) + 11.14 ln(creatinine) + 1.85 (3.5 − albumin) − 1.83 (3.5 − albumin) ln(creatinine) + 6. Women had higher waitlist mortality at the same lab values; the sex term covers part of that, and the access gap tied to body size is still there. For real numbers use the OPTN calculator, which applies the lab bounds (sodium 125-137, albumin 1.5-3.5, creatinine 1-3), the dialysis rule, rounding, and the 6-40 range.");
+  s.addNotes("Optional line before the formula: \"I know what you're thinking... no, nobody has to calculate it.\" MELD 3.0 = 1.33 (if female) + 4.56 ln(bilirubin) + 0.82 (137 − Na) − 0.24 (137 − Na) ln(bilirubin) + 9.09 ln(INR) + 11.14 ln(creatinine) + 1.85 (3.5 − albumin) − 1.83 (3.5 − albumin) ln(creatinine) + 6. Women had higher waitlist mortality at the same lab values; the sex term covers part of that, and the access gap tied to body size is still there. For real numbers use the OPTN calculator, which applies the lab bounds (sodium 125-137, albumin 1.5-3.5, creatinine 1-3), the dialysis rule, rounding, and the 6-40 range.");
 }
 function women(step) {
   const s = slide("Did MELD 3.0 help women?");
@@ -607,12 +599,12 @@ cont(); women(2).addNotes("Transplants to women went from 37.0% to 41.7%, and 90
   pic(s, "phone.jpg", 8.9, 1.4, 4.1, 3.6, "Watercolor of a desk phone with the handset off the hook");
   txt(s, [
     { text: "ALF: ", options: { bold: true } },
-    { text: "call “in the first few hours after presentation, and prior to meeting ALF diagnostic criteria,” because complications can make the transfer unsafe", options: { breakLine: true } },
+    { text: "call “in the first few hours after presentation, and prior to meeting ALF diagnostic criteria.” Insurance, substance use or infection shouldn't hold up the call.", options: { breakLine: true } },
     { text: "ACLF: ", options: { bold: true, paraSpaceBefore: 10 } },
-    { text: "refer. Insurance, substance use or infection shouldn't hold up the call." },
+    { text: "consider referral early, while the patient can still travel." },
   ], 0.6, 5.3, W - 1.2, 1.5, { size: 17, align: "center" });
   src(s, G1 + ", statements 2-4. ACG ALF guideline 2023 [PMID: 37377263]");
-  s.addNotes("This is the one that matters most for a hospital without a transplant program. About a third of ALF patients get a transplant, a third recover, and the transplant center can help with both. Don't wait for King's College criteria or for encephalopathy to get worse. The guideline says barriers like insurance, substance use or infection should be sorted out quickly but shouldn't stop the referral. The ICU side of ALF and ACLF is in my ALF lecture.");
+  s.addNotes("This is the one that matters most for a hospital without a transplant program. About a third of ALF patients get a transplant, a third recover, and the transplant center can help with both. Don't wait for King's College criteria or for encephalopathy to get worse. For ALF the guideline says barriers like insurance, substance use or infection shouldn't stop the referral, because experienced centers can often get around them, and complications can make the transfer unsafe later. For ACLF it says to consider referral; calling the same day is our practice, not the guideline's wording. The ICU side of ALF and ACLF is in my ALF lecture.");
 }
 // ---------------------------------------------------------------- Part 4. Who can get a liver now
 sec("Who can get a liver now");
@@ -659,10 +651,10 @@ bgDivider("Who can get a liver now", null, "divider-waiting-chair.jpg", "Waterco
     ["Guideline", "Early transplant for alcohol-associated hepatitis"],
     ["EASL 2024", "Selected non-responders with favorable sobriety predictors (strong)"],
     ["ACG 2024", "Carefully selected non-responders at low risk of relapse"],
-    ["AASLD/AST 2025", "Refer ALD early; abstinence duration alone doesn't exclude (37-38)"],
+    ["AASLD/AST 2025", "Refer ALD early; abstinence duration alone doesn't exclude"],
   ], { x: 0.5, y: 1.7, w: W - 1.0, size: 20, minRowH: 0.95 });
-  src(s, "EASL CPG on liver transplantation. J Hepatol 2024;81(6):1040-86, p.1044 [PMID: 39487043]. Jophlin LL et al. Am J Gastroenterol 2024;119(1):30-54 [PMID: 38174913]. " + G1.replace("Dove L et al. AASLD/AST candidate evaluation guideline. ", "Dove L et al. "));
-  s.addNotes("EASL and ACG speak directly to selected patients with severe alcohol-associated hepatitis. The AASLD/AST guideline has no numbered statement on early transplant for alcohol-associated hepatitis itself; it says to refer early and not to use the length of abstinence alone to exclude. It also says patients on methadone or buprenorphine shouldn't be denied or made to taper (statement 41).");
+  src(s, "EASL CPG on liver transplantation. J Hepatol 2024;81(6):1040-86, p.1044 [PMID: 39487043]. Jophlin LL et al. Am J Gastroenterol 2024;119(1):30-54 [PMID: 38174913]. " + G1.replace("Dove L et al. AASLD/AST candidate evaluation guideline. ", "Dove L et al. ") + ", statements 37-38");
+  s.addNotes("EASL and ACG speak directly to selected patients with severe alcohol-associated hepatitis. The AASLD/AST guideline has no numbered statement on early transplant for alcohol-associated hepatitis itself; it says to refer early and not to use the length of abstinence alone to exclude. It also says patients on methadone or buprenorphine shouldn't be denied or made to taper.");
 }
 // Tufts diagnoses as a guess-first reveal (Mohammad, 2026-10-27): empty chart, then the bars
 if (!PUBLIC) twoStep((step) => {
@@ -674,9 +666,9 @@ if (!PUBLIC) twoStep((step) => {
   ], { x: 1.4, y: 1.35, w: W - 2.8, h: 4.4, max: t.max, unit: t.unit, noVal: true, hideVal: true, grouping: "stacked", colors: [NAVY, SLATE], catSize: 18 });
   if (z) q(s, "What share of our transplants do you think is for alcohol?", 5.95, { size: 22 });
   else txt(s, t.line, 0.9, 5.95, W - 1.8, 0.8, { size: 20, align: "center" });
-  src(s, TUFTS.source);
-  s.addNotes(z ? "Ask the room to guess before showing it. Most people guess a third or so."
-    : t.notes + " These go through our multidisciplinary alcohol program, which follows patients before and after transplant.");
+  src(s, TUFTS.source + (z ? "" : ". US: OPTN/SRTR 2024 Annual Data Report, Table LI 7 [PMID: 42276697]"));
+  s.addNotes(z ? "Ask the room to guess before showing it. Most people guess a third or so. Let them guess out loud, then wait a beat on the reveal."
+    : t.notes + " These go through our multidisciplinary alcohol program, which follows patients before and after transplant. Is that just us? Nationally, alcohol-associated liver disease is 41% of adult recipients, and 7% are transplanted for alcohol-associated hepatitis.");
   return s;
 });
 function usDx(step) {
@@ -695,8 +687,8 @@ function usDx(step) {
   src(s, "OPTN/SRTR 2024 Annual Data Report, Table LI 7. " + SRTR);
   return s;
 }
-usDx(1).addNotes("Share of US adult recipients in 2024 with alcohol-associated liver disease.");
-cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associated cirrhosis and 7% with alcohol-associated hepatitis.");
+if (PUBLIC) usDx(1).addNotes("Share of US adult recipients in 2024 with alcohol-associated liver disease.");
+if (PUBLIC) { cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associated cirrhosis and 7% with alcohol-associated hepatitis."); }
 {
   const s = slide("Can patients with ACLF get a liver?");
   bars(s, [
@@ -721,9 +713,9 @@ cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associat
     ["Methadone or buprenorphine", "No denial, no taper needed"],
     ["BMI >40 or <18.5", "Screen nutrition and muscle; BMI alone doesn't exclude"],
     ["ACLF or MELD >40", "Doesn't exclude by itself"],
-    ["Older age (living donor LT)", "Not an exclusion"],
+    ["Older age, with a living donor", "Not an exclusion"],
   ], { x: 0.6, y: 1.5, w: W - 1.2, size: 18, minRowH: 0.58 });
-  txt(s, "Each one is still weighed with the rest of the picture, case by case.", 0.9, 5.4, W - 1.8, 0.5, { size: 19, align: "center", i: true });
+  txt(s, "None of these is a cutoff on its own.", 0.9, 5.4, W - 1.8, 0.5, { size: 19, align: "center", i: true });
   src(s, G1 + ", statements 2, 38, 41, 43, 48-49, 51");
   s.addNotes("None of these should stop a first referral on its own. The 2025 guideline says each is weighed with everything else, not used as a cutoff.");
 }
@@ -731,15 +723,13 @@ cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associat
 {
   const s = slide("Who gets exception points?");
   table(s, [
-    ["Exception", "Criteria", "Score"],
-    ["HCC", { t: [{ t: "1 lesion 2-5 cm, or 2-3 lesions each 1-3 cm", br: true }, { t: "AFP ≤1000 (if >1000, must fall below 500)" }] }, "MELD, then MMaT-3"],
-    ["Hepatopulmonary syndrome", "Confirmed HPS, room-air PaO2 <60 mmHg", "MMaT-3"],
-    ["Portopulmonary HTN", { t: [{ t: "Before treatment: mPAP ≥35, PVR ≥3 WU", br: true }, { t: "After: mPAP <35, PVR <5; or 35 to <45, PVR <3" }] }, "MMaT-3"],
-    ["Colorectal liver metastases", "Non-standard exception, reviewed", "MMaT-20 (floor 15)"],
-    ["Intrahepatic cholangiocarcinoma", "Non-standard exception, reviewed", "MMaT-3"],
-  ], { x: 0.5, y: 1.5, w: W - 1.0, size: 19, minRowH: 0.78 });
+    ["Exception", "What's needed"],
+    ["Hepatocellular carcinoma", { t: [{ t: "1 lesion 2-5 cm, or 2-3 lesions each 1-3 cm", br: true }, { t: "AFP ≤1000 (if >1000, must fall below 500)" }] }],
+    ["Hepatopulmonary syndrome or portopulmonary hypertension", "Confirmed by testing; a standard exception"],
+    ["Colorectal metastases or intrahepatic cholangiocarcinoma", "Case by case, through the review board"],
+  ], { x: 0.5, y: 1.6, w: W - 1.0, size: 20, minRowH: 1.0 });
   src(s, "OPTN Policies 9.5.E, 9.5.G, 9.5.I (effective 10/1/2026); OPTN adult MELD exception transplant oncology review guidance");
-  s.addNotes("MMaT is the median MELD at transplant for recent transplants near the donor hospital, so an exception score moves with the region. For HCC, the exception starts at the calculated MELD and goes to MMaT minus 3 after the first extension. HPS also needs documented shunting, portal hypertension and no significant primary lung disease. HCC, HPS and PoPH are standard exceptions in policy; the two oncology rows go through the review board under its guidance, in place since February 2025. The old version of this slide had PVR in dynes and no oncology rows.");
+  s.addNotes("MMaT is the median MELD at transplant for recent transplants near the donor hospital, so an exception score moves with the region. For HCC, the exception starts at the calculated MELD and goes to MMaT minus 3 after the first extension. Scores: HCC, HPS and PoPH get MMaT minus 3; colorectal metastases MMaT minus 20 with a floor of 15; iCCA MMaT minus 3. HPS needs room-air PaO2 under 60 with documented shunting, portal hypertension and no significant primary lung disease. PoPH needs mPAP 35 or more and PVR 3 WU or more before treatment, and after treatment mPAP under 35 with PVR under 5, or mPAP 35 to under 45 with PVR under 3. HCC, HPS and PoPH are standard exceptions in policy; the two oncology rows go through the review board under its guidance, in place since February 2025.");
 }
 {
   const s = slide("Can a liver transplant help colorectal metastases?");
@@ -750,29 +740,16 @@ cont(); usDx(2).addNotes("41% of adult recipients, a third with alcohol-associat
     "94 randomized: age 18-65, BRAF wild-type, primary resected, permanently unresectable liver-only disease responding to chemotherapy",
     "5-year survival (intention to treat): 56.6% with LT plus chemotherapy vs 12.6% with chemotherapy",
     "72% of transplanted patients recurred, mostly in the lungs; almost half of recurrences were resected or ablated",
-  ], { size: 17, gap: 12, x: 8.0, w: 4.95, y: 1.4, h: 5.4 });
-  src(s, "Adam R, Piedvache C, Chiche L, et al. Lancet 2024;404(10458):1107-18 [PMID: 39306468]");
-  s.addNotes("A randomized trial, which is rare in transplant. HR 0.37 (0.21-0.65), p=0.0003. Recurrence is common but often treatable: of 36 transplanted per protocol, 26 recurred, and 12 had the recurrence resected or ablated.");
-}
-{
-  const s = slide("And in the US?");
-  bars(s, [{ name: "3-year survival", labels: ["Living donor", "Deceased donor"], values: [74.1, 57.3] }],
-    { x: 0.6, y: 1.3, w: 6.6, h: 4.95, max: 100, unit: 25, fmt: '0.0"%"', colors: [NAVY], catSize: 18, title: "3-year survival" });
-  txt(s, "Registry comparison, not adjusted", 0.6, 6.3, 6.6, 0.4, { size: 14, align: "center", i: true, color: GREY });
-  body(s, [
-    "158 transplants for colorectal metastases at 33 US centers, Dec 2017 to Mar 2025",
-    "About half from living donors",
-    "3-year survival 66.7%, disease-free 44.0%",
-    "Exception points by review since Feb 2025",
-  ], { size: 19, gap: 16, x: 7.6, w: 5.3, y: 1.6, h: 5.1 });
-  src(s, "Chávez-Villa M, Sasaki K, Nakayama T, et al. Liver Transpl 2026;32(4):508-17 [PMID: 41086433]");
-  s.addNotes("Half of these were living donor transplants. The donor groups differ in who was selected and in the grafts: 68.2% of the deceased donor livers were out-of-sequence offers. So the bars don't show that the donor type caused the difference. If a patient with colorectal metastases asks about transplant, it's worth a call.");
+    { t: "In the US: 158 transplants at 33 centers, 3-year survival 67%, about half from living donors", b: true },
+  ], { size: 16, gap: 10, x: 8.0, w: 4.95, y: 1.35, h: 5.5 });
+  src(s, "Adam R, Piedvache C, Chiche L, et al. Lancet 2024;404(10458):1107-18 [PMID: 39306468]. Chávez-Villa M et al. Liver Transpl 2026;32(4):508-17 [PMID: 41086433]");
+  s.addNotes("A randomized trial, which is rare in transplant. HR 0.37 (0.21-0.65), p=0.0003. Recurrence is common but often treatable: of 36 transplanted per protocol, 26 recurred, and 12 had the recurrence resected or ablated. The US series ran from December 2017 to March 2025, and exception points have gone through the review board since February 2025. If a patient with colorectal metastases asks about transplant, it's worth a call.");
 }
 // ---------------------------------------------------------------- Part 3. From Maine to a transplant center
 sec("From Maine to Boston");
 {
   const s = bgDivider("From Maine to Boston", null, "divider-road-south.jpg", "Watercolor of a snowy highway heading south, with a sign for I-95 South to Boston");
-  s.addNotes("Maine has no liver transplant program, so for many patients here transplant care means travel out of state. Travel, lodging and a caregiver are part of the plan from the first visit.");
+  s.addNotes("Maine has no liver transplant program, so for many patients here transplant care means travel out of state. Travel, lodging and a caregiver are part of the plan from the first visit. Optional line: \"Many of you know this drive. Your patients make it in February, with a caregiver and a bag of pill bottles.\"");
 }
 {
   const s = slide("What happens after the referral?");
@@ -792,7 +769,7 @@ sec("From Maine to Boston");
     ["Other", "Dental, cancer screening, vaccines, financial counseling"],
   ], { x: 0.9, y: CONTACT ? 3.05 : 2.9, w: CONTACT ? W - 3.6 : W - 1.8, size: 19, minRowH: CONTACT ? 0.58 : 0.62 });
   if (CONTACT) {
-    txt(s, [{ text: "At Tufts the evaluation is done in about two days. " }, { text: "Referrals: ", options: { bold: true } }, { text: `${CONTACT.phone}, fax ${CONTACT.fax}` }],
+    txt(s, "At Tufts the evaluation is done in about two days. Referral lines are on the last slide.",
       0.9, 2.5, W - 1.8, 0.45, { size: 17, align: "center" });
     s.addImage({ path: path.join(PRIVATE_IMG, CONTACT.qr), x: W - 2.35, y: 3.6, w: 1.5, h: 1.5, altText: "QR code to the Tufts liver transplant referral page" });
     txt(s, "Referral page", W - 2.6, 5.15, 2.0, 0.35, { size: 13, align: "center", color: GREY });
@@ -817,7 +794,7 @@ sec("From Maine to Boston");
     });
   arrow(s, 3.95, 4.25, 3.95, sy);
   body(s, [
-    "Measure it with a standard tool",
+    "Use the Liver Frailty Index; it takes 3 minutes",
     "Frailty raises the risk after transplant, but alone it doesn't rule a patient out",
     "Frailty also predicts death on the waitlist",
   ], { size: 20, gap: 18, x: 7.8, w: 5.1, y: 1.7, h: 4.8 });
@@ -848,12 +825,12 @@ sec("From Maine to Boston");
     "Exception points are set from the median MELD at transplant (MMaT) near the donor hospital",
   ], { size: 19, gap: 16, x: 8.4, w: 4.5, y: 1.6, h: 5.0 });
   src(s, "OPTN Policy 9, liver allocation (acuity circles since February 2020)");
-  s.addNotes("Status 1 (mostly acute liver failure) gets the broadest priority, then MELD within each circle. Distance is measured from the donor hospital to the transplant hospital, not to the patient's home. For a patient from Maine listed in Boston, the circles are drawn around Boston's donors, not around Portland. Which brings us to where those livers come from.");
+  s.addNotes("Status 1 (mostly acute liver failure) gets the broadest priority, then MELD within each circle. Distance is measured from the donor hospital to the transplant hospital, not to the patient's home. The circles are always drawn around the donor hospital, and where a patient stands in them depends on the hospital where they're listed. Portland is roughly 85 nautical miles from Boston (check before saying it), so a liver donated here falls inside the first 150-mile circle for patients listed in Boston. Which brings us to where those livers come from.");
 }
 // ---------------------------------------------------------------- Part 5. Where the livers come from
 sec("Where the livers come from");
 bgDivider("Where the livers come from", null, "divider-organ-cooler.jpg", "Watercolor of an organ transport cooler on a hospital cart")
-  .addNotes("The reason transplant numbers are going up.");
+  .addNotes("The reason transplant numbers are going up. Many DCD livers start in ICUs like yours; Maine's donor hospitals work with New England Donor Services, the same organization as Boston's (confirm with the hosts).");
 {
   const s = slide("What kinds of donors are there?");
   box(s, W / 2 - 1.5, 1.4, 3.0, 0.7, "Donor livers", { size: 18, b: true, fill: "F2F2F2" });
@@ -943,23 +920,38 @@ twoStep((step) => {
   }
   src(s, "Definitions from Kalisvaart M, Croome KP, Hernandez-Alejandro R, et al. ILTS consensus working group. Transplantation 2021;105(6):1156-64 [PMID: 34048418]");
   s.addNotes(z ? "Walk through what happens in a DCD donation before showing the clocks. Ask: when do you think the liver starts to suffer?"
-    : "Withdrawal happens in the ICU or the OR, usually with the family there. The clock that matters most is functional warm ischemia: from the moment saturation drops below 80% or mean pressure below 60, to the cold flush. That is the ILTS definition; ASTS used a mean pressure below 60, and the UK a saturation below 70 or systolic below 50. The ILTS doesn't set a hard cutoff: past 30 minutes graft loss goes up, and the call weighs the donor, the graft, the recipient and how the liver will be preserved. ASTS suggested 20 to 30 minutes at most, and the UK doesn't use the liver past 30. If the donor doesn't die within the program's window after withdrawal, the liver isn't used. Withdrawal in the OR shortens the functional time, which is what ILTS recommends where local rules allow. "
+    : "Start with what the ICU people here have seen: withdrawal in the ICU or the OR, the family there, and the wait. The clock that matters most is functional warm ischemia: from the moment saturation drops below 80% or mean pressure below 60, to the cold flush. That is the ILTS definition; ASTS used a mean pressure below 60, and the UK a saturation below 70 or systolic below 50. The ILTS doesn't set a hard cutoff: past 30 minutes graft loss goes up, and the call weighs the donor, the graft, the recipient and how the liver will be preserved. ASTS suggested 20 to 30 minutes at most, and the UK doesn't use the liver past 30. If the donor doesn't die within the program's window after withdrawal, the liver isn't used. Withdrawal in the OR shortens the functional time, which is what ILTS recommends where local rules allow. "
       + "The no-touch wait after the heart stops ranges from 2 to 20 minutes around the world and is usually 5 in the US. Nobody touches the donor during it, and death is declared by a team that has nothing to do with the transplant. Hepatectomy time, from the flush until the liver is on ice, matters too. After that come cold storage and the recipient's own warm ischemia during the implant. "
       + "NRP restarts warm oxygenated blood flow to the abdominal organs after death is declared, and in observational studies NRP livers have had fewer bile duct problems.");
   return s;
 });
-// NRP: the two setups, then outcomes and where the rules stand (Mohammad, 2026-10-27; figure he picked, Cureus, CC BY)
 {
-  const s = slide("How do TA-NRP and A-NRP differ?");
-  pic(s, "nrp-ta-vs-a.png", 1.35, 1.2, W - 2.7, 4.3, "Thoraco-abdominal and abdominal normothermic regional perfusion circuits: reservoir, roller pump, oxygenator, gas mixer and heat exchanger");
-  txt(s, [{ text: "TA-NRP: ", options: { bold: true } }, { text: "the chest is opened and the arteries to the head are clamped, cut and vented. The heart beats again, so heart, lungs and abdominal organs can all be used." }],
-    0.6, 5.55, 5.9, 1.3, { size: 15, align: "center" });
-  txt(s, [{ text: "A-NRP: ", options: { bold: true } }, { text: "the aorta is blocked above the celiac and cut above the block. Only the abdominal organs get blood; the heart doesn't restart." }],
-    W - 6.5, 5.55, 5.9, 1.3, { size: 15, align: "center" });
-  src(s, "Figure: Alamouti-Fard E, Garg P, Wadiwala IJ, et al. Cureus 2022;14(6):e26437, CC BY 4.0. Vessel steps: OPTN/HRSA NRP safety notice, November 21, 2025");
-  s.addNotes("Both start only after death is declared and the no-touch wait is over. The circuit is basically ECMO: reservoir, pump, oxygenator and heater. The liver gets warm oxygenated blood again, usually for an hour or two, and the team follows lactate and liver tests to decide whether to use it. "
-    + "TA-NRP is one of the two ways DCD hearts are recovered in the US; the other takes the heart straight onto a machine. Cutting and venting the vessels is what keeps blood from reaching the brain. The November 2025 OPTN/HRSA safety notice spelled those steps out for both setups after concerns about unintended brain reperfusion.");
+  const s = slide("What does a perfusion machine do?");
+  pic(s, "jceh-options.jpg", 0.4, 1.35, 7.9, 5.4, "Options for machine perfusion and regional perfusion for DBD and DCD livers", { left: true });
+  body(s, [
+    "HOPE keeps the liver cold but gives it oxygen, usually at the transplant center just before the implant",
+    "NMP keeps it warm on blood; the liver makes bile and can be tested before anyone commits to it",
+    "NRP restarts oxygenated blood flow to the donor's abdominal organs after death is declared",
+  ], { size: 19, gap: 16, x: 8.6, w: 4.4, y: 1.5, h: 5.3 });
+  src(s, "J Clin Exp Hepatol 2024;14(2):101309 [PMID: 38274508]");
+  s.addNotes("Cold storage just slows metabolism down. The machines either replace oxygen cold or keep the liver working at body temperature, and the warm ones let us see whether the liver works before we commit to it. In the diagram, the left side is brain-death donors and the right side DCD.");
 }
+{
+  const s = slide("What did the trials show?");
+  table(s, [
+    ["Trial", "Machine", "Main result"],
+    ["Nasralla, Nature 2018", "NMP", { t: [{ t: "Peak AST and discard", br: true }, { t: "50% lower" }] }],
+    ["PROTECT, JAMA Surg 2022", "NMP (OCS)", { t: [{ t: "Early allograft dysfunction", br: true }, { t: "18% vs 31%", br: true }, { t: "Ischemic biliary 2.6% vs 9.9%" }] }],
+    ["DHOPE-DCD, NEJM 2021", "DHOPE", { t: [{ t: "Symptomatic non-anastomotic", br: true }, { t: "strictures 6% vs 18%", br: true }, { t: "at 6 months, RR 0.36" }] }],
+  ], { x: 0.4, y: 1.5, w: 7.3, size: 16, minRowH: 0.8 });
+  const d = pic(s, "dhope-inset.png", 7.9, 1.45, 5.1, 3.4, "DHOPE-DCD Figure 1: cumulative incidence of symptomatic non-anastomotic strictures over 6 months, machine perfusion vs control");
+  txt(s, "DHOPE-DCD: symptomatic non-anastomotic strictures (%), by month", d.x, d.y + d.h + 0.05, d.w, 0.4, { size: 13, align: "center", i: true, color: GREY });
+  txt(s, "The 2025 AASLD/AST and 2024 EASL guidelines both recommend machine perfusion for DCD and extended-criteria livers.",
+    0.9, 5.55, W - 1.8, 0.9, { size: 19, align: "center" });
+  src(s, "Nasralla D et al. Nature 2018 [PMID: 29670285]. Markmann JF et al. JAMA Surg 2022 [PMID: 34985503]. van Rijn R et al. N Engl J Med 2021 [PMID: 33626248]. Te HS et al. 2026, statements 6-10 [PMID: 40844852]. EASL 2024, p.1062");
+  s.addNotes("Early allograft dysfunction is the Olthoff definition: bilirubin 10 or more or INR 1.6 or more on day 7, or AST or ALT over 2000 in the first week. Non-anastomotic strictures are the ischemic cholangiopathy from two slides back. Nasralla randomized 220 transplants and measured graft injury as peak AST. PROTECT's ischemic biliary complications are at 12 months, and it also used 51% of the DCD livers it assessed vs 26% in the control arm. Nasralla's machine kept livers 54% longer. The three trials studied different livers and end points; none compared one machine with another. They are the basis for the guideline recommendations on the line below.");
+}
+// NRP outcomes and where the rules stand (Mohammad, 2026-10-27); the TA vs A-NRP figure is in the appendix
 twoStep((step) => {
   const s = slide("Does NRP help the liver, and is it allowed?");
   const a = (v) => ans(step, v);
@@ -976,38 +968,12 @@ twoStep((step) => {
     "November 2025: OPTN/HRSA safety notice on cutting and venting the vessels to the brain",
     "An OPTN workgroup has been drafting national NRP policy since October 2025",
   ], { size: 20, gap: 18, x: 7.6, w: 5.3, y: 1.5, h: 5.0 });
-  src(s, "Schnickel GT et al. JAMA Surg 2024;159(6):677-85. OPTN/HRSA NRP safety notice, November 21, 2025. HRSA, NRP policy issue page (accessed 10/2026)");
+  src(s, "Brubaker AL et al. JAMA Surg 2024;159(6):677-85 [PMID: 38568597]. OPTN/HRSA NRP safety notice, November 21, 2025. HRSA, NRP policy issue page (accessed 10/2026)");
   s.addNotes(step === 1 ? "Ask the room: would you expect better or worse livers, and do you think it is legal everywhere?"
-    : "This is a retrospective US multicenter study, not a trial; the Spanish and UK registry data point the same way, with fewer bile duct problems after NRP. "
+    : "NRP comes in two forms: abdominal only, or thoraco-abdominal, where the heart beats again in the body (diagram in the appendix). The vessels to the brain are clamped and cut first either way. This is a retrospective US multicenter study, not a trial; the Spanish and UK registry data point the same way, with fewer bile duct problems after NRP. "
       + "On the rules: the US has no statute that permits or bans NRP. Critics, including the American College of Physicians, argue that restarting circulation after death is declared may not fit the Uniform Determination of Death Act, which almost every state has adopted. HRSA has been asking the OPTN for NRP data since 2024, the November 2025 safety notice made the vessel steps explicit, and the OPTN workgroup's draft policy still has to go to the board. This is likely to change, so check before the talk.");
   return s;
 });
-{
-  const s = slide("What does a perfusion machine do?");
-  pic(s, "schneeberger-life.png", 0.3, 1.3, 6.9, 3.9, "Cold storage vs normothermic machine perfusion of a donor liver", { left: true });
-  pic(s, "jceh-options.jpg", 7.35, 1.3, 5.7, 3.9, "Options for machine perfusion and regional perfusion for DBD and DCD livers");
-  body(s, [
-    { runs: [{ t: "HOPE: ", b: true }, "cold and oxygenated, usually at the transplant center just before implant"] },
-    { runs: [{ t: "NMP: ", b: true }, "warm and blood-based; the liver makes bile and can be assessed before use"] },
-    { runs: [{ t: "NRP: ", b: true }, "oxygenated blood flow restored to the donor's abdominal organs after death is declared"] },
-  ], { size: 18, gap: 10, y: 5.2, h: 1.65 });
-  src(s, "Schneeberger S. Nature 2018;557(7703):40-1 [PMID: 29713063]. J Clin Exp Hepatol 2024;14(2):101309 [PMID: 38274508]");
-  s.addNotes("Cold storage just slows metabolism down. The machines either replace oxygen cold or keep the liver working at body temperature, and the warm ones let us see whether the liver works before we commit to it.");
-}
-{
-  const s = slide("What did the trials show?");
-  table(s, [
-    ["Trial", "Machine", "Main result"],
-    ["Nasralla, Nature 2018 (220 LTs)", "NMP", "Peak AST and discard 50% lower"],
-    ["PROTECT, JAMA Surg 2022", "NMP (OCS)", { t: [{ t: "Early allograft dysfunction", br: true }, { t: "18% vs 31%", br: true }, { t: "Ischemic biliary 2.6% vs 9.9%" }] }],
-    ["DHOPE-DCD, NEJM 2021", "DHOPE", { t: [{ t: "Symptomatic non-anastomotic", br: true }, { t: "strictures 6% vs 18%", br: true }, { t: "at 6 months (RR 0.36)" }] }],
-  ], { x: 0.4, y: 1.5, w: 8.0, size: 17, minRowH: 0.8 });
-  pic(s, "dhope-fig.png", 8.6, 1.3, 4.45, 3.9, "DHOPE-DCD Figure 1: cumulative incidence of non-anastomotic strictures, machine perfusion vs control");
-  txt(s, "The 2025 AASLD/AST and 2024 EASL guidelines both recommend machine perfusion for DCD and extended-criteria livers.",
-    0.9, 5.55, W - 1.8, 0.9, { size: 19, align: "center" });
-  src(s, "Nasralla D et al. Nature 2018 [PMID: 29670285]. Markmann JF et al. JAMA Surg 2022 [PMID: 34985503]. van Rijn R et al. N Engl J Med 2021 [PMID: 33626248]. Te HS et al. 2026, statements 6-10 [PMID: 40844852]. EASL 2024, p.1062");
-  s.addNotes("Early allograft dysfunction is the Olthoff definition: bilirubin 10 or more or INR 1.6 or more on day 7, or AST or ALT over 2000 in the first week. Non-anastomotic strictures are the ischemic cholangiopathy from two slides back. Nasralla measured graft injury as peak AST. PROTECT's ischemic biliary complications are at 12 months, and it also used 51% of the DCD livers it assessed vs 26% in the control arm. Nasralla's machine kept livers 54% longer. The three trials studied different livers and end points; none compared one machine with another. They are the basis for the guideline recommendations on the line below.");
-}
 {
   const s = slide("What about living donors?");
   pic(s, "graft-types.jpg", 0.4, 1.3, 7.2, 5.4, "Living donor graft types: right lobe, left lobe and left lateral segment");
@@ -1038,7 +1004,7 @@ twoStep((step) => {
 // ---------------------------------------------------------------- Part 6. Your patient had a transplant
 sec("Your patient had a transplant");
 bgDivider("Your patient had a transplant", null, "divider-pill-box.jpg", "Watercolor of an open weekly pill organizer and a glass of water")
-  .addNotes("For everyone who admits or follows a transplant patient.");
+  .addNotes("For everyone who admits or follows a transplant patient. Show of hands: who has had a transplant patient on their service in the last month?");
 // Coming home to Maine: the follow-up schedule and who sees the patient (Mohammad, 2026-10-27; talk copy only, it's Tufts practice)
 if (!PUBLIC) {
   const s = slide("What happens when the patient comes home?");
@@ -1101,40 +1067,27 @@ if (!PUBLIC) {
   ], { x: 0.9, y: 1.4, w: W - 1.8, size: 20, minRowH: 0.6, noLabel: true });
   txt(s, "Starting or stopping a drug, or the patient can't take pills: call transplant pharmacy or hepatology for a plan.", 0.9, 5.85, W - 1.8, 0.8, { size: 19, align: "center", i: true });
   src(s, "Tacrolimus (Prograf) prescribing information. " + G3);
-  s.addNotes("This is the slide to photograph. Any new drug in a transplant patient, check it against tacrolimus, and stopping a drug matters as much as starting one. Nirmatrelvir/ritonavir is a common one now: it can push levels very high within days. No herbal supplements without asking the transplant team, and no grapefruit (statements 2-3).");
+  s.addNotes("This is the slide to photograph. Any new drug in a transplant patient, check it against tacrolimus, and stopping a drug matters as much as starting one. Nirmatrelvir/ritonavir is a common one now: it can push levels very high within days. No herbal supplements without asking the transplant team, and no grapefruit. Maine Med has its own kidney transplant program, so: \"Your kidney transplant colleagues know this list better than anyone.\" Optional line: \"The usual story: Paxlovid from urgent care, and a tacrolimus level of 40 three days later.\"");
 }
 {
   const s = slide("What does the primary care doctor need to do?");
   table(s, [
     ["", "What the 2025 AASLD/AST guideline says"],
-    ["Screening", "BP, weight, glucose and lipids every year"],
-    ["Type 2 diabetes", "Metformin; GLP-1 RA or SGLT2i first if high CV, HF or CKD risk"],
-    ["Hypertension", "Amlodipine or felodipine; ACEi or ARB if CVD or CKD"],
-    ["Lipids", "Hydrophilic statin first"],
-    ["Obesity", "GLP-1 RA if diet and exercise aren't enough"],
-    ["CKD", "Consider nephrology at stage 4"],
-  ], { x: 0.5, y: 1.5, w: W - 1.0, size: 20, minRowH: 0.72 });
-  src(s, G3 + ", statements 53, 58-62, 64, 76, 79, 82");
-  s.addNotes("After the first year, the long-term problems are cardiovascular disease, kidney disease, cancer and the side effects of immunosuppression, more than the graft. For CKD the transplant team lowers tacrolimus; please don't stop it.");
-}
-{
-  const s = slide("What else does the primary care doctor need to do?");
-  table(s, [
-    ["", "What the 2025 AASLD/AST guideline says"],
-    ["Cancer", "Age-appropriate screening; skin exam every year"],
     ["Vaccines", "ACIP schedule for immunocompromised adults; no live vaccines"],
+    ["Skin", "Skin exam every year, plus age-appropriate cancer screening"],
     ["Alcohol", "None, whatever the original liver disease"],
-    ["Elective surgery", "At least 3 months after LT, with stable graft function"],
-    ["Pregnancy", "Wait a year, with 6 months of stable graft function"],
-  ], { x: 0.5, y: 1.5, w: W - 1.0, size: 20, minRowH: 0.8 });
-  src(s, G3 + ", statements 9, 19-20, 24, 26, 44-45, 83-84");
-  s.addNotes("Skin cancer is the most common cancer after transplant. Mycophenolate has to be stopped 6 weeks before conception in women and 90 days in men. The transplant team manages immunosuppression around surgery. The guideline also covers bone health and a yearly check for depression and alcohol use.");
+    ["Type 2 diabetes", "GLP-1 RA or SGLT2i first if high CV, heart failure or CKD risk"],
+    ["Lipids", "Hydrophilic statin first"],
+    ["Elective surgery", "At least 3 months after transplant, with stable graft function"],
+  ], { x: 0.5, y: 1.5, w: W - 1.0, size: 20, minRowH: 0.72 });
+  src(s, G3 + ", statements 9, 19-20, 44-45, 59, 62, 83");
+  s.addNotes("After the first year, the long-term problems are cardiovascular disease, kidney disease, cancer and the side effects of immunosuppression, more than the graft. Skin cancer is the most common cancer after transplant. Also in the guideline: BP, weight, glucose and lipids every year; metformin first for diabetes otherwise; amlodipine or felodipine for blood pressure, or an ACE inhibitor or ARB with CVD or CKD; GLP-1 RA for obesity; nephrology at CKD stage 4, and for CKD the transplant team lowers tacrolimus, so please don't stop it. Pregnancy waits a year with 6 months of stable graft function, and mycophenolate is stopped 6 weeks before conception in women and 90 days in men. The guideline also covers bone health and a yearly check for depression and alcohol use. The transplant team manages immunosuppression around surgery.");
 }
 {
   const s = slide("Take-home points");
   pic(s, "lighthouse-spot.jpg", 7.55, 2.2, 5.55, 3.8, "Watercolor of a lighthouse on a rocky Maine shore");
   body(s, [
-    "Refer after any decompensating event. Without one, a low MELD isn't a reason to wait if the score misses how sick the patient is",
+    "Refer after any decompensating event. Without one, MELD 15 is still reasonable, and a low MELD alone shouldn't stop a referral",
     "Acute liver failure or ACLF: call the same day",
     "Recent drinking calls for assessment and treatment, not an automatic no",
     "Colorectal metastases and selected cholangiocarcinoma are worth a call",
@@ -1159,6 +1112,7 @@ if (!PUBLIC) {
     s.addImage({ path: path.join(PRIVATE_IMG, CONTACT.qr), x: 2.85, y: 4.75, w: 1.5, h: 1.5, altText: "QR code to the Tufts liver transplant referral page" });
     txt(s, "Referral page", 2.6, 6.3, 2.0, 0.35, { size: 13, align: "center", color: GREY });
   }
+  s.addNotes("Likely questions. MELD at transplant in Boston: have the current median for our area ready as a rough number. How do your patients do: point to the SRTR program-specific report and the national 93.5% at one year; no Tufts survival numbers. Relapse after early transplant for alcohol-associated hepatitis: describe the alcohol program and monitoring after transplant. MaineCare and out-of-state transplant, and travel or lodging help for families. Listing at more than one center. Whether the patient has to stay within a few hours of Boston once listed. Whether NRP is done in Maine hospitals: ask the hosts or New England Donor Services beforehand. Pig livers: one sentence on the 2026 J Hepatol case.");
 }
 endMain();
 
@@ -1175,8 +1129,21 @@ sec("Appendix");
     ["Outside the liver", "No disease", "No disease"],
     ["Setting", "Exception points by review (MMaT-3)", "Research protocols only"],
   ], { x: 0.9, y: 1.6, w: W - 1.8, size: 19, minRowH: 0.66 });
-  src(s, "Kodali S, Kulik L, D'Allessio A, et al. ILTS-ILCA consensus. Liver Transpl 2025;31(6):815-31 [PMID: 40014003]. " + G1.replace("Dove L et al. AASLD/AST candidate evaluation guideline. ", "Dove L et al. ") + ", statement 11. OPTN transplant oncology review guidance");
+  src(s, "Kodali S, Kulik L, D'Alessio A, et al. ILTS-ILCA consensus. Liver Transpl 2025;31(6):815-31 [PMID: 40014003]. " + G1.replace("Dove L et al. AASLD/AST candidate evaluation guideline. ", "Dove L et al. ") + ", statement 11. OPTN transplant oncology review guidance");
   s.addNotes("Cut if running long. Small tumors in cirrhosis, often found on the explant, did well, which is where this started. The guideline says under 3 cm; the OPTN review guidance says 3 cm or less. The treatment before listing can be local or systemic. Once listed, imaging every 3 months has to show no growth and no new tumors.");
+}
+
+// TA-NRP vs A-NRP, moved to the appendix after the critique (figure Mohammad picked, Cureus, CC BY)
+{
+  const s = slide("How do TA-NRP and A-NRP differ?");
+  pic(s, "nrp-ta-vs-a.png", 1.35, 1.2, W - 2.7, 4.3, "Thoraco-abdominal and abdominal normothermic regional perfusion circuits: reservoir, roller pump, oxygenator, gas mixer and heat exchanger");
+  txt(s, [{ text: "TA-NRP: ", options: { bold: true } }, { text: "the chest is opened and the arteries to the head are clamped, cut and vented. The heart beats again, so heart, lungs and abdominal organs can all be used." }],
+    0.6, 5.55, 5.9, 1.3, { size: 15, align: "center" });
+  txt(s, [{ text: "A-NRP: ", options: { bold: true } }, { text: "the aorta is blocked above the celiac and cut above the block. Only the abdominal organs get blood; the heart doesn't restart." }],
+    W - 6.5, 5.55, 5.9, 1.3, { size: 15, align: "center" });
+  src(s, "Figure: Alamouti-Fard E, Garg P, Wadiwala IJ, et al. Cureus 2022;14(6):e26437, CC BY 4.0. Vessel steps: OPTN/HRSA NRP safety notice, November 21, 2025");
+  s.addNotes("Both start only after death is declared and the no-touch wait is over. The circuit is basically ECMO: reservoir, pump, oxygenator and heater. The liver gets warm oxygenated blood again, usually for an hour or two, and the team follows lactate and liver tests to decide whether to use it. "
+    + "TA-NRP is one of the two ways DCD hearts are recovered in the US; the other takes the heart straight onto a machine. Cutting and venting the vessels is what keeps blood from reaching the brain. The November 2025 OPTN/HRSA safety notice spelled those steps out for both setups after concerns about unintended brain reperfusion.");
 }
 
 const SOURCES = [
@@ -1201,6 +1168,7 @@ const SOURCES = [
     "Tanaka T et al. MELD 3.0 and sex disparities. Hepatology 2026 [PMID: 41100798]",
     "Di Napoli M et al. Front Transplant 2026 [PMID: 42266471]",
     "Merion RM et al. Survival benefit of LT. Am J Transplant 2005 [PMID: 15643990]",
+    "Malamon JS et al. Survival benefit of DDLT. Int J Surg 2023 [PMID: 37226874]",
     "Perkins JD et al. LT at MELD ≤14, decision analysis. Liver Transpl 2009 [PMID: 19177441]",
     "Jackson WE et al. Living donor LT benefit. JAMA Surg 2022 [PMID: 35921119]",
     "Mathurin P et al. Early LT for alcoholic hepatitis. N Engl J Med 2011 [PMID: 22070476]",
@@ -1214,12 +1182,18 @@ const SOURCES = [
     "Chávez-Villa M et al. LT for colorectal metastases in the US. Liver Transpl 2026 [PMID: 41086433]",
     "Giorgakis E et al. DCD and machine perfusion in the US. Transpl Int 2026 [PMID: 42294094]",
     "Seehofer D et al. Non-anastomotic strictures. Am J Transplant 2013 [PMID: 23331505]",
-    "Schneeberger S. Nature 2018 [PMID: 29713063]; J Clin Exp Hepatol 2024 [PMID: 38274508]",
+    "Kalisvaart M et al. ILTS donor warm ischemia time. Transplantation 2021 [PMID: 34048418]",
+    "Machine and regional perfusion options. J Clin Exp Hepatol 2024 [PMID: 38274508]",
     "Nasralla D et al. Nature 2018 [PMID: 29670285]; Markmann JF et al. PROTECT. JAMA Surg 2022 [PMID: 34985503]",
     "van Rijn R et al. DHOPE-DCD. N Engl J Med 2021 [PMID: 33626248]",
     "Kohli DR et al. ASGE post-LT biliary strictures. Gastrointest Endosc 2023 [PMID: 36797162]",
     "Tacrolimus (Prograf) prescribing information",
     "The New York Times, March 5, 2017 (Starzl obituary)",
+  ],
+  [
+    "Brubaker AL et al. NRP vs super-rapid recovery. JAMA Surg 2024 [PMID: 38568597]",
+    "Alamouti-Fard E et al. NRP in DCD heart transplantation. Cureus 2022;14(6):e26437",
+    "OPTN/HRSA NRP safety notice, November 21, 2025, and HRSA NRP policy issue page",
   ],
 ];
 SOURCES.forEach((list, i) => {
