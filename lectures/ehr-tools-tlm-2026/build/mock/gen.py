@@ -205,7 +205,7 @@ def chart_search():
 def chart_review(step):
     # Notes tab; step 0 = all notes, step 1 = our Hepatology quick filter applied
     tabs = "".join(f"<span class='tab{' on' if t == 'Notes' else ''}'>{t}</span>" for t in ["Encounters", "Notes", "Labs", "Imaging", "Procedures", "Media", "Letters"])
-    OUTI = "<img src='ce-e.png' style='width:18px; height:18px; vertical-align:-4px'>"
+    OUTI = "<span style='display:inline-block; width:17px; height:17px; border-radius:50%; background:#1F4E79; color:#fff; font:bold italic 14px/17px Georgia, serif; text-align:center; vertical-align:-3px'>e</span>"
     allrows = [("10/21/2026", "Telephone", "Front desk", "Scheduling", ""),
                ("10/19/2026", "Progress Notes", "Rahman, Leah", "Hepatology", ""),
                ("10/18/2026", "Nursing Note", "Reyes, Ana", "Infusion", ""),
@@ -233,7 +233,7 @@ def chart_review(step):
 <div style='padding:8px 10px; font-size:13px; display:flex; align-items:center'>
  <span class='grey' style='margin-right:8px'>Quick Filters:</span>{qf('Hepatology', step == 1)}{qf('My Notes')}{qf('Last 12 months')}{qf('Outside notes')}<span style='margin-left:auto' class='grey'>{shown}</span></div>
 <table class='grid'><tr><th></th><th>Date</th><th>Type</th><th>Author</th><th>Department</th></tr>{tr}</table>
-<div style='padding:6px 10px; font-size:12px' class='grey'>{OUTI} = Care Everywhere: from another organization</div>
+<div style='padding:6px 10px; font-size:12px' class='grey'>{OUTI} = outside record (Care Everywhere)</div>
 </div>"""
     page(f"chart-review-{step}", body, 902)
 

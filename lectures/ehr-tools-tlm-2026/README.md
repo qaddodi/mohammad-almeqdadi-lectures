@@ -9,4 +9,4 @@ AASLD The Liver Meeting 2026, Community Conversations session "Electronic Health
 - [ehr-tools-tlm-2026-background-image-prompts.md](ehr-tools-tlm-2026-background-image-prompts.md): Gemini prompts for the watercolor backgrounds
 - [build/](build/): rebuild scripts and the mock-up generator
 
-Every Epic-like screen in the deck is a mock-up drawn in HTML with invented patients (ZZTEST) and invented values. None is a real Epic screen or real patient data. The only Epic artwork is the Care Everywhere "e" used as the outside-record icon.
+Every Epic-like screen in the deck is a mock-up drawn in HTML with invented patients (ZZTEST) and invented values. None is a real Epic screen or real patient data. No Epic artwork is included: outside records are marked with a plain navy "e" drawn for this deck.
