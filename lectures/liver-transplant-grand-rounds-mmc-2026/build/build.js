@@ -923,20 +923,21 @@ twoStep((step) => {
   });
   // the clocks, all ending at the cold flush
   if (!z) {
-    const bar = (x1, x2, y, t, fill, color, b) => {
+    const bar = (x1, x2, y, t, fill, color) => {
       s.addShape(pres.shapes.RECTANGLE, { x: x1, y, w: x2 - x1, h: 0.4, fill: { color: fill }, line: { color: fill }, objectName: "Window" });
-      txt(s, t, x1, y, x2 - x1, 0.4, { size: 14, align: "center", valign: "middle", color, b });
+      txt(s, t, x1, y, x2 - x1, 0.4, { size: 13, align: "center", valign: "middle", color });
     };
     bar(X[0], X[4], 4.85, "Total donor warm ischemia", SLATE, "000000");
     bar(X[4], X[5], 4.85, "Hepatectomy", "E7E6E6", "000000");
-    bar(X[1], X[4], 5.35, "Functional warm ischemia: limit about 30 min", NAVY, "FFFFFF");
+    bar(X[1], X[4], 5.35, "Functional warm ischemia: risk rises past 30 min", NAVY, "FFFFFF");
+    bar(X[0], X[2], 5.85, "Agonal phase", "E7E6E6", "000000");
     bar(X[2], X[4], 5.85, "Asystolic warm ischemia", TEAL, "FFFFFF");
     txt(s, "With NRP, warm oxygenated blood reaches the liver again soon after death is declared", 0.9, 6.35, W - 1.8, 0.45, { size: 17, align: "center" });
   }
-  src(s, "Kalisvaart M et al. ILTS consensus on donor warm ischemia time in DCD liver transplantation. Transplantation 2021;105(6):1156-64 [PMID: 34048418]");
+  src(s, "Definitions from Kalisvaart M, Croome KP, Hernandez-Alejandro R, et al. ILTS consensus working group. Transplantation 2021;105(6):1156-64 [PMID: 34048418]");
   s.addNotes(z ? "Walk through what happens in a DCD donation before showing the clocks. Ask: when do you think the liver starts to suffer?"
-    : "Withdrawal happens in the ICU or the OR, usually with the family there. The clock that matters most is functional warm ischemia: from the moment saturation drops below 80% or mean pressure below 60, to the cold flush. That is the ILTS definition; the UK uses systolic below 50, and US programs vary. Most programs decline the liver if it runs past about 30 minutes, and if the donor doesn't die within the program's window after withdrawal, the liver isn't used. "
-      + "The wait after the heart stops is usually 5 minutes in the US. Nobody touches the donor during it, and death is declared by a team that has nothing to do with the transplant. Hepatectomy time, from the flush until the liver is on ice, matters too. After that come cold storage and the recipient's own warm ischemia during the implant. "
+    : "Withdrawal happens in the ICU or the OR, usually with the family there. The clock that matters most is functional warm ischemia: from the moment saturation drops below 80% or mean pressure below 60, to the cold flush. That is the ILTS definition; ASTS used a mean pressure below 60, and the UK a saturation below 70 or systolic below 50. The ILTS doesn't set a hard cutoff: past 30 minutes graft loss goes up, and the call weighs the donor, the graft, the recipient and how the liver will be preserved. ASTS suggested 20 to 30 minutes at most, and the UK doesn't use the liver past 30. If the donor doesn't die within the program's window after withdrawal, the liver isn't used. Withdrawal in the OR shortens the functional time, which is what ILTS recommends where local rules allow. "
+      + "The no-touch wait after the heart stops ranges from 2 to 20 minutes around the world and is usually 5 in the US. Nobody touches the donor during it, and death is declared by a team that has nothing to do with the transplant. Hepatectomy time, from the flush until the liver is on ice, matters too. After that come cold storage and the recipient's own warm ischemia during the implant. "
       + "NRP restarts warm oxygenated blood flow to the abdominal organs after death is declared, and in observational studies NRP livers have had fewer bile duct problems.");
   return s;
 });

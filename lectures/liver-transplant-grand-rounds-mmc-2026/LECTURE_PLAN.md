@@ -41,4 +41,4 @@ Images: [background image prompts](liver-transplant-grand-rounds-mmc-2026-backgr
 
 Mohammad asked what the statement numbers were. They are the numbered recommendations in the three 2025 AASLD/AST transplant guidelines. They now appear only in the source footers; slide text says "the 2025 guideline" and the tables no longer have a Statement column.
 
-Unverified from here: Kalisvaart 2021 ILTS warm ischemia report, PMID 34048418 (from a Google Scholar link); its fDWIT definition (SpO2 <80% and/or MAP <60, limit 30 min) comes from secondary sources, since the journal and PubMed are blocked.
+DCD timeline checked 2026-10-27 against the Kalisvaart 2021 ILTS report PDF (in the private papers folder): fDWIT from SpO2 <80% or MAP <60 to cold flush (NRP: start of perfusion); past 30 min graft loss risk rises (not a hard cutoff); DHT = flush to liver out. PMID 34048418 is from a Google Scholar link, not checked in PubMed.
