@@ -179,6 +179,7 @@ def chart_search():
 <div class='bar'><span class='ttl'>Chart Search</span></div>
 <div style='padding:12px 14px; position:relative; height:430px'>
  <div style='border:2px solid #2f6fa7; border-radius:3px; padding:6px 10px; font-size:15px; width:420px'>&#x1F50D;&#xFE0E; EGD<span style='color:#2f6fa7'>|</span></div>
+ <div style='position:absolute; left:450px; top:16px; font-size:13px; color:#33475b'>Open from anywhere: <span style='display:inline-block; border:1px solid #9fb0c2; border-bottom-width:3px; border-radius:4px; padding:1px 7px; background:#f6f8fa; font-weight:bold'>Ctrl</span> + <span style='display:inline-block; border:1px solid #9fb0c2; border-bottom-width:3px; border-radius:4px; padding:1px 14px; background:#f6f8fa; font-weight:bold'>Space</span></div>
  <div style='margin-top:10px; font-size:12px; color:#33475b'>Filter: <span class='btn'>All</span> <span class='btn'>Notes</span> <span class='btn'>Procedures</span> <span class='btn'>Media</span> <span class='btn'>Outside records</span></div>
  <div style='margin-top:12px; width:420px'>
   <div style='font-weight:bold; color:#1f3b57; border-bottom:1px solid #c5ced9; padding:4px 0'>Procedures (2)</div>
@@ -524,29 +525,40 @@ def cs_related():
     dd("cs-related", "ZZTEST, GOLF", "47 y.o. M", "hepatitis b", inner)
 
 def cs_trend():
-    pts = [("2016", 64), ("2018", 71), ("2019", 58), ("2021", 49), ("2023", 52), ("2025", 41), ("2026", 39)]
-    W_, H_, x0, y0 = 560, 185, 50, 15
-    xs = [x0 + i * (W_ - x0 - 30) / (len(pts) - 1) for i in range(len(pts))]
-    Y = lambda v: y0 + (80 - v) * (H_ - y0 - 35) / 60
+    yrs = ["2016", "2018", "2019", "2021", "2023", "2025", "2026"]
+    alt = [64, 71, 58, 49, 52, 41, 39]
+    wt = [104, 108, 101, 96, 97, 91, 89]
+    W_, H_, x0, x1, y0 = 560, 230, 46, 500, 18
+    xs = [x0 + 15 + i * (x1 - x0 - 30) / (len(yrs) - 1) for i in range(len(yrs))]
+    YA = lambda v: y0 + (120 - v) * (H_ - y0 - 35) / 120     # ALT 0-120 U/L, left axis
+    YW = lambda v: y0 + (110 - v) * (H_ - y0 - 35) / 60      # weight 50-110 kg, right axis
+    A, Wc = "#2f6fa7", "#2E7D8C"
     svg = f"<svg width='{W_}' height='{H_}' style='font-family:Liberation Sans; font-size:12px'>"
-    for v in (20, 40, 60, 80):
-        svg += f"<line x1='{x0}' y1='{Y(v):.0f}' x2='{W_-20}' y2='{Y(v):.0f}' stroke='#e3e8ee'/><text x='{x0-26}' y='{Y(v)+4:.0f}' fill='#6d7f92'>{v}</text>"
-    svg += f"<line x1='{x0}' y1='{Y(40):.0f}' x2='{W_-20}' y2='{Y(40):.0f}' stroke='#c00000' stroke-dasharray='5 4'/><text x='{W_-75}' y='{Y(40)+16:.0f}' fill='#c00000'>ULN 40</text>"
-    svg += "<polyline points='" + " ".join(f"{x:.0f},{Y(v):.0f}" for x, (_, v) in zip(xs, pts)) + "' fill='none' stroke='#2f6fa7' stroke-width='2.5'/>"
-    for (lab, v), x in zip(pts, xs):
-        svg += f"<circle cx='{x:.0f}' cy='{Y(v):.0f}' r='4' fill='#2f6fa7'/><text x='{x-8:.0f}' y='{Y(v)-10:.0f}' fill='#1d1d1d'>{v}</text><text x='{x-15:.0f}' y='{H_-8}' fill='#6d7f92'>{lab}</text>"
+    for v in (0, 40, 80, 120):
+        svg += f"<line x1='{x0}' y1='{YA(v):.0f}' x2='{x1}' y2='{YA(v):.0f}' stroke='#e3e8ee'/><text x='{x0-24}' y='{YA(v)+4:.0f}' fill='{A}'>{v}</text>"
+    for v in (50, 70, 90, 110):
+        svg += f"<text x='{x1+6}' y='{YW(v)+4:.0f}' fill='{Wc}'>{v}</text>"
+    svg += f"<line x1='{x0}' y1='{YA(40):.0f}' x2='{x1}' y2='{YA(40):.0f}' stroke='#c00000' stroke-dasharray='5 4'/><text x='{x0+4}' y='{YA(40)+15:.0f}' fill='#c00000'>ALT ULN 40</text>"
+    svg += "<polyline points='" + " ".join(f"{x:.0f},{YW(v):.0f}" for x, v in zip(xs, wt)) + f"' fill='none' stroke='{Wc}' stroke-width='2.5' stroke-dasharray='7 4'/>"
+    svg += "<polyline points='" + " ".join(f"{x:.0f},{YA(v):.0f}" for x, v in zip(xs, alt)) + f"' fill='none' stroke='{A}' stroke-width='2.5'/>"
+    for x, a_, w_, y in zip(xs, alt, wt, yrs):
+        svg += f"<circle cx='{x:.0f}' cy='{YA(a_):.0f}' r='4' fill='{A}'/><text x='{x-8:.0f}' y='{YA(a_)+18:.0f}' fill='{A}'>{a_}</text>"
+        svg += f"<rect x='{x-3.5:.0f}' y='{YW(w_)-3.5:.0f}' width='7' height='7' fill='{Wc}'/><text x='{x-10:.0f}' y='{YW(w_)-9:.0f}' fill='{Wc}'>{w_}</text>"
+        svg += f"<text x='{x-15:.0f}' y='{H_-6}' fill='#6d7f92'>{y}</text>"
     svg += "</svg>"
+    leg = f"<div style='font-size:13px; margin:2px 0 6px'><span style='color:{A}'>&#9679; ALT (U/L), left</span> &nbsp;&nbsp; <span style='color:{Wc}'>&#9632; Weight (kg), right</span></div>"
     btn = lambda t, on=False: f"<span style='display:inline-block; border:1px solid #c5ced9; border-radius:3px; padding:2px 9px; margin-right:5px; font-size:12px;{' background:#dcefe9' if on else ''}'>{t}</span>"
     card = f"""<div {LBL}>Spotlight</div>
 <div style='margin:0 14px 6px; border:1px solid #dde3e9; border-radius:4px; padding:8px 12px'>
- <div style='font-size:14px'>Here are ZZTEST, HOTEL's trended labs.</div>
+ <div style='font-size:14px'>Here are ZZTEST, HOTEL's trended labs and vitals.</div>
  <div style='border-left:4px solid #7b3fa0; padding:6px 0 6px 12px; margin-top:6px'>
-  <div style='display:flex; justify-content:space-between'><span style='display:inline-block; background:#eadcf3; color:#5b2a7c; font-weight:bold; border-radius:12px; padding:3px 12px'>Trend Labs &middot; ALT</span><span class='grey' style='font-size:13px'>10/2016 - 10/2026</span></div>
-  {svg}
+  <div style='display:flex; justify-content:space-between'><span style='display:inline-block; background:#eadcf3; color:#5b2a7c; font-weight:bold; border-radius:12px; padding:3px 12px'>Trend &middot; ALT and weight</span><span class='grey' style='font-size:13px'>10/2016 - 10/2026</span></div>
+  {leg}{svg}
   <div style='text-align:center'>{btn('All Data')}{btn('10 Years', True)}{btn('5 Years')}{btn('1 Year')}</div>
  </div></div>"""
-    inner = ptrow("ZZTEST, HOTEL", "Male, 52 y.o.") + sugg([("trend alt 10 years", "&#x1F50D;&#xFE0E;")]) + card
-    dd("cs-trend", "ZZTEST, HOTEL", "52 y.o. M", "trend alt 10 years", inner)
+    q = "trend alt weight 10 years"
+    inner = ptrow("ZZTEST, HOTEL", "Male, 52 y.o.") + sugg([(q, "&#x1F50D;&#xFE0E;")]) + card
+    dd("cs-trend", "ZZTEST, HOTEL", "52 y.o. M", q, inner)
 
 def cs_math():
     inner = f"<div {LBL}>Calculation</div><div style='padding:10px 14px; background:#dcefe9; font-size:20px'>&#128425; <b>= 1,040</b> <span class='grey' style='font-size:15px'>&middot; Copy answer to clipboard</span></div>"

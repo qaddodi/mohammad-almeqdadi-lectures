@@ -197,19 +197,19 @@ fullView("Our post-transplant view", ["full-post-1.png", "full-post-2.png", "ful
   const s = slide("Chart search");
   lab(s, "Finding information");
   pic(s, "chart-search.png", 0.6, 1.25, W - 1.2, 5.0, "Mock chart search for EGD with a preview of the procedure note");
-  s.addText("Searches notes, results, media and outside records. Hover to read. Save the searches you repeat.", { x: 0.9, y: 6.3, w: W - 1.8, h: 0.5,
+  s.addText("Ctrl+Space opens it from anywhere. Searches notes, results, media and outside records. Hover to read.", { x: 0.9, y: 6.3, w: W - 1.8, h: 0.5,
     fontFace: "Georgia", fontSize: 19, align: "center", color: "000000", isTextBox: true, margin: 0 });
   src(s, MOCK + ". Epic chart search tip sheet, 2026");
-  s.addNotes("Last EGD: type EGD. The 2023 outside EGD shows up and the hover preview gives small varices without opening anything. Favorite searches I keep: EGD, MRI, biopsy, PEth. You can also type Synopsis or an order set name in the same bar to jump straight there.");
+  s.addNotes("Ctrl+Space opens chart search from anywhere in Epic, no clicking around. Last EGD: type EGD. The 2023 outside EGD shows up and the hover preview gives small varices without opening anything. Favorite searches I keep: EGD, MRI, biopsy, PEth. You can also type Synopsis or an order set name in the same bar to jump straight there.");
 }
 
 // 10b Chart search does more (from the Epic Specialist Spotlight video)
 [["cs-related.png", "Type hepatitis b: it also offers entecavir and tenofovir",
   "Mock chart search for hep B showing related medications, results and problems",
   "Related terms. I type hepatitis b and it suggests the core and surface antibodies and also his entecavir and tenofovir. The spotlight card shows the latest result without opening anything. Results show up before you press Enter; press Enter for the full list. Quotation marks give the exact word only, and AND / OR work too."],
- ["cs-trend.png", "Type trend alt 10 years: the graph opens in the search box",
-  "Mock chart search for ALT with a 10-year trend graph",
-  "Trends. Steatotic liver disease follow-up: type trend alt 10 years and the graph is right there. You can switch to 5 years or 1 year, and trend two labs together, like ALT and AST. Was it ever elevated? Yes, up to 71 in 2018, and normal now after weight loss. Works for labs and vitals, weight included."],
+ ["cs-trend.png", "Type trend alt weight 10 years: both on one graph",
+  "Mock chart search trending ALT and weight together over 10 years",
+  "Trends. Steatotic liver disease follow-up: type trend alt weight 10 years and both go on one graph, ALT on the left axis and weight on the right. You see the ALT come down as he loses 19 kg. You can switch to 5 years or 1 year, and mix any labs and vitals. Was it ever elevated? Yes, up to 71 in 2018, and normal now after weight loss. Works for labs and vitals, weight included."],
  ["cs-ocr.png", "Scanned faxes are searchable too: it reads the text (OCR)",
   "Mock chart search for elastography finding the words inside a scanned outside fax, highlighted in a preview",
   "Scanned documents. Chart search reads the text of scanned documents with OCR, so the outside referral fax is searchable. Hover and you see the page with the words highlighted: his 2024 FibroScan, 12.4 kPa, was only in a fax. Your organization has to turn this on, and it reads documents scanned in the last two years when it starts, so ask your Epic team if yours is on."],
@@ -254,9 +254,10 @@ twoStep((step) => {
     "{ } lists are one click",
     "*** has to be filled before you sign",
     "Share yours with colleagues, or use theirs",
-  ], { x: 9.0, w: 3.9, y: 1.6, h: 5.0, size: 19, gap: 14 });
+    "Community Library: SmartTexts other centers built",
+  ], { x: 9.0, w: 3.9, y: 1.5, h: 5.3, size: 19, gap: 12 });
   src(s, MOCK + ". Epic SmartTools Setup and Support Guide, 2026; Epic, How to Personalize Epic");
-  s.addNotes("Type the dot phrase, pick it, and the plan writes itself with today's MELD, last imaging and last EGD pulled in. I won't spend long on notes: Nizar covered the AI side. Trap: copy-forward carries old numbers, SmartLinks don't. Ask a colleague to share theirs from the SmartPhrase Manager; you don't have to build from scratch. Since February 2026 you can preview a SmartPhrase against a real chart before using it.");
+  s.addNotes("Type the dot phrase, pick it, and the plan writes itself with today's MELD, last imaging and last EGD pulled in. I won't spend long on notes: Nizar covered the AI side. Trap: copy-forward carries old numbers, SmartLinks don't. Ask a colleague to share theirs from the SmartPhrase Manager; you don't have to build from scratch. Since February 2026 you can preview a SmartPhrase against a real chart before using it. Epic's Community Library (CommLib) is where organizations share their build, SmartTexts, SmartPhrases and more, so ask your analyst to look there before building from scratch.");
   return s;
 });
 
