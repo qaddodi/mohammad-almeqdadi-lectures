@@ -122,6 +122,14 @@ Nothing before a reveal may give the answer away. This was the most common mista
 - **Image labels** ("IVC collapse" on the question slide) and paper titles that state the result.
 - **Threshold lines on charts** before the question about the threshold.
 
+## Tufts program numbers
+
+Mohammad's rule (2026-10-27): Tufts program data (transplant volume, diagnoses, where patients live, outcomes) never go public.
+
+- In the talk, use rough numbers: "about 130 since mid-2023", "about one in five from Maine". No exact counts.
+- Keep them out of the repo copy and the PDF the QR code serves. Drop those slides or leave the values off in the public version.
+- Don't show program survival unless he asks for it.
+
 ## Slide numbers
 
 - "X/Y", bottom right. The cover has no number.
@@ -134,6 +142,7 @@ Nothing before a reveal may give the answer away. This was the most common mista
 
 - Mohammad's Gemini watercolor, full-bleed, with a quiet zone on one side where the title sits. Nothing printed over the picture itself.
 - Title, then his name and titles: "Mohammad Almeqdadi, MD", "Transplant Hepatologist and Gastroenterologist", "Assistant Professor of Medicine and Surgery", then "X: @mfalmeqdadi".
+- For talks outside Tufts, add the institutions (Mohammad, 2026-10-27, MMC grand rounds): "Transplant Hepatologist, Tufts Medical Center", "Assistant Professor of Medicine and Surgery, Tufts University School of Medicine".
 - Tufts University School of Medicine logo.
 - Small italic credit in a corner: "Illustrations generated with Google Gemini".
 - A QR code labeled "Slides (PDF)" that downloads the PDF directly (raw file URL, not a GitHub page). Plain navy dots (#1A1F31) with rounded finder squares, transparent background, no icon or logo in the middle.
