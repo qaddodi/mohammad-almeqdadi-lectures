@@ -1707,15 +1707,15 @@ sec("Closing");
 }
 {
   const s = slide("Back to our patients");
+  pic(s, "two-beds.jpg", 0.35, 2.25, 4.2, 3.6, "Watercolor of two empty ICU beds side by side");
   body(s, [
-    "Which one needed transplant hepatology before the tests came back?",
-    "Why did a falling ALT make you more worried?",
-    "When is CRRT right before the creatinine is high?",
-    "Why isn't lactulose for ACLF evidence for ALF?",
-    "Why were albumin and terlipressin the wrong next step for bed 7?",
+    "Who needed transplant hepatology before the labs?",
+    "Why did a falling ALT worry us more?",
+    "When is CRRT right before the creatinine rises?",
+    "Why doesn't cirrhosis lactulose data apply to ALF?",
+    "Why not albumin and terlipressin for bed 7?",
     "What would make you change yesterday's plan?",
-  ], { size: 20, gap: 14, x: 0.5, w: 6.9 });
-  pic(s, "two-beds.jpg", 7.55, 1.6, 5.45, 4.6, "Watercolor of two empty ICU beds side by side");
+  ], { size: 21, gap: 22, x: 4.8, w: 8.3, y: 1.9, h: 5.0 });
   s.addNotes("Ask the room. Don't put the answers up.");
 }
 {
