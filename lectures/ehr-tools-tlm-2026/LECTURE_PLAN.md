@@ -30,7 +30,7 @@ Show and tell, no live demo. One made-up patient, ZZTEST, LIVER (58M with cirrho
 | 12 | Chart search | Ctrl+Space from anywhere; EGD search with hover preview, then: related terms (hepatitis b finds entecavir and tenofovir), ALT and weight trended together over 10 years, OCR of a scanned fax, math (80x13 for ursodiol in PBC). From the Epic Specialist Spotlight video with Mohammad |
 | 13 | Chart Review quick filters | Notes tab 214 notes, then the Hepatology quick filter: 7 notes, Care Everywhere notes in the same list |
 | 14 | SmartPhrases | Typing the phrase, then the expanded note with SmartLinks, SmartLists and ***; sharing, and the Community Library (CommLib) |
-| 15 | Orders | Preference list (star, Follow Users) and a personal order set |
+| 15 | Orders | Preference list favorites (MELD labs with AFP; AFP, AFP-L3, DCP; CLD workup with PEth; triphasic liver MRI), Follow Users, and a personal order set |
 | 16 | After March 2020 | EHR time growth by group (Holmgren 2025). Reveal |
 | 17 | In Basket tools | QuickActions, result notes, out of contact |
 | 18 | AI tools in Epic | Table of Art tools with release versions |

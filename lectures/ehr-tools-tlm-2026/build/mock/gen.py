@@ -571,9 +571,10 @@ def order_search():
     tabs = "".join(f"<span class='tab{' on' if t == 'Browse' else ''}'>{t}</span>" for t in ["Browse", "Preference List", "Database"])
     sec = lambda t: f"<tr><td colspan='3' style='background:#eef2f6; font-weight:bold; color:#1f3b57'>&#9662; {t}</td></tr>"
     r = lambda n, d, st=True: f"<tr><td style='width:28px'>{STAR if st else ''}</td><td>{n}</td><td class='grey'>{d}</td></tr>"
-    rows = sec("My Favorites: new cirrhosis visit") + r("Hepatic function panel", "Routine, once") + r("CBC with differential", "Routine, once") + r("Protime-INR", "Routine, once") + r("AFP tumor marker", "Every 6 months") + r("US abdomen with elastography", "Routine, 1 time")
-    rows += sec("My Favorites: post-transplant") + r("Tacrolimus level, LC-MS/MS", "Trough, weekly") + r("CMV DNA, quantitative PCR", "Monthly")
-    rows += sec("Following: Dr. Ortiz (GI)") + r("EGD, variceal screening", "Outpatient", False)
+    rows = sec("My Favorites: MELD labs") + r("CMP, CBC, Protime-INR", "Routine, once") + r("AFP tumor marker", "Added to every MELD draw")
+    rows += sec("My Favorites: HCC tumor markers") + r("AFP", "Routine, once") + r("AFP-L3%", "Routine, once") + r("DCP (des-gamma-carboxy prothrombin)", "Routine, once")
+    rows += sec("My Favorites: CLD workup") + r("Hepatitis A, B and C panel, iron studies, HFE", "Routine, once") + r("ANA, ASMA, IgG, alpha-1 antitrypsin, ceruloplasmin", "Routine, once") + r("PEth (phosphatidylethanol)", "Routine, once")
+    rows += sec("My Favorites: imaging") + r("MRI abdomen w wo contrast", "Comment: triphasic, liver protocol")
     body = f"""<div class='win' style='width:780px'>{PT}
 <div class='bar'><span class='ttl'>Order Search</span><span style='margin-left:auto' class='btn'>&#128101; Follow Users</span></div>
 <div style='padding:8px 10px'><span style='display:inline-block; width:420px; border:2px solid #2f6fa7; border-radius:3px; padding:4px 8px; font-size:15px'>&#x1F50D;&#xFE0E; <span class='grey'>Search orders</span></span></div>

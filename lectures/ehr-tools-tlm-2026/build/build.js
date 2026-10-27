@@ -614,12 +614,12 @@ twoStep((step) => {
 {
   const s = slide("Orders");
   lab(s, "Notes and orders");
-  const a = pic(s, "order-search.png", 0.4, 1.3, 6.6, 4.85, "Mock order search showing personal preference list sections and a Follow Users button");
+  const a = pic(s, "order-search.png", 0.4, 1.3, 6.6, 4.85, "Mock order search with favorite sections: MELD labs with AFP, HCC tumor markers, CLD workup with PEth, and a triphasic liver MRI");
   const b = pic(s, "order-set.png", 7.3, 1.3, 5.6, 4.85, "Mock order set for a new cirrhosis visit, saved as a personal version");
   s.addText("Star an order to put it on your preference list. Follow up to 3 colleagues' lists.", { x: 0.4, y: a.y + a.h + 0.15, w: 6.6, h: 0.75, fontFace: "Georgia", fontSize: 18, align: "center", color: "000000", isTextBox: true, margin: 0 });
   s.addText("Save your own version of an order set", { x: 7.3, y: b.y + b.h + 0.15, w: 5.6, h: 0.45, fontFace: "Georgia", fontSize: 18, align: "center", color: "000000", isTextBox: true, margin: 0 });
   src(s, MOCK + ". Epic Preference Lists Setup and Support Guide, 2026; Epic, How to Personalize Epic");
-  s.addNotes("Preference list: click the star on any order, or right-click it, and it goes into your own list in the section you pick. Follow Users on the Browse tab lets you use a colleague's lists, up to three people, so one person in the division builds it and everyone follows. Every new cirrhosis visit gets the same labs and ultrasound: save it once as your version of the order set. Safety point: check the encounter before signing; inpatient orders placed under a clinic visit don't reach the floor.");
+  s.addNotes("Preference list: click the star on any order, or right-click it, and it goes into your own list in the section you pick. Follow Users on the Browse tab lets you use a colleague's lists, up to three people, so one person in the division builds it and everyone follows. My favorites: MELD labs with AFP built in, so the AFP goes out with every MELD draw; an HCC tumor marker group with AFP, AFP-L3 and DCP; a CLD workup set, and make sure yours includes PEth; and an MRI abdomen with and without contrast with a comment that it's a triphasic liver protocol, if your organization doesn't have a dedicated liver MRI order. Every new cirrhosis visit gets the same labs and ultrasound: save it once as your version of the order set. Safety point: check the encounter before signing; inpatient orders placed under a clinic visit don't reach the floor.");
 }
 
 // 14 How many messages?
