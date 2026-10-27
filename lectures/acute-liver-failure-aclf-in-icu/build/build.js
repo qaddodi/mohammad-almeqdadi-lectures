@@ -765,6 +765,14 @@ crrt(1).addNotes("Ask them. Nephrology will often say the creatinine doesn't mee
 cont(); crrt(2).addNotes("Ammonia around 150 to 200 is a high-risk context in the literature, not a universal threshold. Look at the trajectory and the neuro exam. Coordinate the CRRT fluid with the sodium plan or the dialysis will pull her sodium back down.");
 inr(1).addNotes("Hour 12, CRRT is starting. Very common request from the procedure side.");
 cont(); inr(2).addNotes("The INR is a great marker of liver function and a poor marker of bleeding risk in ALF. Spontaneous bleeding is uncommon. Ask transplant hepatology before giving plasma: they need the native INR.");
+twoStep((step) => {
+  const s = slide("INR 4.2. What does the TEG say?");
+  pic(s, "stravitz-teg.png", 2.4, 1.3, W - 4.8, 4.6, "Normal thromboelastogram in acute liver failure", { line: true });
+  if (step === 2) body(s, [{ t: "Normal in all five TEG measures, in a patient with ALF and an INR of 4.2", nb: true, i: true, align: "center" }], { y: 6.05, h: 0.5, size: 18 });
+  src(s, "Stravitz RT et al. J Hepatol 2012;56:129-36 [PMID: 21703173]");
+  s.addNotes("51 patients with acute liver injury or failure, mean INR 3.4. Mean TEG values were normal, and all five TEG parameters were normal in 63%. Low clot strength showed up only with platelets under about 126,000. Factors V and VII were low, but so were the anticoagulant proteins, and factor VIII was high.");
+  return s;
+});
 {
   const s = slide("Rebalanced hemostasis");
   const cxm = W / 2;
@@ -788,14 +796,6 @@ cont(); inr(2).addNotes("The INR is a great marker of liver function and a poor 
   src(s, "Concept from Lisman T, Porte RJ. Blood 2010");
   s.addNotes("Both sides go down together. The INR only tests the left pan, so it makes the patient look much more anticoagulated than she is. Viscoelastic tests look at clot formation in whole blood and in ALF are often close to normal despite a high INR, though they miss the endothelium and the protein C system too. The balance is fragile: infection, kidney failure and procedures tip it, and thrombosis, including line-related clots, is real.");
 }
-twoStep((step) => {
-  const s = slide("INR 4.2. What does the TEG say?");
-  pic(s, "stravitz-teg.png", 2.4, 1.3, W - 4.8, 4.6, "Normal thromboelastogram in acute liver failure", { line: true });
-  if (step === 2) body(s, [{ t: "Normal in all five TEG measures, in a patient with ALF and an INR of 4.2", nb: true, i: true, align: "center" }], { y: 6.05, h: 0.5, size: 18 });
-  src(s, "Stravitz RT et al. J Hepatol 2012;56:129-36 [PMID: 21703173]");
-  s.addNotes("51 patients with acute liver injury or failure, mean INR 3.4. Mean TEG values were normal, and all five TEG parameters were normal in 63%. Low clot strength showed up only with platelets under about 126,000. Factors V and VII were low, but so were the anticoagulant proteins, and factor VIII was high.");
-  return s;
-});
 {
   const s = slide("CRRT for ammonia: what to agree on with nephrology");
   table(s, [
@@ -845,8 +845,8 @@ twoStep((step) => {
   const s = slide("Does early CRRT actually help?");
   table(s, [
     ["", "US ALF Study Group cohort (2018)", "Pilot RCT (2026)"],
-    ["Design", "Large registry, observational", "Open label, ALF with cerebral edema; both arms got plasma exchange"],
-    ["Comparison", "CRRT vs no CRRT", "CRRT within 12 hours vs CRRT only if plasma exchange failed"],
+    ["Design", "Large registry, observational", "Open label, ALF with cerebral edema"],
+    ["Comparison", "CRRT vs no CRRT", "CRRT within 12 hours vs delayed CRRT"],
     ["Finding", ans(step, "CRRT linked to lower ammonia and better 21-day transplant-free survival"), ans(step, "Primary endpoint, 28-day survival: similar by intention to treat. Fewer deaths in the first 7 days (2.2% vs 17.8%)")],
     ["Catch", { t: ans(step, "Association. Sicker or healthier patients may have been picked for CRRT"), b: true }, { t: ans(step, "Small pilot, one center, many protocol violations. Needs a larger trial"), b: true }],
   ], { x: 0.7, y: 1.5, w: W - 1.4, colW: [1.9, 5.0, 5.03], size: 16, rowH: [0.5, 0.8, 0.8, 1.2, 1.1] });
@@ -897,7 +897,7 @@ function inr(step) {
   if (step === 1) { q(s, "2 units of FFP first?", 3.3, { size: 30 }); return s; }
   body(s, [
     { runs: [{ t: "No plasma just to fix the number", b: true, hl: true }] },
-    "The INR sees only the procoagulant side. Protein C and S are low too, factor VIII and von Willebrand factor are high. Most patients are rebalanced",
+    "The INR measures only part of clotting, and in ALF it doesn't predict who bleeds",
     "Plasma adds volume (lungs, brain) and erases the INR trend that prognosis and listing rely on",
     { t: "What to do instead", b: true, nb: true, gap: 14 },
     "Ultrasound-guided line, experienced operator, compressible site",
