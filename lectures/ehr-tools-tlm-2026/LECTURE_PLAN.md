@@ -27,7 +27,7 @@ Show and tell, no live demo. One made-up patient, ZZTEST, LIVER (58M with cirrho
 | 9 | Our liver disease view | Zoom: MELD 3.0 from 9 to 24 in a year. Reveal |
 | 10 | Our chronic liver disease workup view | Was the workup done? Gaps highlighted. Reveal |
 | 11 | Our post-transplant view | Full view, scrolled in 3 steps |
-| 12 | Chart search | Ctrl+Space from anywhere; EGD search with hover preview, then: related terms (hepatitis b finds entecavir and tenofovir), ALT and weight trended together over 10 years, OCR of a scanned fax, math (80x13 for ursodiol in PBC). From the Epic Specialist Spotlight video with Mohammad |
+| 12 | Chart search | A full slide on Ctrl+Space (opens search from anywhere, watercolor key background); EGD search with hover preview, then: related terms (hepatitis b finds entecavir and tenofovir), trend ALT alone, then ALT and weight together on one graph, OCR of a scanned fax, math (80x13 for ursodiol in PBC). From the Epic Specialist Spotlight video with Mohammad |
 | 13 | Chart Review quick filters | Notes tab 214 notes, then the Hepatology quick filter: 7 notes, Care Everywhere notes in the same list |
 | 14 | SmartPhrases | Typing the phrase, then the expanded note with SmartLinks, SmartLists and ***; sharing, and the Community Library (CommLib) |
 | 15 | Orders | Preference list favorites (MELD labs with AFP; AFP, AFP-L3, DCP; CLD workup with PEth; triphasic liver MRI), Follow Users, and a personal order set |

@@ -192,6 +192,18 @@ twoStep((step) => {
 fullView("Our post-transplant view", ["full-post-1.png", "full-post-2.png", "full-post-3.png"],
   "A different made-up patient, 9 months after transplant. Same order as our real view: vitals, then immunosuppression with the tacrolimus levels right under the doses, transplant immunology, anti-infectives, infection monitoring (CMV), then chemistry with PEth, hematology, toxicology and the rest of the meds. Our post-transplant clinic opens this first: dose changes line up with the levels and the creatinine.");
 
+// 10a Ctrl+Space, a slide of its own
+{
+  const s = slide(null);
+  const bg = path.join(IMG, "ctrl-space-background.jpg");
+  if (fs.existsSync(bg)) s.background = { path: bg };
+  lab(s, "Finding information");
+  s.addText("Opens chart search from anywhere in Epic", { x: 0.7, y: 2.5, w: 5.4, h: 1.4, fontFace: "Georgia", fontSize: 32, color: "000000", align: "left", valign: "bottom", isTextBox: true, margin: 0 });
+  s.addText("No clicking through tabs. Type what you need.", { x: 0.7, y: 4.05, w: 5.4, h: 0.9, fontFace: "Georgia", fontSize: 20, color: GREY, align: "left", valign: "top", isTextBox: true, margin: 0 });
+  src(s, "Epic Assistant Bar and Chart Search Setup and Support Guide, 2026");
+  s.addNotes("If you remember one thing from this talk: Ctrl+Space. It opens the search bar from any screen in the chart. Everything on the next few slides starts here.");
+}
+
 // 10 Chart search
 {
   const s = slide("Chart search");
@@ -207,9 +219,12 @@ fullView("Our post-transplant view", ["full-post-1.png", "full-post-2.png", "ful
 [["cs-related.png", "Type hepatitis b: it also offers entecavir and tenofovir",
   "Mock chart search for hep B showing related medications, results and problems",
   "Related terms. I type hepatitis b and it suggests the core and surface antibodies and also his entecavir and tenofovir. The spotlight card shows the latest result without opening anything. Results show up before you press Enter; press Enter for the full list. Quotation marks give the exact word only, and AND / OR work too."],
+ ["cs-trend-alt.png", "Type trend alt 10 years: the graph opens in the search box",
+  "Mock chart search trending ALT over 10 years with the upper limit of normal",
+  "Trends. Steatotic liver disease follow-up: type trend alt 10 years and the graph is right there. Was it ever elevated? Yes, up to 71 in 2018, and normal now."],
  ["cs-trend.png", "Type trend alt weight 10 years: both on one graph",
   "Mock chart search trending ALT and weight together over 10 years",
-  "Trends. Steatotic liver disease follow-up: type trend alt weight 10 years and both go on one graph, ALT on the left axis and weight on the right. You see the ALT come down as he loses 19 kg. You can switch to 5 years or 1 year, and mix any labs and vitals. Was it ever elevated? Yes, up to 71 in 2018, and normal now after weight loss. Works for labs and vitals, weight included."],
+  "Trends. Steatotic liver disease follow-up: type trend alt weight 10 years and both go on one graph, ALT on the left axis and weight on the right. Add weight to the same search and you see the ALT come down as he loses 19 kg. You can switch to 5 years or 1 year, and mix any labs and vitals. Was it ever elevated? Yes, up to 71 in 2018, and normal now after weight loss. Works for labs and vitals, weight included."],
  ["cs-ocr.png", "Scanned faxes are searchable too: it reads the text (OCR)",
   "Mock chart search for elastography finding the words inside a scanned outside fax, highlighted in a preview",
   "Scanned documents. Chart search reads the text of scanned documents with OCR, so the outside referral fax is searchable. Hover and you see the page with the words highlighted: his 2024 FibroScan, 12.4 kPa, was only in a fax. Your organization has to turn this on, and it reads documents scanned in the last two years when it starts, so ask your Epic team if yours is on."],
