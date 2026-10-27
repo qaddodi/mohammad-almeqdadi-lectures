@@ -126,6 +126,8 @@ Nothing before a reveal may give the answer away. This was the most common mista
 - "X/Y", bottom right. The cover has no number.
 - Count ideas, not clicks. Every step of one reveal sequence shares a number. Y is the number of distinct slides.
 - A slide placed between two steps gets its own number, and the step after it starts a new number.
+- The closing "Questions?" slide is the last counted slide and reads Y/Y. Y counts slides up to and including it.
+- Appendix slides after it are not part of Y. Label them A1, A2, and so on.
 
 ## The cover
 

@@ -62,10 +62,14 @@ pres.addSlide = (o) => {
   return s;
 };
 function cont() { CONT = true; }
+// The closing "Questions?" slide is the last counted slide; the appendix after it is A1, A2, ...
+let MAIN_END = null;
+function endMain() { MAIN_END = LOGICAL; }
 function addSlideNumbers() {
+  const total = MAIN_END || LOGICAL;
   NUMBERED.forEach(({ s, n }, i) => {
     if (i === 0) return; // not on the cover
-    s.addText(`${n}/${LOGICAL}`, { x: W - 1.3, y: 7.0, w: 0.9, h: 0.3, fontSize: 9, color: "A6A6A6", fontFace: "Georgia",
+    s.addText(n > total ? `A${n - total}` : `${n}/${total}`, { x: W - 1.3, y: 7.0, w: 0.9, h: 0.3, fontSize: 9, color: "A6A6A6", fontFace: "Georgia",
       align: "right", isTextBox: true, margin: 0, objectName: "SlideNumber" });
   });
 }
@@ -1736,6 +1740,7 @@ sec("Closing");
   s.addText("Questions?", { x: 7.1, y: 2.8, w: 5.7, h: 1.4, fontFace: "Georgia", fontSize: 54, align: "center",
     valign: "middle", color: "000000", isTextBox: true, margin: 0 });
 }
+endMain();
 
 // ---------------------------------------------------------------- Appendix
 sec("Appendix");
