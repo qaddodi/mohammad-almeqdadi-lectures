@@ -84,6 +84,11 @@ Where to get figures, in this order:
 
 A figure has a job: say what the learner should find in it. "Add an image" isn't a plan; "show the same lab table again with the discriminating value in red" is.
 
+**Pictures are large.** A picture fills the space it has. It should never be a small thumbnail in a corner.
+- Trim the white margins off spot illustrations before placing them, so the object itself is big.
+- On a question slide, put the question under the title and let the picture take the rest of the slide down to the source line.
+- Beside bullets, give the picture its own column, about 40% of the width or more. Narrow the text rather than shrink the picture.
+
 ## Tables
 
 Mohammad's rule (2026-10-27): a table cell should read on one line.

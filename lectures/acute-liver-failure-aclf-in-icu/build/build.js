@@ -235,7 +235,7 @@ function table(s, rows, o) {
 }
 
 function q(s, text, y, opts = {}) {
-  s.addText(text, { x: 0.9, y, w: W - 1.8, h: opts.h || 0.6, fontFace: "Georgia", fontSize: opts.size || 24,
+  s.addText(text, { x: opts.x != null ? opts.x : 0.9, y, w: opts.w || W - 1.8, h: opts.h || 0.6, fontFace: "Georgia", fontSize: opts.size || 24,
     bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0,
     highlight: opts.hl ? HL : undefined, objectName: opts.name || "Question" });
 }
@@ -395,10 +395,10 @@ sec("Patient A");
     ["28-year-old woman", "56-year-old man"],
     ["No known liver disease", "Alcohol-related cirrhosis with ascites"],
     ["Nausea and vomiting for 4 days", "Fever, confusion, low blood pressure"],
-  ], { x: 2.2, y: 1.4, w: 8.9, size: 20, noLabel: true });
-  qPic(s, "two-beds.jpg", 3.7, 2.2, "Watercolor of two empty ICU beds side by side");
+  ], { x: 0.4, y: 1.9, w: 7.2, size: 16, noLabel: true, minRowH: 0.55 });
+  pic(s, "two-beds.jpg", 7.75, 1.3, 5.2, 4.3, "Watercolor of two empty ICU beds side by side");
   body(s, [{ t: "Both have a sick liver. Do they have the same disease?", nb: true, i: true, align: "center" }],
-    { y: 6.0, h: 0.6, size: 22 });
+    { y: 5.95, h: 0.6, size: 22 });
   s.addNotes("Introduce both up front so the contrast is there from the start. We'll start with bed 4 and come back to bed 7.");
 }
 
@@ -481,8 +481,8 @@ twoStep((step) => {
   const s = slide("Same patient, but wide awake");
   body(s, [{ t: "Same labs and INR 2.4, but fully oriented with no asterixis", nb: true, i: true, align: "center" }], { y: 1.3, h: 0.5, size: 20 });
   if (step === 1) {
-    q(s, "What do you call this, and what do you do now?", 2.5, { size: 28 });
-    qPic(s, "awake-bed.jpg", 3.35, 3.4, "Watercolor of an empty hospital bed sitting up, with a cup of water, a book and a phone on the tray table");
+    q(s, "What do you call this, and what do you do now?", 1.95, { size: 28 });
+    qPic(s, "awake-bed.jpg", 2.75, 4.2, "Watercolor of an empty hospital bed sitting up, with a cup of water, a book and a phone on the tray table");
     return s;
   }
   body(s, [
@@ -574,15 +574,15 @@ function caseA_apap(step) {
   body(s, [
     "Roommate: \"She was taking a lot of the Tylenol with codeine, plus cold medicine, for 3 days\"",
     { runs: ["Acetaminophen level: ", { t: "12 μg/mL", b: true }, ", time of last dose unknown"] },
-  ], { x: 0.7, y: 1.4, w: 7.7, h: 1.9, size: 20 });
-  pic(s, "cold-flu-meds.jpg", 9.0, 1.1, 3.6, 2.2, "Watercolor of a cold and flu medicine box and pill bottles");
-  q(s, "Can you use the nomogram?", 3.4);
+  ], { x: 0.6, y: 1.4, w: 7.5, h: 1.9, size: 20 });
+  pic(s, "cold-flu-meds.jpg", 8.35, 1.35, 4.6, 5.4, "Watercolor of a cold and flu medicine box and pill bottles");
+  q(s, "Can you use the nomogram?", 3.4, { x: 0.6, w: 7.5 });
   if (step === 2) {
     body(s, [
       { runs: [{ t: "No.", b: true }, " Rumack-Matthew is for a single acute ingestion with a known time"] },
       "Repeated supratherapeutic use and late presentation: the level can be low or undetectable",
       { runs: [{ t: "Start NAC now", hl: true, b: true }] },
-    ], { y: 4.1, h: 2.6, size: 21 });
+    ], { x: 0.6, y: 4.05, w: 7.5, h: 2.8, size: 20 });
   }
   return s;
 }
@@ -759,8 +759,8 @@ twoStep((step) => {
   body(s, [{ t: "Hour 12: ammonia 182 μmol/L, grade III. In a cirrhotic we'd already be giving it", nb: true, i: true, align: "center" }],
     { y: 1.3, h: 0.5, size: 19 });
   if (step === 1) {
-    q(s, "Yes or no?", 2.3, { size: 34 });
-    qPic(s, "lactulose.jpg", 3.2, 3.6, "Watercolor of a cup and a bottle of lactulose syrup");
+    q(s, "Yes or no?", 1.95, { size: 34 });
+    qPic(s, "lactulose.jpg", 2.75, 4.2, "Watercolor of a cup and a bottle of lactulose syrup");
     return s;
   }
   table(s, [
@@ -781,9 +781,9 @@ function intubate(step) {
       "Responds to voice, drifts off, intermittently agitated",
       "Handling secretions for now",
       "SpO2 96% on 2 L",
-    ], { y: 1.7, h: 2.0, size: 22, x: 1.2, w: 7.0 });
-    pic(s, "nasal-cannula.jpg", 8.6, 1.3, 3.6, 3.0, "Watercolor of a nasal cannula on a wall oxygen flowmeter and a suction tip");
-    q(s, "Intubate now, or wait until she can't protect her airway?", 4.9);
+    ], { y: 1.8, h: 2.0, size: 22, x: 0.7, w: 6.3 });
+    pic(s, "nasal-cannula.jpg", 7.25, 1.3, 5.7, 5.6, "Watercolor of a nasal cannula on a wall oxygen flowmeter and a suction tip");
+    q(s, "Intubate now, or wait until she can't protect her airway?", 4.3, { x: 0.7, w: 6.3, h: 1.2 });
     return s;
   }
   q(s, "Grade III-IV encephalopathy in ALF: intubate", 1.4, { hl: true, size: 24 });
@@ -804,8 +804,8 @@ function hypercap(step) {
   const s = slide("Can we use permissive hypercapnia?");
   body(s, [{ t: "After intubation: bilateral infiltrates, P/F 150 on PEEP 10", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
   if (step === 1) {
-    q(s, "Lung protection or brain protection?", 2.3, { size: 28 });
-    qPic(s, "ventilator.jpg", 3.2, 3.6, "Watercolor of an ICU ventilator");
+    q(s, "Lung protection or brain protection?", 1.95, { size: 28 });
+    qPic(s, "ventilator.jpg", 2.75, 4.2, "Watercolor of an ICU ventilator");
     return s;
   }
   table(s, [
@@ -868,8 +868,8 @@ cont(); hypercap(2).addNotes("Low tidal volume still applies. What changes is th
     "Avoid fluid overload",
     "Treat seizures, EEG if in doubt. No routine prophylaxis",
     "No cooling: 34 °C did not prevent intracranial hypertension in an RCT",
-  ], { size: 21, gap: 12, w: 7.9 });
-  s.addImage({ path: path.join(IMG, "head-of-bed-30.png"), x: 8.75, y: 1.5, w: 4.2, h: 4.2, altText: "Watercolor of an empty ICU bed with the head raised about 30 degrees" });
+  ], { size: 20, gap: 12, x: 0.5, w: 7.3 });
+  pic(s, "head-of-bed-30.jpg", 7.95, 1.4, 5.05, 5.3, "Watercolor of an empty ICU bed with the head raised about 30 degrees");
   src(s, "SCCM 2023 [PMID: 37052436]; update 2022 [PMID: 36001996]; Bernal W et al. J Hepatol 2016;65:273-9");
   s.addNotes("Sodium targets differ between sources: the 2022 update uses 145 to 155 for prevention, the 2024 practical review a lower range. Agree on one with transplant hepatology and write it in the orders. Hypertonic saline is a conditional SCCM recommendation for patients at risk of intracranial hypertension. The cooling trial randomized intubated high-risk ALF patients to 34 vs 36 °C for 72 hours; no difference in intracranial hypertension or survival. Avoid fever, don't induce hypothermia.");
 }
@@ -884,7 +884,7 @@ cont(); hypercap(2).addNotes("Low tidal volume still applies. What changes is th
     "A normal head CT does not exclude raised ICP",
     "ICP monitors are not routine; SCCM suggests against (very low certainty)",
   ], { x: 0.7, y: 1.4, w: 7.0, h: 5.4, size: 19, gap: 10 });
-  pic(s, "ct-edema.png", 7.9, 2.0, 4.9, 3.6, "Head CT: normal and with effaced sulci");
+  pic(s, "ct-edema.png", 7.6, 1.4, 5.4, 5.3, "Head CT: normal and with effaced sulci");
   src(s, "SCCM 2023 [PMID: 37052436]; practical update 2024 [PMID: 39170946]");
   s.addNotes("A new pupil asymmetry or a sudden change in the exam is enough to act. Treat first, then image if a bleed or another structural lesion is possible.");
 }
@@ -892,8 +892,8 @@ function crrt(step) {
   const s = slide("The creatinine is only 1.3");
   body(s, [{ t: "Ammonia 182 → 214 μmol/L, grade III, urine output 15 mL/h", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
   if (step === 1) {
-    q(s, "Do you wait for a conventional dialysis indication?", 2.3, { size: 28 });
-    qPic(s, "urine-bag.jpg", 3.2, 3.6, "Watercolor of a urine drainage bag with a little dark urine");
+    q(s, "Do you wait for a conventional dialysis indication?", 1.95, { size: 28 });
+    qPic(s, "urine-bag.jpg", 2.75, 4.2, "Watercolor of a urine drainage bag with a little dark urine");
     return s;
   }
   q(s, "No. In ALF, start CRRT for the ammonia", 2.0, { hl: true, size: 24 });
@@ -901,8 +901,8 @@ function crrt(step) {
     "ACG 2023: suggests early CRRT for hyperammonemia with grade II or higher encephalopathy, even without a renal indication (conditional, very low certainty)",
     "Continuous, not intermittent: fewer swings in blood pressure and brain water",
     "Call nephrology now",
-  ], { y: 2.8, h: 4.0, size: 20, w: 8.0 });
-  s.addImage({ path: path.join(IMG, "crrt-machine.png"), x: 9.05, y: 2.65, w: 3.85, h: 3.85, altText: "Watercolor of a CRRT machine with filter and circuit" });
+  ], { y: 2.8, h: 4.0, size: 20, w: 8.6 });
+  pic(s, "crrt-machine.jpg", 9.6, 2.6, 3.3, 4.3, "Watercolor of a CRRT machine with filter and circuit");
   src(s, "ACG ALF guideline 2023 [PMID: 37377263]; update 2022 [PMID: 36001996]");
   return s;
 }
@@ -969,8 +969,8 @@ twoStep((step) => {
     "Start now and keep it running. A clotted filter means the ammonia climbs back",
     "One sodium plan: the CRRT fluid and the hypertonic saline together",
     "Watch phosphate and potassium, and calcium if they use citrate",
-  ], { x: 0.7, y: 1.6, w: 8.0, h: 4.8, size: 22, gap: 16 });
-  s.addImage({ path: path.join(IMG, "crrt-machine.png"), x: 9.05, y: 2.0, w: 3.85, h: 3.85, altText: "Watercolor of a CRRT machine with filter and circuit" });
+  ], { x: 0.7, y: 1.6, w: 8.4, h: 4.8, size: 22, gap: 16 });
+  pic(s, "crrt-machine.jpg", 9.3, 1.3, 3.6, 5.5, "Watercolor of a CRRT machine with filter and circuit");
   src(s, "ACG ALF 2023 [PMID: 37377263]; update 2022 [PMID: 36001996]");
   return s;
 }).addNotes("No universal dose or ammonia target to stop at; use your center's protocol. The common failure is not the decision to start, it's a circuit that keeps clotting so the delivered clearance is a fraction of what was ordered, and a sodium plan that nobody owns. Citrate can build up in liver failure, so follow the total to ionized calcium ratio.");
@@ -1078,8 +1078,8 @@ function inr(step) {
   const s = slide("Should we correct this INR?");
   body(s, [{ t: "Hour 12: INR 4.1, platelets 88,000. She needs a dialysis catheter", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 20 });
   if (step === 1) {
-    q(s, "2 units of FFP first?", 2.3, { size: 30 });
-    qPic(s, "ffp-bag.jpg", 3.2, 3.6, "Watercolor of a unit of fresh frozen plasma");
+    q(s, "2 units of FFP first?", 1.95, { size: 30 });
+    qPic(s, "ffp-bag.jpg", 2.75, 4.2, "Watercolor of a unit of fresh frozen plasma");
     return s;
   }
   body(s, [
@@ -1097,9 +1097,9 @@ function inr(step) {
 function kcc(step) {
   const s = slide("When do you call transplant hepatology?");
   if (step === 1) {
-    q(s, "When she meets King's College criteria?", 2.6, { size: 28 });
-    q(s, "When MELD is high enough?", 3.4, { size: 28 });
-    s.addImage({ path: path.join(IMG, "phone.png"), x: (W - 2.9) / 2, y: 4.2, w: 2.9, h: 2.9, altText: "Watercolor of a desk phone with the handset off the hook" });
+    q(s, "When she meets King's College criteria?", 1.55, { size: 28 });
+    q(s, "When MELD is high enough?", 2.25, { size: 28 });
+    qPic(s, "phone.jpg", 3.05, 3.85, "Watercolor of a desk phone with the handset off the hook");
     return s;
   }
   q(s, "You should have called on admission, when you first suspected ALF", 1.6, { hl: true, size: 24 });
@@ -1107,8 +1107,8 @@ function kcc(step) {
     "King's College criteria predict death without transplant. They are specific, not sensitive",
     "They are not a referral threshold. If you wait for them, the evaluation starts too late",
     { runs: ["Patient A: arterial pH ", { t: "7.26", b: true, red: true }, " on day 2 after fluids. She now meets the acetaminophen criteria"] },
-  ], { y: 2.6, h: 3.4, size: 21, gap: 14, w: 8.4 });
-  s.addImage({ path: path.join(IMG, "phone.png"), x: 9.4, y: 2.6, w: 3.5, h: 3.5, altText: "Watercolor of a desk phone with the handset off the hook" });
+  ], { y: 2.6, h: 3.4, size: 20, gap: 14, w: 7.8 });
+  pic(s, "phone.jpg", 8.6, 2.5, 4.4, 4.3, "Watercolor of a desk phone with the handset off the hook");
   src(s, "O'Grady 1989 criteria, as summarized in EASL 2017 [PMID: 28417882]; full criteria in the appendix");
   return s;
 }
@@ -1146,8 +1146,8 @@ twoStep((step) => {
     [{ t: "Finding", b: true }, "Hospital survival 58.7% vs 47.8% (HR 0.56)"],
     [{ t: "Limits", b: true }, { t: ans(step, "Not blinded; nothing on ACLF"), b: true }],
     [{ t: "So", b: true }, ans(step, "A bridge; don't delay listing")],
-  ], { x: 0.6, y: 1.6, w: 8.9, size: 20, header: false, minRowH: 0.7 });
-  pic(s, "plasma-exchange.jpg", 9.8, 1.5, 3.1, 4.2, "Watercolor of an apheresis machine for plasma exchange");
+  ], { x: 0.5, y: 1.9, w: 8.3, size: 19, header: false, minRowH: 0.7 });
+  pic(s, "plasma-exchange.jpg", 8.95, 1.25, 4.1, 5.6, "Watercolor of an apheresis machine for plasma exchange");
   src(s, "Larsen FS et al. J Hepatol 2016 [PMID: 26325537]");
   s.addNotes("High-volume plasma exchange removes cytokines and DAMPs and replaces coagulation factors. Note the INR after plasma exchange is no longer the patient's INR.");
   return s;
@@ -1217,8 +1217,8 @@ cont(); caseB(2).addNotes("Same as bed 4: treat first, label later. We'll count 
 function tap(step) {
   const s = slide("What tipped him over?");
   if (step === 1) {
-    q(s, "INR 2.1, platelets 62,000. Do you tap him?", 2.3, { size: 30 });
-    qPic(s, "ascites-bed.jpg", 3.2, 3.6, "Watercolor of a thin man in a hospital bed with a tense, distended abdomen");
+    q(s, "INR 2.1, platelets 62,000. Do you tap him?", 1.55, { size: 30 });
+    qPic(s, "ascites-bed.jpg", 2.35, 4.6, "Watercolor of a thin man in a hospital bed with a tense, distended abdomen");
     return s;
   }
   body(s, [
@@ -1231,8 +1231,8 @@ function tap(step) {
     "Drugs: NSAIDs, sedatives, too much diuretic",
     "HBV flare, ischemia",
     "No trigger is found in some patients. Repeat the search if he gets worse",
-  ], { y: 1.45, h: 5.4, size: 20, w: 8.3 });
-  s.addImage({ path: path.join(IMG, "paracentesis.png"), x: 9.25, y: 1.7, w: 3.75, h: 3.75, altText: "Watercolor of a paracentesis set with tubes of ascitic fluid and a culture bottle" });
+  ], { y: 1.45, h: 5.4, size: 20, w: 8.0 });
+  pic(s, "paracentesis.jpg", 8.6, 1.5, 4.4, 5.2, "Watercolor of a paracentesis set with tubes of ascitic fluid and a culture bottle");
   src(s, "EASL ACLF 2023 [PMID: 37364789]; SCCM 2023 [PMID: 37052436]");
   return s;
 }
@@ -1368,8 +1368,8 @@ function hrs(step) {
   const s = slide("Does he have HRS?");
   body(s, [{ t: "12 hours later: creatinine 3.0, urine 10 mL/h, still on norepinephrine", nb: true, align: "center", i: true }], { y: 1.3, h: 0.5, size: 19 });
   if (step === 1) {
-    q(s, "HRS? Start terlipressin?", 2.3, { size: 30 });
-    qPic(s, "terlipressin-vial.jpg", 3.2, 3.6, "Watercolor of a vial of powder and a syringe");
+    q(s, "HRS? Start terlipressin?", 1.95, { size: 30 });
+    qPic(s, "terlipressin-vial.jpg", 2.75, 4.2, "Watercolor of a vial of powder and a syringe");
     return s;
   }
   const a = (v) => (step === 2 ? { hidden: v } : v);
@@ -1412,7 +1412,7 @@ cont(); hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 4
     "Tense ascites (abdominal compartment)",
     "Congestion",
   ], { x: 0.6, y: 1.4, w: 4.4, h: 5.0, size: 19 });
-  s.addImage({ path: path.join(IMG, "kidney.png"), x: 5.0, y: 1.75, w: 3.3, h: 3.3, altText: "Watercolor of a kidney with its hilar vessels and ureter" });
+  pic(s, "kidney.jpg", 4.95, 1.4, 3.3, 5.0, "Watercolor of a kidney with its hilar vessels and ureter");
   body(s, [
     { t: "Look", b: true, nb: true },
     "Urinalysis and sediment",
@@ -1437,8 +1437,8 @@ function heB(step) {
     { runs: ["The nurse sent an ammonia: ", { t: "88 μmol/L", b: true }] },
   ], { y: 1.4, h: 1.2, size: 21 });
   if (step === 1) {
-    q(s, "More lactulose? Repeat the ammonia in 6 hours?", 2.8, { size: 26 });
-    qPic(s, "ammonia-on-ice.jpg", 3.65, 3.2, "Watercolor of a blood tube standing in a cup of ice");
+    q(s, "More lactulose? Repeat the ammonia in 6 hours?", 2.6, { size: 26 });
+    qPic(s, "ammonia-on-ice.jpg", 3.35, 3.6, "Watercolor of a blood tube standing in a cup of ice");
     return s;
   }
   q(s, "Look for the reason first. The ammonia doesn't tell you", 2.75, { hl: true, size: 22 });
@@ -1488,8 +1488,8 @@ D2B.addNotes("Kidney, circulation and now lungs: ACLF grade 3. Fluid and albumin
 twoStep((step) => {
   const s = slide("What would you do for his kidney today?");
   if (step === 1) {
-    q(s, "Terlipressin, more albumin, or dialysis?", 2.3, { size: 28 });
-    qPic(s, "kidney-options.jpg", 3.2, 3.6, "Watercolor of a vial, a bottle of albumin and a dialysis catheter on a tray");
+    q(s, "Terlipressin, more albumin, or dialysis?", 1.55, { size: 28 });
+    qPic(s, "kidney-options.jpg", 2.35, 4.6, "Watercolor of a vial, a bottle of albumin and a dialysis catheter on a tray");
     return s;
   }
   body(s, [
@@ -1553,8 +1553,8 @@ twoStep((step) => {
   const s = slide("Midodrine and octreotide for HRS-AKI?");
   if (step === 1) {
     body(s, [{ t: "Head to head: terlipressin vs midodrine plus octreotide, both with albumin, type 1 HRS", nb: true, align: "center" }], { y: 1.4, h: 0.9, size: 22 });
-    q(s, "How different can two vasoconstrictors be?", 2.5, { size: 28 });
-    qPic(s, "midodrine-octreotide.jpg", 3.35, 3.4, "Watercolor of a cup of tablets, an ampule and a syringe");
+    q(s, "How different can two vasoconstrictors be?", 2.45, { size: 28 });
+    qPic(s, "midodrine-octreotide.jpg", 3.2, 3.75, "Watercolor of a cup of tablets, an ampule and a syringe");
     return s;
   }
   bars(s, [
@@ -1601,8 +1601,8 @@ bgDivider("Who gets a liver?", "Transplant in ACLF", "divider-transplant.jpg", "
 twoStep((step) => {
   const s = slide("Too sick for a transplant, or sick enough to need one?");
   if (step === 1) {
-    q(s, "Ventilator, pressors, CRRT, ACLF 3. Is he too sick?", 2.3, { size: 28 });
-    qPic(s, "icu-bay.jpg", 3.2, 3.6, "Watercolor of an ICU bed surrounded by a ventilator, infusion pumps and a CRRT machine");
+    q(s, "Ventilator, pressors, CRRT, ACLF 3. Is he too sick?", 1.55, { size: 28 });
+    qPic(s, "icu-bay.jpg", 2.35, 4.6, "Watercolor of an ICU bed surrounded by a ventilator, infusion pumps and a CRRT machine");
     return s;
   }
   body(s, [
@@ -1706,8 +1706,8 @@ sec("Closing");
     "Why isn't lactulose for ACLF evidence for ALF?",
     "Why were albumin and terlipressin the wrong next step for bed 7?",
     "What would make you change yesterday's plan?",
-  ], { size: 21, gap: 14, x: 0.6, w: 7.9 });
-  pic(s, "two-beds.jpg", 8.75, 2.2, 4.2, 3.2, "Watercolor of two empty ICU beds side by side");
+  ], { size: 20, gap: 14, x: 0.5, w: 6.9 });
+  pic(s, "two-beds.jpg", 7.55, 1.6, 5.45, 4.6, "Watercolor of two empty ICU beds side by side");
   s.addNotes("Ask the room. Don't put the answers up.");
 }
 {
@@ -1719,8 +1719,8 @@ sec("Closing");
     "ACLF: count the organs, find the trigger",
     "ACLF: check oxygenation and volume status before albumin or terlipressin",
     "Reassess organ failures daily. The trend matters more than the admission score",
-  ], { size: 21, gap: 14, x: 0.6, w: 8.6 });
-  pic(s, "pocket-notebook.jpg", 9.5, 2.0, 3.3, 3.3, "Watercolor of a pocket notebook, a pen and a penlight");
+  ], { size: 20, gap: 14, x: 0.5, w: 7.7 });
+  pic(s, "pocket-notebook.jpg", 8.45, 1.4, 4.55, 5.3, "Watercolor of a pocket notebook, a pen and a penlight");
 }
 {
   const s = slide(null, { master: "BLANK" });
