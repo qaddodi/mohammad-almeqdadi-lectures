@@ -85,7 +85,7 @@ Where to get figures, in this order:
 A figure has a job: say what the learner should find in it. "Add an image" isn't a plan; "show the same lab table again with the discriminating value in red" is.
 
 **Pictures are large.** A picture fills the space it has. It should never be a small thumbnail in a corner.
-- Trim the white margins off spot illustrations before placing them, so the object itself is big.
+- Trim the white margins off spot illustrations before placing them, so the object itself is big. Trim only blank paper, never part of the object: a hanging loop, an IV pole tip or a cord must stay whole.
 - On a question slide, put the question under the title and let the picture take the rest of the slide down to the source line.
 - Beside bullets, give the picture its own column, about 40% of the width or more. Narrow the text rather than shrink the picture.
 
@@ -104,6 +104,7 @@ Mohammad's rule (2026-10-27): a table cell should read on one line.
 
 - A slide that asks a question hides the answer. Table answer cells are empty, the chart has no takeaway line or threshold marker, the paper shows only its title block, or the prompt area is blank. The filled version is the next slide.
 - Keep everything else on the slide in the same place between steps, so the room sees only what changed.
+- A table that fills in on the reveal is the same table on both steps: same columns, column widths, position, font size and alignment. The answer column is there on the question step, with its header and empty cells sized for the answers. Never add or drop a column between steps.
 - No PowerPoint transitions or animations. Every step is its own slide.
 - Pure teaching slides ("Why does the brain swell?") can stay single.
 - Paper slides go in two steps: title block with "What do you think they found?", then their figure or conclusion.

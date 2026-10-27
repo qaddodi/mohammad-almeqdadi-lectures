@@ -1297,12 +1297,13 @@ const OF_ROWS = [
   ["Brain", "Encephalopathy grade III-IV", "Grade II: no"],
   ["Coagulation", "INR ≥ 2.5", "2.1: no"],
   ["Circulation", "Vasopressors (or terlipressin)", { t: "Norepinephrine: yes", hl: true, b: true }],
-  ["Lungs", "PaO2/FiO2 ≤ 200, SpO2/FiO2 ≤ 214, or ventilated (not for encephalopathy)", "PaO2/FiO2 211: no"],
+  ["Lungs", "P/F ≤ 200, S/F ≤ 214, or ventilated (not for HE)", "P/F 211: no"],
 ];
 function organs(step) {
   const s = slide("Count the failing organs");
-  const rows = [OF_HEAD.slice(0, step === 1 ? 2 : 3)].concat(OF_ROWS.map((r) => r.slice(0, step === 1 ? 2 : 3)));
-  table(s, rows, { x: 0.7, y: 1.4, w: step === 1 ? 9.0 : W - 1.4, colW: step === 1 ? [2.3, 6.7] : [2.0, 6.2, 3.73], size: 17, rowH: [0.5, 0.6, 0.6, 0.6, 0.6, 0.6, 0.85] });
+  // Same three columns on both steps; the patient column is measured but left empty until the answer
+  const rows = [OF_HEAD].concat(OF_ROWS.map((r) => [r[0], r[1], ans(step, r[2])]));
+  table(s, rows, { x: 0.7, y: 1.4, w: W - 1.4, size: 19, minRowH: 0.6 });
   if (step === 2) q(s, "Two organ failures: ACLF grade 2", 6.0, { hl: true, size: 26 });
   src(s, "CLIF-C organ failure score, EASL ACLF 2023 [PMID: 37364789]; CANONIC [PMID: 23474284]");
   return s;
