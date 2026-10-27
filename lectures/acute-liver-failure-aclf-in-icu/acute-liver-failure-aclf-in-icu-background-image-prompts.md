@@ -215,3 +215,33 @@ Clinical editorial watercolor over fine gray ink linework, in muted slate, ochre
 17. pocket-notebook.png (slide 77/85 "Some tricks of the trade")
 Clinical editorial watercolor over fine gray ink linework, in muted slate, ochre, dusty rose, sage and cream, with soft watercolor blooms and visible paper grain, drawn like a plate in an older medical atlas. Square 1:1, at least 1500 x 1500. A small, well-worn closed pocket notebook with a soft cover and rounded corners, a pen clipped to it, and a penlight lying beside it, as if just taken out of a white coat pocket. No people, no faces, no hands. The subject is centered with a generous margin, and the washes fade softly into a plain pure white background with no visible paper edge, so it sits cleanly on a white slide. No text, letters, numbers, labels, logos, brand names or watermarks anywhere, including on labels, screens and packaging. No 3D render look, glossy shading, photorealism, neon or glow.
 ```
+
+## Added later: hypotension-cirrhosis.png for "Why is he hypotensive?" (47/85)
+
+- **Slides:** 47/85. The question step shows organs-alf-empty.png, and the answer step shows this figure, with the causes and what to do labeled in PowerPoint on the left and right thirds.
+- **Mode:** edit of organs-alf-empty.png, so the outline lines up with the empty figure.
+- **What it shows and where it's labeled:**
+  - heart (cirrhotic cardiomyopathy)
+  - IVC (too little volume or too much)
+  - nodular liver
+  - varices (hidden bleeding)
+  - adrenals (relative insufficiency)
+  - ascites around the bowel (SBP, sepsis)
+  - wide, flushed mesenteric vessels (splanchnic vasodilation)
+- **Clinical accuracy checks:**
+  - the liver is small and nodular, not smooth
+  - the varices sit at the lower esophagus
+  - the IVC runs behind the liver into the right heart
+  - the adrenals sit on top of the kidneys
+  - the ascites is straw-colored, not bloody
+- **Alt text:** "Watercolor figure of a man with cirrhosis showing the heart, IVC, nodular liver, varices, adrenals, ascites and dilated mesenteric vessels."
+
+```
+hypotension-cirrhosis.png (slide 47/85 "Why is he hypotensive?", answer step). ATTACH organs-alf-empty.png TO THIS ONE.
+
+Edit the attached image (organs-alf-empty.png). Keep everything exactly the same: the same 16:9 size (2752 x 1536), the same warm ivory paper, the same pale gray ink outline of the featureless figure in the same position and size, and the same soft slate and dark indigo wash behind the torso. Do not move, redraw, resize or crop the figure. The left third and the right third of the image stay plain ivory paper with no shapes, lines or detail, so labels can be placed there later.
+
+Inside the outline only, paint these structures as a clinical editorial watercolor over fine gray ink linework, like a plate in an older anatomy atlas, in muted ochre, dusty rose, sage, slate and cream: the heart in the center of the chest, slightly enlarged, tilted toward the figure's left side; the inferior vena cava as a broad pale blue-gray vein running up from the lower abdomen, behind the liver, into the heart; a small, shrunken cirrhotic liver under the right diaphragm with a coarse nodular surface, in dull ochre and olive; an enlarged spleen under the left diaphragm; the esophagus and stomach, with a cluster of swollen, tortuous bluish varices at the lower end of the esophagus; both kidneys with a small adrenal gland capping each one; loops of small and large bowel in the lower abdomen floating in a pale straw-yellow pool of ascitic fluid that fills the lower abdomen and pelvis; and the mesenteric arteries and veins fanning out over the bowel, drawn noticeably wide and flushed a soft warm red to show splanchnic vasodilation. No brain, no lungs, no bones. Each structure has a faint slate shadow. Calm and restrained, visible paper texture, soft watercolor blooms.
+
+No text, letters, numbers, labels, arrows, watermarks or signatures. No face, no realistic skin, no blood outside the vessels, no surgical scene. No neon, glow, lens flare, 3D render look, glossy shading, photorealism or infographic icons. No borders, torn edges or visible paper edge. Not square, not cropped: same 16:9 frame as the attached image.
+```
