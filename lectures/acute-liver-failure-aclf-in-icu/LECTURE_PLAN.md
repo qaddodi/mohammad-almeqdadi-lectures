@@ -6,7 +6,7 @@ Lecture plan for pulmonary critical care fellows. Prepared for Mohammad Almeqdad
 
 **Evidence search date:** October 26, 2026. Targeted searches of PubMed, society resources, open-access full text, and official prescribing information. This is a curated educational evidence set, not a systematic review.
 
-**Style reference:** [LECTURE_STYLE.md](../../LECTURE_STYLE.md). Use its question-first, staged-reveal structure, mechanism-based explanations, clinical traps, longitudinal cases, and practical synthesis.
+**Style reference:** [MY_STYLE.md](../../MY_STYLE.md) and [AUTHOR_GUIDE.md](../../AUTHOR_GUIDE.md). Use its question-first, staged-reveal structure, mechanism-based explanations, clinical traps, longitudinal cases, and practical synthesis.
 
 **Not yet supplied:** talk duration, date, institution/venue, fellow training level, and whether questions occur during or after the talk. The modular sequence below is a proposed design. Do not treat a particular duration, local protocol, or drug/device availability as confirmed.
 

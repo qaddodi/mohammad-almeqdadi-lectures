@@ -1,6 +1,6 @@
 # Image generation spec for lectures
 
-How to specify, prompt, and check the pictures used behind lecture slides. Follow this for every new lecture. Slide wording and layout rules are in [LECTURE_STYLE.md](LECTURE_STYLE.md).
+How to specify, prompt, and check the pictures used behind lecture slides. Follow this for every new lecture. Slide wording and layout rules are in [MY_STYLE.md](MY_STYLE.md), and the build steps are in [AUTHOR_GUIDE.md](AUTHOR_GUIDE.md).
 
 Worked example: [lectures/acute-liver-failure-aclf-in-icu/acute-liver-failure-aclf-in-icu-background-image-prompts.md](lectures/acute-liver-failure-aclf-in-icu/acute-liver-failure-aclf-in-icu-background-image-prompts.md).
 

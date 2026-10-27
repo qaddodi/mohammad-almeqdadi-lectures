@@ -4,8 +4,8 @@
 
 ```
 npm install pptxgenjs@3.12.0
-node build.js out.pptx liver.png logo.png
+NODE_PATH=$PWD/node_modules SKILL=/mnt/skills/public/pptx node build.js out.pptx - logo.png
 python3 fixppr.py out.pptx   # removes the extra paragraph properties pptxgenjs writes in multi-run bullets
 ```
 
-`build.js` also calls the pptx skill's `apply_theme.js` through the `SKILL` environment variable. Editing the .pptx directly in PowerPoint is fine too; the script is only here so a later change can be made in one place.
+`build.js` also calls the pptx skill's `apply_theme.js` through the `SKILL` environment variable, and that script needs `NODE_PATH` to find pptxgenjs. The second argument is no longer used: the cover image is `img/cover-alf-aclf-icu.jpg`. The full workflow is in [AUTHOR_GUIDE.md](../../../AUTHOR_GUIDE.md). Editing the .pptx directly in PowerPoint is fine too; the script is only here so a later change can be made in one place.
