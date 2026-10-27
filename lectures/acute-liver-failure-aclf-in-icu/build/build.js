@@ -947,26 +947,12 @@ twoStep((step) => {
   return s;
 }).addNotes("Answer to the question: in most patients, normal. 51 patients with acute liver injury (INR at least 1.5) or ALF (the same plus encephalopathy), mean INR 3.4, range 1.5 to 9.6. 32 of 51 (63%) had all five TEG parameters normal; 8 had one abnormal in the hypocoagulable direction, 5 had two, 4 had three, 2 had four. 4 patients (8%) had parameters in the hypercoagulable range. Lysis at 30 minutes was normal in all 51. Factors V and VII were low, but protein C, protein S and antithrombin fell too, and factor VIII was about 4 times normal. The INR measures only the procoagulant factors the liver makes; the liver also makes the anticoagulants, which fall just as far, and the endothelium pours out factor VIII and von Willebrand factor. The TEG sees the whole balance. That's why spontaneous bleeding is uncommon and why plasma before a line is not needed. Caveat: TEG is not validated to predict procedural bleeding, and a low platelet count or low fibrinogen still matters.");
 {
-  const s = slide("Rebalanced hemostasis");
-  const cxm = W / 2;
-  // fulcrum and beam
-  s.addShape(pres.shapes.ISOSCELES_TRIANGLE, { x: cxm - 0.55, y: 4.42, w: 1.1, h: 1.0, fill: { color: "000000" }, line: { color: "000000" }, objectName: "Fulcrum" });
-  s.addShape(pres.shapes.RECTANGLE, { x: 1.4, y: 4.3, w: W - 2.8, h: 0.12, fill: { color: "000000" }, line: { color: "000000" }, objectName: "Beam" });
-  const pan = (x, head, lines) => {
-    s.addShape(pres.shapes.RECTANGLE, { x, y: 1.55, w: 4.9, h: 2.65, fill: { color: "FFFFFF" }, line: { color: "000000", width: 1.25 }, objectName: "Pan" });
-    s.addText([{ text: head, options: { bold: true, fontSize: 20, breakLine: true } }]
-      .concat(lines.map((t, i) => ({ text: t, options: { fontSize: 17, breakLine: i < lines.length - 1, paraSpaceBefore: 6 } }))),
-      { x, y: 1.55, w: 4.9, h: 2.65, fontFace: "Georgia", align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 6 });
-  };
-  pan(1.6, "Favors bleeding", ["Low factors II, V, VII, IX, X", "Low fibrinogen when severe", "Low platelets"]);
-  pan(W - 1.6 - 4.9, "Favors clotting", ["Low protein C and protein S", "Low antithrombin", "High factor VIII and von Willebrand factor"]);
-  s.addText("The INR sees part of this side", { x: 1.6, y: 4.6, w: 4.9, h: 0.45, fontFace: "Georgia", fontSize: 18, bold: true, color: RED,
-    align: "center", isTextBox: true, margin: 0 });
-  s.addText("The INR doesn't see this side", { x: W - 1.6 - 4.9, y: 4.6, w: 4.9, h: 0.45, fontFace: "Georgia", fontSize: 18, bold: true,
-    color: RED, align: "center", isTextBox: true, margin: 0 });
-  body(s, [{ t: "Balanced in most patients, but easily tipped either way: both bleeding and thrombosis happen", nb: true, i: true, align: "center" }],
-    { y: 5.85, h: 0.7, size: 19 });
-  src(s, "Concept from Lisman T, Porte RJ. Blood 2010");
+  // Mohammad's Gemini figure carries all the slide text; only the source is added here
+  const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
+  s.addImage({ path: path.join(IMG, "rebalanced-hemostasis.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5,
+    altText: "Balance scale: low factors II, V, VII, IX, X, low fibrinogen and low platelets favor bleeding; low protein C, S and antithrombin and high factor VIII and von Willebrand factor favor clotting" });
+  s.addText("Concept from Lisman T, Porte RJ. Blood 2010", { x: 0.4, y: 7.12, w: 4.0, h: 0.28, fontFace: "Georgia",
+    fontSize: 10, italic: true, color: GREY, isTextBox: true, margin: 0, valign: "bottom", objectName: "Source" });
   s.addNotes("Both sides go down together. The INR only tests the left pan, so it makes the patient look much more anticoagulated than she is. Viscoelastic tests look at clot formation in whole blood and in ALF are often close to normal despite a high INR, though they miss the endothelium and the protein C system too. The balance is fragile: infection, kidney failure and procedures tip it, and thrombosis, including line-related clots, is real.");
 }
 twoStep((step) => {
