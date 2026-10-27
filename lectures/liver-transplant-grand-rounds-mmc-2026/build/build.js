@@ -512,10 +512,10 @@ bgDivider("When to refer", null, "divider-referral.jpg", "Watercolor of a clinic
   const edge = { 6: 0, 12: 3.1, 15: 5.4, 18: 7.7, 40: x1 - x0 };
   const meld = (m) => x0 + edge[m];
   const bands = [
-    [6, 12, "MELD 6-11", "C00000", "FFFFFF", "Death risk after transplant higher than staying on the list"],
-    [12, 15, "12-14", "E8B4B4", "000000", "Still higher"],
-    [15, 18, "15-17", "D9D9D9", "000000", "No clear benefit"],
-    [18, 40, "18 and up", NAVY, "FFFFFF", "Transplant comes out ahead, more so as MELD rises"],
+    [6, 12, "MELD 6-11", "C00000", "FFFFFF", "Transplant raised the 1-year risk of death vs staying on the list"],
+    [12, 15, "12-14", "E8B4B4", "000000", "Still raised it"],
+    [15, 18, "15-17", "D9D9D9", "000000", "Crossover: benefit begins"],
+    [18, 40, "18 and up", NAVY, "FFFFFF", "Clear benefit, larger as MELD rises"],
   ];
   bands.forEach(([a, b, lab, fill, col, under]) => {
     s.addShape(pres.shapes.RECTANGLE, { x: meld(a), y, w: meld(b) - meld(a), h, fill: { color: fill }, line: { color: "FFFFFF", width: 1.5 } });
@@ -528,7 +528,7 @@ bgDivider("When to refer", null, "divider-referral.jpg", "Watercolor of a clinic
     "Both were before MELD-Na, MELD 3.0 and today's donor pool",
   ], { size: 20, gap: 10, y: 4.65, h: 2.1 });
   src(s, "Merion RM et al. Am J Transplant 2005;5(2):307-13 [PMID: 15643990]. Perkins JD et al. Liver Transpl 2009;15(2):242-54 [PMID: 19177441]");
-  s.addNotes("This is where 15 came from. Merion used MELD as it changed on the list, not just the listing score. Between 15 and 17 the study couldn't show a one-year benefit either way. It set the old benefit threshold for transplant; it was never a study of when to refer. That was 2005 data. Next: what MELD 3.0 changed, and what the new guideline says about 15.");
+  s.addNotes("This is where 15 came from. Merion used MELD as it changed on the list, not just the listing score. Below 15, transplant raised the one-year risk of death compared with staying on the list. At 15-17 the risk tipped toward benefit, though not yet significantly, and from 18 up the benefit was clear and grew with MELD. So 15 was the crossover. It set the old benefit threshold for transplant; it was never a study of when to refer. That was 2005 data. Next: what MELD 3.0 changed, and what the new guideline says about 15.");
 }
 {
   const s = slide("What's new in MELD 3.0?");
