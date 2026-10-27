@@ -816,25 +816,26 @@ twoStep((step) => {
   src(s, "Concept from Lisman T, Porte RJ. Blood 2010");
   s.addNotes("Both sides go down together. The INR only tests the left pan, so it makes the patient look much more anticoagulated than she is. Viscoelastic tests look at clot formation in whole blood and in ALF are often close to normal despite a high INR, though they miss the endothelium and the protein C system too. The balance is fragile: infection, kidney failure and procedures tip it, and thrombosis, including line-related clots, is real.");
 }
-{
-  const s = slide("CRRT for ammonia: what to agree on with nephrology");
-  table(s, [
-    ["", "What to watch and say"],
-    [{ t: "Why", b: true }, "It's for the ammonia and the brain, not the creatinine. Give them the HE grade, the ammonia trend, urine output and fluid status"],
-    [{ t: "Dose", b: true }, "Prescribed vs delivered. Filter clotting and downtime mean less clearance, and the ammonia climbs back. Recheck it"],
-    [{ t: "Sodium", b: true }, "One plan for replacement fluid or dialysate, hypertonic saline and every other sodium source. Check the sodium often"],
-    [{ t: "Safety", b: true }, "Phosphate and potassium fall. Blood pressure drops at connection. Anticoagulation per your protocol; citrate can build up in liver failure, so follow the total to ionized calcium ratio"],
-  ], { x: 0.8, y: 1.45, w: W - 1.6, colW: [1.8, 9.93], size: 18, rowH: [0.5, 1.05, 1.05, 1.05, 1.3] });
-  src(s, "ACG ALF 2023 [PMID: 37377263]; Cardoso FS et al. Hepatology 2018 [PMID: 28859230]; update 2022 [PMID: 36001996]");
-  s.addNotes("No universal dose or ammonia target to stop at; use your center's protocol. The common failure is not the decision to start, it's a circuit that keeps clotting so the delivered clearance is a fraction of what was ordered, and a sodium plan that nobody owns.");
-}
+twoStep((step) => {
+  const s = slide("Calling nephrology");
+  if (step === 1) { q(s, "What do you ask them for?", 3.2, { size: 32 }); return s; }
+  body(s, [
+    "It's for the ammonia and the brain, not the creatinine",
+    "Start now and keep it running. A clotted filter means the ammonia climbs back",
+    "One sodium plan: the CRRT fluid and the hypertonic saline together",
+    "Watch phosphate and potassium, and calcium if they use citrate",
+  ], { x: 0.7, y: 1.6, w: 8.0, h: 4.8, size: 22, gap: 16 });
+  s.addImage({ path: path.join(IMG, "crrt-machine.png"), x: 9.05, y: 2.0, w: 3.85, h: 3.85, altText: "Watercolor of a CRRT machine with filter and circuit" });
+  src(s, "ACG ALF 2023 [PMID: 37377263]; update 2022 [PMID: 36001996]");
+  return s;
+}).addNotes("No universal dose or ammonia target to stop at; use your center's protocol. The common failure is not the decision to start, it's a circuit that keeps clotting so the delivered clearance is a fraction of what was ordered, and a sodium plan that nobody owns. Citrate can build up in liver failure, so follow the total to ionized calcium ratio.");
 {
   const s = slide(null, { master: "BLANK" });
   s.addText("I know what you're thinking...", { x: 0.8, y: 2.6, w: W - 1.6, h: 1.4, fontFace: "Georgia", fontSize: 44, italic: true,
     align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
   s.addNotes("Pause. Someone in the room has heard it from nephrology.");
 }
-twoStep((step) => {
+function cvvh(step) {
   const s = slide("\"CVVH doesn't clear ammonia\"");
   if (step === 1) { q(s, "True or false?", 3.2, { size: 32 }); return s; }
   body(s, [
@@ -851,7 +852,24 @@ twoStep((step) => {
   src(s, "Fisher C et al. Blood Purif 2022 [PMID: 35042216]; Warrillow SJ et al. Crit Care Med 2020 [PMID: 31939790]; Slack AJ et al. Liver Int 2014");
   s.addNotes("You will hear this from nephrology. The physiology says otherwise: ammonia is a small, unbound, water-soluble molecule, and it moves across a high-flux filter with convection as well as diffusion. In Fisher's study of 12 patients with liver failure the three modalities gave similar ammonia clearance at the same effluent rate (no significant difference), and in the same patients urea clearance was about 50 mL/min and creatinine 42, so ammonia clears less well than urea but clearly clears. Why the doubt? The liver and the muscle keep making it, so the level falls slowly; a clotting circuit with a lot of downtime delivers much less than what was ordered; and at low effluent doses the effect is small. In Warrillow's cohort the fall tracked how long patients were on CRRT more than the hourly dose. Ask for a high effluent rate and an anticoagulation plan that keeps the filter running.");
   return s;
-});
+}
+cvvh(1);
+// Mohammad's Dwight Schrute "False." meme between the question and the answer
+cont();
+{
+  const s = slide(null, { master: "BLANK" });
+  const meme = path.join(IMG, "dwight-false.png");
+  if (fs.existsSync(meme)) {
+    const [mw, mh] = pngSize(meme); const w = Math.min(W - 1, (6.6 * mw) / mh);
+    s.addImage({ path: meme, x: (W - w) / 2, y: (7.5 - (w * mh) / mw) / 2, w, h: (w * mh) / mw, altText: "Dwight Schrute: False." });
+  } else {
+    s.addText("False.", { x: 0.8, y: 2.6, w: W - 1.6, h: 1.8, fontFace: "Georgia", fontSize: 96, bold: true,
+      align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  }
+  s.addNotes("Let the room enjoy it, then the details.");
+}
+cont();
+cvvh(2);
 twoStep((step) => {
   const s = slide("Does early CRRT actually help?");
   pic(s, "cardoso-fig1b.png", 1.9, 1.3, W - 3.8, 4.7, "Ammonia on days 1 to 3 with CRRT, intermittent RRT or no RRT", { line: true });
