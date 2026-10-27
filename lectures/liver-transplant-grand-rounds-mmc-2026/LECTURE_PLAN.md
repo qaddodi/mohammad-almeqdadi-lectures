@@ -2,7 +2,7 @@
 
 Grand rounds at Maine Medical Center, 11/18/2026. One hour: about 45 minutes of talk, then questions. Built on the Nov 2025 Liver Transplant Basics deck ([LT-BASICS](../liver-transplant/2025-11-10%20Liver%20Transplant%20Basics%20Compressed.pptx)).
 
-**Status:** revised 2026-10-27 after an outside review (accuracy, labels, tone) and Mohammad's request to keep the transplant history. 50 numbered slides in the talk copy with the Tufts slides (47 in this public copy), counting the cover as 1, two reveals, three appendix slides of sources. [Deck](Liver%20Transplantation%20When%20to%20Refer%20and%20Whats%20New.pptx), [PDF](LT-grand-rounds-MMC-2026-slides.pdf).
+**Status:** revised 2026-10-27 after an outside review (accuracy, labels, tone) and Mohammad's request to keep the transplant history. 51 numbered slides in the talk copy with the Tufts slides (48 in this public copy), counting the cover as 1, two reveals, three appendix slides of sources. [Deck](Liver%20Transplantation%20When%20to%20Refer%20and%20Whats%20New.pptx), [PDF](LT-grand-rounds-MMC-2026-slides.pdf).
 
 **Audience:** GI and hepatology faculty plus faculty, specialists, residents and fellows from across the hospital. Specialist room, so slide titles are clinical questions, paper slides show the title block and result together, and there are no "What do you think they found?" prompts. No patient case.
 
@@ -12,13 +12,13 @@ Grand rounds at Maine Medical Center, 11/18/2026. One hour: about 45 minutes of 
 
 | Part | Slides | What it covers |
 |---|---|---|
-| How we got here | 4-5 | Timeline of liver transplant (Zarrinpar 2013) with Starzl's 1963 and 1967 boxes marked; Starzl and his NYT obituary (headline only in this copy) |
-| Is it worth it? | 6-8 | SRTR 2024 mortality figure, US volume 2020-2024, Tufts volume (talk copy only) |
-| When to refer | 9-18 | 2025 AASLD/AST referral triggers (Figure 1, with the MELD threshold qualified as the guideline does), who needs a call the same day (ALF, severe acute liver injury, ACLF), where MELD 15 came from, LDLT benefit below 15, where MELD came from (Malinchoc 2000, Fredric Gordon highlighted), MELD 3.0 and women, frailty, what no longer excludes |
-| From Maine to Boston | 19-23 | Where Tufts recipients live (talk copy only), acuity circles, the evaluation, shared care while the patient waits |
-| Who can get a liver now | 24-35 | Early LT for alcohol-associated hepatitis (Mathurin, ACCELERATE-AH, QuickTrans, guidelines), US diagnosis mix, ACLF (CHANCE), exception points, TransMet and US colorectal data, iCCA |
-| Where the livers come from | 36-42 | Donor types, DCD growth and machine perfusion, ischemic cholangiopathy, how the machines work, the three RCTs, living donors |
-| Your patient had a transplant | 43-50 | Abnormal liver tests, MRCP vs ERCP, tacrolimus interactions, the primary care checklist from the 2025 non-graft guideline, take-home points |
+| How we got here | 4-6 | Timeline of liver transplant (Zarrinpar 2013) with Starzl's 1963 and 1967 boxes marked; Starzl and his NYT obituary (headline only in this copy); the 1963 paper itself (title page and an excerpt on the first three patients) |
+| Is it worth it? | 7-9 | SRTR 2024 mortality figure, US volume 2020-2024, Tufts volume (talk copy only) |
+| When to refer | 10-19 | 2025 AASLD/AST referral triggers (Figure 1, with the MELD threshold qualified as the guideline does), who needs a call the same day (ALF, severe acute liver injury, ACLF), where MELD 15 came from, LDLT benefit below 15, where MELD came from (Malinchoc 2000, Fredric Gordon highlighted), MELD 3.0 and women, frailty, what no longer excludes |
+| From Maine to Boston | 20-24 | Where Tufts recipients live (talk copy only), acuity circles, the evaluation, shared care while the patient waits |
+| Who can get a liver now | 25-36 | Early LT for alcohol-associated hepatitis (Mathurin, ACCELERATE-AH, QuickTrans, guidelines), US diagnosis mix, ACLF (CHANCE), exception points, TransMet and US colorectal data, iCCA |
+| Where the livers come from | 37-43 | Donor types, DCD growth and machine perfusion, ischemic cholangiopathy, how the machines work, the three RCTs, living donors |
+| Your patient had a transplant | 44-51 | Abnormal liver tests, MRCP vs ERCP, tacrolimus interactions, the primary care checklist from the 2025 non-graft guideline, take-home points |
 
 Slide numbers above are for the talk copy. Cut first if long, in this order: the US diagnosis mix, iCCA, why MELD 15 became the rule, living donors (its message is on the Jackson slide), and the US colorectal slide down to one spoken sentence.
 

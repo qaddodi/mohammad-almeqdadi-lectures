@@ -428,7 +428,18 @@ sec("How we got here");
     "Died March 4, 2017, at 90",
   ], { size: 20, gap: 16, x: 6.0, w: 6.9, y: 1.6, h: 5.1 });
   src(s, "The New York Times, March 5, 2017. Starzl TE et al. Homotransplantation of the liver in humans. Surg Gynecol Obstet 1963;117:659-76 [PMID: 14100514]");
-  s.addNotes("The 1963 paper describes the first three patients; none lived more than a few weeks. He moved to Pittsburgh in 1981, and tacrolimus (FK506) came out of his program there in 1989. He died at home in Pittsburgh.");
+  s.addNotes("He moved to Pittsburgh in 1981, and tacrolimus (FK506) came out of his program there in 1989. He died at home in Pittsburgh.");
+}
+{
+  const s = slide("How did the first liver transplants go?");
+  pic(s, "starzl-1963-title.png", 0.5, 1.35, 6.4, 3.3, "Starzl TE et al. Homotransplantation of the liver in humans. Surg Gynecol Obstet, December 1963: title block", { left: true });
+  body(s, [
+    "Patient 1, 1 March 1963: a 3-year-old with biliary atresia, died of bleeding on the operating table",
+    "Patients 2 and 3 died 22 and 7½ days later, of pulmonary emboli",
+  ], { size: 19, gap: 14, x: 0.5, w: 6.4, y: 4.75, h: 2.0 });
+  pic(s, "starzl-1963-excerpt.png", 7.2, 1.3, 5.7, 5.5, "Excerpt from the 1963 paper describing the three patients and patient 1");
+  src(s, "Starzl TE et al. Surg Gynecol Obstet 1963;117:659-76 [PMID: 14100514]. Scan: University of Pittsburgh D-Scholarship");
+  s.addNotes("The original paper, from Denver. The first child died on the table of hemorrhage from a profound clotting defect, which the paper describes in detail. The next two lived long enough to show the operation could be done, and both died of pulmonary emboli. After more deaths, programs stopped in 1964 until Starzl tried again in 1967.");
 }
 
 // ---------------------------------------------------------------- Part 2. Is it worth it?
