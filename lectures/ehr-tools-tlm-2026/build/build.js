@@ -618,12 +618,27 @@ twoStep((step) => {
     "{ } lists are one click",
     "*** has to be filled before you sign",
     "Share yours with colleagues, or use theirs",
-    "Community Library: SmartTexts other centers built",
   ], { x: 9.0, w: 3.9, y: 1.5, h: 5.3, size: 19, gap: 12 });
   src(s, MOCK + ". Epic SmartTools Setup and Support Guide, 2026; Epic, How to Personalize Epic");
-  s.addNotes("Type the dot phrase, pick it, and the plan writes itself with today's MELD, last imaging and last EGD pulled in. I won't spend long on notes: Nizar covered the AI side. Trap: copy-forward carries old numbers, SmartLinks don't. Ask a colleague to share theirs from the SmartPhrase Manager; you don't have to build from scratch. Since February 2026 you can preview a SmartPhrase against a real chart before using it. Epic's Community Library (CommLib) is where organizations share their build, SmartTexts, SmartPhrases and more, so ask your analyst to look there before building from scratch.");
+  s.addNotes("Type the dot phrase, pick it, and the plan writes itself with today's MELD, last imaging and last EGD pulled in. I won't spend long on notes: Nizar covered the AI side. Trap: copy-forward carries old numbers, SmartLinks don't. Ask a colleague to share theirs from the SmartPhrase Manager; you don't have to build from scratch. Since February 2026 you can preview a SmartPhrase against a real chart before using it.");
   return s;
 });
+
+// 12b Community Library
+{
+  const s = slide("Community Library");
+  lab(s, "Notes and orders");
+  pic(s, "commlib.png", 0.4, 1.3, 8.4, 5.55, "Mock Community Library search for hepatology: a list of shared items on the left and an invented cirrhosis visit order set opened on the right");
+  body(s, [
+    "536 organizations share their build here",
+    "SmartTexts, order sets, flowsheets, reports, questionnaires",
+    "Search \u201chepatology\u201d: 6,232 results",
+    "Look before you ask your analyst to build from scratch",
+    "Share yours back",
+  ], { x: 9.0, w: 3.9, y: 1.5, h: 5.3, size: 19, gap: 12 });
+  src(s, MOCK + ", laid out like the Community Library site (comlib.epic.com, October 2026); organizations invented");
+  s.addNotes("CommLib, Epic's Community Library, at comlib.epic.com with your UserWeb login. 536 organizations share their build there: SmartTexts, SmartSets and order sets, flowsheets, reports, questionnaires. Type hepatology and you get over six thousand items. Click one and you see the whole thing, every diagnosis and order in the set, before you ask for it. Before you ask your analyst to build a cirrhosis note or an order set from nothing, search it: somebody has probably made one, and your analyst can adapt it. If you've made something good, share it back.");
+}
 
 // 13 Orders
 {

@@ -602,7 +602,49 @@ Plan: repeat <span class='hlc'>elastography</span> in 1 year, AUDIT-C each visit
     inner = ptrow("ZZTEST, LIVER", "Male, 58 y.o.") + res
     dd("cs-ocr", "ZZTEST, LIVER", "58 y.o. M", "elastography", inner)
 
-order_search(); cs_ocr()
+# ------------------------------------------------------------ Community Library (laid out like the real site from Mohammad's phone screenshots; orgs invented)
+def commlib():
+    BR = "#a0462f"
+    res = [
+        ("HEPATOLOGY CIRRHOSIS VISIT", "Example Health System", "SmartSet/Order Set", "#1f4e79", "EH"),
+        ("HEPATOLOGY PROGRESS NOTE", "Sample University Hospital", "SmartText", "#2e7d8c", "SU"),
+        ("HCC SURVEILLANCE PLAN", "Test Valley Medical Center", "SmartText", "#6f9a72", "TV"),
+        ("TXP HEPATOLOGY ORDERS", "Demo Medical Group", "SmartSet/Order Set", "#c08a3e", "DM"),
+        ("HEPATOLOGY CALCULATIONS", "Example Health System", "Flowsheet", "#1f4e79", "EH"),
+        ("LIVER CONSULT", "Sample University Hospital", "SmartText", "#2e7d8c", "SU"),
+        ("HEPATOLOGY H&amp;P", "Sample Regional Health", "SmartText", "#8e7c99", "SR"),
+        ("AUD IN LIVER DISEASE", "Demo Medical Group", "SmartText", "#c08a3e", "DM"),
+    ]
+    def logo(c, i): return f"<span style='flex:none; width:26px; height:26px; background:{c}; color:#fff; font:bold 10px/26px Arial; text-align:center; border-radius:2px'>{i}</span>"
+    left = "".join(f"""<div style='display:flex; gap:9px; padding:8px 10px; border-bottom:1px solid #d9d2c4; {"background:#e9e5de;" if k == 0 else ""}'>{logo(c, i)}
+<div style='flex:1; min-width:0'><div style='font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis'>{n}</div><div style='font-size:10.5px; color:#6b5e4b; display:flex; justify-content:space-between'><span>{o}</span><span>{ty}</span></div></div></div>""" for k, (n, o, ty, c, i) in enumerate(res))
+    def g1(t): return f"<div style='background:#d8e6f2; padding:5px 10px; font-size:15px; margin-top:8px'>&#9663; {t}</div>"
+    def g2(t): return f"<div style='padding:6px 10px 2px 18px; font-size:14.5px; border-top:1px solid #e3e8ee'>&#9663; {t}</div>"
+    def it(t, on=False): return f"<div style='padding:2px 10px 2px 36px; font-size:14px'><span class='chk{' on' if on else ''}' style='border-radius:50%'></span>{t}</div>"
+    right = f"""<div style='display:flex; gap:12px; align-items:center'>{logo('#1f4e79', 'EH').replace('26px', '40px')}
+<div><div style='color:{BR}; font-size:21px'>HEPATOLOGY CIRRHOSIS VISIT</div><div style='color:{BR}; font-size:11.5px'>Example Health System (Epic February 2026) &bull; SmartSet/Order Set &bull; 87 views</div></div></div>
+<div class='link' style='text-decoration:none; font-size:15px; margin-top:10px'>Expand all groups</div>
+{g1('Diagnosis')}{g2('Liver: Cirrhosis/Complications')}{it('Hepatic cirrhosis [K74.60]')}{it('Alcoholic cirrhosis of liver [K70.30]')}{it('Hepatic encephalopathy [K76.82]')}{it('Portal hypertension [K76.6]')}{it('Secondary esophageal varices without bleeding [I85.10]')}
+{g1('Orders')}{g2('Labs')}{it('MELD labs (CMP, CBC, INR) with AFP', True)}{it('HCC tumor markers: AFP, AFP-L3, DCP')}{it('Phosphatidylethanol (PEth)')}
+{g2('Imaging')}{it('MRI abdomen w wo contrast: triphasic, liver protocol')}{it('US abdomen with elastography')}"""
+    rings = "background: radial-gradient(circle at 50% 50%, #fff 0 3px, #8a8a8a 3.5px 5px, transparent 5.5px) 0 0/22px 18px repeat-y;"
+    nav = "".join(f"<span style='margin-right:18px'>{x}</span>" for x in ["Forums", "Galaxy", "Nova", "Sherlock", "Community Library", "Show All &#9662;"])
+    body = f"""<div class='win' style='width:1000px; height:640px; overflow:hidden; font-family:"Open Sans", "Liberation Sans", Arial, sans-serif'>
+<div style='background:#fff; padding:7px 14px; font-size:12.5px; color:#444; border-bottom:1px solid #ccc'>{nav}</div>
+<div style='background:linear-gradient(#a9563f, #7e3426); padding:9px 14px; display:flex; gap:8px; align-items:center'>
+ <span style='background:#c8573a; color:#fff; border:1px solid #e08b70; padding:5px 12px; font-size:14px; border-radius:2px'>All Content &#9662;</span>
+ <span style='flex:1; background:#f4f1ec; border:1px solid #6e2c20; padding:5px 10px; font-size:15px; color:#555'>Hepatology</span>
+ <span style='background:#c8573a; color:#fff; border:1px solid #e08b70; padding:5px 14px; font-size:14px; border-radius:2px'>Search</span>
+ <span style='background:#f4f1ec; color:#888; border:1px solid #6e2c20; padding:5px 10px; font-size:14px; width:200px'>Filter by organization &#9662;</span></div>
+<div style='background:#b9a47e; display:flex; height:580px; padding:0 0 0 14px'>
+ <div style='width:290px; background:#f2efe9; overflow:hidden'>
+  <div style='text-align:center; font-size:12px; padding:8px 0; color:#444'>"Hepatology"<br>6,232 results &bull; <span class='link' style='text-decoration:none'>Clear Search</span></div>{left}</div>
+ <div style='width:22px; margin-left:16px; {rings}'></div>
+ <div style='flex:1; background:#fff; padding:16px 20px; margin-top:12px; overflow:hidden'>{right}</div>
+</div></div>"""
+    page("commlib", body, 1002)
+
+order_search(); cs_ocr(); commlib()
 cs_related(); cs_trend(False); cs_trend(); cs_math()
 full_pre(); full_post(); full_workup(); full_workup(True)
 cirrhosis(False); cirrhosis(True); workup(False); workup(True); transplant(); chart_search(); chart_review(0); chart_review(1); care_everywhere()

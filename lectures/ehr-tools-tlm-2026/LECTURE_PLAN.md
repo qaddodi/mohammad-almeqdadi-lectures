@@ -29,16 +29,17 @@ Show and tell, no live demo. One made-up patient, ZZTEST, LIVER (58M with cirrho
 | 11 | Our post-transplant view | Full view, scrolled in 3 steps |
 | 12 | Chart search | A full slide on Ctrl+Space (opens search from anywhere, watercolor key background); EGD search with hover preview, then: related terms (hepatitis b finds entecavir and tenofovir), trend ALT alone, then ALT and weight together on one graph, OCR of a scanned fax, math (80x13 for ursodiol in PBC). From the Epic Specialist Spotlight video with Mohammad |
 | 13 | Chart Review quick filters | Notes tab 214 notes, then the Hepatology quick filter: 7 notes, Care Everywhere notes in the same list |
-| 14 | SmartPhrases | Typing the phrase, then the expanded note with SmartLinks, SmartLists and ***; sharing, and the Community Library (CommLib) |
-| 15 | Orders | Preference list favorites (MELD labs with AFP; AFP, AFP-L3, DCP; CLD workup with PEth; triphasic liver MRI), Follow Users, and a personal order set |
-| 16 | After March 2020 | EHR time growth by group (Holmgren 2025). Reveal |
-| 17 | In Basket tools | QuickActions, result notes, out of contact |
-| 18 | AI tools in Epic | Table of Art tools with release versions |
-| 19 | Do AI drafts save time? | Tai-Seale 2024 |
-| 20 | Ambient notes | Lukac preprint (Nizar covers this in depth) |
-| 21 | For transplant teams | Insights for committee review, MELD lab submission |
-| 22 | Where does the time go? | 5.8 h in the EHR per 8 h of patient care (Holmgren 2024). Reveal |
-| 23 | Hepatologists | 30.5 min per appointment, highest in GI (Bali 2026) |
-| 24 | Your own numbers: Signal | Mock Signal report |
-| 25 | Back to our patient | 2x2 recap and what to set up at home |
-| 26 | Questions? | The same desk at the end of the day |
+| 14 | SmartPhrases | Typing the phrase, then the expanded note with SmartLinks, SmartLists and ***; sharing |
+| 15 | Community Library | Its own slide: mock-up laid out like comlib.epic.com from Mohammad's phone screenshots, a hepatology search (6,232 results) with an invented cirrhosis visit order set open; 536 organizations share build. Organizations invented |
+| 16 | Orders | Preference list favorites (MELD labs with AFP; AFP, AFP-L3, DCP; CLD workup with PEth; triphasic liver MRI), Follow Users, and a personal order set |
+| 17 | After March 2020 | EHR time growth by group (Holmgren 2025). Reveal |
+| 18 | In Basket tools | QuickActions, result notes, out of contact |
+| 19 | AI tools in Epic | Table of Art tools with release versions |
+| 20 | Do AI drafts save time? | Tai-Seale 2024 |
+| 21 | Ambient notes | Lukac preprint (Nizar covers this in depth) |
+| 22 | For transplant teams | Insights for committee review, MELD lab submission |
+| 23 | Where does the time go? | 5.8 h in the EHR per 8 h of patient care (Holmgren 2024). Reveal |
+| 24 | Hepatologists | 30.5 min per appointment, highest in GI (Bali 2026) |
+| 25 | Your own numbers: Signal | Mock Signal report |
+| 26 | Back to our patient | 2x2 recap and what to set up at home |
+| 27 | Questions? | The same desk at the end of the day |
