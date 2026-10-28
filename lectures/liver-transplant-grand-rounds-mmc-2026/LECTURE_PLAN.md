@@ -17,14 +17,14 @@ Grand rounds at Maine Medical Center, 11/18/2026. One hour: about 45 minutes of 
 | Who can get a liver now | 19-32 | Early LT for alcohol-associated hepatitis (Mathurin, ACCELERATE-AH, QuickTrans, guidelines), Tufts diagnosis guess, US diagnosis mix, ACLF (CHANCE), what no longer rules a patient out, exception points (three rows), TransMet, US colorectal data |
 | From Maine to Boston | 33-37 | The evaluation (QR in the talk copy; phone and fax only on Questions), frailty, what the Maine team does while the patient waits, acuity circles as the bridge to donors |
 | Where the livers come from | 38-50 | Donor types, DCD growth, ischemic cholangiopathy, the warm ischemia clock (ILTS 2021), what the machines do, the three RCTs, TA-NRP vs A-NRP (Cureus CC BY figure), NRP outcomes (Brubaker 2024) and the US rules, living donors, Jackson |
-| Your patient had a transplant | 51-59 | Coming home to Maine (talk copy only), abnormal liver tests, MRCP vs ERCP, tacrolimus interactions, two primary care tables, take-home points, Questions (referral lines, QR and Q&A prep in the notes) |
+| Your patient had a transplant | 51-59 | Coming home to Maine (talk copy only), abnormal liver tests, MRCP vs ERCP, tacrolimus interactions, two primary care tables, take-home points, Questions (his X handle only; Q&A prep in the notes) |
 
 Slide numbers above are for the talk copy. If the timed run-through is long, cut in this order: "Is that just Tufts?", TA-NRP vs A-NRP (to the appendix), the second primary care table, the US colorectal slide, the Zarrinpar timeline, why MELD 15 became the rule. Checkpoints: same-day slide by minute 15, Maine divider by minute 26, post-transplant divider by minute 38.
 
 ## Decisions (Mohammad, 2026-10-27)
 
 - Tufts numbers: volume only, rough, never public. No program survival anywhere.
-- No disclosures beyond the standard line. Referral lines and QR only in the talk copy (Questions, plus the QR on the evaluation slide).
+- No disclosures beyond the standard line. The Questions slide shows only "Questions?" and his X handle (2026-10-28). The referral QR is on the evaluation slide and the transfer line on the same-day slide, talk copy only.
 - Cover lines for an outside talk: "Transplant Hepatologist, Tufts Medical Center", "Assistant Professor of Medicine and Surgery, Tufts University School of Medicine".
 - The July 2025 Kentucky OPO review is one or two spoken sentences in the notes of the DCD slide, nothing on the slide.
 - Keep the brief transplant history and the Starzl slide (Mohammad, 2026-10-27). The full NYT page is in the talk copy only; it lives next to the private Tufts data, not in the repo.

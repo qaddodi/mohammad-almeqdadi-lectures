@@ -790,7 +790,7 @@ sec("From Maine to Boston");
     ["Other", "Dental, cancer screening, vaccines, financial counseling"],
   ], { x: 0.9, y: CONTACT ? 3.05 : 2.9, w: CONTACT ? W - 3.6 : W - 1.8, size: 19, minRowH: CONTACT ? 0.58 : 0.62 });
   if (CONTACT) {
-    txt(s, "At Tufts the evaluation is done in about two days. Referral lines are on the last slide.",
+    txt(s, "At Tufts the evaluation is done in about two days.",
       0.9, 2.5, W - 1.8, 0.45, { size: 17, align: "center" });
     s.addImage({ path: path.join(PRIVATE_IMG, CONTACT.qr), x: W - 2.35, y: 3.6, w: 1.5, h: 1.5, altText: "QR code to the Tufts liver transplant referral page" });
     txt(s, "Referral page", W - 2.6, 5.15, 2.0, 0.35, { size: 13, align: "center", color: GREY });
@@ -1144,19 +1144,11 @@ if (!PUBLIC) {
 {
   const s = slide(null, { master: "BLANK" });
   s.addImage({ path: path.join(IMG, "cover-coast-road.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a coastal road in Maine running south toward a distant city" });
-  s.addText("Questions?", { x: 0.6, y: CONTACT ? 1.3 : 2.8, w: 6.0, h: 1.4, fontFace: "Georgia", fontSize: 54, align: "center",
+  // plain closing slide, no referral lines, only his X handle (Mohammad, 2026-10-28)
+  s.addText("Questions?", { x: 0.6, y: 2.8, w: 6.0, h: 1.4, fontFace: "Georgia", fontSize: 54, align: "center",
     valign: "middle", color: "000000", isTextBox: true, margin: 0 });
-  if (CONTACT) {
-    // talk copy only: the program's referral lines, no names or cell numbers (Mohammad, 2026-10-27)
-    txt(s, [
-      { text: "Tufts liver transplant referrals", options: { bold: true, breakLine: true } },
-      { text: `Phone ${CONTACT.phone}, fax ${CONTACT.fax}`, options: { breakLine: true } },
-      { text: `Inpatient transfers ${CONTACT.transfer}`, options: { breakLine: true } },
-      { text: CONTACT.email },
-    ], 0.6, 3.0, 6.0, 1.5, { size: 18, align: "center" });
-    s.addImage({ path: path.join(PRIVATE_IMG, CONTACT.qr), x: 2.85, y: 4.75, w: 1.5, h: 1.5, altText: "QR code to the Tufts liver transplant referral page" });
-    txt(s, "Referral page", 2.6, 6.3, 2.0, 0.35, { size: 13, align: "center", color: GREY });
-  }
+  s.addText("X: @mfalmeqdadi", { x: 0.6, y: 4.2, w: 6.0, h: 0.5, fontFace: "Georgia", fontSize: 22, align: "center",
+    valign: "middle", color: "404040", isTextBox: true, margin: 0 });
   s.addNotes("Likely questions. MELD at transplant in Boston: have the current median for our area ready as a rough number. How do your patients do: point to the SRTR program-specific report and the national 93.5% at one year; no Tufts survival numbers. Relapse after early transplant for alcohol-associated hepatitis: describe the alcohol program and monitoring after transplant. MaineCare and out-of-state transplant, and travel or lodging help for families. Listing at more than one center. Whether the patient has to stay within a few hours of Boston once listed. Whether NRP is done in Maine hospitals: ask the hosts or New England Donor Services beforehand. Pig livers: one sentence on the 2026 J Hepatol case.");
 }
 endMain();
