@@ -363,14 +363,14 @@ function holder(s, x, y, w, h, text) {
 }
 
 // Horizontal timeline: items [{ y: "1965", t: "text" }], evenly spaced
-function timeline(s, items, y0) {
-  const x0 = 0.9, x1 = W - 0.9, n = items.length, step = (x1 - x0) / n;
+function timeline(s, items, y0, x0 = 0.9, x1 = W - 0.9, size = 17) {
+  const n = items.length, step = (x1 - x0) / n;
   s.addShape(pres.shapes.LINE, { x: x0, y: y0, w: x1 - x0, h: 0, line: { color: "595959", width: 2 } });
   items.forEach((it, i) => {
     const cx = x0 + step * (i + 0.5);
     s.addShape(pres.shapes.OVAL, { x: cx - 0.09, y: y0 - 0.09, w: 0.18, h: 0.18, fill: { color: NAVY }, line: { color: NAVY, width: 1 } });
     s.addText(it.y, { x: cx - step / 2, y: y0 - 0.85, w: step, h: 0.6, fontFace: "Georgia", fontSize: 28, bold: true, align: "center", valign: "bottom", color: "000000", isTextBox: true, margin: 0 });
-    s.addText(it.t, { x: cx - step / 2 + 0.08, y: y0 + 0.3, w: step - 0.16, h: 2.4, fontFace: "Georgia", fontSize: 17, align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0 });
+    s.addText(it.t, { x: cx - step / 2 + 0.08, y: y0 + 0.3, w: step - 0.16, h: 3.4, fontFace: "Georgia", fontSize: size, align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0 });
   });
 }
 
@@ -447,14 +447,15 @@ sec("Opening");
 // ---------------------------------------------------------------- Objectives
 {
   const s = slide("Objectives");
-  body(s, [{ t: "By the end of this talk you should be able to:", nb: true, i: true }], { x: 1.6, w: W - 3.2, y: 1.35, h: 0.5, size: 22 });
+  body(s, [{ t: "By the end of this talk you should be able to:", nb: true, i: true }], { x: 0.7, w: 7.6, y: 1.35, h: 0.5, size: 22 });
   body(s, [
     "Read a hepatitis B serology panel",
     "Place a patient in the right phase",
     "Decide who to treat, using the current guidelines",
     "Estimate HCC risk and set up surveillance",
     "Prevent reactivation and transmission to the baby",
-  ], { size: 22, gap: 12, x: 1.6, w: W - 3.2, y: 2.05, h: 4.8 });
+  ], { size: 22, gap: 12, x: 0.7, w: 7.4, y: 2.05, h: 4.8 });
+  pic(s, "blood-tubes.png", 8.3, 1.2, 4.8, 5.7, "Watercolor of blood collection tubes in a rack");
   s.addNotes("Several of the recommendations changed in the last two years: AASLD/IDSA 2025, EASL 2025, WHO 2024. Where the guidelines disagree I show them side by side.");
 }
 
@@ -480,7 +481,8 @@ sec("History");
     { y: "1976", t: "Blumberg and Gajdusek receive the Nobel Prize. First immunization of people with plasma-derived vaccine (Maupas)" },
     { y: "1980", t: "Szmuness: the vaccine works in a controlled trial of 1,083 men" },
     { y: "1981", t: "Beasley: HBsAg carriers in Taiwan get liver cancer at a far higher rate" },
-  ], 3.6);
+  ], 2.6, 0.3, 8.5, 15);
+  pic(s, "vaccine-1980s.png", 8.6, 1.2, 4.6, 5.7, "Watercolor of a glass vaccine vial and a glass syringe");
   src(s, "PMIDs: Dane 4190997; Maupas 59012; Szmuness 6997738; Beasley 6118576.");
   s.addNotes("Keep it short in the 30-minute version. Dane 1970 Lancet 1:695-698. Maupas 1976 Lancet 1:1367-1370. Szmuness 1980 NEJM 303:833-841. Beasley 1981 Lancet 2:1129-1133. The vaccine came before there was a screening test for liver cancer. A recombinant yeast vaccine was reported in 1984 (McAleer, Nature 307:178-180).");
 }
@@ -654,17 +656,19 @@ const P1_ROWS = (age, dna, alt) => [
 ];
 twoStep((step) => {
   const s = slide("34-year-old man, born in Vietnam");
-  table(s, P1_ROWS(34, "60,000,000 IU/mL", "24 U/L"), { x: 2.6, y: 1.3, w: 8.1, size: 22, minRowH: 0.55, noLabel: true });
-  q(s, "Do you treat him?", 5.75, { size: 26 });
-  if (step === 2) q(s, "No. Monitor ALT and DNA every 3 to 6 months", 6.3, { size: 22, hl: true });
+  table(s, P1_ROWS(34, "60,000,000 IU/mL", "24 U/L"), { x: 0.5, y: 1.3, w: 7.3, size: 22, minRowH: 0.55, noLabel: true });
+  pic(s, "man-34.png", 8.0, 1.15, 5.2, 5.8, "Watercolor of a man in his thirties seated in clinic");
+  q(s, "Do you treat him?", 5.85, { size: 26, x: 0.5, w: 7.3 });
+  if (step === 2) q(s, "No. Monitor ALT and DNA every 3 to 6 months", 6.45, { size: 20, hl: true, x: 0.3, w: 7.7 });
   s.addNotes("HBsAg found at a blood donation, asymptomatic, ALT normal on two checks six months apart. This is the HBeAg-positive chronic infection (immune tolerant) phase. AASLD/IDSA 2025 R3 defines it as HBeAg positive, DNA above 10,000,000 IU/mL and persistently normal ALT on at least two measurements 6 months apart. At 34, no fibrosis, the recommendation is to monitor. AASLD 2018 R2A: against antiviral therapy in immune-tolerant adults. Stiffness 5.1 kPa is below the EASL F2 cut-off of 7 kPa. All values are made up.");
   return s;
 });
 twoStep((step) => {
   const s = slide("Same man, now 41 years old");
-  table(s, P1_ROWS(41, "55,000,000 IU/mL", "26 U/L"), { x: 2.6, y: 1.3, w: 8.1, size: 22, minRowH: 0.55, noLabel: true });
-  q(s, "Does the answer change?", 5.75, { size: 26 });
-  if (step === 2) q(s, "AASLD/IDSA 2025: over age 40 supports treatment", 6.3, { size: 22, hl: true });
+  table(s, P1_ROWS(41, "55,000,000 IU/mL", "26 U/L"), { x: 0.5, y: 1.3, w: 7.3, size: 22, minRowH: 0.55, noLabel: true });
+  pic(s, "man-34.png", 8.0, 1.15, 5.2, 5.8, "Watercolor of a man in his thirties seated in clinic");
+  q(s, "Does the answer change?", 5.85, { size: 26, x: 0.5, w: 7.3 });
+  if (step === 2) q(s, "AASLD/IDSA 2025: over age 40 supports treatment", 6.45, { size: 20, hl: true, x: 0.3, w: 7.7 });
   s.addNotes("AASLD/IDSA 2025 R3 (conditional, very low certainty): for immune-tolerant adults, antiviral therapy is supported if over 40 or with grade 2 / stage 2 or worse disease. The recommendation text says 'over 40' and the guideline's algorithm says '40 or more'. The evidence is observational and the AASLD technical review calls it very uncertain, so this is a shared decision. EASL 2025 and WHO 2024 reach treatment through other pathways (fibrosis, family history of HCC); they do not use this age rule in the same way. The same labs at 34 and 41 make the point about age.");
   return s;
 });
@@ -672,8 +676,9 @@ twoStep((step) => {
   const s = slide("Same man, now 52 years old");
   table(s, [["Test", "Result"], ["HBsAg", "Positive"], ["HBeAg", "Negative"], ["Anti-HBe", "Positive"], ["HBV DNA", { t: "8,000 IU/mL", red: true }],
     ["ALT", { t: "48 U/L", red: true }], ["Platelets", "190 x 10^9/L"], ["FIB-4", "1.8"], ["Liver stiffness", "6.8 kPa"]],
-    { x: 2.6, y: 1.2, w: 8.1, size: 21, minRowH: 0.52, noLabel: true });
-  q(s, "Do you treat him?", 6.1, { size: 26 });
+    { x: 0.5, y: 1.2, w: 7.3, size: 21, minRowH: 0.52, noLabel: true });
+  pic(s, "man-52.png", 8.0, 1.15, 5.2, 5.8, "Watercolor of the same man in his fifties, gray at the temples, with reading glasses");
+  q(s, "Do you treat him?", 6.15, { size: 26, x: 0.5, w: 7.3 });
   s.addNotes("He lost HBeAg and seroconverted in his late 40s. DNA 8,000, ALT 48 (1.4 times the AASLD upper limit of 35), no advanced fibrosis. Let the room commit. The next slide shows what each guideline says.");
 }
 {
@@ -829,7 +834,8 @@ twoStep((step) => {
 }
 twoStep((step) => {
   const s = slide("Who gets surveillance?");
-  q(s, "Ultrasound and AFP every 6 months?", 1.2, { size: 24 });
+  q(s, "Ultrasound and AFP every 6 months?", 1.2, { size: 24, x: 0.4, w: 8.4 });
+  pic(s, "ultrasound-probe.png", 8.8, 1.3, 4.4, 5.6, "Watercolor of an abdominal ultrasound probe");
   table(s, [["Patient", "Surveillance"],
     ["Compensated cirrhosis, Child-Pugh A", ans(step, "Yes")],
     ["Man from an endemic region, age 38, no cirrhosis", ans(step, "No")],
@@ -837,7 +843,7 @@ twoStep((step) => {
     ["Woman from an endemic region, age 46, no cirrhosis", ans(step, "No")],
     ["Family history of HCC", ans(step, "Yes")],
     ["PAGE-B score of 12", ans(step, "Yes")]],
-    { x: 1.2, y: 1.9, w: W - 2.4, size: 20, minRowH: 0.62 });
+    { x: 0.4, y: 1.9, w: 8.4, size: 20, minRowH: 0.62 });
   src(s, "AASLD HCC practice guidance 2023, Table 1. Hepatology 2023;78:1922-1965, PMID 37199193.");
   s.addNotes("AASLD 2023 Table 1: noncirrhotic HBV: men over 40 and women over 50 from endemic regions; people of African origin earlier (the wording is origin-based, not an instruction to start every Black American at 20); family history of HCC; PAGE-B 10 or more (the table prints 'over 10' while the score's own intermediate group starts at 10). Ultrasound plus AFP every 6 months (level 2, strong). The thresholds behind these groups are about 0.2% a year for noncirrhotic HBV and 1.0% for cirrhosis. These are model-based decision thresholds, not biological cut-offs. Continue surveillance after HBsAg loss in cirrhosis, family history, men who lost HBsAg after 40 and women after 50 (AASLD/IDSA 2025 R6).");
   return s;
@@ -887,12 +893,13 @@ twoStep((step) => {
 });
 twoStep((step) => {
   const s = slide("Rituximab, six cycles");
-  q(s, "What do you give, and for how long?", 1.2, { size: 24 });
-  gantt(s, { x: 0.6, y: 2.2, w: W - 1.2, labelW: 3.0, rowH: 0.9, ticks: ["Start", "Month 6", "Month 12", "Month 18"], rows: [
+  q(s, "What do you give, and for how long?", 1.2, { size: 24, x: 0.3, w: 8.4 });
+  pic(s, "iv-infusion.png", 8.5, 1.1, 4.7, 5.8, "Watercolor of an IV bag and infusion pump on a pole");
+  gantt(s, { x: 0.2, y: 2.2, w: 8.4, labelW: 2.5, rowH: 0.9, ticks: ["Start", "Month 6", "Month 12", "Month 18"], rows: [
     { label: "Rituximab", from: 0, to: 0.95, fill: SLATE, dark: true },
     { label: "Entecavir, TDF or TAF", from: 0, to: 3, fill: NAVY, text: "Continue 12 months after the last dose", show: step === 2 },
   ] });
-  if (step === 2) q(s, "Start before the first dose. If you only monitor: DNA and ALT every 1 to 3 months", 5.0, { size: 20, hl: true });
+  if (step === 2) q(s, "Start before the first dose. If you only monitor: DNA and ALT every 1 to 3 months", 4.9, { size: 20, hl: true, x: 0.4, w: 8.0, h: 1.0 });
   src(s, "AGA 2025 (PMID 39863345); AASLD 2018 (PMID 29405329); EASL 2025 (PMID 40348683).");
   s.addNotes("High-risk exposure with anti-HBc positive: prophylaxis rather than monitoring (AGA R1, strong). Use a high-barrier drug: entecavir, TDF or TAF. Continue at least 6 months after the immunosuppression ends and at least 12 months for B-cell-depleting therapy (AGA and AASLD 2018); EASL 2025 says 6 to 12 months and at least 18 months after B-cell depletion. For a moderate-risk exposure in a DNA-negative resolved infection, AGA favors prophylaxis but accepts monitoring. ACR 2021 and ASCO 2020 give the rheumatology and oncology versions.");
   return s;
@@ -964,7 +971,7 @@ ext(() => {
   src(s, "FDA news release 22 May 2026. MYR301, week 48. Combined response: HDV RNA undetectable or 2 log decline, and normal ALT.");
   s.addNotes("MYR301 as described by FDA: immediate treatment with 8.5 mg once daily for 144 weeks versus delayed treatment (48 weeks observation, then treatment). Week 48 combined response 48% vs 2%; undetectable HDV RNA 20% vs 0%; at weeks 96 and 144 undetectable RNA 36% and 50%. Accelerated approval rests on this surrogate response; clinical benefit needs confirmation. Side effects: hypersensitivity, injection site reactions, headache, abdominal pain, fatigue, itching. The dossier's published MYR301 numbers (2 mg 45%, 10 mg 48%) are from the NEJM paper; the slide uses FDA's numbers for the approved dose. Gilead is the sponsor.");
   tableSlide("Cirrhosis and decompensation", [["Jang, observational", "Treated", "Untreated"], ["First decompensation, n = 707", "423", "284"], ["5-year transplant-free survival", "59.7%", "46.0%"], ["Delisted on treatment", "33.9%", ""]],
-    { size: 21, tbl: { minRowH: 0.85 } },
+    { size: 21, tbl: { x: 0.5, w: 7.7, minRowH: 0.85 }, after: (s) => pic(s, "cirrhotic-liver.png", 8.4, 1.2, 4.7, 5.6, "Watercolor of a small nodular cirrhotic liver") },
     "Not randomized, and the antivirals were those of that era. Do not promise one-third delisting to every patient today. AASLD 2018 R7B: treat decompensated disease indefinitely regardless of DNA, ALT or HBeAg, and assess for transplant. PegIFN is contraindicated. The US TAF label does not recommend Child-Pugh B or C. Call transplant hepatology.",
     "Jang JW et al. 2015 (dossier ref 56).");
   {
@@ -980,7 +987,7 @@ ext(() => {
     ["AASLD 2018", "HBeAg-positive, age 2 to under 18, raised ALT and measurable DNA. Normal ALT: no routine treatment"],
     ["WHO 2024", "Adolescents 12 and older use the adult pathways. Younger children are individualized"],
     ["US labels", "Entecavir and TDF from age 2. TAF from age 6 and 25 kg"]],
-    { size: 19, tbl: { minRowH: 1.0 } },
+    { size: 19, tbl: { x: 0.5, w: 7.7, minRowH: 1.0 }, after: (s) => pic(s, "newborn-vaccine.png", 8.4, 1.2, 4.7, 5.6, "Watercolor of a sleeping swaddled newborn beside a vaccine syringe on a tray") },
     "Label ages are approval ages, not indications to treat. WHO's noninvasive fibrosis cut-offs are not validated in children and adolescents.",
     "AASLD 2018 R9A and R9B; WHO 2024 chapter 8; DailyMed labels.");
 });
