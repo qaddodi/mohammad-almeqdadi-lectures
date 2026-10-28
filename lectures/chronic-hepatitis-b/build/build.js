@@ -166,6 +166,7 @@ function table(s, rows, o) {
   const nc = Math.max(...rows.map((r) => r.length));
   const hasHead = o.header !== false;
   const meas = rows.map((r, ri) => r.map((c) => cellLines(c, fs, hasHead && ri === 0)));
+  const shortFirst = o.noLabel !== false && meas.every((r) => !r[0] || r[0].every((ln) => ln.map((x) => x.t).join("").length <= 16));
   // column widths: water-fill so short columns get what they need and long ones share the rest
   let colW = o.colW;
   if (!o.keepW) {
@@ -226,7 +227,8 @@ function table(s, rows, o) {
       if (rr.br) ro.breakLine = true;
       return { text: rr.t, options: ro };
     });
-    const label = ci === 0 && !o.noLabel;
+    // a first column of short values (signs, panel names, test names) is centered like the rest
+    const label = ci === 0 && !o.noLabel && !shortFirst;
     const auto = label ? "left" : (header || colCenter[ci] ? "center" : "left");
     return { text, options: {
       fill: { color: c.fill || (header ? (o.headFill || "F2F2F2") : "FFFFFF") },
@@ -725,8 +727,8 @@ twoStep((step) => {
   table(s, P1_ROWS(41, "55,000,000 IU/mL", "26 U/L"), { x: 0.5, y: 1.3, w: 7.3, size: 22, minRowH: 0.55, noLabel: true });
   pic(s, "man-34.png", 8.0, 1.15, 5.2, 5.8, "Watercolor of a man in his thirties seated in clinic");
   q(s, "Does the answer change?", 5.85, { size: 26, x: 0.5, w: 7.3 });
-  if (step === 2) q(s, "AASLD/IDSA 2025: over age 40 supports treatment", 6.45, { size: 20, hl: true, x: 0.3, w: 7.7 });
-  s.addNotes("AASLD/IDSA 2025 R3 (conditional, very low certainty): for immune-tolerant adults, antiviral therapy is supported if over 40 or with grade 2 / stage 2 or worse disease. The recommendation text says 'over 40' and the guideline's algorithm says '40 or more'. The evidence is observational and the AASLD technical review calls it very uncertain, so this is a shared decision. EASL 2025 and WHO 2024 reach treatment through other pathways (fibrosis, family history of HCC); they do not use this age rule in the same way. The same labs at 34 and 41 make the point about age.");
+  if (step === 2) q(s, "AASLD/IDSA 2025: over 40, treatment is suggested. He chose to wait", 6.4, { size: 20, hl: true, x: 0.3, w: 7.7, h: 0.8 });
+  s.addNotes("AASLD/IDSA 2025 R3 (conditional, very low certainty): for immune-tolerant adults, antiviral therapy is supported if over 40 or with grade 2 / stage 2 or worse disease. The recommendation text says 'over 40' and the guideline's algorithm says '40 or more'. The evidence is observational and the AASLD technical review calls it very uncertain, so this is a shared decision. EASL 2025 and WHO 2024 reach treatment through other pathways (fibrosis, family history of HCC); they do not use this age rule in the same way. The same labs at 34 and 41 make the point about age. In our story he hears the options and chooses to keep monitoring, which is why he is untreated at 52; R3 is a conditional recommendation, so that is a reasonable choice.");
   return s;
 });
 {
@@ -889,10 +891,10 @@ tableSlide("Choosing the drug: summary", [["Situation", "Drug"],
   [{ t: "Kidney or bone disease, or at risk", b: true }, "TAF, or entecavir with the dose adjusted"],
   [{ t: "Prior lamivudine resistance", b: true }, "TDF or TAF, not entecavir"],
   [{ t: "Pregnancy", b: true }, "TDF (most data) or TAF"],
-  [{ t: "HIV", b: true }, "TDF or TAF with emtricitabine or lamivudine, inside the ART regimen"],
-  [{ t: "Decompensated cirrhosis", b: true }, "Entecavir or TDF. The US TAF label does not recommend Child-Pugh B or C"],
-  [{ t: "Wants a finite course, compensated", b: true }, "Pegylated interferon, in selected patients"]],
-  { size: 21, tbl: { minRowH: 0.72 } },
+  [{ t: "HIV", b: true }, "TDF or TAF as part of ART"],
+  [{ t: "Decompensated cirrhosis", b: true }, "Entecavir or TDF (no TAF in Child-Pugh B or C)"],
+  [{ t: "Wants a finite course", b: true }, "Pegylated interferon, selected patients"]],
+  { size: 20, y: 1.3, tbl: { minRowH: 0.66 } },
   "AASLD 2018: entecavir, TDF and TAF are first line. Entecavir or TAF are preferred over TDF with renal dysfunction or bone disease, or risk of them. Lamivudine resistance confers cross-resistance to entecavir, so use tenofovir. Entecavir alone is not adequate in HIV: it selects HIV M184V. Pregnancy: TDF has the randomized data; AASLD/IDSA 2025 R1 accepts TDF or TAF. Decompensated cirrhosis: the 2025 Figure 5 lists TAF, but the US label does not recommend it in Child-Pugh B or C, so say that. PegIFN is contraindicated in decompensated cirrhosis and in pregnancy.",
   "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 (PMID 41186418); US prescribing information.");
 
@@ -1234,7 +1236,7 @@ sec("Close");
 {
   const s = slide("Back to our patients");
   table(s, [["", "Patient", "Decision"],
-    ["1", "Man, 34 to 57. HBeAg-positive, then HBeAg-negative with DNA 8,000 and ALT 48", "Monitor at 34. Treat at 41 (age) or at 52 (grey zone). PAGE-B 18, surveillance. Do not stop with HBsAg 400"],
+    ["1", "Man, 34 to 57. HBeAg-positive, then HBeAg-negative with DNA 8,000 and ALT 48", "Monitor at 34. Treatment suggested at 41, he waited. TAF at 52. PAGE-B 18, surveillance. Do not stop with HBsAg 400"],
     ["2", "Woman, 61. Anti-HBc positive, HBsAg negative, rituximab", "Entecavir, TDF or TAF before the first dose and for 12 months after the last"],
     ["3", "Woman, 29, 20 weeks pregnant. DNA 5,000,000", "TDF or TAF from week 28. Vaccine and HBIG within 12 hours. Test the baby at 9 to 12 months"]],
     { x: 0.6, y: 1.4, w: W - 1.2, size: 21, minRowH: 1.4 });
