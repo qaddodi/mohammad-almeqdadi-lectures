@@ -421,6 +421,63 @@ function tableSlide(title, rows, o, notes, source) {
 
 const COVER = path.join(IMG, "cover-chb.jpg");
 const HAS_COVER = fs.existsSync(COVER);
+// Summary-slide flowchart pieces. kind: q (grey question box), treat (navy), decide (slate), watch (white), cond (plain condition)
+function fbox(s, text, x, y, w, h, kind = "cond", size = 17) {
+  const st = {
+    q: { fill: "F2F2F2", line: "7F7F7F", color: "000000", b: true },
+    treat: { fill: NAVY, line: NAVY, color: "FFFFFF", b: true },
+    decide: { fill: SLATE, line: SLATE, color: "000000", b: true },
+    watch: { fill: "FFFFFF", line: "595959", color: "000000", b: true },
+    cond: { fill: "FFFFFF", line: "BFBFBF", color: "000000", b: false },
+  }[kind];
+  s.addText(text, { shape: pres.shapes.RECTANGLE, x, y, w, h, fill: { color: st.fill }, line: { color: st.line, width: 1 },
+    fontFace: TBL_FONT, fontSize: size, bold: st.b, color: st.color, align: "center", valign: "middle", margin: 4 });
+}
+// Straight arrow, horizontal or vertical
+function farrow(s, x1, y1, x2, y2, label) {
+  s.addShape(pres.shapes.LINE, { x: Math.min(x1, x2), y: Math.min(y1, y2), w: Math.abs(x2 - x1), h: Math.abs(y2 - y1),
+    flipH: x2 < x1, flipV: y2 < y1, line: { color: "595959", width: 1.5, endArrowType: "triangle" } });
+  if (label) s.addText(label, { x: Math.min(x1, x2), y: Math.min(y1, y2) - 0.32, w: Math.max(Math.abs(x2 - x1), 0.6), h: 0.3,
+    fontFace: TBL_FONT, fontSize: 14, bold: true, align: "center", color: GREY, isTextBox: true, margin: 0 });
+}
+function fline(s, x1, y1, x2, y2) {
+  s.addShape(pres.shapes.LINE, { x: Math.min(x1, x2), y: Math.min(y1, y2), w: Math.abs(x2 - x1), h: Math.abs(y2 - y1), line: { color: "595959", width: 1.5 } });
+}
+// Audience question with four options; the answer is highlighted on the second step
+function mcq(title, question, opts, correct, img, notes, source) {
+  return twoStep((step) => {
+    const s = slide(title);
+    const tw = img ? 7.5 : W - 1.8;
+    s.addText(question, { x: 0.6, y: 1.25, w: tw, h: 1.0, fontFace: "Georgia", fontSize: 24, bold: true, valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+    opts.forEach((o, i) => {
+      const hit = step === 2 && i === correct;
+      s.addText([{ text: "ABCD"[i] + ".  " + o, options: { highlight: hit ? HL : undefined, bold: hit } }],
+        { x: 0.8, y: 2.55 + i * 0.95, w: tw - 0.2, h: 0.8, fontFace: "Georgia", fontSize: 22, valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+    });
+    if (img) pic(s, img.file, 8.3, 1.2, 4.8, 5.7, img.alt);
+    if (source) src(s, source);
+    s.addNotes(notes);
+    return s;
+  });
+}
+// Forest plot drawn as shapes. rows: { label, hr, lo, hi }; linear axis from o.min to o.max
+function forest(s, rows, o) {
+  const ax = o.x + o.labelW, aw = o.w - o.labelW, X = (v) => ax + ((v - o.min) / (o.max - o.min)) * aw;
+  const rh = o.rowH || 0.9, y1 = o.y + rh * rows.length;
+  s.addShape(pres.shapes.LINE, { x: X(1), y: o.y - 0.1, w: 0, h: y1 - o.y + 0.2, line: { color: "7F7F7F", width: 1, dashType: "dash" } });
+  s.addShape(pres.shapes.LINE, { x: ax, y: y1 + 0.1, w: aw, h: 0, line: { color: "595959", width: 1 } });
+  o.ticks.forEach((v) => s.addText(String(v), { x: X(v) - 0.4, y: y1 + 0.15, w: 0.8, h: 0.3, fontFace: TBL_FONT, fontSize: 14, align: "center", color: GREY, isTextBox: true, margin: 0 }));
+  if (o.axisL) s.addText(o.axisL, { x: ax, y: y1 + 0.5, w: X(1) - ax, h: 0.35, fontFace: TBL_FONT, fontSize: 14, align: "center", color: GREY, isTextBox: true, margin: 0 });
+  if (o.axisR) s.addText(o.axisR, { x: X(1), y: y1 + 0.5, w: ax + aw - X(1), h: 0.35, fontFace: TBL_FONT, fontSize: 14, align: "center", color: GREY, isTextBox: true, margin: 0 });
+  rows.forEach((r, i) => {
+    const cy = o.y + rh * (i + 0.5);
+    s.addText(r.label, { x: o.x, y: cy - rh / 2, w: o.labelW - 0.2, h: rh, fontFace: TBL_FONT, fontSize: 17, align: "right", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+    s.addShape(pres.shapes.LINE, { x: X(r.lo), y: cy, w: X(r.hi) - X(r.lo), h: 0, line: { color: NAVY, width: 2.5 } });
+    s.addShape(pres.shapes.RECTANGLE, { x: X(r.hr) - 0.11, y: cy - 0.11, w: 0.22, h: 0.22, fill: { color: NAVY }, line: { color: NAVY, width: 1 } });
+    s.addText(`${r.hr.toFixed(2)} (${r.lo.toFixed(2)} to ${r.hi.toFixed(2)})`, { x: ax + aw + 0.15, y: cy - 0.25, w: 2.6, h: 0.5, fontFace: TBL_FONT, fontSize: 16, valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  });
+}
+
 const QR_PDF = SHORT ? "qr-slides-30.png" : "qr-slides-60.png";
 
 // ---------------------------------------------------------------- Cover
@@ -683,9 +740,10 @@ twoStep((step) => {
 }
 {
   const s = slide("What counts as a normal ALT?");
-  table(s, [["", "Men", "Women"], ["AASLD", "35 U/L", "25 U/L"], ["WHO 2024", "30 U/L", "19 U/L"], ["EASL 2025", "40 U/L", "40 U/L"]],
-    { x: 3.1, y: 1.8, w: 7.1, size: 26, minRowH: 0.85 });
-  s.addText("His ALT of 48 U/L is above all three limits", { x: 0.9, y: 5.6, w: W - 1.8, h: 0.6, fontFace: "Georgia", fontSize: 22, align: "center", isTextBox: true, margin: 0 });
+  bars(s, [{ name: "Men", labels: ["AASLD", "WHO 2024", "EASL 2025"], values: [35, 30, 40] }, { name: "Women", labels: ["AASLD", "WHO 2024", "EASL 2025"], values: [25, 19, 40] }],
+    { x: 0.6, y: 1.3, w: 8.2, h: 5.4, colors: [NAVY, SLATE], max: 50, unit: 10, valFmt: "0", fmt: "0", legend: true, labSize: 18, catSize: 17, title: "Upper limit of normal ALT, U/L" });
+  s.addText([{ text: "His ALT", options: { fontSize: 24, breakLine: true } }, { text: "48 U/L", options: { fontSize: 54, bold: true, color: RED, breakLine: true } },
+    { text: "Above all three limits", options: { fontSize: 22 } }], { x: 9.0, y: 2.3, w: 3.9, h: 2.8, fontFace: "Georgia", align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
   src(s, "Upper limits of normal as listed in the guidelines. AASLD 2018 PMID 29405329; WHO 2024; EASL 2025 PMID 40348683.");
   s.addNotes("The old reference ranges included people with fatty liver, which is why the blood-donor data gave lower limits (30 for men and 19 for women in the ASHM chapter). Whichever limit you use, 48 is raised. Next slide: what each guideline does with it.");
 }
@@ -744,6 +802,30 @@ ext(() => {
     "Lai JC et al. J Hepatol 2025;82:992-1003, PMID 39577468. Lim YS et al. Lancet Gastroenterol Hepatol 2025;10:295-305, PMID 39914435.");
 });
 
+{
+  const s = slide("Who to treat: summary");
+  fbox(s, "HBsAg positive", 4.65, 1.2, 4.0, 0.55, "q", 18);
+  farrow(s, 6.65, 1.75, 6.65, 2.05);
+  fbox(s, "Cirrhosis?", 4.9, 2.05, 3.5, 0.55, "q", 18);
+  farrow(s, 8.4, 2.33, 9.7, 2.33, "Yes");
+  fbox(s, "Treat, any DNA level", 9.7, 2.05, 3.2, 0.55, "treat", 18);
+  fline(s, 6.65, 2.6, 6.65, 2.9); fline(s, 2.4, 2.9, 9.1, 2.9);
+  s.addText("No", { x: 6.75, y: 2.55, w: 0.6, h: 0.3, fontFace: TBL_FONT, fontSize: 14, bold: true, color: GREY, isTextBox: true, margin: 0 });
+  farrow(s, 2.4, 2.9, 2.4, 3.15); farrow(s, 9.1, 2.9, 9.1, 3.15);
+  fbox(s, "HBeAg positive", 0.5, 3.15, 3.8, 0.5, "q", 17);
+  fbox(s, "HBeAg negative", 7.2, 3.15, 3.8, 0.5, "q", 17);
+  const L = [["DNA above 20,000 and ALT 2 times ULN or more", "Treat", "treat"],
+    ["DNA above 10 million, normal ALT, over 40 or F2 or worse", "Treatment suggested", "treat"],
+    ["DNA above 10 million, normal ALT, 40 or younger, no fibrosis", "Monitor", "watch"]];
+  const Rr = [["DNA above 2,000 and ALT 2 times ULN or more", "Treat", "treat"],
+    ["Between the two: the grey zone", "Shared decision", "decide"],
+    ["DNA below 2,000, normal ALT", "Monitor", "watch"]];
+  L.forEach((r, i) => { const y = 3.95 + i * 1.0; fbox(s, r[0], 0.3, y, 4.2, 0.85, "cond", 16); farrow(s, 4.5, y + 0.425, 4.85, y + 0.425); fbox(s, r[1], 4.85, y, 1.85, 0.85, r[2], 16); });
+  Rr.forEach((r, i) => { const y = 3.95 + i * 1.0; fbox(s, r[0], 7.0, y, 4.2, 0.85, "cond", 16); farrow(s, 11.2, y + 0.425, 11.55, y + 0.425); fbox(s, r[1], 11.55, y, 1.5, 0.85, r[2], 16); });
+  src(s, "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 R3, R4 and Figure 5 (PMID 41186418). ALT ULN 35 men, 25 women.");
+  s.addNotes("This is the US version: AASLD 2018 thresholds for immune-active disease, with the two AASLD/IDSA 2025 changes. R3 (conditional, very low certainty): immune-tolerant adults over 40, or with grade 2 / stage 2 or worse disease, are suggested for treatment; the text says over 40 and the algorithm says 40 or more. R4: the indeterminate (grey zone) group is a shared decision. Cirrhosis: AASLD 2018 R7A treats compensated cirrhosis with low viremia regardless of ALT, R7B treats decompensated cirrhosis regardless of DNA, ALT or HBeAg, and the 2025 Figure 5 treats both regardless of DNA or ALT. EASL 2025 and WHO 2024 treat more people: DNA above 2,000 with ALT above ULN, or significant fibrosis. Pregnancy and immunosuppression are separate pathways, covered later. 'Monitor' means ALT and DNA every 3 to 6 months and a fibrosis check.");
+}
+
 // ---------------------------------------------------------------- Drugs
 sec("Drugs");
 twoStep((step) => {
@@ -776,13 +858,16 @@ twoStep((step) => {
   return s;
 });
 ext(() => {
-  tableSlide("Entecavir or tenofovir for HCC?", [["Study", "Patients", "HCC, tenofovir vs entecavir"],
-    ["Lee 2020, propensity analysis", "3,022", "HR 1.03 (0.70 to 1.51)"],
-    ["Choi 2023, individual patient meta-analysis", "42,939 in 11 studies", "Adjusted HR 0.77 (0.61 to 0.98)"],
-    ["Yoo 2025, TAF vs TDF, Korea", "17,537 in each matched group", "12.38 vs 15.39 per 1,000 person-years"]],
-    { size: 20, tbl: { minRowH: 0.9 } },
-    "The observational data are inconsistent and sensitive to design, including different start dates and follow-up. No randomized trial compares HCC. The 2019 Choi cohort in Korea has a retraction-and-replacement notice, so do not quote its original estimate. Yoo 2025 (J Hepatol Reports): TDF/TAF incidence rate ratio 1.24, entecavir/TAF 1.08 (p = 0.219); abstract only. Renal function, bone disease, resistance, pregnancy, adherence and access still decide the drug.",
-    "Lee SW 2020 (PMID in dossier ref 31); Choi J et al. 2023 (dossier ref 32); Yoo 2025 (dossier ref 28).");
+  {
+    const s = slide("Entecavir or tenofovir for HCC?");
+    forest(s, [{ label: "Lee 2020, propensity analysis, 3,022 patients", hr: 1.03, lo: 0.70, hi: 1.51 },
+      { label: "Choi 2023, individual patient meta-analysis, 42,939 patients", hr: 0.77, lo: 0.61, hi: 0.98 }],
+      { x: 0.4, y: 1.6, w: 9.9, labelW: 4.4, rowH: 1.2, min: 0.5, max: 1.6, ticks: [0.5, 0.75, 1, 1.25, 1.5], axisL: "Favors tenofovir", axisR: "Favors entecavir" });
+    s.addText("Hazard ratio for HCC, tenofovir vs entecavir", { x: 4.8, y: 1.05, w: 5.5, h: 0.4, fontFace: TBL_FONT, fontSize: 16, bold: true, align: "center", color: "000000", isTextBox: true, margin: 0 });
+    s.addText("Yoo 2025, Korea, TAF vs TDF: 12.38 vs 15.39 HCC per 1,000 person-years, 17,537 in each matched group", { x: 0.8, y: 5.6, w: W - 1.6, h: 0.7, fontFace: "Georgia", fontSize: 18, align: "center", color: "000000", isTextBox: true, margin: 0 });
+    src(s, "Lee SW 2020 (PMID in dossier ref 31); Choi J et al. 2023 (dossier ref 32); Yoo 2025 (dossier ref 28).");
+    s.addNotes("The observational data are inconsistent and sensitive to design, including different start dates and follow-up. No randomized trial compares HCC. The 2019 Choi cohort in Korea has a retraction-and-replacement notice, so do not quote its original estimate. Yoo 2025 (J Hepatol Reports): TDF/TAF incidence rate ratio 1.24, entecavir/TAF 1.08 (p = 0.219); abstract only. Renal function, bone disease, resistance, pregnancy, adherence and access still decide the drug.");
+  }
   tableSlide("Pegylated interferon", [["Strategy", "Trial", "Result"],
     ["Switch from entecavir, HBeAg-positive", "OSST, 200 patients", "HBsAg loss 8.5% vs 0% at week 48"],
     ["Add to TDF for 48 weeks", "Marcellin, 740 patients", "HBsAg loss 9.1% (48 weeks), 2.8% (16 weeks), 0% (TDF alone), 2.8% (PegIFN alone) at week 72"]],
@@ -798,6 +883,18 @@ ext(() => {
     "From AASLD 2018 and the reviewer's dossier (section C5). EASL 2025 uses 3 to 6 months initially, then 6 to 12 months after response. AASLD 2018 finds insufficient evidence to mandate routine bone density testing in people without other risk factors.",
     "AASLD 2018, PMID 29405329; EASL 2025, PMID 40348683.");
 });
+
+tableSlide("Choosing the drug: summary", [["Situation", "Drug"],
+  [{ t: "Most patients", b: true }, "Entecavir, TDF or TAF"],
+  [{ t: "Kidney or bone disease, or at risk", b: true }, "TAF, or entecavir with the dose adjusted"],
+  [{ t: "Prior lamivudine resistance", b: true }, "TDF or TAF, not entecavir"],
+  [{ t: "Pregnancy", b: true }, "TDF (most data) or TAF"],
+  [{ t: "HIV", b: true }, "TDF or TAF with emtricitabine or lamivudine, inside the ART regimen"],
+  [{ t: "Decompensated cirrhosis", b: true }, "Entecavir or TDF. The US TAF label does not recommend Child-Pugh B or C"],
+  [{ t: "Wants a finite course, compensated", b: true }, "Pegylated interferon, in selected patients"]],
+  { size: 21, tbl: { minRowH: 0.72 } },
+  "AASLD 2018: entecavir, TDF and TAF are first line. Entecavir or TAF are preferred over TDF with renal dysfunction or bone disease, or risk of them. Lamivudine resistance confers cross-resistance to entecavir, so use tenofovir. Entecavir alone is not adequate in HIV: it selects HIV M184V. Pregnancy: TDF has the randomized data; AASLD/IDSA 2025 R1 accepts TDF or TAF. Decompensated cirrhosis: the 2025 Figure 5 lists TAF, but the US label does not recommend it in Child-Pugh B or C, so say that. PegIFN is contraindicated in decompensated cirrhosis and in pregnancy.",
+  "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 (PMID 41186418); US prescribing information.");
 
 // ---------------------------------------------------------------- HCC
 sec("HCC risk");
@@ -873,6 +970,22 @@ ext(() => {
 });
 
 // ---------------------------------------------------------------- Special situations
+{
+  const s = slide("HCC surveillance: summary");
+  body(s, [
+    { t: "Ultrasound and AFP every 6 months", b: true },
+    "Cirrhosis",
+    "No cirrhosis, from an endemic region: men over 40, women over 50; people of African origin earlier",
+    "Family history of HCC",
+    "PAGE-B 10 or more",
+    "Hepatitis D coinfection",
+    { t: "Keep going after HBsAg loss if:", b: true },
+    "Cirrhosis or a family history of HCC, or HBsAg lost after 40 in men and after 50 in women",
+  ], { x: 0.6, y: 1.3, w: 7.6, h: 5.5, size: 21, gap: 8 });
+  pic(s, "ultrasound-probe.png", 8.5, 1.4, 4.5, 5.3, "Watercolor of an abdominal ultrasound probe");
+  src(s, "AASLD HCC guidance 2023, Table 1 (PMID 37199193); AASLD/IDSA 2025 R6 to R9 (PMID 41186418).");
+  s.addNotes("AASLD 2023 Table 1 and AASLD/IDSA 2025 R6 to R9 (all conditional, very low certainty). Cirrhosis: Child-Pugh A and B patients who could be treated for HCC; Child C only if a transplant candidate. HIV coinfection: men 18 and older and women 40 and older. HBV and HCV: use the HBV criteria after HCV is treated. Surveillance continues on antivirals even when DNA is suppressed.");
+}
 sec("Special situations");
 twoStep((step) => {
   const s = slide("Risk of HBV reactivation");
@@ -904,6 +1017,22 @@ twoStep((step) => {
   s.addNotes("High-risk exposure with anti-HBc positive: prophylaxis rather than monitoring (AGA R1, strong). Use a high-barrier drug: entecavir, TDF or TAF. Continue at least 6 months after the immunosuppression ends and at least 12 months for B-cell-depleting therapy (AGA and AASLD 2018); EASL 2025 says 6 to 12 months and at least 18 months after B-cell depletion. For a moderate-risk exposure in a DNA-negative resolved infection, AGA favors prophylaxis but accepts monitoring. ACR 2021 and ASCO 2020 give the rheumatology and oncology versions.");
   return s;
 });
+{
+  const s = slide("Before immunosuppression: summary");
+  fbox(s, "Before chemotherapy or immunosuppression: HBsAg, anti-HBc, anti-HBs", 2.4, 1.2, 8.5, 0.6, "q", 18);
+  fline(s, 6.65, 1.8, 6.65, 2.1); fline(s, 2.35, 2.1, 10.95, 2.1);
+  [2.35, 6.65, 10.95].forEach((x) => farrow(s, x, 2.1, x, 2.4));
+  fbox(s, "HBsAg positive", 0.45, 2.4, 3.8, 0.6, "q", 17);
+  fbox(s, "HBsAg negative, anti-HBc positive", 4.75, 2.4, 3.8, 0.6, "q", 17);
+  fbox(s, "All negative", 9.05, 2.4, 3.8, 0.6, "q", 17);
+  farrow(s, 2.35, 3.0, 2.35, 3.35); fbox(s, "Prophylaxis: entecavir, TDF or TAF", 0.45, 3.35, 3.8, 1.0, "treat", 18);
+  farrow(s, 2.35, 4.35, 2.35, 4.7); fbox(s, "Start before the first dose. Continue 6 months after the last, 12 after anti-CD20", 0.45, 4.7, 3.8, 1.4, "watch", 17);
+  farrow(s, 6.65, 3.0, 6.65, 3.35); fbox(s, "High risk (anti-CD20, stem cell transplant): prophylaxis", 4.75, 3.35, 3.8, 1.0, "treat", 17);
+  farrow(s, 6.65, 4.35, 6.65, 4.7); fbox(s, "Moderate or low risk: DNA and ALT every 1 to 3 months, or prophylaxis", 4.75, 4.7, 3.8, 1.4, "decide", 17);
+  farrow(s, 10.95, 3.0, 10.95, 3.35); fbox(s, "Vaccinate", 9.05, 3.35, 3.8, 1.0, "watch", 18);
+  src(s, "AGA 2025 (PMID 39863345); AASLD 2018 (PMID 29405329); EASL 2025 (PMID 40348683).");
+  s.addNotes("AGA 2025: high risk above 10%, moderate 1 to 10%, low below 1%. HBsAg positive: prophylaxis for high- and moderate-risk drugs and for chemotherapy; AGA does not insist on it for every low-risk drug, so say 'nearly all'. HBsAg negative, anti-HBc positive: prophylaxis for anti-CD20 and stem cell transplant; for moderate risk AGA favors prophylaxis but accepts monitoring; low risk is monitoring. Duration: 6 months after the last dose, 12 after B-cell depleting therapy (AGA, AASLD 2018); EASL 2025 says 18 after B-cell depletion. Anti-HBs does not change the decision for anti-CD20. All negative: vaccinate (ACIP: all adults 19 to 59, and 60 and older with risk factors).");
+}
 twoStep((step) => {
   const s = slide("29-year-old woman, 20 weeks pregnant");
   table(s, [["HBsAg", "HBeAg", "HBV DNA", "ALT"], ["Positive", "Positive", { t: "5,000,000 IU/mL", red: true }, "22 U/L"]],
@@ -939,6 +1068,29 @@ ext(() => {
   src(s, "Pan CQ et al. NEJM 2016 (PMID in dossier ref 52). Jourdain G et al. NEJM 2018 (ref 53).");
   s.addNotes("Pan: 200 HBeAg-positive mothers with DNA above 200,000, TDF from week 30 to 32 to 4 weeks postpartum versus usual care: infant infection 5/97 (5%) vs 18/100 (18%) by intention to treat, 0 vs 6/88 (7%) per protocol. Post-withdrawal ALT elevations in mothers 45% vs 30%. Jourdain: 331 women, TDF from week 28 to 2 months postpartum: infant infection 0/147 vs 3/147 (2%), p = 0.12. A 2025 randomized trial (Pan, JAMA) starting TDF at week 16 without HBIG was noninferior to week 28 plus HBIG: 1/131 vs 0/142.");
 });
+mcq("Same woman, after delivery", "She is on TDF. Can she breastfeed?", [
+  "No, tenofovir in breast milk harms the baby",
+  "Yes",
+  "Only after the baby finishes the vaccine series",
+  "Only if her DNA is undetectable",
+], 1, { file: "newborn-vaccine.png", alt: "Watercolor of a sleeping swaddled newborn beside a vaccine syringe on a tray" },
+  "Breastfeeding is not prohibited (AASLD 2018 and AASLD/IDSA 2025). Tenofovir levels in breast milk are low, and the baby has had vaccine and HBIG. Let the room vote first; many think the answer is no.",
+  "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 (PMID 41186418).");
+{
+  const s = slide("Pregnancy: summary");
+  body(s, [
+    "Test HBsAg in every pregnancy",
+    "HBsAg positive: check DNA and ALT",
+    { t: "DNA above 200,000: TDF or TAF from week 28", b: true },
+    "Baby: hepatitis B vaccine and HBIG within 12 hours of birth, then finish the series",
+    "Test the baby at 9 to 12 months: HBsAg and anti-HBs",
+    "Breastfeeding is fine",
+    "If she stops after delivery: DNA and ALT every 1 to 3 months for 6 months",
+  ], { x: 0.6, y: 1.3, w: 7.6, h: 5.5, size: 21, gap: 10 });
+  pic(s, "pregnant-patient.png", 8.5, 1.3, 4.5, 5.4, "Watercolor of a seated pregnant woman in profile");
+  src(s, "AASLD/IDSA 2025 R1 (PMID 41186418); CDC 2023 (PMID 36893044); CDC perinatal hepatitis B guidance.");
+  s.addNotes("AASLD/IDSA 2025 R1 (strong, moderate certainty): DNA above 200,000 at any point, start TDF or TAF at week 28; consider week 16 when infant HBIG is not available. Stopping at delivery is allowed when the drug was only for prevention. WHO 2024 also treats HBeAg-positive mothers regardless of DNA. Infant testing: HBsAg and anti-HBs, not anti-HBc. CDC 2023 screens every pregnancy.");
+}
 ext(() => {
   tableSlide("Coinfection with HIV or HCV", [["Coinfection", "What to do"],
     ["HIV", "ART must include TDF or TAF plus emtricitabine or lamivudine. Entecavir alone is not HIV treatment"],
@@ -992,13 +1144,43 @@ twoStep((step) => {
     ["HBsAg under 100 IU/mL", "400 IU/mL", ans(step, { t: "No", red: true, b: true })],
     ["No HIV or HDV", "Both negative", ans(step, "Yes")],
     ["Reliable follow-up", "Yes", ans(step, "Yes")]],
-    { x: 0.8, y: 1.3, w: W - 1.6, size: 20, minRowH: 0.65 });
-  q(s, "Can he stop?", 5.5, { size: 26 });
-  if (step === 2) q(s, "No. Continue until HBsAg is lost", 6.1, { size: 22, hl: true });
+    { x: 0.4, y: 1.3, w: 8.6, size: 19, minRowH: 0.65 });
+  pic(s, "man-52.png", 9.1, 1.3, 4.1, 5.0, "Watercolor of the same man in his fifties, gray at the temples, with reading glasses");
+  q(s, "Can he stop?", 5.5, { size: 26, x: 0.4, w: 8.6 });
+  if (step === 2) q(s, "No. Continue until HBsAg is lost", 6.1, { size: 22, hl: true, x: 0.4, w: 8.6 });
   src(s, "AASLD/IDSA 2025 R5. Hepatology 2026;83:974-997, PMID 41186418.");
   s.addNotes("HBeAg negative, started on TAF at 52. AASLD/IDSA 2025 R5 (conditional, very low certainty) suggests continuing until HBsAg loss; stopping only in exceptions: no advanced complications, DNA undetectable at least 2 years, qHBsAg under 100, no HIV or HDV, reliable follow-up. If HBeAg-positive at the start, seroconverted at least 1 year. The text says 2 years and the guideline's Figure 4 legend says 3, so quote 2 to 3. If you do stop: DNA and ALT every 1 to 3 months for 6 months, then every 3 months for 6 to 12 months, then every 3 to 6 months. Retreat for DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 or decompensation (Table 3). Evidence in the extended version. Values are made up.");
   return s;
 });
+mcq("A different patient stops TAF", "Which result means restart now?", [
+  "ALT 1.5 times ULN",
+  "HBV DNA 10,000 IU/mL",
+  "HBsAg 200 IU/mL",
+  "Anti-HBs negative",
+], 1, { file: "blood-tubes.png", alt: "Watercolor of blood collection tubes in a rack" },
+  "AASLD/IDSA 2025 Table 3: restart at once for DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 mg/dL, or decompensation. A mild ALT rise after stopping is expected and is watched, not treated straight away.",
+  "AASLD/IDSA 2025 Table 3 (PMID 41186418).");
+{
+  const s = slide("Stopping: summary");
+  body(s, [
+    { t: "Default: continue until HBsAg is lost", b: true },
+    { t: "Stop only if all of these:", b: true },
+    "No cirrhosis",
+    "DNA undetectable for 2 years or more",
+    "HBsAg under 100 IU/mL",
+    "No HIV or HDV",
+    "Reliable follow-up",
+  ], { x: 0.5, y: 1.3, w: 5.7, h: 5.2, size: 21, gap: 8 });
+  s.addText("After stopping", { x: 6.5, y: 1.3, w: 6.5, h: 0.45, fontFace: "Georgia", fontSize: 20, bold: true, align: "center", color: "000000", isTextBox: true, margin: 0 });
+  fbox(s, "Months 0 to 6: DNA and ALT every 1 to 3 months", 6.7, 1.9, 6.2, 0.6, "watch", 16);
+  farrow(s, 9.8, 2.5, 9.8, 2.75);
+  fbox(s, "Months 6 to 12: every 3 months", 6.7, 2.75, 6.2, 0.6, "watch", 16);
+  farrow(s, 9.8, 3.35, 9.8, 3.6);
+  fbox(s, "After 12 months: every 3 to 6 months", 6.7, 3.6, 6.2, 0.6, "watch", 16);
+  fbox(s, "Restart now: DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 mg/dL, or decompensation", 6.7, 4.7, 6.2, 1.2, "treat", 17);
+  src(s, "AASLD/IDSA 2025 R5 and Table 3 (PMID 41186418).");
+  s.addNotes("R5 is conditional, very low certainty. If HBeAg-positive at the start, also seroconverted for at least 1 year. The text says 2 years of suppression and the Figure 4 legend says 3. Follow-up and retreatment triggers are from Table 3; the table says ALT above 5 times ULN and the prose says 5 times or more.");
+}
 ext(() => {
   tableSlide("What happens when you stop", [["Study", "Patients", "HBsAg loss", "Retreatment"],
     ["STOP-NUC, randomized (Van Bommel 2023)", "166", "10.1% vs 0% at 96 weeks", "13.9%"],

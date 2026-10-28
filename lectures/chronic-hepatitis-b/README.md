@@ -2,8 +2,8 @@
 
 Residents, GI fellows, hepatologists and NPs. One build.js makes both versions.
 
-- `Chronic Hepatitis B (30 min).pptx` and `CHB-slides-30min.pdf`: core talk, 30 numbered slides
-- `Chronic Hepatitis B.pptx` and `CHB-slides-60min.pdf`: extended talk, 56 numbered slides (full history, HDV, transplant, children, stopping evidence, pipeline)
+- `Chronic Hepatitis B (30 min).pptx` and `CHB-slides-30min.pdf`: core talk, 38 numbered slides
+- `Chronic Hepatitis B.pptx` and `CHB-slides-60min.pdf`: extended talk, 64 numbered slides (full history, HDV, transplant, children, stopping evidence, pipeline)
 - `LECTURE_PLAN.md`: outline, sources and open questions
 - `build/`: build.js, figures, `sh rebuild.sh` builds both decks. Slides inside `ext(() => {...})` appear only in the 60-minute version.
 
