@@ -23,7 +23,7 @@ Cut to fit 20 minutes after Nizar's review (28 October 2026): merged Why Epic wi
 | 3 | Why Epic? | Share of US transplants at centers using Phoenix: 82% (2024), 86% (2025). Reveal adds US hospital market share beside it; VA in the notes |
 | 4 | Pause | "We used to call the resident who got the whole story a good historian." Reveal |
 | 5 | New referral | ZZTEST, LIVER and the six questions to answer before the visit. Reveal |
-| 6 | We built three Synopsis views. You can too | Thumbnails of the three views; Koirala 2024 (Mayo pulmonary hypertension dashboard in Epic: previsit review 7.0 to 4.95 min) |
+| 6 | We built three Synopsis views. You can too | Thumbnails of the three views; one line: one screen per disease cut previsit review 7.0 to 4.95 min (Koirala 2024, Mayo pulmonary hypertension dashboard in Epic, cited in the footer) |
 | 7 | Our liver disease view | Zoom: MELD 3.0 from 9 to 24 in a year. Reveal |
 | 8 | Our chronic liver disease workup view | Was the workup done? Gaps highlighted. Reveal |
 | 9 | Ctrl+Space, then Chart search does more | Full slide with the watercolor key background (EGD search and favorites in the notes), then under the same number: hepatitis b (entecavir, tenofovir), trend ALT, ALT and weight together, OCR of a scanned fax, 80x13 math |

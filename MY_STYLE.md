@@ -2,7 +2,7 @@
 
 What Mohammad Almeqdadi's lectures look like and sound like. Use it for every new deck and every edit to an old one.
 
-How to actually build or change a deck is in [AUTHOR_GUIDE.md](AUTHOR_GUIDE.md). Pictures made with Gemini follow [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md).
+How to actually build or change a deck is in [AUTHOR_GUIDE.md](AUTHOR_GUIDE.md). Pictures made with Gemini follow [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md). Every build ends with the checklist in [HUMANIZER.md](HUMANIZER.md), which covers the sound-human rules below in full.
 
 This file comes from two places: a read-through of the 18 decks in `lectures/` (source index at the end), and the rules Mohammad set while we built the ALF/ACLF ICU lecture in October 2026. Where the two disagree, his rules win.
 
@@ -10,7 +10,7 @@ This file comes from two places: a read-through of the 18 decks in `lectures/` (
 
 - Ask first. Show the data, let the room answer, then reveal on the next slide.
 - No text-only slides. Every slide carries a table, chart, image, paper figure or diagram.
-- Plain clinical wording in his voice. No slogans, no clever closers, nothing that sounds generated.
+- Plain clinical wording in his voice. No slogans, no clever closers, nothing that sounds generated. Run the [HUMANIZER.md](HUMANIZER.md) pass before handing a deck over.
 - No spoilers anywhere before the reveal: titles, section pages, objectives, images, notes.
 - White slides, Georgia, black text, yellow highlight on the answer, red for abnormal values.
 - Each reveal is a new slide. No transitions or animations. One reveal sequence is one slide number.
