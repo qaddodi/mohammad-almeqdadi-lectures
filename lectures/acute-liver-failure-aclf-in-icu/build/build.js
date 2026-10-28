@@ -567,7 +567,7 @@ twoStep((step) => {
     ["Autoimmune hepatitis", "Woman, other autoimmune disease", "ANA, ASMA, IgG", ans(step, "Steroids with hepatology")],
     ["Wilson disease", "Under 40, Coombs-negative hemolysis", "Ceruloplasmin, urine copper", ans(step, "Urgent transplant")],
     ["AFLP, HELLP", "Third trimester, high BP, low platelets", "hCG", ans(step, "Obstetrics: delivery")],
-    ["Budd-Chiari", "Pain, ascites, big liver", "Doppler or CT", ans(step, "Anticoagulate; TIPS")],
+    ["Budd-Chiari", "Pain, ascites, big liver", "Doppler or CT", ans(step, "Anticoagulate; DIPS")],
     ["Ischemic hepatitis", "Shock or arrest, very high LDH", "Echo", ans(step, "Fix the circulation")],
     ["Amanita", "Wild mushrooms, diarrhea 6-24 h later", "Poison control", ans(step, "NAC, silibinin")],
   ], { x: 0.5, y: 1.3, w: W - 1.0, size: 16 });
@@ -747,8 +747,8 @@ twoStep((step) => {
   const y146 = cy + ch * (lay.y + lay.h * (1 - 146 / 250));
   if (step === 2) s.addShape(pres.shapes.LINE, { x: cx + cw * lay.x, y: y146, w: cw * lay.w, h: 0,
     line: { color: "000000", width: 1.5, dashType: "dash" }, objectName: "Line146" });
-  if (step === 2) s.addText("146", { x: cx + cw * (lay.x + lay.w) - 0.6, y: y146 - 0.36, w: 0.6, h: 0.32, fontFace: TBL_FONT, fontSize: 14,
-    bold: true, align: "right", color: "000000", isTextBox: true, margin: 0 });
+  if (step === 2) s.addText([{ text: "146", options: { bold: true, fontSize: 14, breakLine: true } }, { text: "lowest level in a herniated patient", options: { fontSize: 11 } }],
+    { x: cx + cw * (lay.x + lay.w) - 2.3, y: y146 - 0.62, w: 2.3, h: 0.58, fontFace: TBL_FONT, align: "right", valign: "bottom", color: "000000", isTextBox: true, margin: 0 });
   bars(s, [
     { name: "Ammonia ≥ 122 for 3 days", labels: ["Survival", "Cerebral edema"], values: [23, 71] },
     { name: "Ammonia falling", labels: ["Survival", "Cerebral edema"], values: [72, 37] },
