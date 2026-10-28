@@ -5,6 +5,7 @@ Step by step: how to build a new lecture, or change an existing one, so it comes
 Read these first:
 
 - [MY_STYLE.md](MY_STYLE.md): what the lectures look and sound like, and the rules he has set. This guide doesn't repeat them.
+- [HUMANIZER.md](HUMANIZER.md): the sound-human and look-human checklist. Run it on every build and every edit, before handing a deck over (step 9).
 - [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md): Gemini cover, section-page and spot images.
 - The worked example: [lectures/acute-liver-failure-aclf-in-icu](lectures/acute-liver-failure-aclf-in-icu/), especially [build/build.js](lectures/acute-liver-failure-aclf-in-icu/build/build.js).
 
@@ -147,7 +148,7 @@ LibreOffice doesn't have Georgia, so its PDF looks slightly different from Power
 Go through the deck four times, one question each time:
 
 1. **Spoilers.** For every question slide, does anything earlier (titles, section pages, objectives, images, labels, chart lines, paper titles, notes read aloud) give away the answer? The ALF review found 13 of these, so expect some. A template is in the project files at `alf-aclf-lecture/review/spoiler-check.md`.
-2. **Voice.** Read each line out loud. Rewrite anything that sounds like a slogan, a press release or a guideline committee. Check for "transfer to a transplant center", time-of-day words and audience lines.
+2. **Voice and look.** Run the full pass in [HUMANIZER.md](HUMANIZER.md), slides and speaker notes. Read each line out loud. Rewrite anything that sounds like a slogan, a press release or a guideline committee, and simplify any slide that looks like a generator template. Check for "transfer to a transplant center", time-of-day words and audience lines.
 3. **Figures.** No slide is only text.
 4. **Facts and timeline.** Every number matches its source, every PMID was confirmed, the case timeline still holds after any reordering, and grades and scores match the data on the slides.
 
@@ -172,7 +173,7 @@ Change `build.js`, never the .pptx by hand, or the next rebuild will undo it. Th
 
 - He pins comments on a slide or PDF page. Fix that slide, then look for the same problem in the rest of the deck. After "I'd never write like this" on one line, every other slogan-like line went too.
 - If he gives a direction, do it and say what you changed. If he has to choose (two of his decks teach different things, a case detail changes a grade), give him a short choice with a recommendation.
-- If a new rule comes out of a comment, add it to MY_STYLE.md so the next lecture gets it.
+- If a new rule comes out of a comment, add it to MY_STYLE.md (and HUMANIZER.md if it is about wording or look) so the next lecture gets it.
 
 ## Prompt to start a new lecture
 
