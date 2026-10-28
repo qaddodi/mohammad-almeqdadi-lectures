@@ -489,7 +489,7 @@ function fullView(title, files, notes) {
   lab(s, "Finding information");
   s.addText([{ text: "One screen per disease cut physician previsit review from " }, { text: "7.0 to 4.95 minutes", options: { highlight: HL, bold: true } }],
     { x: 0.6, y: 1.12, w: W - 1.2, h: 0.5, fontFace: "Georgia", fontSize: 18, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0, objectName: "Sub" });
-  const v = [["thumb-pre.png", "Liver disease"], ["thumb-workup.png", "CLD workup"], ["thumb-post.png", "After transplant"]];
+  const v = [["thumb-pre.png", "Liver disease"], ["thumb-workup.png", "CLD workup"], ["thumb-post.png", "Post-transplant"]];
   const cw = 3.95, gap = 0.25, x0 = (W - 3 * cw - 2 * gap) / 2;
   v.forEach(([f, t], i) => {
     const x = x0 + i * (cw + gap);
@@ -499,7 +499,7 @@ function fullView(title, files, notes) {
   s.addText("Start from one of Epic's Synopsis views, then sit with your Epic analyst and add the sections you look for every day", { x: 0.9, y: 6.1, w: W - 1.8, h: 0.6,
     fontFace: "Georgia", fontSize: 19, align: "center", color: "000000", isTextBox: true, margin: 0 });
   src(s, MOCK + ". Epic Synopsis Setup and Support Guide, 2026. Koirala T et al. Appl Clin Inform 2024;15:928-38 (Mayo Clinic pulmonary hypertension clinic, 2 physicians, Signal data). doi:10.1055/s-0044-1790552");
-  s.addNotes("Is there evidence a view like this saves time? The best I found is from Mayo Clinic Florida: their pulmonary hypertension clinic built a disease-focused dashboard in Epic, everything on one screen with current and past values. Physician previsit review, from Signal, went from 7.0 to 4.95 minutes, total EHR time per visit from 15.2 to 12.2, and after-hours time on non-clinic days from 30 to 17. Small study, two physicians, but it's the same idea. Epic hasn't published numbers for Synopsis itself. We built three views at our center: a liver disease view for cirrhosis over time, one for the chronic liver disease workup that shows the most recent value of every etiology test in the last 20 years, and one for after transplant. Epic ships a cirrhosis view, built with its Hepatology Specialty Steering Board, that your analyst can import; we started there and kept adding sections. You can do the same: it's a build request, not a product purchase.");
+  s.addNotes("Is there evidence a view like this saves time? The best I found is from Mayo Clinic Florida: their pulmonary hypertension clinic built a disease-focused dashboard in Epic, everything on one screen with current and past values. Physician previsit review, from Signal, went from 7.0 to 4.95 minutes, total EHR time per visit from 15.2 to 12.2, and after-hours time on non-clinic days from 30 to 17. Small study, two physicians, but it's the same idea. Epic hasn't published numbers for Synopsis itself. We built three views at our center: a liver disease view for cirrhosis over time, one for the chronic liver disease workup that shows the most recent value of every etiology test in the last 20 years, and a post-transplant view. Epic ships a cirrhosis view, built with its Hepatology Specialty Steering Board, that your analyst can import; we started there and kept adding sections. You can do the same: it's a build request, not a product purchase.");
 }
 
 // 7 Liver disease view, zoomed
