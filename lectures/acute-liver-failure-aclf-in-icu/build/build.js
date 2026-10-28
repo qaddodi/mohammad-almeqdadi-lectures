@@ -1131,22 +1131,6 @@ function apxKcc() {
 }
 kcc(1).addNotes("Let them vote.");
 cont(); kcc(2).addNotes("King's College criteria are specific but not very sensitive. If you wait for them, the evaluation starts too late. Patient A now meets acetaminophen criteria by pH, but the call happened on admission. Transplant referral, listing and allocation are separate decisions; the transplant team handles the last two.");
-paper("Can plasma exchange buy time?", "larsen-title.png", "larsen-fig1.png",
-  "Larsen FS et al. J Hepatol 2016;64:69-78 [PMID: 26325537]", "Larsen 2016 plasma exchange trial", 2.4)
-  .addNotes("Their Figure 1: hospital survival, high-volume plasma exchange (HPV) vs standard medical treatment (SMT), log-rank p = 0.0058.");
-twoStep((step) => {
-  const s = slide("Can plasma exchange buy time?");
-  table(s, [
-    [{ t: "Study", b: true }, "RCT, 182 ALF: high-volume plasma exchange × 3 days"],
-    [{ t: "Finding", b: true }, "Hospital survival 58.7% vs 47.8% (HR 0.56)"],
-    [{ t: "Limits", b: true }, { t: ans(step, "Not blinded; nothing on ACLF"), b: true }],
-    [{ t: "So", b: true }, ans(step, "A bridge; don't delay listing")],
-  ], { x: 0.5, y: 1.9, w: 8.3, size: 19, header: false, minRowH: 0.7 });
-  pic(s, "plasma-exchange.jpg", 8.95, 1.25, 4.1, 5.6, "Watercolor of an apheresis machine for plasma exchange");
-  src(s, "Larsen FS et al. J Hepatol 2016 [PMID: 26325537]");
-  s.addNotes("High-volume plasma exchange removes cytokines and DAMPs and replaces coagulation factors. Note the INR after plasma exchange is no longer the patient's INR.");
-  return s;
-});
 
 {
   const s = slide("Let's recap: bed 4, day 3");
@@ -1787,7 +1771,6 @@ apxMathurin();
     "Kumar R et al. Persistent hyperammonemia in ALF. Clin Gastroenterol Hepatol 2012 [PMID: 22521861]",
     "Cardoso FS et al. CRRT and ammonia in ALF. Hepatology 2018 [PMID: 28859230]",
     "Pre-emptive CRRT in ALF with cerebral edema. Aliment Pharmacol Ther 2026 [PMID: 42332991]",
-    "Larsen FS et al. High-volume plasma exchange. J Hepatol 2016 [PMID: 26325537]",
     "Cavallin M et al. Terlipressin vs midodrine and octreotide. Hepatology 2015 [PMID: 25644760]",
     "Wong F et al. CONFIRM. NEJM 2021 [PMID: 33657294]",
     "Artru F et al. Transplant in ACLF grade 3. J Hepatol 2017 [PMID: 28645736]",
