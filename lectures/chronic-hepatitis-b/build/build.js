@@ -715,8 +715,8 @@ twoStep((step) => {
   table(s, P1_ROWS(41, "55,000,000 IU/mL", "26 U/L"), { x: 0.5, y: 1.3, w: 7.3, size: 22, minRowH: 0.55, noLabel: true });
   pic(s, "man-34.png", 8.0, 1.15, 5.2, 5.8, "Watercolor of a man in his thirties seated in clinic");
   q(s, "Does the answer change?", 5.75, { size: 26, x: 0.5, w: 7.3 });
-  if (step === 2) q(s, "Over 40: treatment is suggested. He chose to wait. Start ultrasound and AFP every 6 months", 6.25, { size: 19, hl: true, x: 0.3, w: 7.7, h: 0.8 });
-  s.addNotes("AASLD/IDSA 2025 R3 (conditional, very low certainty): for immune-tolerant adults, antiviral therapy is supported if over 40 or with grade 2 / stage 2 or worse disease. The recommendation text says 'over 40' and the guideline's algorithm says '40 or more'. The evidence is observational and the AASLD technical review calls it very uncertain, so this is a shared decision. In our story he hears the options and chooses to keep monitoring, which is why he is untreated at 52. He is now a man from an endemic region over 40, so HCC surveillance starts here (AASLD 2023), whatever he decides about treatment.");
+  if (step === 2) q(s, "Over 40: treatment suggested. He chose to wait", 6.35, { size: 19, hl: true, x: 0.2, w: 7.9, h: 0.6 });
+  s.addNotes("AASLD/IDSA 2025 R3 (conditional, very low certainty): for immune-tolerant adults, antiviral therapy is supported if over 40 or with grade 2 / stage 2 or worse disease. The recommendation text says 'over 40' and the guideline's algorithm says '40 or more'. The evidence is observational and the AASLD technical review calls it very uncertain, so this is a shared decision. In our story he hears the options and chooses to keep monitoring, which is why he is untreated at 52. He is also now a man from an endemic region over 40, so he qualifies for HCC surveillance (AASLD 2023); that comes up in the HCC section.");
   return s;
 });
 ext(() => {
@@ -790,38 +790,47 @@ ext(() => twoStep((step) => {
   farrow(s, 6.65, 1.65, 6.65, 1.9);
   fbox(s, "Cirrhosis?", 4.9, 1.9, 3.5, 0.5, "q", 18);
   farrow(s, 8.4, 2.15, 9.7, 2.15, "Yes");
-  fbox(s, "Treat, any DNA level", 9.7, 1.9, 3.2, 0.5, "treat", 18);
+  fbox(s, "Treat, any DNA", 9.7, 1.9, 3.2, 0.5, "treat", 18);
   fline(s, 6.65, 2.4, 6.65, 2.6); fline(s, 2.4, 2.6, 9.1, 2.6);
   s.addText("No", { x: 6.75, y: 2.33, w: 0.6, h: 0.3, fontFace: TBL_FONT, fontSize: 14, bold: true, color: GREY, isTextBox: true, margin: 0 });
   farrow(s, 2.4, 2.6, 2.4, 2.8); farrow(s, 9.1, 2.6, 9.1, 2.8);
   fbox(s, "HBeAg positive", 0.5, 2.8, 3.8, 0.5, "q", 17);
   fbox(s, "HBeAg negative", 7.2, 2.8, 3.8, 0.5, "q", 17);
-  const L = [["DNA above 20,000 and ALT 2 times ULN or more", "Treat", "treat"],
-    ["DNA above 10 million, normal ALT, over 40 or F2 or worse", "Treatment suggested", "treat"],
+  const L = [["DNA >20,000 and ALT ≥2× ULN", "Treat", "treat"],
+    ["DNA >10⁷, normal ALT, age >40 or ≥F2", "Treatment suggested", "treat"],
     ["Between the two: the grey zone", "Shared decision", "decide"],
-    ["DNA above 10 million, normal ALT, 40 or younger, no fibrosis", "Monitor", "watch"]];
-  const Rr = [["DNA above 2,000 and ALT 2 times ULN or more", "Treat", "treat"],
+    ["DNA >10⁷, normal ALT, age ≤40, <F2", "Monitor", "watch"]];
+  const Rr = [["DNA >2,000 and ALT ≥2× ULN", "Treat", "treat"],
     ["Between the two: the grey zone", "Shared decision", "decide"],
-    ["DNA below 2,000, normal ALT", "Monitor", "watch"]];
+    ["DNA <2,000, normal ALT", "Monitor", "watch"]];
   L.forEach((r, i) => { const y = 3.5 + i * 0.83; fbox(s, r[0], 0.3, y, 4.2, 0.74, "cond", 16); farrow(s, 4.5, y + 0.37, 4.85, y + 0.37); fbox(s, r[1], 4.85, y, 1.85, 0.74, r[2], 16); });
   Rr.forEach((r, i) => { const y = 3.5 + i * 0.83; fbox(s, r[0], 7.0, y, 4.2, 0.74, "cond", 16); farrow(s, 11.2, y + 0.37, 11.55, y + 0.37); fbox(s, r[1], 11.55, y, 1.5, 0.74, r[2], 16); });
-  src(s, "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 R3, R4 and Figure 5 (PMID 41186418). ALT ULN 35 men, 25 women.");
+  src(s, "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 R3, R4 and Figure 5 (PMID 41186418). DNA in IU/mL. ULN = upper limit of normal ALT: 35 men, 25 women.");
   s.addNotes("This is the US version: AASLD 2018 thresholds for immune-active disease, with the two AASLD/IDSA 2025 changes. R3 (conditional, very low certainty): immune-tolerant adults over 40, or with grade 2 / stage 2 or worse disease, are suggested for treatment; the text says over 40 and the algorithm says 40 or more. R4: the indeterminate (grey zone) group, which is not limited to HBeAg-negative patients, is a shared decision. Cirrhosis: AASLD 2018 R7A treats compensated cirrhosis with low viremia regardless of ALT, R7B treats decompensated cirrhosis regardless of DNA, ALT or HBeAg, and the 2025 Figure 5 treats both regardless of DNA or ALT. EASL 2025 asks for detectable DNA in compensated cirrhosis. EASL 2025 and WHO 2024 treat more people: DNA above 2,000 with ALT above ULN, or significant fibrosis. Pregnancy and immunosuppression are separate pathways, covered later. 'Monitor' means ALT and DNA every 3 to 6 months and a fibrosis check.");
 }
 
 // ---------------------------------------------------------------- Drugs
 sec("Drugs");
 twoStep((step) => {
-  const s = slide("Same man at 52, eGFR 45");
-  q(s, "Which nucleos(t)ide analogue for him?", 1.2, { size: 24 });
-  table(s, [["", "Dose", "At eGFR 30 to 49", ""],
-    ["Entecavir", "0.5 mg daily", ans(step, "0.5 mg every 48 hours"), ans(step, "Dose-adjust")],
-    ["TDF", "300 mg daily", ans(step, "300 mg every 48 hours"), ans(step, "Dose-adjust, kidney and bone effects")],
-    ["TAF", "25 mg daily with food", ans(step, "25 mg daily"), ans(step, { t: "No adjustment", b: true })]],
-    { x: 0.6, y: 1.9, w: W - 1.2, size: 21, minRowH: 0.95 });
-  if (step === 2) q(s, "TAF, or entecavir with the dose adjusted", 6.1, { size: 24, hl: true });
-  src(s, "US prescribing information: Baraclude, Viread, Vemlidy (DailyMed). Renal doses use creatinine clearance.");
-  s.addNotes("The renal rows are from the US labels. Entecavir: for CrCl 30 to 49, 0.25 mg daily or 0.5 mg every 48 hours; use the oral solution for the daily fractions. TDF: CrCl 30 to 49, 300 mg every 48 hours. TAF: no adjustment at CrCl 15 or above. TAF is not recommended in Child-Pugh B or C in the US label, and the old statement that TAF cannot be used on dialysis is out of date. Bone and kidney data for TAF versus TDF are in the extended version. He started TAF.");
+  const s = slide("How to choose an antiviral");
+  q(s, "Same man, eGFR 45: which drug?", 1.15, { size: 24, h: 0.5 });
+  const rows = [["Decompensated cirrhosis", "Entecavir 1 mg or TDF (no TAF)"],
+    ["HIV", "TDF or TAF as part of ART"],
+    ["Prior lamivudine resistance", "TDF or TAF (not entecavir)"],
+    ["Kidney or bone disease, or at risk", "TAF, or entecavir dose-adjusted"],
+    ["Pregnancy", "TDF or TAF"],
+    ["None of these", "Entecavir, TDF or TAF"]];
+  fline(s, 0.55, 1.85, 0.55, 1.85 + 5 * 0.72 + 0.3);
+  rows.forEach((r, i) => {
+    const y = 1.85 + i * 0.72, him = i === 3;
+    farrow(s, 0.55, y + 0.3, 0.8, y + 0.3);
+    fbox(s, r[0], 0.8, y, 5.3, 0.6, "q", 18);
+    farrow(s, 6.1, y + 0.3, 6.6, y + 0.3);
+    fbox(s, step === 1 ? "" : r[1], 6.6, y, 6.2, 0.6, step === 2 && him ? "treat" : "watch", 18);
+  });
+  s.addText("Wants a finite course and has compensated disease: pegylated interferon, in selected patients", { x: 0.8, y: 6.25, w: 12.0, h: 0.45, fontFace: "Georgia", fontSize: 17, italic: true, align: "center", color: "000000", isTextBox: true, margin: 0 });
+  src(s, "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 (PMID 41186418); US prescribing information. Renal doses: appendix.");
+  s.addNotes("Read from the top: the first row that fits decides. His eGFR is 45, so TAF (no dose change down to CrCl 15) or entecavir with the dose adjusted; he started TAF. AASLD 2018: entecavir, TDF and TAF are first line; entecavir or TAF are preferred over TDF with renal dysfunction or bone disease, or risk of them. Lamivudine resistance gives cross-resistance to entecavir, so use tenofovir. Entecavir alone is not adequate in HIV: it selects HIV M184V. Pregnancy: TDF has the randomized data; AASLD/IDSA 2025 R1 accepts TDF or TAF. Decompensated cirrhosis: entecavir 1 mg daily (Baraclude label); the 2025 Figure 5 lists TAF, but the US label does not recommend it in Child-Pugh B or C. PegIFN is contraindicated in decompensated cirrhosis and in pregnancy. Monitoring on treatment: DNA every 3 months until undetectable, then every 3 to 6 months; on TDF, creatinine, phosphate, urine glucose and protein at least yearly (AASLD 2018). Renal dosing table is in the appendix.");
   return s;
 });
 ext(() => twoStep((step) => {
@@ -859,17 +868,6 @@ ext(() => {
     "Ning Q et al. J Hepatol 2014;61:777-784, PMID 24915612. Marcellin P et al. Gastroenterology 2016;150:134-144, PMID 26453773.");
 });
 
-tableSlide("Choosing the drug: summary", [["Situation", "Drug"],
-  [{ t: "Most patients", b: true }, "Entecavir, TDF or TAF"],
-  [{ t: "Kidney or bone disease, or at risk", b: true }, "TAF, or entecavir with the dose adjusted"],
-  [{ t: "Prior lamivudine resistance", b: true }, "TDF or TAF, not entecavir"],
-  [{ t: "HIV", b: true }, "TDF or TAF as part of ART"],
-  [{ t: "Decompensated cirrhosis", b: true }, "Entecavir 1 mg or TDF (no TAF in Child-Pugh B or C)"],
-  [{ t: "Wants a finite course", b: true }, "Pegylated interferon, selected patients"],
-  [{ t: "On treatment", b: true }, "DNA every 3 months, then every 3 to 6 months"]],
-  { size: 20, y: 1.3, tbl: { minRowH: 0.66 } },
-  "AASLD 2018: entecavir, TDF and TAF are first line. Entecavir or TAF are preferred over TDF with renal dysfunction or bone disease, or risk of them. Lamivudine resistance confers cross-resistance to entecavir, so use tenofovir. Entecavir alone is not adequate in HIV: it selects HIV M184V. Pregnancy is on its own slide later: TDF has the randomized data; AASLD/IDSA 2025 R1 accepts TDF or TAF. Decompensated cirrhosis: entecavir is 1 mg daily, not 0.5 mg (Baraclude label); the 2025 Figure 5 lists TAF, but the US label does not recommend it in Child-Pugh B or C, so say that. PegIFN is contraindicated in decompensated cirrhosis and in pregnancy. Monitoring on treatment: DNA every 3 months until undetectable, then every 3 to 6 months; on TDF, creatinine, phosphate, urine glucose and protein at least yearly (AASLD 2018). EASL 2025 uses 3 to 6 months at first, then 6 to 12.",
-  "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 (PMID 41186418); US prescribing information.");
 
 // ---------------------------------------------------------------- HCC
 sec("HCC risk");
@@ -909,15 +907,18 @@ ext(() => {
 twoStep((step) => {
   const s = slide("Who gets surveillance?");
   q(s, "Ultrasound and AFP every 6 months?", 1.2, { size: 24, x: 0.4, w: 8.4 });
-  pic(s, "ultrasound-probe.png", 8.8, 1.3, 4.4, 5.6, "Watercolor of an abdominal ultrasound probe");
+  pic(s, "ultrasound-probe.png", 9.0, 1.2, 4.0, step === 2 ? 2.2 : 5.6, "Watercolor of an abdominal ultrasound probe");
+  if (step === 2) body(s, [{ t: "AASLD 2023 criteria", b: true, nb: true }, "Cirrhosis", "Endemic region: men >40, women >50", "African origin: earlier", "Family history of HCC", "PAGE-B ≥10"],
+    { x: 8.95, y: 3.5, w: 4.2, h: 3.3, size: 18, gap: 4 });
   table(s, [["Patient", "Surveillance"],
+    ["Our patient at 41, born in Vietnam", ans(step, { t: "Yes", hl: step === 2 })],
     ["Compensated cirrhosis, Child-Pugh A", ans(step, "Yes")],
     ["Man from an endemic region, age 38, no cirrhosis", ans(step, "No")],
     ["Man from an endemic region, age 46, no cirrhosis", ans(step, "Yes")],
     ["Woman from an endemic region, age 46, no cirrhosis", ans(step, "No")],
     ["Family history of HCC", ans(step, "Yes")],
     ["PAGE-B score of 12", ans(step, "Yes")]],
-    { x: 0.4, y: 1.9, w: 8.4, size: 20, minRowH: 0.62 });
+    { x: 0.4, y: 1.85, w: 8.4, size: 20, minRowH: 0.6 });
   src(s, "AASLD HCC practice guidance 2023, Table 1. Hepatology 2023;78:1922-1965, PMID 37199193.");
   s.addNotes("AASLD 2023 Table 1: noncirrhotic HBV: men over 40 and women over 50 from endemic regions; people of African origin earlier (the wording is origin-based, not an instruction to start every Black American at 20); family history of HCC; PAGE-B 10 or more (the table prints 'over 10' while the score's own intermediate group starts at 10). Ultrasound plus AFP every 6 months (level 2, strong). The thresholds behind these groups are about 0.2% a year for noncirrhotic HBV and 1.0% for cirrhosis. These are model-based decision thresholds, not biological cut-offs. Continue surveillance after HBsAg loss in cirrhosis, family history, men who lost HBsAg after 40 and women after 50 (AASLD/IDSA 2025 R6).");
   return s;
@@ -998,10 +999,10 @@ twoStep((step) => {
   fbox(s, "All negative", 9.05, 2.4, 3.8, 0.6, "q", 17);
   farrow(s, 2.35, 3.0, 2.35, 3.35); fbox(s, "Prophylaxis: entecavir, TDF or TAF", 0.45, 3.35, 3.8, 1.0, "treat", 18);
   farrow(s, 6.65, 3.0, 6.65, 3.35); fbox(s, "High risk (anti-CD20, stem cell transplant): prophylaxis", 4.75, 3.35, 3.8, 0.95, "treat", 17);
-  farrow(s, 6.65, 4.3, 6.65, 4.5); fbox(s, "Moderate risk: prophylaxis preferred, or DNA and ALT every 1 to 3 months", 4.75, 4.5, 3.8, 0.95, "decide", 16);
+  farrow(s, 6.65, 4.3, 6.65, 4.5); fbox(s, "Moderate risk: prophylaxis preferred, or DNA and ALT q1 to 3 months", 4.75, 4.5, 3.8, 0.95, "decide", 16);
   farrow(s, 6.65, 5.45, 6.65, 5.6); fbox(s, "Low risk: monitor", 4.75, 5.6, 3.8, 0.5, "watch", 16);
   farrow(s, 10.95, 3.0, 10.95, 3.35); fbox(s, "Vaccinate", 9.05, 3.35, 3.8, 1.0, "watch", 18);
-  fbox(s, "Prophylaxis: start before the first dose; continue 6 months after the last dose, 12 months after anti-CD20", 0.45, 6.25, 12.4, 0.55, "cond", 16);
+  fbox(s, "Prophylaxis: start before the first dose; continue 6 mo after the last dose, 12 mo after anti-CD20", 0.45, 6.25, 12.4, 0.55, "cond", 16);
   src(s, "AGA 2025 (PMID 39863345); AASLD 2018 (PMID 29405329); EASL 2025 (PMID 40348683).");
   s.addNotes("AGA 2025: high risk above 10%, moderate 1 to 10%, low below 1%. HBsAg positive: prophylaxis for high- and moderate-risk drugs and for chemotherapy; AGA does not insist on it for every low-risk drug, so say 'nearly all'. HBsAg negative, anti-HBc positive: prophylaxis for anti-CD20 and stem cell transplant; for moderate risk AGA favors prophylaxis but accepts monitoring; low risk is monitoring. Duration: 6 months after the last dose, 12 after B-cell depleting therapy (AGA, AASLD 2018); EASL 2025 says 18 after B-cell depletion. Anti-HBs does not change the decision for anti-CD20. All negative: vaccinate (ACIP: all adults 19 to 59, and 60 and older with risk factors).");
 }
@@ -1098,7 +1099,7 @@ mcq("Same man: if he had stopped TAF", "Which result means restart now?", [
   fbox(s, "Months 6 to 12: every 3 months", 6.7, 2.75, 6.2, 0.6, "watch", 16);
   farrow(s, 9.8, 3.35, 9.8, 3.6);
   fbox(s, "After 12 months: every 3 to 6 months", 6.7, 3.6, 6.2, 0.6, "watch", 16);
-  fbox(s, "Restart now: DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 mg/dL, or decompensation", 6.7, 4.7, 6.2, 1.2, "treat", 17);
+  fbox(s, "Restart now: DNA ≥10,000, ALT >5× ULN, bilirubin >2.5 mg/dL, or decompensation", 6.7, 4.7, 6.2, 1.2, "treat", 17);
   src(s, "AASLD/IDSA 2025 R5 and Table 3 (PMID 41186418).");
   s.addNotes("R5 is conditional, very low certainty. The text says 2 years of suppression and the Figure 4 legend says 3. Follow-up and retreatment triggers are from Table 3; the table says ALT above 5 times ULN and the prose says 5 times or more.");
 }
@@ -1224,6 +1225,19 @@ sec("Close");
   s.addText("Slides (PDF)", { x: cx, y: 6.1, w: cw, h: 0.35, fontFace: "Georgia", fontSize: 14, align: "center", color: "595959", isTextBox: true, margin: 0 });
   s.addNotes("The QR code opens the slides PDF. The HBV HCC risk calculator is at qaddodi.github.io/chb-hcc-risk.");
   endMain();
+}
+
+// ---------------------------------------------------------------- Appendix
+sec("Appendix");
+{
+  const s = slide("Renal dosing");
+  table(s, [["", "Usual dose", "CrCl 30 to 49", "CrCl 10 to 29", "Dialysis"],
+    ["Entecavir", "0.5 mg daily", "0.5 mg every 48 hours", "0.5 mg every 72 hours", "0.5 mg every 7 days"],
+    ["TDF", "300 mg daily", "300 mg every 48 hours", "300 mg every 72 to 96 hours", "300 mg every 7 days"],
+    ["TAF", "25 mg daily with food", "25 mg daily", "25 mg daily (CrCl 15 or more)", "25 mg daily, after dialysis"]],
+    { x: 0.5, y: 1.5, w: W - 1.0, size: 18, minRowH: 0.9 });
+  src(s, "US prescribing information: Baraclude, Viread, Vemlidy (DailyMed). Doses use creatinine clearance, mL/min.");
+  s.addNotes("Entecavir 0.5 mg doses are for nucleoside-naive patients; double them for lamivudine-refractory or decompensated disease. Entecavir oral solution allows daily fractional doses instead (0.25 mg daily at CrCl 30 to 49). Give entecavir and TDF after hemodialysis on dialysis days. TAF is not recommended at CrCl 15 or below unless on chronic hemodialysis.");
 }
 
 (async () => {
