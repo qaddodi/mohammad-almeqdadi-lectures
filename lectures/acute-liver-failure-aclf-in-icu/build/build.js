@@ -1012,15 +1012,6 @@ cont();
 cvvh(2);
 twoStep((step) => {
   const s = slide("Does early CRRT actually help?");
-  pic(s, "cardoso-fig1b.png", 1.9, 1.3, W - 3.8, 4.7, "Ammonia on days 1 to 3 with CRRT, intermittent RRT or no RRT", { line: true });
-  if (step === 2) body(s, [{ t: "Ammonia fell from about 140 to under 90 μmol/L over 3 days on CRRT. Little change with intermittent RRT or no RRT", nb: true, i: true, align: "center" }],
-    { y: 6.1, h: 0.6, size: 17 });
-  src(s, "Cardoso FS et al. Hepatology 2018;67:711-20 [PMID: 28859230]");
-  s.addNotes("US ALF Study Group registry, 1,186 patients. Panel b of their Figure 1. The CRRT patients started higher, which is why they got CRRT. Observational, so it shows ammonia comes down on CRRT, not that CRRT saved them.");
-  return s;
-});
-twoStep((step) => {
-  const s = slide("Does early CRRT actually help?");
   table(s, [
     ["", "US ALF Study Group (2018)", "Pilot RCT (2026)"],
     ["Design", "Registry, observational", "Open label, ALF with cerebral edema"],
@@ -1255,12 +1246,6 @@ twoStep((step) => {
   s.addNotes("Ascites and a tense belly change IVC size and collapse, so use it with the lungs, the heart and the trend, not alone. Edema in a cirrhotic doesn't mean the vessels are full.");
   return s;
 });
-{
-  const s = slide("Splanchnic vasodilation in cirrhosis");
-  s.addImage({ path: path.join(IMG, "splanchnic.png"), x: (W - 8.9) / 2, y: 1.3, w: 8.9, h: 5.35, altText: "Splanchnic vasodilation in cirrhosis" });
-  src(s, "Rondon-Berrios H, Velez JCQ. Clin Liver Dis 2022");
-  s.addNotes("Portal hypertension, nitric oxide, splanchnic vasodilation, a low effective arterial volume, then RAAS, sympathetic tone and vasopressin. That's his baseline MAP, his sodium of 127 and his kidney, before the infection even started.");
-}
 twoStep((step) => {
   const s = slide("ALF, decompensation or ACLF?");
   table(s, [
@@ -1324,27 +1309,6 @@ cont(); organs(2).addNotes("Kidney and circulation. Respiratory is borderline: P
   src(s, "Moreau R et al. Gastroenterology 2013 [PMID: 23474284]");
   s.addNotes("Patient B is grade 2 on day 1. That is a group number from a 2013 cohort, not his number. The jump to grade 3 is the one to remember. The grade at days 3 to 7 says more than the grade at admission, which comes back later.");
 }
-{
-  const s = slide("Why do the organs fail?");
-  const bw = 3.3, bh = 0.95, y1 = 1.6, y2 = 3.4;
-  box(s, 0.6, y1, bw, bh, "Trigger: SBP");
-  box(s, 4.95, y1, bw, bh, "Bacterial products and damaged-cell signals (PAMPs, DAMPs)");
-  box(s, 9.3, y1, bw, bh, "Systemic inflammation, cytokine storm", { b: true });
-  arrow(s, 0.6 + bw, y1 + bh / 2, 4.95, y1 + bh / 2);
-  arrow(s, 4.95 + bw, y1 + bh / 2, 9.3, y1 + bh / 2);
-  box(s, 9.3, y2, bw, bh, "Worse vasodilation on top of portal hypertension");
-  box(s, 4.95, y2, bw, bh, "Immune paralysis, mitochondrial failure");
-  box(s, 0.6, y2, bw, bh, "Organ failure", { b: true, color: RED, line: RED });
-  arrow(s, 9.3 + bw / 2, y1 + bh, 9.3 + bw / 2, y2);
-  arrow(s, 9.3, y2 + bh / 2, 4.95 + bw, y2 + bh / 2);
-  arrow(s, 4.95, y2 + bh / 2, 0.6 + bw, y2 + bh / 2);
-  body(s, [
-    { runs: ["Bed 7 so far: ", { t: "kidney", b: true, red: true }, " and ", { t: "circulation", b: true, red: true }] },
-    "Treat the trigger early and support the organs; there is no drug for the inflammation itself",
-  ], { y: 4.8, h: 1.8, size: 20, gap: 10 });
-  src(s, "Concept from Arroyo V, Moreau R, Jalan R. N Engl J Med 2020");
-  s.addNotes("ALF had its 'why does the brain swell'. This is the ACLF version. The precipitant sets off systemic inflammation in a patient who is already vasodilated, and the organs fail from a mix of low perfusion, inflammation and mitochondrial dysfunction. The patient is both inflamed and immunosuppressed, which is why second infections are common.");
-}
 function apxWhichAclf() {
   const s = slide("Appendix: which ACLF?");
   table(s, [
@@ -1378,22 +1342,8 @@ function hrs(step) {
   src(s, "ADQI-ICA consensus, J Hepatol 2024 [PMID: 38527522]");
   return s;
 }
-function hrsDefs() {
-  const s = slide("HRS-AKI: what changed in 2024");
-  table(s, [
-    ["What many of us learned (ICA 2015)", "Now (ADQI-ICA 2024)"],
-    [
-      { t: [{ t: "No response to 2 days off diuretics + albumin", br: true }, { t: "No shock", br: true }, { t: "No nephrotoxins, no structural kidney disease" }] },
-      { t: [{ t: "Cirrhosis with ascites", br: true }, { t: "AKI by creatinine or urine output", br: true }, { t: "No response to 24 h of volume, if needed", br: true }, { t: "No albumin challenge if euvolemic or wet", br: true }, { t: "No other main cause" }] },
-    ],
-  ], { x: 0.8, y: 1.5, w: W - 1.6, size: 20, valign: "top", noLabel: true });
-  q(s, "Faster to call. But you still have to look for the other causes", 5.3, { size: 22 });
-  src(s, "Angeli P et al. J Hepatol 2015 (ICA); ADQI-ICA consensus, J Hepatol 2024 [PMID: 38527522]");
-  return s;
-}
 hrs(1).addNotes("The reflex in many units: oliguric cirrhotic, give albumin for 48 hours, then terlipressin.");
-hrsDefs().addNotes("The left column is what most of us were taught. The 48-hour albumin challenge is gone, and there is no fluid challenge at all for a patient who is already wet.");
-hrs(2).addNotes("Let the room fill it in.");
+cont(); hrs(2).addNotes("Let the room fill it in.");
 cont(); hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours, or 50% or more within 7 days, and/or urine output 0.5 mL/kg/h or less for 6 hours or more. The mandatory 48-hour albumin challenge is gone, and a patient who is already wet doesn't need a fluid challenge to satisfy a clock. HRS physiology and tubular injury can coexist. Assessment is faster and individualized. But that cuts both ways: you also need to look for the other causes, and right now sepsis is the obvious one.");
 {
   const s = slide("Kidney failure in cirrhosis is usually a mixture");
@@ -1416,12 +1366,6 @@ cont(); hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 4
   ], { x: 8.3, y: 1.4, w: 4.5, h: 5.0, size: 19 });
   src(s, "ADQI-ICA consensus 2024 [PMID: 38527522]");
   s.addNotes("These coexist and change over the admission. A diagnosis of HRS made on day 1 should be re-examined on day 2.");
-}
-{
-  const s = slide("Function and damage: four kinds of AKI");
-  pic(s, "adqi-fig4.png", 2.2, 1.25, W - 4.4, 5.5, "ADQI framework of AKI phenotypes by function and damage markers");
-  src(s, "Nadim MK et al. J Hepatol 2024;81:163-83 [PMID: 38527522], Fig. 4 (CC BY 2.0, adapted from ADQI)");
-  s.addNotes("HRS-AKI sits in the bottom row: dysfunction, with or without damage. ATN and HRS can coexist. Damage markers such as urine NGAL help where available; a urine sediment helps everywhere.");
 }
 function heB(step) {
   const s = slide("Day 1: more confused");
@@ -1498,12 +1442,6 @@ twoStep((step) => {
   s.addNotes("Before any terlipressin dose: baseline SpO2, lung exam, volume status, and whether he is ACLF grade 3. Norepinephrine is an ICU alternative for HRS when terlipressin is contraindicated or unavailable. RRT for volume overload or acidosis follows the usual ICU indications. RRT for HRS alone is a bridge to transplant; in a patient who is not a candidate, it is a goals-of-care conversation first, and a time-limited trial is one honest option.");
   return s;
 });
-{
-  const s = slide("What each HRS drug does to the heart and lungs");
-  pic(s, "adqi-fig5.png", 1.4, 1.25, W - 2.8, 5.5, "Effects of HRS-AKI treatments on vascular beds, heart, kidney and lungs");
-  src(s, "Nadim MK et al. J Hepatol 2024;81:163-83 [PMID: 38527522], Fig. 5 (CC BY 2.0, adapted from ADQI)");
-  s.addNotes("Terlipressin raises kidney perfusion pressure but shunts splanchnic blood centrally, raises afterload and lowers cardiac output, and can constrict the pulmonary vessels. Add large doses of albumin and you get pulmonary edema. Norepinephrine raises cardiac output and causes less splanchnic shunting. Midodrine with octreotide gives only modest splanchnic constriction.");
-}
 paper("Does HRS reversal mean survival?", "confirm-title.png", "confirm-concl.png",
   "Wong F et al. N Engl J Med 2021;384:818-28 [PMID: 33657294]", "CONFIRM trial")
   .addNotes("CONFIRM: 300 patients with HRS type 1, terlipressin plus albumin vs placebo plus albumin, randomized 2:1. Their own conclusion already has the catch in it.");
@@ -1542,30 +1480,6 @@ paper("Should we treat the albumin number?", "attire-title.png", "attire-concl.p
   src(s, "China L et al. NEJM 2021 [PMID: 33657293]; ADQI-ICA 2024 [PMID: 38527522]");
   s.addNotes("ATTIRE doesn't invalidate albumin for its accepted uses. It does tell you that giving albumin to fix a number causes harm without benefit. Patient B got the right albumin for SBP and still got wet.");
 }
-twoStep((step) => {
-  const s = slide("Midodrine and octreotide for HRS-AKI?");
-  if (step === 1) {
-    body(s, [{ t: "Head to head: terlipressin vs midodrine plus octreotide, both with albumin, type 1 HRS", nb: true, align: "center" }], { y: 1.4, h: 0.9, size: 22 });
-    q(s, "How different can two vasoconstrictors be?", 2.45, { size: 28 });
-    qPic(s, "midodrine-octreotide.jpg", 3.2, 3.75, "Watercolor of a cup of tablets, an ampule and a syringe");
-    return s;
-  }
-  bars(s, [
-    { name: "Terlipressin + albumin (n = 27)", labels: ["Complete response", "Complete or partial response"], values: [55.5, 70.4] },
-    { name: "Midodrine + octreotide + albumin (n = 21)", labels: ["Complete response", "Complete or partial response"], values: [4.8, 28.6] },
-  ], { x: 0.6, y: 1.4, w: 7.4, h: 5.3, max: 100, fmt: '0.0"%"', legend: true });
-  body(s, [
-    { t: "Randomized, 8 Italian centers, type 1 HRS. 49 randomized (27 vs 22), 48 analyzed", b: true, nb: true },
-    "Stopped early at the interim analysis because the difference was already clear",
-    "Blood pressure rose more with terlipressin",
-    "3-month survival 59% vs 43%; too small to tell",
-    "Not a substitute for IV pressors in the ICU",
-    { runs: [{ t: "Use it only if terlipressin and norepinephrine are not options", b: true, hl: true }] },
-  ], { x: 8.3, y: 1.5, w: 4.6, h: 5.2, size: 17, gap: 8 });
-  src(s, "Cavallin M et al. Hepatology 2015;62:567-74 [PMID: 25644760]; ADQI-ICA 2024 [PMID: 38527522]");
-  s.addNotes("Midodrine and octreotide were the US default for years because terlipressin wasn't available. In the randomized comparison with terlipressin, 1 of 21 analyzed patients had a complete response. It wasn't powered for mortality. Most of them are on the floor at the time, so the practical message for the ICU is simple: once he needs an ICU bed, norepinephrine with albumin is the alternative to terlipressin, not midodrine and octreotide. About half of the midodrine non-responders were rescued with terlipressin, and most of those then responded.");
-  return s;
-});
 function trajectory(step) {
   const s = slide("What changed since yesterday?");
   const rows = [
@@ -1771,7 +1685,6 @@ apxMathurin();
     "Kumar R et al. Persistent hyperammonemia in ALF. Clin Gastroenterol Hepatol 2012 [PMID: 22521861]",
     "Cardoso FS et al. CRRT and ammonia in ALF. Hepatology 2018 [PMID: 28859230]",
     "Pre-emptive CRRT in ALF with cerebral edema. Aliment Pharmacol Ther 2026 [PMID: 42332991]",
-    "Cavallin M et al. Terlipressin vs midodrine and octreotide. Hepatology 2015 [PMID: 25644760]",
     "Wong F et al. CONFIRM. NEJM 2021 [PMID: 33657294]",
     "Artru F et al. Transplant in ACLF grade 3. J Hepatol 2017 [PMID: 28645736]",
     "Mathurin P et al. Early transplant for alcoholic hepatitis. NEJM 2011 [PMID: 22070476]",
