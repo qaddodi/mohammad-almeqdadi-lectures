@@ -15,6 +15,7 @@ Decks are grouped by topic under `lectures/`.
 Each folder has the deck, a PDF, a LECTURE_PLAN.md and the build scripts.
 
 - [lectures/acute-liver-failure-aclf-in-icu](lectures/acute-liver-failure-aclf-in-icu): ALF and ACLF in the ICU, for pulmonary and critical care fellows. A long version (67 numbered slides) and a short version (57) built from the same build.js
+- [lectures/chronic-hepatitis-b](lectures/chronic-hepatitis-b): Chronic hepatitis B, 30-minute core talk and 60-minute extended version from one build.js
 - [lectures/ehr-tools-tlm-2026](lectures/ehr-tools-tlm-2026): Epically Efficient EHR Tools, AASLD TLM 2026 (Epic mock-ups, invented data)
 - [lectures/liver-transplant-grand-rounds-mmc-2026](lectures/liver-transplant-grand-rounds-mmc-2026): Liver Transplantation: When to Refer and What's New, Maine Medical Center grand rounds 11/2026 (public copy, Tufts program numbers left out)
 
