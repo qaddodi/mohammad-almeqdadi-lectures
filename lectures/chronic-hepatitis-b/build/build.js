@@ -530,20 +530,7 @@ sec("History");
     "Blumberg shared the 1976 Nobel Prize with Carleton Gajdusek",
   ], { x: 8.2, y: 1.7, w: 4.7, size: 21, gap: 16 });
   src(s, "Blumberg BS, Alter HJ, Visnich S. JAMA 1965;191:541-546. PMID 14239025.");
-  s.addNotes("Tell the story the way you like to. In 1963 the Philadelphia group tested sera from transfused hemophilia patients against a panel of 24 normal sera, including sera from foreign populations. Two hemophilia sera made a precipitin line with one panel serum, from an Australian aborigine. That is where the name comes from. The 1965 paper was about leukemia; the link to hepatitis came later. The Nobel citation reads: 'for their discoveries concerning new mechanisms for the origin and dissemination of infectious diseases' (NIH Nobel page). Source for the slide text is the paper itself (your PDF).");
-}
-{
-  const s = slide("From antigen to vaccine");
-  timeline(s, [
-    { y: "1965", t: "Blumberg, Alter and Visnich describe the Australia antigen" },
-    { y: "1970", t: "Dane, Cameron and Briggs see the virus particle in serum" },
-    { y: "1976", t: "Blumberg and Gajdusek receive the Nobel Prize. First immunization of people with plasma-derived vaccine (Maupas)" },
-    { y: "1980", t: "Szmuness: the vaccine works in a controlled trial of 1,083 men" },
-    { y: "1981", t: "Beasley: HBsAg carriers in Taiwan get liver cancer at a far higher rate" },
-  ], 2.6, 0.3, 8.5, 15);
-  pic(s, "vaccine-1980s.png", 8.6, 1.2, 4.6, 5.7, "Watercolor of a glass vaccine vial and a glass syringe");
-  src(s, "PMIDs: Dane 4190997; Maupas 59012; Szmuness 6997738; Beasley 6118576.");
-  s.addNotes("Keep it short in the 30-minute version. Dane 1970 Lancet 1:695-698. Maupas 1976 Lancet 1:1367-1370. Szmuness 1980 NEJM 303:833-841. Beasley 1981 Lancet 2:1129-1133. The vaccine came before there was a screening test for liver cancer. A recombinant yeast vaccine was reported in 1984 (McAleer, Nature 307:178-180).");
+  s.addNotes("Tell the story the way you like to. In 1963 the Philadelphia group tested sera from transfused hemophilia patients against a panel of 24 normal sera, including sera from foreign populations. Two hemophilia sera made a precipitin line with one panel serum, from an Australian aborigine. That is where the name comes from. The 1965 paper was about leukemia; the link to hepatitis came later. The Nobel citation reads: 'for their discoveries concerning new mechanisms for the origin and dissemination of infectious diseases' (NIH Nobel page). Then one sentence for the rest: Dane saw the virus particle in 1970, Maupas gave the first plasma-derived vaccine in 1976, Szmuness proved it worked in 1980, and Beasley tied the carrier state to liver cancer in 1981. A vaccine against a cancer came before any cancer screening test.");
 }
 ext(() => {
   {
@@ -558,24 +545,29 @@ ext(() => {
     pic(s, "dane-title.png", 0.6, 1.4, 6.3, 5.2, "Title and summary of Dane, Cameron and Briggs, Lancet 1970");
     pic(s, "dane-fig1.png", 7.3, 1.3, 5.5, 5.5, "Electron micrograph, Figure 1 of the paper");
     src(s, "Dane DS, Cameron CH, Briggs M. Lancet 1970;1:695-698. PMID 4190997.");
-    s.addNotes("The 42 nm particle is the whole virion; the numerous 22 nm particles and long forms are surface antigen only. This is why HBsAg circulates in huge excess over virions. The figure is from the paper in your PDF.");
+    s.addNotes("The 42 nm particle is the whole virion; the numerous 22 nm particles and long forms are surface antigen only. This is why HBsAg circulates in huge excess over virions.");
+  }
+  {
+    const s = slide("Szmuness, 1980");
+    pic(s, "szmuness-title.png", 0.5, 1.3, 8.0, 5.5, "Title and abstract of Szmuness et al., NEJM 1980", { left: true });
+    s.addText([{ text: "Infected", options: { fontSize: 22, breakLine: true } },
+      { text: "1.4 to 3.4%", options: { fontSize: 40, bold: true, color: NAVY, breakLine: true } }, { text: "vaccine", options: { fontSize: 20, color: GREY, breakLine: true } },
+      { text: " ", options: { fontSize: 14, breakLine: true } },
+      { text: "18 to 27%", options: { fontSize: 40, bold: true, color: RED, breakLine: true } }, { text: "placebo", options: { fontSize: 20, color: GREY } }],
+      { x: 8.8, y: 1.6, w: 4.2, h: 4.6, fontFace: "Georgia", align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+    src(s, "Szmuness W et al. N Engl J Med 1980;303:833-841. PMID 6997738.");
+    s.addNotes("Randomized, double-blind, placebo-controlled, 1,083 men at high risk. Infection in only 1.4 to 3.4% of vaccinees versus 18 to 27% with placebo. The plasma-derived vaccine of Maupas (Lancet 1976) was the first human immunization; a recombinant yeast vaccine followed (McAleer, Nature 1984). Say 'licensed in the mid-1980s'.");
   }
   {
     const s = slide("Beasley, Taiwan, 1981");
     pic(s, "beasley-title.png", 0.6, 1.35, 6.6, 5.4, "Title and summary of Beasley et al., Lancet 1981", { left: true });
     table(s, [["", "HBsAg carriers", "Non-carriers"],
-      ["HCC incidence per 100,000", "1,158", "5"],
+      ["HCC per 100,000 person-years", "1,158", "5"],
       ["Deaths from HCC or cirrhosis", "54.3% of 105", "1.5% of 202"]],
       { x: 7.5, y: 2.2, w: 5.4, size: 17 });
     s.addText("Relative risk 223", { x: 7.5, y: 4.4, w: 5.4, h: 0.6, fontFace: "Georgia", fontSize: 24, bold: true, align: "center", isTextBox: true, margin: 0 });
     src(s, "Beasley RP et al. Lancet 1981;2:1129-1133. PMID 6118576.");
-    s.addNotes("22,707 Chinese men, civil servants in Taiwan, followed prospectively. All numbers are from the paper's summary (your PDF). The 95% CI of 28 to 1,479 for the relative risk is quoted from a 2018 historical review (Koshiol, Cancer Epidemiol), not from the 1981 paper.");
-  }
-  {
-    const s = slide("Szmuness, 1980");
-    pic(s, "szmuness-title.png", 1.2, 1.3, W - 2.4, 5.5, "Title and abstract of Szmuness et al., NEJM 1980");
-    src(s, "Szmuness W et al. N Engl J Med 1980;303:833-841. PMID 6997738.");
-    s.addNotes("Randomized, double-blind, placebo-controlled, 1,083 men at high risk. Infection in only 1.4 to 3.4% of vaccinees versus 18 to 27% with placebo. The plasma-derived vaccine of Maupas (Lancet 1976) was the first human immunization; a recombinant yeast vaccine followed (McAleer, Nature 1984). Licensure in 1986 was not confirmed from a primary record, so say 'mid-1980s'.");
+    s.addNotes("22,707 Chinese men, civil servants in Taiwan, followed prospectively. The 95% CI of 28 to 1,479 for the relative risk is quoted from a 2018 historical review (Koshiol, Cancer Epidemiol), not from the 1981 paper.");
   }
 });
 
@@ -587,10 +579,10 @@ twoStep((step) => {
   vbars(s, [
     { label: "Living with chronic hepatitis B (254 million)", v: 100, text: "100%", color: SLATE },
     { label: "Diagnosed", v: 13, show: step === 2, text: "13%", color: NAVY },
-    { label: "Treated (about 7 million)", v: 3, show: step === 2, text: "3%", color: NAVY, red: true },
+    { label: step === 2 ? "Treated (about 7 million)" : "Treated", v: 3, show: step === 2, text: "3%", color: NAVY, red: true },
   ], { x: 2.2, y: 2.4, w: W - 4.4, h: 3.5, max: 100 });
   src(s, "WHO news release 9 April 2024 (2022 estimates), rounded. WHO Global hepatitis report 2024.");
-  s.addNotes("Let them guess. Answer: about 13% diagnosed and about 3% treated. WHO 2022 estimates: 254 million living with chronic HBV, 1.2 million new infections a year, 1.3 million deaths from HBV and HCV combined, 83% of them HBV. The rounded WHO release is the source; the full report PDF was not opened. In the US, CDC estimates 580,000 to 2.4 million people living with chronic HBV, about two-thirds unaware (CDC 2023, PMID 36893044).");
+  s.addNotes("Let them guess. Answer: about 13% diagnosed and about 3% treated. WHO 2022 estimates: 254 million living with chronic HBV, 1.2 million new infections a year, 1.3 million deaths from HBV and HCV combined, 83% of them HBV. In the US, CDC estimates 580,000 to 2.4 million people living with chronic HBV, about two-thirds unaware (CDC 2023, PMID 36893044).");
   return s;
 });
 ext(() => {
@@ -606,16 +598,6 @@ ext(() => {
     s.addNotes("Conditional risk once infected, not the risk that an exposed infant becomes infected. The bar for adults is drawn at 5% for scale; the figure is 'under 5%'.");
     return s;
   });
-  {
-    const s = slide("Hepatitis B in the United States");
-    table(s, [["Estimate", "People with chronic HBV", "Source"],
-      ["NHANES 2013 to 2018", "880,000 (580,000 to 1.17 million)", "Household survey"],
-      ["Meta-analysis including immigrants", "1.89 million (1.49 to 2.4 million)", "1.47 million are foreign-born"],
-      ["Not aware of the infection", "About two-thirds", "CDC 2023"],
-      ["Born outside the US", "About 69%", "CDC 2023"]], { x: 0.8, y: 1.7, w: W - 1.6, size: 22 });
-    src(s, "Conners EE et al. MMWR Recomm Rep 2023;72(1):1-25. PMID 36893044.");
-    s.addNotes("The two estimates differ because the survey misses many immigrants. Do not combine one study's prevalence with another study's diagnosed share.");
-  }
 });
 twoStep((step) => {
   const s = slide("Screening an adult for hepatitis B");
@@ -625,9 +607,12 @@ twoStep((step) => {
     ["Is the patient immune?", ans(step, "Anti-HBs")],
     ["Has the patient ever been exposed?", ans(step, "Total anti-HBc")]],
     { x: 1.6, y: 2.2, w: W - 3.2, size: 24, minRowH: 0.85 });
-  if (step === 2) q(s, "Once for every adult 18 and older, and in every pregnancy", 5.6, { size: 22, hl: true, h: 0.6 });
-  src(s, "CDC recommendations, MMWR Recomm Rep 2023;72(1):1-25, PMID 36893044.");
-  s.addNotes("CDC 2023: screen every adult 18 and older at least once with the triple panel, regardless of disclosed risk, and screen in each pregnancy. HBsAg alone misses anti-HBc-only patients, who are the ones at risk of reactivation. Vaccination: all adults 19 to 59 (ACIP 2022); Heplisav-B, Engerix-B and Recombivax HB are in use. PreHevbrio was withdrawn in November 2024 because the company closed, not for safety.");
+  if (step === 2) {
+    q(s, "Once for every adult 18 and older, and in every pregnancy", 5.5, { size: 22, hl: true, h: 0.55 });
+    q(s, "HBsAg positive: test anti-HDV once", 6.15, { size: 22, hl: true, h: 0.55 });
+  }
+  src(s, "CDC recommendations, MMWR Recomm Rep 2023;72(1):1-25, PMID 36893044. Anti-HDV: EASL 2025, PMID 40348683.");
+  s.addNotes("CDC 2023: screen every adult 18 and older at least once with the triple panel, regardless of disclosed risk, and screen in each pregnancy. HBsAg alone misses anti-HBc-only patients, who are the ones at risk of reactivation. Vaccination: all adults 19 to 59 (ACIP 2022); Heplisav-B, Engerix-B and Recombivax HB are in use. PreHevbrio was withdrawn in November 2024 because the company closed, not for safety. Hepatitis D: EASL 2025 tests every HBsAg-positive patient once with total anti-HDV, then HDV RNA if positive; AASLD 2018 tests by risk. A nucleos(t)ide analogue does not treat HDV. Bulevirtide got FDA accelerated approval on 22 May 2026.");
   return s;
 });
 
@@ -657,9 +642,9 @@ twoStep((step) => {
     [ans(step, "Occult infection"), ans(step, "HBV DNA detectable")],
     [ans(step, "Window period"), ans(step, "IgM anti-HBc positive")],
     [ans(step, "False-positive anti-HBc"), ans(step, "Repeat testing, DNA undetectable")]],
-    { x: 1.2, y: 3.55, w: W - 2.4, size: 20, minRowH: 0.62, noLabel: true });
+    { x: 1.2, y: 3.55, w: W - 2.4, size: 20, minRowH: 0.62, noLabel: false });
   src(s, "CDC 2023 (Table 1), PMID 36893044; AASLD 2018 hepatitis B guidance, PMID 29405329.");
-  s.addNotes("Isolated anti-HBc is not the same as occult infection: occult needs detectable HBV DNA with a negative HBsAg. Order HBV DNA and repeat the panel. Whatever the answer, a patient who is anti-HBc positive and about to get an anti-CD20 drug needs prophylaxis (we come back to this). Wording of the last row, 'repeat testing', is my summary of the CDC table; check it.");
+  s.addNotes("Isolated anti-HBc is not the same as occult infection: occult needs detectable HBV DNA with a negative HBsAg. Order HBV DNA and repeat the panel. Whatever the answer, a patient who is anti-HBc positive and about to get an anti-CD20 drug needs prophylaxis (we come back to this).");
   return s;
 });
 
@@ -671,7 +656,7 @@ sec("Phases");
     if (n === 1) q(s, "Where do HBV DNA, ALT and the antigens go over a lifetime?", 1.15, { size: 22, h: 0.5 });
     pic(s, `phases-${n}.png`, 0.9, 1.65, W - 1.8, 5.25, "Layered natural history figure");
     const notes = [
-      "Draw it with the room: three panels, age in decades along the bottom. This is the figure from your sketch. Schematic, not data.",
+      "Draw it with the room: three panels, age in decades along the bottom. Schematic, not data.",
       "HBV DNA first. Very high in early life, falls in the third and fourth decades, then either stays low or rises again. The dashed lines are 20,000 and 2,000 IU/mL.",
       "Now ALT. Normal for decades, then flares when the immune system finally attacks. Each flare can cause fibrosis.",
       "The antigens. HBsAg stays positive. HBeAg is lost and anti-HBe appears when the patient seroconverts, around the fourth decade in this schematic.",
@@ -682,13 +667,7 @@ sec("Phases");
   };
   mk(1); [2, 3, 4, 5].forEach((n) => { cont(); mk(n); });
 }
-{
-  const s = slide("The published version");
-  pic(s, "gesa-natural-history.png", 2.3, 1.3, 8.7, 5.55, "GESA 2022 natural history figure");
-  src(s, "GESA Australian consensus recommendations for the management of hepatitis B infection, 2022, Figure 3.1 (as shown in the ASHM B Positive chapter).");
-  s.addNotes("The same four phases in the published form. Credit GESA 2022 (ASHM attributes Figure 3.1 to them). The reviewer could not confirm the original artist or the reuse licence, so check before putting this in anything you distribute.");
-}
-twoStep((step) => {
+ext(() => twoStep((step) => {
   const s = slide("Match the labs to the phase");
   table(s, [["HBeAg", "HBV DNA (IU/mL)", "ALT", "Phase"],
     ["Positive", "10,000,000 or more", "Normal", ans(step, "HBeAg-positive chronic infection")],
@@ -696,10 +675,10 @@ twoStep((step) => {
     ["Negative", "Below 2,000", "Normal", ans(step, "HBeAg-negative chronic infection")],
     ["Negative", "Above 2,000", "Raised", ans(step, "HBeAg-negative chronic hepatitis")]],
     { x: 0.8, y: 1.6, w: W - 1.6, size: 22, minRowH: 0.9, noLabel: true });
-  src(s, "EASL Clinical Practice Guidelines on hepatitis B 2025, Table 4. J Hepatol 2025;83:502-583, PMID 40348683. Values are 'usually'.");
+  src(s, "EASL Clinical Practice Guidelines on hepatitis B 2025, Table 4. J Hepatol 2025;83:502-583, PMID 40348683. Typical values.");
   s.addNotes("Old names: immune tolerant, immune clearance (immune-active), inactive carrier or immune control, immune escape. AASLD 2018 uses immune-tolerant, HBeAg-positive immune-active, inactive and HBeAg-negative immune-active CHB. These are descriptions of phases, not treatment criteria. A patient can move between phases, and HBsAg loss is a fifth state (HBsAg-negative phase).");
   return s;
-});
+}));
 
 // ---------------------------------------------------------------- Patient 1: who to treat
 sec("Who to treat");
@@ -710,35 +689,55 @@ const P1_ROWS = (age, dna, alt) => [
   ["Anti-HBe", "Negative"],
   ["HBV DNA", { t: dna, red: true }],
   ["ALT (ULN 35)", alt],
-  ["Platelets", "245 x 10^9/L"],
+  ["Platelets", "245 ×10⁹/L"],
   ["Liver stiffness", "5.1 kPa"],
 ];
+ext(() => {
+  tableSlide("Fibrosis staging by elastography", [["", "EASL 2025", "WHO 2024"],
+    ["Significant fibrosis (F2)", "Above 7 kPa", "Above 7 kPa, or APRI above 0.5"],
+    ["Advanced fibrosis (F3)", "Above 8 kPa", "–"],
+    ["Cirrhosis (F4)", "Above 11 kPa", "–"]],
+    { size: 20, tbl: { x: 0.5, minRowH: 1.0, w: 7.6 }, after: (s) => pic(s, "fibroscan-probe.png", 8.4, 1.3, 4.6, 5.4, "Watercolor of a transient elastography probe") },
+    "EASL 2025 Table 6 lists F2 above 7 kPa, F3 above 8 and F4 above 11. WHO 2024 uses APRI above 0.5 or elastography above 7 kPa as a treatment pathway, with no DNA threshold. Do not teach a single FibroScan cut-off of 8 for every purpose. The patient you are about to meet has 5.1 kPa.",
+    "EASL 2025 PMID 40348683; WHO 2024 chapter 5.");
+});
 twoStep((step) => {
   const s = slide("34-year-old man, born in Vietnam");
   table(s, P1_ROWS(34, "60,000,000 IU/mL", "24 U/L"), { x: 0.5, y: 1.3, w: 7.3, size: 22, minRowH: 0.55, noLabel: true });
   pic(s, "man-34.png", 8.0, 1.15, 5.2, 5.8, "Watercolor of a man in his thirties seated in clinic");
-  q(s, "Do you treat him?", 5.85, { size: 26, x: 0.5, w: 7.3 });
-  if (step === 2) q(s, "No. Monitor ALT and DNA every 3 to 6 months", 6.45, { size: 20, hl: true, x: 0.3, w: 7.7 });
-  s.addNotes("HBsAg found at a blood donation, asymptomatic, ALT normal on two checks six months apart. This is the HBeAg-positive chronic infection (immune tolerant) phase. AASLD/IDSA 2025 R3 defines it as HBeAg positive, DNA above 10,000,000 IU/mL and persistently normal ALT on at least two measurements 6 months apart. At 34, no fibrosis, the recommendation is to monitor. AASLD 2018 R2A: against antiviral therapy in immune-tolerant adults. Stiffness 5.1 kPa is below the EASL F2 cut-off of 7 kPa. All values are made up.");
+  q(s, "Do you treat him?", 5.75, { size: 26, x: 0.5, w: 7.3 });
+  if (step === 2) q(s, "AASLD: no, monitor every 3 to 6 months. EASL 2025 would consider treatment over 30", 6.25, { size: 19, hl: true, x: 0.3, w: 7.7, h: 0.8 });
+  s.addNotes("HBsAg found at a blood donation, asymptomatic, ALT normal on two checks six months apart. This is the HBeAg-positive chronic infection (immune tolerant) phase. AASLD/IDSA 2025 R3 defines it as HBeAg positive, DNA above 10,000,000 IU/mL and persistently normal ALT on at least two measurements 6 months apart. At 34 with no fibrosis, the US recommendation is to monitor (AASLD 2018 R2A: against antiviral therapy in immune-tolerant adults). EASL 2025 observes HBeAg-positive chronic infection only in people under 30 at low risk, so in Europe he could already be offered treatment. Stiffness 5.1 kPa is below the EASL F2 cut-off of 7 kPa. All values are made up.");
   return s;
 });
 twoStep((step) => {
   const s = slide("Same man, now 41 years old");
   table(s, P1_ROWS(41, "55,000,000 IU/mL", "26 U/L"), { x: 0.5, y: 1.3, w: 7.3, size: 22, minRowH: 0.55, noLabel: true });
   pic(s, "man-34.png", 8.0, 1.15, 5.2, 5.8, "Watercolor of a man in his thirties seated in clinic");
-  q(s, "Does the answer change?", 5.85, { size: 26, x: 0.5, w: 7.3 });
-  if (step === 2) q(s, "AASLD/IDSA 2025: over 40, treatment is suggested. He chose to wait", 6.4, { size: 20, hl: true, x: 0.3, w: 7.7, h: 0.8 });
-  s.addNotes("AASLD/IDSA 2025 R3 (conditional, very low certainty): for immune-tolerant adults, antiviral therapy is supported if over 40 or with grade 2 / stage 2 or worse disease. The recommendation text says 'over 40' and the guideline's algorithm says '40 or more'. The evidence is observational and the AASLD technical review calls it very uncertain, so this is a shared decision. EASL 2025 and WHO 2024 reach treatment through other pathways (fibrosis, family history of HCC); they do not use this age rule in the same way. The same labs at 34 and 41 make the point about age. In our story he hears the options and chooses to keep monitoring, which is why he is untreated at 52; R3 is a conditional recommendation, so that is a reasonable choice.");
+  q(s, "Does the answer change?", 5.75, { size: 26, x: 0.5, w: 7.3 });
+  if (step === 2) q(s, "Over 40: treatment is suggested. He chose to wait. Start ultrasound and AFP every 6 months", 6.25, { size: 19, hl: true, x: 0.3, w: 7.7, h: 0.8 });
+  s.addNotes("AASLD/IDSA 2025 R3 (conditional, very low certainty): for immune-tolerant adults, antiviral therapy is supported if over 40 or with grade 2 / stage 2 or worse disease. The recommendation text says 'over 40' and the guideline's algorithm says '40 or more'. The evidence is observational and the AASLD technical review calls it very uncertain, so this is a shared decision. In our story he hears the options and chooses to keep monitoring, which is why he is untreated at 52. He is now a man from an endemic region over 40, so HCC surveillance starts here (AASLD 2023), whatever he decides about treatment.");
   return s;
+});
+ext(() => {
+  {
+    const s = slide("Treat everyone with high DNA and normal ALT?");
+    bars(s, [{ name: "Immune tolerant, untreated", labels: ["10-year HCC"], values: [12.7] }, { name: "Immune active, treated", labels: ["10-year HCC"], values: [6.1] }],
+      { x: 0.5, y: 1.5, w: 6.0, h: 4.6, colors: [SLATE, NAVY], max: 15, unit: 5, legend: true, labSize: 18, catSize: 16, fmt: '0.0"%"', title: "Kim, Gut 2018" });
+    bars(s, [{ name: "Immune tolerant, FIB-4 under 1.45", labels: ["5-year HCC"], values: [0] }, { name: "Comparators", labels: ["5-year HCC"], values: [1.4] }],
+      { x: 6.8, y: 1.5, w: 6.0, h: 4.6, colors: [SLATE, NAVY], max: 15, unit: 5, legend: true, labSize: 18, catSize: 16, fmt: '0.0"%"', title: "Jeon, Clin Mol Hepatol 2021" });
+    src(s, "Kim GA et al. Gut 2018;67:945-952, PMID 29055908. Jeon MY et al. Clin Mol Hepatol 2021;27:295-304, PMID 33317247.");
+    s.addNotes("Two studies that point in opposite directions. Kim: Korean retrospective cohort, 413 untreated immune-tolerant versus 1,497 treated immune-active patients; 10-year HCC 12.7% vs 6.1%, adjusted HR 2.54 (1.54 to 4.18); death or transplant 9.7% vs 3.4%. The untreated group used a broad definition (DNA at least 20,000), broader than strict immune tolerance, and the groups are different phases. Jeon found no HCC at 1, 3 and 5 years in biomarker-defined immune tolerance with FIB-4 under 1.45, versus 0.2, 0.6 and 1.4% in the comparators. Integration of HBV DNA and clonal expansion are already seen in young immune-tolerant patients (Mason, Gastroenterology 2016, 26 patients), which is biology, not proof that early treatment prevents HCC. The AASLD technical review grades the evidence for clinical benefit in immune tolerance as very uncertain.");
+  }
 });
 {
   const s = slide("Same man, now 52 years old");
   table(s, [["Test", "Result"], ["HBsAg", "Positive"], ["HBeAg", "Negative"], ["Anti-HBe", "Positive"], ["HBV DNA", { t: "8,000 IU/mL", red: true }],
-    ["ALT", { t: "48 U/L", red: true }], ["Platelets", "190 x 10^9/L"], ["FIB-4", "1.8"], ["Liver stiffness", "6.8 kPa"]],
-    { x: 0.5, y: 1.2, w: 7.3, size: 21, minRowH: 0.52, noLabel: true });
+    ["ALT", { t: "48 U/L", red: true }], ["Platelets", "190 ×10⁹/L"], ["FIB-4", "1.8"], ["Liver stiffness", "6.8 kPa"], ["eGFR", "45 mL/min"]],
+    { x: 0.5, y: 1.2, w: 7.3, size: 20, minRowH: 0.47, noLabel: true });
   pic(s, "man-52.png", 8.0, 1.15, 5.2, 5.8, "Watercolor of the same man in his fifties, gray at the temples, with reading glasses");
-  q(s, "Do you treat him?", 6.15, { size: 26, x: 0.5, w: 7.3 });
-  s.addNotes("He lost HBeAg and seroconverted in his late 40s. DNA 8,000, ALT 48 (1.4 times the AASLD upper limit of 35), no advanced fibrosis. Let the room commit. The next slide shows what each guideline says.");
+  q(s, "Do you treat him?", 6.2, { size: 26, x: 0.5, w: 7.3 });
+  s.addNotes("He lost HBeAg and seroconverted in his late 40s. DNA 8,000, ALT 48 (1.4 times the AASLD upper limit of 35), no advanced fibrosis. His eGFR is 45 from diabetic kidney disease, which matters for the drug. Let the room commit. The next slides show what each guideline says.");
 }
 {
   const s = slide("What counts as a normal ALT?");
@@ -750,103 +749,85 @@ twoStep((step) => {
   s.addNotes("The old reference ranges included people with fatty liver, which is why the blood-donor data gave lower limits (30 for men and 19 for women in the ASHM chapter). Whichever limit you use, 48 is raised. Next slide: what each guideline does with it.");
 }
 twoStep((step) => {
-  const s = slide("Same labs, four guidelines");
-  q(s, "Treat or not?", 1.2, { size: 24 });
+  const s = slide("One patient, four guidelines");
+  q(s, "Hands up if you would treat him", 1.2, { size: 24 });
   table(s, [["", "AASLD 2018", "AASLD/IDSA 2025", "EASL 2025", "WHO 2024"],
-    ["52 y, HBeAg-negative, DNA 8,000, ALT 48", ans(step, "Observe"), ans(step, "Shared decision"), ans(step, { t: "Treat", b: true }), ans(step, { t: "Treat", b: true })],
-    ["Compensated cirrhosis, DNA 500", ans(step, "Treat"), ans(step, "Treat"), ans(step, "Treat"), ans(step, "Treat")],
-    ["Decompensated cirrhosis, any DNA", ans(step, "Treat"), ans(step, "Treat"), ans(step, "Treat"), ans(step, "Treat")]],
+    ["Age 34, HBeAg positive", ans(step, "Monitor"), ans(step, "Monitor"), ans(step, "Consider treating"), ans(step, "Monitor")],
+    ["Age 41, same labs", ans(step, "Monitor"), ans(step, "Treatment suggested"), ans(step, "Consider treating"), ans(step, "Monitor")],
+    ["Age 52, HBeAg negative", ans(step, "Check fibrosis"), ans(step, "Shared decision"), ans(step, { t: "Treat", b: true }), ans(step, { t: "Treat", b: true })]],
     { x: 0.6, y: 1.9, w: W - 1.2, size: 20, minRowH: 0.95 });
+  if (step === 2) q(s, "At 52 he chose to start treatment", 6.0, { size: 24, hl: true });
   src(s, "AASLD 2018 PMID 29405329; AASLD/IDSA 2025 Hepatology 2026;83:974-997 PMID 41186418; EASL 2025 PMID 40348683; WHO 2024 (NBK614987).");
-  s.addNotes("Row 1: AASLD 2018 treats HBeAg-negative patients with DNA above 2,000 and ALT at least 2 times the upper limit (70 for a man) or significant histology, so he is observed. AASLD/IDSA 2025 R4 suggests treatment by shared decision in the indeterminate group. EASL 2025: DNA at least 2,000 with ALT above the upper limit or at least F2: treat. WHO 2024: DNA above 2,000 and ALT above the upper limit: treat. Rows 2 and 3 are the cirrhosis rows: AASLD 2018 R7A and R7B, AASLD/IDSA 2025 Figure 5, EASL (detectable DNA, any DNA if decompensated), WHO (treat regardless of DNA and ALT). The reviewer's dossier (section B1) has the full matrix. APASL 2026 criteria were not opened, so they are not shown.");
+  s.addNotes("At 34: the US guidelines monitor; EASL 2025 observes HBeAg-positive chronic infection only under 30 at low risk; WHO 2024 has no pathway for him without fibrosis, raised ALT or a family history. At 41: AASLD/IDSA 2025 R3 suggests treatment over 40. At 52: AASLD 2018 treats HBeAg-negative patients with DNA above 2,000 and ALT at least 2 times the upper limit (70 for a man), and otherwise asks you to assess fibrosis or inflammation and weigh age and family history; his stiffness is 6.8, so by 2018 rules he is not treated, but for that reason. AASLD/IDSA 2025 R4 suggests treatment by shared decision in the indeterminate group. EASL 2025: DNA at least 2,000 with ALT above the upper limit: treat. WHO 2024: DNA above 2,000 and ALT above the upper limit: treat. Cirrhosis is treated by all four, at any DNA level (summary slide).");
   return s;
 });
-twoStep((step) => {
+ext(() => twoStep((step) => {
   const s = slide("Does treating this group help?");
   table(s, [["Study", "Design", "Patients", "Outcome"],
     ["Huang 2023", "Observational", "855, no advanced fibrosis", "HCC, 5 to 15 years"],
-    ["TORCH-B 2021", "Randomized", "160, ALT 1 to 2 x ULN", "Progression at 3 years"]],
-    { x: 0.6, y: 1.3, w: W - 1.2, size: 18, minRowH: 0.55 });
+    ["TORCH-B 2021", "Randomized", "160, ALT 1 to 2 x ULN", "Progression at 3 years"],
+    ["Lai 2025", "Meta-analysis, 103 studies", "Grey zone", "Treatment IRR 0.38 for HCC"],
+    ["ATTENTION 2025", "Randomized, interim", "734, TAF vs observation", "Events 2 vs 9, HR 0.21 (CI crosses 1)"]],
+    { x: 0.6, y: 1.25, w: W - 1.2, size: 16, minRowH: 0.45 });
   if (step === 2) {
     bars(s, [{ name: "Treated", labels: ["5 years", "10 years", "15 years"], values: [3, 4, 9] }, { name: "Untreated", labels: ["5 years", "10 years", "15 years"], values: [3, 15, 19] }],
-      { x: 0.6, y: 3.65, w: 6.6, h: 3.2, colors: [NAVY, SLATE], max: 25, unit: 5, legend: true, labSize: 14, catSize: 14 });
+      { x: 0.6, y: 4.1, w: 6.6, h: 2.8, colors: [NAVY, SLATE], max: 25, unit: 5, legend: true, labSize: 14, catSize: 14 });
     bars(s, [{ name: "TDF", labels: ["Progression of 1 or more Ishak stage"], values: [26] }, { name: "Placebo", labels: ["Progression of 1 or more Ishak stage"], values: [47] }],
-      { x: 7.4, y: 3.65, w: 5.4, h: 3.2, colors: [NAVY, SLATE], max: 60, unit: 20, legend: true, labSize: 14, catSize: 13 });
-    s.addText("Cumulative HCC risk, %", { x: 0.6, y: 3.3, w: 6.6, h: 0.3, fontFace: "Calibri", fontSize: 15, align: "center", color: GREY, isTextBox: true, margin: 0 });
-    s.addText("Histologic progression, %", { x: 7.4, y: 3.3, w: 5.4, h: 0.3, fontFace: "Calibri", fontSize: 15, align: "center", color: GREY, isTextBox: true, margin: 0 });
+      { x: 7.4, y: 4.1, w: 5.4, h: 2.8, colors: [NAVY, SLATE], max: 60, unit: 20, legend: true, labSize: 14, catSize: 13 });
+    s.addText("Huang: cumulative HCC risk, %", { x: 0.6, y: 3.75, w: 6.6, h: 0.3, fontFace: "Calibri", fontSize: 15, align: "center", color: GREY, isTextBox: true, margin: 0 });
+    s.addText("TORCH-B: histologic progression, %", { x: 7.4, y: 3.75, w: 5.4, h: 0.3, fontFace: "Calibri", fontSize: 15, align: "center", color: GREY, isTextBox: true, margin: 0 });
   } else {
-    q(s, "What do you expect?", 4.4, { size: 26 });
+    q(s, "What do you expect?", 4.9, { size: 26 });
   }
-  src(s, "Huang DQ et al. Hepatology 2023;78:1558-1568, PMID 37184202. Hsu YC et al. Lancet Infect Dis 2021;21:823-833, PMID 33524314.");
-  s.addNotes("Huang: 855 patients in the indeterminate phase without advanced fibrosis; weighted analysis, adjusted HR for HCC 0.30 (0.10 to 0.60). Treated 3, 4 and 9% at 5, 10 and 15 years, untreated 3, 15 and 19%. Observational, so residual confounding remains. TORCH-B: 160 Taiwanese patients, TDF 300 mg for 3 years versus placebo, paired biopsies: progression of at least one Ishak stage 19/73 (26%) versus 34/73 (47%), RR 0.56 (0.35 to 0.88). Randomized, but small and not powered for HCC. ATTENTION (interim, Lancet Gastroenterol Hepatol 2025, 734 patients, TAF versus observation): primary composite events 2 versus 9, HR 0.21, 97.5% CI 0.04 to 1.20, did not cross its stopping boundary. None of these randomized treatment against HCC. Mention the counterweight (Jeon 2021: no HCC at 5 years in biomarker-defined immune tolerance with FIB-4 under 1.45).");
+  src(s, "Huang DQ, Hepatology 2023, PMID 37184202. Hsu YC, Lancet Infect Dis 2021, PMID 33524314. Lai JC, J Hepatol 2025, PMID 39577468. Lim YS, Lancet Gastroenterol Hepatol 2025, PMID 39914435.");
+  s.addNotes("Huang: 855 patients in the indeterminate phase without advanced fibrosis; weighted analysis, adjusted HR for HCC 0.30 (0.10 to 0.60). Treated 3, 4 and 9% at 5, 10 and 15 years, untreated 3, 15 and 19%. Observational, so residual confounding remains. TORCH-B: 160 Taiwanese patients, TDF 300 mg for 3 years versus placebo, paired biopsies: progression of at least one Ishak stage 19/73 (26%) versus 34/73 (47%), RR 0.56 (0.35 to 0.88). Lai 2025: significant fibrosis in 39.7%, HCC 0.32% a year, treatment IRR 0.38 (0.18 to 0.79), heterogeneity high (I2 85.7% for HCC). ATTENTION interim: TAF 369 vs observation 365, ages 40 to 80, noncirrhotic, median 17.7 months; HR 0.21, 97.5% CI 0.04 to 1.20, did not cross its stopping boundary. Promising, not definitive. None of these randomized treatment against HCC.");
   return s;
-});
-ext(() => {
-  tableSlide("Fibrosis staging by elastography", [["", "EASL 2025", "WHO 2024"],
-    ["Significant fibrosis (F2)", "Above 7 kPa", "Above 7 kPa, or APRI above 0.5"],
-    ["Advanced fibrosis (F3)", "Above 8 kPa", ""],
-    ["Cirrhosis (F4)", "Above 11 kPa", "APRI above 2 in the 2015 guideline"]],
-    { size: 20, tbl: { x: 0.5, minRowH: 1.0, w: 7.6 }, after: (s) => pic(s, "fibroscan-probe.png", 8.4, 1.3, 4.6, 5.4, "Watercolor of a transient elastography probe") },
-    "EASL 2025 Table 6 lists F2 above 7 kPa, F3 above 8 and F4 above 11. WHO 2024 uses APRI above 0.5 or elastography above 7 kPa as a treatment pathway, with no DNA threshold. Do not teach a single FibroScan cut-off of 8 for every purpose. The WHO cirrhosis row is from the 2015 guideline as described in the reviewer's dossier; check the 2024 text before using that row.",
-    "EASL 2025 PMID 40348683; WHO 2024 chapter 5.");
-  tableSlide("Treat everyone with high DNA and normal ALT?", [["", "Kim, Gut 2018", "Jeon, Clin Mol Hepatol 2021"],
-    ["Patients", "413 untreated immune-tolerant, 1,497 treated immune-active", "Biomarker-defined immune tolerance, FIB-4 under 1.45 subgroup"],
-    ["Result", "10-year HCC 12.7% vs 6.1%; adjusted HR 2.54 (1.54 to 4.18)", "HCC 0% at 1, 3 and 5 years vs 0.2, 0.6 and 1.4% in comparators"],
-    ["Limit", "Different phases, selected treatment", "Small low-risk sample"]],
-    { size: 18, tbl: { minRowH: 0.9 } },
-    "Two studies that point in opposite directions. Kim: Korean retrospective cohort; death or transplant 9.7% vs 3.4% at 10 years, HR 3.38 (1.85 to 6.16). The untreated group used a broad definition (DNA at least 20,000), broader than strict immune tolerance. Jeon found essentially no HCC in carefully defined immune-tolerant patients with low FIB-4. The AASLD technical review grades the evidence for clinical benefit in immune tolerance as very uncertain. Nothing here proves that treating every young, strictly immune-tolerant patient lowers lifetime HCC risk.",
-    "Kim GA et al. Gut 2018;67:945-952, PMID 29055908. Jeon MY et al. Clin Mol Hepatol 2021;27:295-304, PMID 33317247.");
-  tableSlide("The indeterminate phase", [["", "Result"],
-    ["Meta-analysis, 103 studies (Lai, J Hepatol 2025)", "Significant fibrosis in 39.7%; HCC 0.32% a year; treatment IRR 0.38 (0.18 to 0.79)"],
-    ["ATTENTION interim, 734 patients (Lim, 2025)", "Events 2 vs 9, HR 0.21, 97.5% CI 0.04 to 1.20; stopping boundary not crossed"]],
-    { size: 20, tbl: { minRowH: 1.0, noLabel: false } },
-    "Lai 2025: heterogeneity was high (I2 85.7% for HCC) and the definitions of the grey zone varied. ATTENTION: TAF 369 vs observation 365, DNA 10,000 to 100,000,000 IU/mL, ALT below 70 for men and below 50 for women, noncirrhotic, ages 40 to 80, median follow-up 17.7 months. Promising, not definitive.",
-    "Lai JC et al. J Hepatol 2025;82:992-1003, PMID 39577468. Lim YS et al. Lancet Gastroenterol Hepatol 2025;10:295-305, PMID 39914435.");
-});
+}));
 
 {
-  const s = slide("Who to treat: summary");
-  fbox(s, "HBsAg positive", 4.65, 1.2, 4.0, 0.55, "q", 18);
-  farrow(s, 6.65, 1.75, 6.65, 2.05);
-  fbox(s, "Cirrhosis?", 4.9, 2.05, 3.5, 0.55, "q", 18);
-  farrow(s, 8.4, 2.33, 9.7, 2.33, "Yes");
-  fbox(s, "Treat, any DNA level", 9.7, 2.05, 3.2, 0.55, "treat", 18);
-  fline(s, 6.65, 2.6, 6.65, 2.9); fline(s, 2.4, 2.9, 9.1, 2.9);
-  s.addText("No", { x: 6.75, y: 2.55, w: 0.6, h: 0.3, fontFace: TBL_FONT, fontSize: 14, bold: true, color: GREY, isTextBox: true, margin: 0 });
-  farrow(s, 2.4, 2.9, 2.4, 3.15); farrow(s, 9.1, 2.9, 9.1, 3.15);
-  fbox(s, "HBeAg positive", 0.5, 3.15, 3.8, 0.5, "q", 17);
-  fbox(s, "HBeAg negative", 7.2, 3.15, 3.8, 0.5, "q", 17);
+  const s = slide("Who to treat: summary (US)");
+  fbox(s, "HBsAg positive", 4.65, 1.15, 4.0, 0.5, "q", 18);
+  farrow(s, 6.65, 1.65, 6.65, 1.9);
+  fbox(s, "Cirrhosis?", 4.9, 1.9, 3.5, 0.5, "q", 18);
+  farrow(s, 8.4, 2.15, 9.7, 2.15, "Yes");
+  fbox(s, "Treat, any DNA level", 9.7, 1.9, 3.2, 0.5, "treat", 18);
+  fline(s, 6.65, 2.4, 6.65, 2.6); fline(s, 2.4, 2.6, 9.1, 2.6);
+  s.addText("No", { x: 6.75, y: 2.33, w: 0.6, h: 0.3, fontFace: TBL_FONT, fontSize: 14, bold: true, color: GREY, isTextBox: true, margin: 0 });
+  farrow(s, 2.4, 2.6, 2.4, 2.8); farrow(s, 9.1, 2.6, 9.1, 2.8);
+  fbox(s, "HBeAg positive", 0.5, 2.8, 3.8, 0.5, "q", 17);
+  fbox(s, "HBeAg negative", 7.2, 2.8, 3.8, 0.5, "q", 17);
   const L = [["DNA above 20,000 and ALT 2 times ULN or more", "Treat", "treat"],
     ["DNA above 10 million, normal ALT, over 40 or F2 or worse", "Treatment suggested", "treat"],
+    ["Between the two: the grey zone", "Shared decision", "decide"],
     ["DNA above 10 million, normal ALT, 40 or younger, no fibrosis", "Monitor", "watch"]];
   const Rr = [["DNA above 2,000 and ALT 2 times ULN or more", "Treat", "treat"],
     ["Between the two: the grey zone", "Shared decision", "decide"],
     ["DNA below 2,000, normal ALT", "Monitor", "watch"]];
-  L.forEach((r, i) => { const y = 3.95 + i * 1.0; fbox(s, r[0], 0.3, y, 4.2, 0.85, "cond", 16); farrow(s, 4.5, y + 0.425, 4.85, y + 0.425); fbox(s, r[1], 4.85, y, 1.85, 0.85, r[2], 16); });
-  Rr.forEach((r, i) => { const y = 3.95 + i * 1.0; fbox(s, r[0], 7.0, y, 4.2, 0.85, "cond", 16); farrow(s, 11.2, y + 0.425, 11.55, y + 0.425); fbox(s, r[1], 11.55, y, 1.5, 0.85, r[2], 16); });
+  L.forEach((r, i) => { const y = 3.5 + i * 0.83; fbox(s, r[0], 0.3, y, 4.2, 0.74, "cond", 16); farrow(s, 4.5, y + 0.37, 4.85, y + 0.37); fbox(s, r[1], 4.85, y, 1.85, 0.74, r[2], 16); });
+  Rr.forEach((r, i) => { const y = 3.5 + i * 0.83; fbox(s, r[0], 7.0, y, 4.2, 0.74, "cond", 16); farrow(s, 11.2, y + 0.37, 11.55, y + 0.37); fbox(s, r[1], 11.55, y, 1.5, 0.74, r[2], 16); });
   src(s, "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 R3, R4 and Figure 5 (PMID 41186418). ALT ULN 35 men, 25 women.");
-  s.addNotes("This is the US version: AASLD 2018 thresholds for immune-active disease, with the two AASLD/IDSA 2025 changes. R3 (conditional, very low certainty): immune-tolerant adults over 40, or with grade 2 / stage 2 or worse disease, are suggested for treatment; the text says over 40 and the algorithm says 40 or more. R4: the indeterminate (grey zone) group is a shared decision. Cirrhosis: AASLD 2018 R7A treats compensated cirrhosis with low viremia regardless of ALT, R7B treats decompensated cirrhosis regardless of DNA, ALT or HBeAg, and the 2025 Figure 5 treats both regardless of DNA or ALT. EASL 2025 and WHO 2024 treat more people: DNA above 2,000 with ALT above ULN, or significant fibrosis. Pregnancy and immunosuppression are separate pathways, covered later. 'Monitor' means ALT and DNA every 3 to 6 months and a fibrosis check.");
+  s.addNotes("This is the US version: AASLD 2018 thresholds for immune-active disease, with the two AASLD/IDSA 2025 changes. R3 (conditional, very low certainty): immune-tolerant adults over 40, or with grade 2 / stage 2 or worse disease, are suggested for treatment; the text says over 40 and the algorithm says 40 or more. R4: the indeterminate (grey zone) group, which is not limited to HBeAg-negative patients, is a shared decision. Cirrhosis: AASLD 2018 R7A treats compensated cirrhosis with low viremia regardless of ALT, R7B treats decompensated cirrhosis regardless of DNA, ALT or HBeAg, and the 2025 Figure 5 treats both regardless of DNA or ALT. EASL 2025 asks for detectable DNA in compensated cirrhosis. EASL 2025 and WHO 2024 treat more people: DNA above 2,000 with ALT above ULN, or significant fibrosis. Pregnancy and immunosuppression are separate pathways, covered later. 'Monitor' means ALT and DNA every 3 to 6 months and a fibrosis check.");
 }
 
 // ---------------------------------------------------------------- Drugs
 sec("Drugs");
 twoStep((step) => {
-  const s = slide("58-year-old man, eGFR 45");
-  q(s, "Which nucleos(t)ide analogue?", 1.2, { size: 24 });
+  const s = slide("Same man at 52, eGFR 45");
+  q(s, "Which nucleos(t)ide analogue for him?", 1.2, { size: 24 });
   table(s, [["", "Dose", "At eGFR 30 to 49", ""],
-    ["Entecavir", "0.5 mg daily", "0.5 mg every 48 hours", ans(step, "Dose-adjust")],
-    ["TDF", "300 mg daily", "300 mg every 48 hours", ans(step, "Dose-adjust, kidney and bone effects")],
-    ["TAF", "25 mg daily with food", "25 mg daily", ans(step, { t: "No adjustment", b: true })]],
+    ["Entecavir", "0.5 mg daily", ans(step, "0.5 mg every 48 hours"), ans(step, "Dose-adjust")],
+    ["TDF", "300 mg daily", ans(step, "300 mg every 48 hours"), ans(step, "Dose-adjust, kidney and bone effects")],
+    ["TAF", "25 mg daily with food", ans(step, "25 mg daily"), ans(step, { t: "No adjustment", b: true })]],
     { x: 0.6, y: 1.9, w: W - 1.2, size: 21, minRowH: 0.95 });
   if (step === 2) q(s, "TAF, or entecavir with the dose adjusted", 6.1, { size: 24, hl: true });
   src(s, "US prescribing information: Baraclude, Viread, Vemlidy (DailyMed). Renal doses use creatinine clearance.");
-  s.addNotes("The renal rows are from the US labels. Entecavir: for CrCl 30 to 49, 0.25 mg daily or 0.5 mg every 48 hours; use the oral solution for the daily fractions. TDF: CrCl 30 to 49, 300 mg every 48 hours. TAF: no adjustment at CrCl 15 or above. TAF is not recommended in Child-Pugh B or C in the US label, and the old statement that TAF cannot be used on dialysis is out of date. The answer line is my teaching summary, based on the TAF versus TDF trial data on the next slide; confirm it is how you would say it.");
+  s.addNotes("The renal rows are from the US labels. Entecavir: for CrCl 30 to 49, 0.25 mg daily or 0.5 mg every 48 hours; use the oral solution for the daily fractions. TDF: CrCl 30 to 49, 300 mg every 48 hours. TAF: no adjustment at CrCl 15 or above. TAF is not recommended in Child-Pugh B or C in the US label, and the old statement that TAF cannot be used on dialysis is out of date. Bone and kidney data for TAF versus TDF are in the extended version. He started TAF.");
   return s;
 });
-twoStep((step) => {
+ext(() => twoStep((step) => {
   const s = slide("TAF versus TDF at week 48");
   table(s, [["HBV DNA below 29 IU/mL", "TAF", "TDF"], ["HBeAg-positive (Chan)", "64%", "67%"], ["HBeAg-negative (Buti)", "94%", "93%"]],
-    { x: 0.6, y: 1.4, w: 5.2, size: 19, minRowH: 0.6 });
+    { x: 0.4, y: 1.4, w: 5.6, size: 20, minRowH: 0.65 });
   if (step === 1) q(s, "What differs?", 4.6, { size: 26, x: 0.6, w: 12 });
   if (step === 2) {
     bars(s, [{ name: "TAF", labels: ["Hip, HBeAg-neg", "Spine, HBeAg-neg", "Hip, HBeAg-pos", "Spine, HBeAg-pos"], values: [-0.29, -0.88, -0.10, -0.42] },
@@ -858,7 +839,7 @@ twoStep((step) => {
   src(s, "Chan HLY et al. Lancet Gastroenterol Hepatol 2016;1:185-195 (PMID 28404091). Buti M et al. 2016;1:196-206 (PMID 28404092).");
   s.addNotes("Two phase 3 noninferiority trials, 875 HBeAg-positive and 426 HBeAg-negative patients, double-blind. Antiviral efficacy was the same. Bone loss was smaller on TAF at the hip (-0.10% vs -1.72% and -0.29% vs -2.16%) and spine (-0.42% vs -2.29% and -0.88% vs -2.51%). The 96-week pooled analysis (Agarwal, J Hepatol 2018) held up. The 8-year report (Buti, Aliment Pharmacol Ther 2024) switched the TDF arm to TAF at year 2 or 3, so it is not a randomized 8-year comparison. Observational data do not settle entecavir versus tenofovir for HCC (Choi 2023 individual patient meta-analysis HR 0.77, 0.61 to 0.98; Lee 2020 HR 1.03, 0.70 to 1.51).");
   return s;
-});
+}));
 ext(() => {
   {
     const s = slide("Entecavir or tenofovir for HCC?");
@@ -867,7 +848,7 @@ ext(() => {
       { x: 0.4, y: 1.6, w: 9.9, labelW: 4.4, rowH: 1.2, min: 0.5, max: 1.6, ticks: [0.5, 0.75, 1, 1.25, 1.5], axisL: "Favors tenofovir", axisR: "Favors entecavir" });
     s.addText("Hazard ratio for HCC, tenofovir vs entecavir", { x: 4.8, y: 1.05, w: 5.5, h: 0.4, fontFace: TBL_FONT, fontSize: 16, bold: true, align: "center", color: "000000", isTextBox: true, margin: 0 });
     s.addText("Yoo 2025, Korea, TAF vs TDF: 12.38 vs 15.39 HCC per 1,000 person-years, 17,537 in each matched group", { x: 0.8, y: 5.6, w: W - 1.6, h: 0.7, fontFace: "Georgia", fontSize: 18, align: "center", color: "000000", isTextBox: true, margin: 0 });
-    src(s, "Lee SW 2020 (PMID in dossier ref 31); Choi J et al. 2023 (dossier ref 32); Yoo 2025 (dossier ref 28).");
+    src(s, "Lee SW et al. Gut 2020;69:1301-1308, PMID 31672838. Choi WM et al. J Hepatol 2023;78:534-542, PMID 36572349. Yoo HJ et al. JHEP Rep 2025;7:101268, PMID 39867683.");
     s.addNotes("The observational data are inconsistent and sensitive to design, including different start dates and follow-up. No randomized trial compares HCC. The 2019 Choi cohort in Korea has a retraction-and-replacement notice, so do not quote its original estimate. Yoo 2025 (J Hepatol Reports): TDF/TAF incidence rate ratio 1.24, entecavir/TAF 1.08 (p = 0.219); abstract only. Renal function, bone disease, resistance, pregnancy, adherence and access still decide the drug.");
   }
   tableSlide("Pegylated interferon", [["Strategy", "Trial", "Result"],
@@ -875,27 +856,19 @@ ext(() => {
     ["Add to TDF for 48 weeks", "Marcellin, 740 patients", "HBsAg loss 9.1% (48 weeks), 2.8% (16 weeks), 0% (TDF alone), 2.8% (PegIFN alone) at week 72"]],
     { size: 19, tbl: { minRowH: 1.0 } },
     "A finite course for selected compensated patients who accept the side effects: higher ALT, lower DNA, favorable genotype and early qHBsAg decline help selection. Avoid in decompensated cirrhosis and pregnancy. These are selected populations, not general cure rates.",
-    "Ning Q et al. 2014 (dossier ref 34); Marcellin P et al. 2016 (dossier ref 35).");
-  tableSlide("Monitoring", [["Setting", "Schedule"],
-    ["On a nucleos(t)ide analogue", "DNA every 3 months until undetectable, then every 3 to 6 months"],
-    ["On TDF", "Creatinine, phosphate, urine glucose and protein at baseline and at least yearly"],
-    ["Untreated, HBeAg-negative infection", "ALT every 3 months in year 1, then every 6 to 12 months; HBsAg yearly"],
-    ["HCC surveillance", "Ultrasound plus AFP every 6 months when eligible, also with suppressed DNA"]],
-    { size: 18, tbl: { minRowH: 0.85 } },
-    "From AASLD 2018 and the reviewer's dossier (section C5). EASL 2025 uses 3 to 6 months initially, then 6 to 12 months after response. AASLD 2018 finds insufficient evidence to mandate routine bone density testing in people without other risk factors.",
-    "AASLD 2018, PMID 29405329; EASL 2025, PMID 40348683.");
+    "Ning Q et al. J Hepatol 2014;61:777-784, PMID 24915612. Marcellin P et al. Gastroenterology 2016;150:134-144, PMID 26453773.");
 });
 
 tableSlide("Choosing the drug: summary", [["Situation", "Drug"],
   [{ t: "Most patients", b: true }, "Entecavir, TDF or TAF"],
   [{ t: "Kidney or bone disease, or at risk", b: true }, "TAF, or entecavir with the dose adjusted"],
   [{ t: "Prior lamivudine resistance", b: true }, "TDF or TAF, not entecavir"],
-  [{ t: "Pregnancy", b: true }, "TDF (most data) or TAF"],
   [{ t: "HIV", b: true }, "TDF or TAF as part of ART"],
-  [{ t: "Decompensated cirrhosis", b: true }, "Entecavir or TDF (no TAF in Child-Pugh B or C)"],
-  [{ t: "Wants a finite course", b: true }, "Pegylated interferon, selected patients"]],
+  [{ t: "Decompensated cirrhosis", b: true }, "Entecavir 1 mg or TDF (no TAF in Child-Pugh B or C)"],
+  [{ t: "Wants a finite course", b: true }, "Pegylated interferon, selected patients"],
+  [{ t: "On treatment", b: true }, "DNA every 3 months, then every 3 to 6 months"]],
   { size: 20, y: 1.3, tbl: { minRowH: 0.66 } },
-  "AASLD 2018: entecavir, TDF and TAF are first line. Entecavir or TAF are preferred over TDF with renal dysfunction or bone disease, or risk of them. Lamivudine resistance confers cross-resistance to entecavir, so use tenofovir. Entecavir alone is not adequate in HIV: it selects HIV M184V. Pregnancy: TDF has the randomized data; AASLD/IDSA 2025 R1 accepts TDF or TAF. Decompensated cirrhosis: the 2025 Figure 5 lists TAF, but the US label does not recommend it in Child-Pugh B or C, so say that. PegIFN is contraindicated in decompensated cirrhosis and in pregnancy.",
+  "AASLD 2018: entecavir, TDF and TAF are first line. Entecavir or TAF are preferred over TDF with renal dysfunction or bone disease, or risk of them. Lamivudine resistance confers cross-resistance to entecavir, so use tenofovir. Entecavir alone is not adequate in HIV: it selects HIV M184V. Pregnancy is on its own slide later: TDF has the randomized data; AASLD/IDSA 2025 R1 accepts TDF or TAF. Decompensated cirrhosis: entecavir is 1 mg daily, not 0.5 mg (Baraclude label); the 2025 Figure 5 lists TAF, but the US label does not recommend it in Child-Pugh B or C, so say that. PegIFN is contraindicated in decompensated cirrhosis and in pregnancy. Monitoring on treatment: DNA every 3 months until undetectable, then every 3 to 6 months; on TDF, creatinine, phosphate, urine glucose and protein at least yearly (AASLD 2018). EASL 2025 uses 3 to 6 months at first, then 6 to 12.",
   "AASLD 2018 (PMID 29405329); AASLD/IDSA 2025 (PMID 41186418); US prescribing information.");
 
 // ---------------------------------------------------------------- HCC
@@ -906,19 +879,21 @@ twoStep((step) => {
   table(s, [["Variable", "Category", "Points"],
     ["Age, years", "16 to 29", "0"], ["", "30 to 39", "2"], ["", "40 to 49", "4"], ["", "50 to 59", hl("6")], ["", "60 to 69", "8"], ["", "70 or older", "10"],
     ["Sex", "Female", "0"], ["", "Male", hl("6")],
-    ["Platelets, x 10^9/L", "200 or more", "0"], ["", "100 to 199", hl("6")], ["", "Under 100", "9"]],
-    { x: 0.6, y: 1.25, w: 6.4, size: 16, minRowH: 0.43 });
+    ["Platelets, ×10⁹/L", "200 or more", "0"], ["", "100 to 199", hl("6")], ["", "Under 100", "9"]],
+    { x: 0.6, y: 1.2, w: 6.6, size: 18, minRowH: 0.46 });
   body(s, [{ t: "52-year-old man", nb: true, b: true }, { t: "Started on TAF", nb: true }, { t: "Platelets 190", nb: true }], { x: 7.5, y: 1.5, w: 5.2, h: 1.9, size: 22, gap: 6 });
   if (step === 1) q(s, "What is his PAGE-B score?", 4.3, { x: 7.5, w: 5.2, h: 1.0, size: 24 });
   if (step === 2) {
-    q(s, "6 + 6 + 6 = 18", 3.8, { x: 7.5, w: 5.2, size: 28, hl: true });
-    body(s, [{ t: "High risk: 18 or more", nb: true }, { t: "5-year HCC about 16 to 17%", nb: true }], { x: 7.5, y: 4.7, w: 5.2, h: 1.4, size: 21 });
+    q(s, "6 + 6 + 6 = 18", 3.5, { x: 7.5, w: 5.2, size: 28, hl: true });
+    body(s, [{ t: "High risk: 18 or more", nb: true }, { t: "5-year HCC about 16 to 17%", nb: true }], { x: 7.5, y: 4.15, w: 5.2, h: 1.0, size: 20 });
+    s.addImage({ path: path.join(IMG, "qr-calculator.png"), x: 7.7, y: 5.3, w: 1.45, h: 1.45, altText: "QR code to the HBV HCC risk calculator" });
+    s.addText("Calculator: qaddodi.github.io/chb-hcc-risk", { x: 9.3, y: 5.5, w: 3.7, h: 1.0, fontFace: "Georgia", fontSize: 16, valign: "middle", isTextBox: true, margin: 0 });
   }
   src(s, "Points as printed in EASL 2025 Table 13. PAGE-B: Papatheodoridis GV et al. J Hepatol 2016.");
-  s.addNotes("PAGE-B was derived in 1,815 White European adults treated with entecavir or tenofovir (1,325 derivation, 490 validation) and has three groups: 9 or less, 10 to 17 and 18 or more. Five-year HCC was 0, 3 and 17% in derivation and 0, 4 and 16% in validation. Platelet boundary: EASL prints 'above 200' and the calculator uses 200 or more; the original paper's boundary at exactly 200 is not yet checked. The PAGE-B column and strata come from the dossier (section E1). He was started on TAF when he was 52, so PAGE-B applies. In a US veterans cohort of 3,101 treated patients (39.5% White, 36.3% Black), PAGE-B had a 3-year AUC of 0.73.");
+  s.addNotes("PAGE-B was derived in 1,815 White European adults treated with entecavir or tenofovir (1,325 derivation, 490 validation) and has three groups: 9 or less, 10 to 17 and 18 or more. Five-year HCC was 0, 3 and 17% in derivation and 0, 4 and 16% in validation. He was started on TAF when he was 52, so PAGE-B applies. In a US veterans cohort of 3,101 treated patients (39.5% White, 36.3% Black), PAGE-B had a 3-year AUC of 0.73.");
   return s;
 });
-{
+ext(() => {
   const s = slide("Calculate it yourself");
   table(s, [["PAGE-B", "5-year HCC, derivation", "5-year HCC, validation"], ["9 or less", "0%", "0%"], ["10 to 17", "3%", "4%"], ["18 or more", "17%", "16%"]],
     { x: 0.6, y: 1.5, w: 7.2, size: 20, minRowH: 0.75 });
@@ -929,8 +904,8 @@ twoStep((step) => {
     "The HBsAg-based model on the site is a 2026 research model, not validated",
   ], { x: 0.6, y: 4.5, w: 7.3, h: 2.2, size: 19, gap: 10 });
   src(s, "PAGE-B: Papatheodoridis GV et al. J Hepatol 2016. VA validation: Kim 2022.");
-  s.addNotes("Your calculator. PAGE-B matches the published table. The second model (HBsAg-HCC, Guo 2026, 1,190 training and 506 validation patients, abstract only) could not be checked against the paper, so say it is a research model, not validated. Do not call it externally verified. The calculator does not include REACH-B, aMAP or REAL-B.");
-}
+  s.addNotes("The calculator is mine. PAGE-B matches the published table. The second model (HBsAg-HCC, Guo 2026, 1,190 training and 506 validation patients) is a research model, not externally validated. The calculator does not include REACH-B, aMAP or REAL-B.");
+});
 twoStep((step) => {
   const s = slide("Who gets surveillance?");
   q(s, "Ultrasound and AFP every 6 months?", 1.2, { size: 24, x: 0.4, w: 8.4 });
@@ -955,20 +930,14 @@ ext(() => {
     ["aMAP", "17,374, mostly treated Asian HBV", "Age, sex, albumin-bilirubin, platelets"],
     ["REAL-B", "8,048 treated Asian patients", "Sex, age, alcohol, diabetes, cirrhosis, platelets, AFP"]],
     { size: 19, tbl: { minRowH: 0.8 } },
-    "In 3,101 treated US veterans (39.5% White, 36.3% Black, 13.6% Asian; 113 HCC over 4.5 years) the 3-year AUC was 0.73 for PAGE-B and 0.57 for REACH-B; REAL-B and some AFP-containing models were above 0.80. REACH-B does poorly when moved from untreated noncirrhotic patients into treated ones, including those with cirrhosis. In HIV/HBV on tenofovir (2,963 patients), PAGE-B had a C-index of 0.77 and a negative predictive value of 99.4% below 10 at 5 years. Full formulas for mPAGE-B, aMAP and REAL-B were not confirmed, so do not reproduce their point tables.",
-    "Papatheodoridis 2016; Kim 2018; Yang 2011; Fan 2020; Yang 2020; Kim 2022 (dossier refs 38-42, 46).");
+    "In 3,101 treated US veterans (39.5% White, 36.3% Black, 13.6% Asian; 113 HCC over 4.5 years) the 3-year AUC was 0.73 for PAGE-B and 0.57 for REACH-B; REAL-B and some AFP-containing models were above 0.80. REACH-B does poorly when moved from untreated noncirrhotic patients into treated ones, including those with cirrhosis. In HIV/HBV on tenofovir (2,963 patients), PAGE-B had a C-index of 0.77 and a negative predictive value of 99.4% below 10 at 5 years.",
+    "PAGE-B PMID 26678008; mPAGE-B PMID 30075230; REACH-B PMID 21497551; aMAP PMID 32707225; REAL-B PMID 31550363; Kim HS, J Hepatol 2022, PMID 34563579.");
   tableSlide("Does qHBsAg refine HCC risk?", [["Tseng, Gastroenterology 2012", "Result"],
     ["2,688 noncirrhotic Taiwanese, 191 HCC, mean 14.7 years", "HBeAg-negative with DNA under 2,000: HBsAg 1,000 or more vs under 1,000 gave adjusted HR 13.7 (4.8 to 39.3)"],
     ["Whole cohort", "DNA was the stronger predictor; HBsAg alone did not add independently"]],
     { size: 19, tbl: { minRowH: 1.1 } },
-    "This replaces the flowchart you sent: it had a Gemini watermark and no source. What the literature supports: a high HBsAg in an HBeAg-negative patient with low DNA predicts HCC, and the best studied cut-off is 1,000 IU/mL. Not supported: that qHBsAg adds nothing in F3 to F4, a universal cut-off of 100, and any reading of qHBsAg as an integration-burden meter. The Tseng 2013 Hepatology paper is about hepatitis events (HR 1.5), and the 13.2 hazard ratio in the 2012 Hepatology paper is for HBsAg loss, not HCC.",
-    "Tseng TC et al. Gastroenterology 2012 (dossier ref 48).");
-  tableSlide("Integration of HBV DNA", [["Study", "Finding"],
-    ["Mason 2016, 26 patients aged 14 to 39", "Integration and clonal hepatocyte expansion found in immune-tolerant patients as well, before ALT rises"],
-    ["Grudda 2022, 16 HIV/HBV patients", "Integrated DNA keeps producing HBsAg despite antiviral therapy"]],
-    { size: 20, tbl: { minRowH: 1.2 } },
-    "Biology, not an outcome trial. It explains why HBsAg can persist when DNA is undetectable and why 'immune tolerant' is not a safe phase. It does not show that early treatment prevents HCC. Small tissue studies; abstract only.",
-    "Mason WS et al. Gastroenterology 2016 (dossier ref 50); Grudda T et al. 2022 (ref 51).");
+    "What the literature supports: a high HBsAg in an HBeAg-negative patient with low DNA predicts HCC, and the best studied cut-off is 1,000 IU/mL. Not supported: that qHBsAg adds nothing in F3 to F4, a universal cut-off of 100, and any reading of qHBsAg as an integration-burden meter. The Tseng 2013 Hepatology paper is about hepatitis events (HR 1.5), and the 13.2 hazard ratio in the 2012 Hepatology paper is for HBsAg loss, not HCC.",
+    "Tseng TC et al. Gastroenterology 2012;142:1140-1149, PMID 22333950.");
 });
 
 // ---------------------------------------------------------------- Special situations
@@ -991,13 +960,13 @@ ext(() => {
 sec("Special situations");
 twoStep((step) => {
   const s = slide("Risk of HBV reactivation");
-  q(s, "How risky is each drug if HBsAg is negative and anti-HBc is positive?", 1.2, { size: 22 });
+  q(s, "HBsAg negative, anti-HBc positive: how risky is each drug?", 1.2, { size: 22 });
   const R = (v) => ans(step, v === "High" ? { t: v, red: true, b: true } : v);
   table(s, [["Drug", "Reactivation risk"],
     ["Rituximab or other anti-CD20", R("High")],
     ["Anthracyclines", R("Moderate")],
     ["JAK inhibitors", R("Moderate")],
-    ["Prednisone 20 mg or more for 4 weeks or longer", R("Moderate")],
+    ["Prednisone 10 mg or more for 4 weeks or longer", R("Moderate")],
     ["Anti-TNF", R("Low")],
     ["Immune checkpoint inhibitors", R("Low")],
     ["Methotrexate, azathioprine", R("Low")]],
@@ -1010,11 +979,11 @@ twoStep((step) => {
   const s = slide("Rituximab, six cycles");
   q(s, "What do you give, and for how long?", 1.2, { size: 24, x: 0.3, w: 8.4 });
   pic(s, "iv-infusion.png", 8.5, 1.1, 4.7, 5.8, "Watercolor of an IV bag and infusion pump on a pole");
-  gantt(s, { x: 0.2, y: 2.2, w: 8.4, labelW: 2.5, rowH: 0.9, ticks: ["Start", "Month 6", "Month 12", "Month 18"], rows: [
+  gantt(s, { x: 0.2, y: 2.2, w: 8.4, labelW: 2.5, rowH: 0.9, ticks: ["Start", "Month 6", "Month 12", "Month 18", "Month 24"], rows: [
     { label: "Rituximab", from: 0, to: 0.95, fill: SLATE, dark: true },
     { label: "Entecavir, TDF or TAF", from: 0, to: 3, fill: NAVY, text: "Continue 12 months after the last dose", show: step === 2 },
   ] });
-  if (step === 2) q(s, "Start before the first dose. If you only monitor: DNA and ALT every 1 to 3 months", 4.9, { size: 20, hl: true, x: 0.4, w: 8.0, h: 1.0 });
+  if (step === 2) q(s, "Start before the first dose", 5.0, { size: 24, hl: true, x: 0.4, w: 8.0, h: 0.6 });
   src(s, "AGA 2025 (PMID 39863345); AASLD 2018 (PMID 29405329); EASL 2025 (PMID 40348683).");
   s.addNotes("High-risk exposure with anti-HBc positive: prophylaxis rather than monitoring (AGA R1, strong). Use a high-barrier drug: entecavir, TDF or TAF. Continue at least 6 months after the immunosuppression ends and at least 12 months for B-cell-depleting therapy (AGA and AASLD 2018); EASL 2025 says 6 to 12 months and at least 18 months after B-cell depletion. For a moderate-risk exposure in a DNA-negative resolved infection, AGA favors prophylaxis but accepts monitoring. ACR 2021 and ASCO 2020 give the rheumatology and oncology versions.");
   return s;
@@ -1028,19 +997,20 @@ twoStep((step) => {
   fbox(s, "HBsAg negative, anti-HBc positive", 4.75, 2.4, 3.8, 0.6, "q", 17);
   fbox(s, "All negative", 9.05, 2.4, 3.8, 0.6, "q", 17);
   farrow(s, 2.35, 3.0, 2.35, 3.35); fbox(s, "Prophylaxis: entecavir, TDF or TAF", 0.45, 3.35, 3.8, 1.0, "treat", 18);
-  farrow(s, 2.35, 4.35, 2.35, 4.7); fbox(s, "Start before the first dose. Continue 6 months after the last, 12 after anti-CD20", 0.45, 4.7, 3.8, 1.4, "watch", 17);
-  farrow(s, 6.65, 3.0, 6.65, 3.35); fbox(s, "High risk (anti-CD20, stem cell transplant): prophylaxis", 4.75, 3.35, 3.8, 1.0, "treat", 17);
-  farrow(s, 6.65, 4.35, 6.65, 4.7); fbox(s, "Moderate or low risk: DNA and ALT every 1 to 3 months, or prophylaxis", 4.75, 4.7, 3.8, 1.4, "decide", 17);
+  farrow(s, 6.65, 3.0, 6.65, 3.35); fbox(s, "High risk (anti-CD20, stem cell transplant): prophylaxis", 4.75, 3.35, 3.8, 0.95, "treat", 17);
+  farrow(s, 6.65, 4.3, 6.65, 4.5); fbox(s, "Moderate risk: prophylaxis preferred, or DNA and ALT every 1 to 3 months", 4.75, 4.5, 3.8, 0.95, "decide", 16);
+  farrow(s, 6.65, 5.45, 6.65, 5.6); fbox(s, "Low risk: monitor", 4.75, 5.6, 3.8, 0.5, "watch", 16);
   farrow(s, 10.95, 3.0, 10.95, 3.35); fbox(s, "Vaccinate", 9.05, 3.35, 3.8, 1.0, "watch", 18);
+  fbox(s, "Prophylaxis: start before the first dose; continue 6 months after the last dose, 12 months after anti-CD20", 0.45, 6.25, 12.4, 0.55, "cond", 16);
   src(s, "AGA 2025 (PMID 39863345); AASLD 2018 (PMID 29405329); EASL 2025 (PMID 40348683).");
   s.addNotes("AGA 2025: high risk above 10%, moderate 1 to 10%, low below 1%. HBsAg positive: prophylaxis for high- and moderate-risk drugs and for chemotherapy; AGA does not insist on it for every low-risk drug, so say 'nearly all'. HBsAg negative, anti-HBc positive: prophylaxis for anti-CD20 and stem cell transplant; for moderate risk AGA favors prophylaxis but accepts monitoring; low risk is monitoring. Duration: 6 months after the last dose, 12 after B-cell depleting therapy (AGA, AASLD 2018); EASL 2025 says 18 after B-cell depletion. Anti-HBs does not change the decision for anti-CD20. All negative: vaccinate (ACIP: all adults 19 to 59, and 60 and older with risk factors).");
 }
 twoStep((step) => {
   const s = slide("29-year-old woman, 20 weeks pregnant");
   table(s, [["HBsAg", "HBeAg", "HBV DNA", "ALT"], ["Positive", "Positive", { t: "5,000,000 IU/mL", red: true }, "22 U/L"]],
-    { x: 0.5, y: 1.35, w: 7.2, size: 20, minRowH: 0.6 });
-  s.addText("What do you do for her and for the baby?", { x: 0.5, y: 2.75, w: 7.2, h: 0.6, fontFace: "Georgia", fontSize: 24, bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
-  pic(s, "pregnant-patient.png", 7.7, 1.2, 5.5, 5.8, "Watercolor of a seated pregnant woman in profile");
+    { x: 0.4, y: 1.35, w: 6.9, size: 20, minRowH: 0.6 });
+  s.addText("What do you do for her and the baby?", { x: 0.4, y: 2.75, w: 6.9, h: 0.6, fontFace: "Georgia", fontSize: 22, bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  pic(s, "pregnant-patient.png", 7.6, 1.2, 5.5, 5.6, "Watercolor of a seated pregnant woman in profile");
   if (step === 2) {
     body(s, [
       "TDF or TAF from week 28, because DNA is above 200,000 IU/mL",
@@ -1048,32 +1018,22 @@ twoStep((step) => {
     ], { x: 0.6, y: 3.7, w: 7.0, h: 2.8, size: 24, gap: 16 });
   }
   s.addNotes("Born in Ethiopia, HBeAg positive, all values made up. AASLD/IDSA 2025 R1 (strong, moderate certainty): DNA above 200,000 at any point, start TDF or TAF at week 28 (consider week 16 when infant HBIG is not available). WHO 2024 also treats HBeAg-positive mothers regardless of DNA. Mother's ALT is normal, so this is prophylaxis to prevent transmission; stopping at delivery is allowed when treatment was only for that purpose, with DNA and ALT every 1 to 3 months for 6 months. Infant: single-antigen hepatitis B vaccine plus HBIG within 12 hours at separate sites, then complete the series. Breastfeeding is not prohibited.");
+  src(s, "AASLD/IDSA 2025 R1, Hepatology 2026;83:974-997, PMID 41186418. CDC perinatal hepatitis B guidance.");
   return s;
 });
-{
-  const s = slide("Her pregnancy and the baby's first year");
-  gantt(s, { x: 0.6, y: 1.6, w: W - 1.2, labelW: 3.8, rowH: 0.85, ticks: ["Week 20", "Week 28", "Delivery", "Month 6", "Month 12"], rows: [
-    { label: "Mother: TDF or TAF", from: 1, to: 2, fill: NAVY, text: "Stop at delivery is allowed" },
-    { label: "Mother: DNA and ALT", from: 2, to: 3, fill: TEAL, text: "Every 1 to 3 months" },
-    { label: "Baby: vaccine and HBIG", from: 2, to: 2.12, fill: OCHRE, text: "Within 12 hours", dark: true },
-    { label: "Baby: HBsAg and anti-HBs", from: 3.5, to: 4, fill: SLATE, dark: true, text: "Month 9 to 12" },
-  ] });
-  src(s, "AASLD/IDSA 2025 R1 (PMID 41186418); CDC perinatal hepatitis B overview, 2025.");
-  s.addNotes("Timeline from the AASLD/IDSA 2025 recommendation and the CDC infant schedule. Infant testing is HBsAg and anti-HBs at 9 to 12 months, or 1 to 2 months after a delayed final dose. Do not use anti-HBc for infant testing after vaccination. Evidence: Pan, NEJM 2016 (200 HBeAg-positive mothers; transmission 5% vs 18% by intention to treat) and Jourdain, NEJM 2018 (331 women; 0 vs 3 infected infants, p = 0.12, not superior because infant prophylaxis was already excellent).");
-}
 ext(() => {
   const s = slide("Tenofovir in pregnancy: the trials");
   bars(s, [{ name: "TDF", labels: ["Pan 2016, intention to treat", "Pan 2016, per protocol"], values: [5, 0] }, { name: "Usual care", labels: ["Pan 2016, intention to treat", "Pan 2016, per protocol"], values: [18, 7] }],
     { x: 0.6, y: 1.3, w: 6.6, h: 4.3, colors: [NAVY, SLATE], max: 20, unit: 5, legend: true, labSize: 16, catSize: 14 });
   table(s, [["Jourdain 2018", "TDF", "Placebo"], ["Infected infants", "0 of 147", "3 of 147"], ["p", "0.12", ""]], { x: 7.6, y: 2.0, w: 5.2, size: 19, minRowH: 0.7 });
   s.addText("Infant HBIG and vaccine were given about an hour after birth in Thailand", { x: 7.6, y: 4.4, w: 5.2, h: 1.0, fontFace: "Georgia", fontSize: 17, isTextBox: true, margin: 0 });
-  src(s, "Pan CQ et al. NEJM 2016 (PMID in dossier ref 52). Jourdain G et al. NEJM 2018 (ref 53).");
+  src(s, "Pan CQ et al. N Engl J Med 2016;374:2324-2334, PMID 27305192. Jourdain G et al. N Engl J Med 2018;378:911-923, PMID 29514030.");
   s.addNotes("Pan: 200 HBeAg-positive mothers with DNA above 200,000, TDF from week 30 to 32 to 4 weeks postpartum versus usual care: infant infection 5/97 (5%) vs 18/100 (18%) by intention to treat, 0 vs 6/88 (7%) per protocol. Post-withdrawal ALT elevations in mothers 45% vs 30%. Jourdain: 331 women, TDF from week 28 to 2 months postpartum: infant infection 0/147 vs 3/147 (2%), p = 0.12. A 2025 randomized trial (Pan, JAMA) starting TDF at week 16 without HBIG was noninferior to week 28 plus HBIG: 1/131 vs 0/142.");
 });
 mcq("Same woman, after delivery", "She is on TDF. Can she breastfeed?", [
   "No, tenofovir in breast milk harms the baby",
   "Yes",
-  "Only after the baby finishes the vaccine series",
+  "Only after the vaccine series",
   "Only if her DNA is undetectable",
 ], 1, { file: "newborn-vaccine.png", alt: "Watercolor of a sleeping swaddled newborn beside a vaccine syringe on a tray" },
   "Breastfeeding is not prohibited (AASLD 2018 and AASLD/IDSA 2025). Tenofovir levels in breast milk are low, and the baby has had vaccine and HBIG. Let the room vote first; many think the answer is no.",
@@ -1091,9 +1051,102 @@ mcq("Same woman, after delivery", "She is on TDF. Can she breastfeed?", [
   ], { x: 0.6, y: 1.3, w: 7.6, h: 5.5, size: 21, gap: 10 });
   pic(s, "pregnant-patient.png", 8.5, 1.3, 4.5, 5.4, "Watercolor of a seated pregnant woman in profile");
   src(s, "AASLD/IDSA 2025 R1 (PMID 41186418); CDC 2023 (PMID 36893044); CDC perinatal hepatitis B guidance.");
-  s.addNotes("AASLD/IDSA 2025 R1 (strong, moderate certainty): DNA above 200,000 at any point, start TDF or TAF at week 28; consider week 16 when infant HBIG is not available. Stopping at delivery is allowed when the drug was only for prevention. WHO 2024 also treats HBeAg-positive mothers regardless of DNA. Infant testing: HBsAg and anti-HBs, not anti-HBc. CDC 2023 screens every pregnancy.");
+  s.addNotes("AASLD/IDSA 2025 R1 (strong, moderate certainty): DNA above 200,000 at any point, start TDF or TAF at week 28; consider week 16 when infant HBIG is not available. Stopping at delivery is allowed when the drug was only for prevention. WHO 2024 also treats HBeAg-positive mothers regardless of DNA. Infant testing: HBsAg and anti-HBs, not anti-HBc. CDC 2023 screens every pregnancy. Mother on drug only for prevention and stops after delivery: DNA and ALT every 1 to 3 months for 6 months. Infant testing is at 9 to 12 months, or 1 to 2 months after a delayed final dose. Evidence: Pan, NEJM 2016 (transmission 5% vs 18% by intention to treat) and Jourdain, NEJM 2018 (0 vs 3 infected infants, p = 0.12).");
+}
+// ---------------------------------------------------------------- Stopping, cure, new drugs
+sec("Stopping and what is new");
+twoStep((step) => {
+  const s = slide("Same man, 57 years old, five years on TAF");
+  table(s, [["Condition for stopping", "Our patient", "Met?"],
+    ["No cirrhosis or advanced disease", "Stiffness 5.9 kPa", ans(step, "Yes")],
+    ["HBV DNA undetectable for 2 years or more", "Undetectable for 5 years", ans(step, "Yes")],
+    ["HBsAg under 100 IU/mL", "400 IU/mL", ans(step, { t: "No", red: true, b: true })],
+    ["HBeAg seroconversion 1 year or more", "In his late 40s", ans(step, "Yes")],
+    ["No HIV or HDV", "Both negative", ans(step, "Yes")],
+    ["Reliable follow-up", "Yes", ans(step, "Yes")]],
+    { x: 0.4, y: 1.25, w: 8.6, size: 18, minRowH: 0.56 });
+  pic(s, "man-52.png", 9.1, 1.3, 4.1, 5.0, "Watercolor of the same man in his fifties, gray at the temples, with reading glasses");
+  q(s, "Can he stop?", 5.6, { size: 26, x: 0.4, w: 8.6 });
+  if (step === 2) q(s, "No. Continue until HBsAg is lost", 6.2, { size: 22, hl: true, x: 0.4, w: 8.6 });
+  src(s, "AASLD/IDSA 2025 R5. Hepatology 2026;83:974-997, PMID 41186418.");
+  s.addNotes("HBeAg negative, started on TAF at 52. AASLD/IDSA 2025 R5 (conditional, very low certainty) suggests continuing until HBsAg loss; stopping only in exceptions: no advanced complications, DNA undetectable at least 2 years, qHBsAg under 100, no HIV or HDV, reliable follow-up. If HBeAg-positive at the start, seroconverted at least 1 year. The text says 2 years and the guideline's Figure 4 legend says 3, so quote 2 to 3. If you do stop: DNA and ALT every 1 to 3 months for 6 months, then every 3 months for 6 to 12 months, then every 3 to 6 months. Retreat for DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 or decompensation (Table 3). Evidence in the extended version. Values are made up.");
+  return s;
+});
+mcq("Same man: if he had stopped TAF", "Which result means restart now?", [
+  "ALT 1.5 times ULN",
+  "HBV DNA 10,000 IU/mL",
+  "HBsAg 200 IU/mL",
+  "Anti-HBs negative",
+], 1, { file: "man-52.png", alt: "Watercolor of the same man in his fifties, gray at the temples, with reading glasses" },
+  "AASLD/IDSA 2025 Table 3: restart at once for DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 mg/dL, or decompensation. A mild ALT rise after stopping is expected and is watched, not treated straight away.",
+  "AASLD/IDSA 2025 Table 3 (PMID 41186418).");
+{
+  const s = slide("Stopping: summary");
+  body(s, [
+    { t: "Default: continue until HBsAg is lost", b: true },
+    { t: "Stop only if all of these:", b: true },
+    "No cirrhosis",
+    "DNA undetectable for 2 years or more",
+    "If HBeAg positive at the start: seroconverted 1 year or more",
+    "HBsAg under 100 IU/mL",
+    "No HIV or HDV",
+    "Reliable follow-up",
+  ], { x: 0.5, y: 1.3, w: 5.7, h: 5.2, size: 21, gap: 8 });
+  s.addText("After stopping", { x: 6.5, y: 1.3, w: 6.5, h: 0.45, fontFace: "Georgia", fontSize: 20, bold: true, align: "center", color: "000000", isTextBox: true, margin: 0 });
+  fbox(s, "Months 0 to 6: DNA and ALT every 1 to 3 months", 6.7, 1.9, 6.2, 0.6, "watch", 16);
+  farrow(s, 9.8, 2.5, 9.8, 2.75);
+  fbox(s, "Months 6 to 12: every 3 months", 6.7, 2.75, 6.2, 0.6, "watch", 16);
+  farrow(s, 9.8, 3.35, 9.8, 3.6);
+  fbox(s, "After 12 months: every 3 to 6 months", 6.7, 3.6, 6.2, 0.6, "watch", 16);
+  fbox(s, "Restart now: DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 mg/dL, or decompensation", 6.7, 4.7, 6.2, 1.2, "treat", 17);
+  src(s, "AASLD/IDSA 2025 R5 and Table 3 (PMID 41186418).");
+  s.addNotes("R5 is conditional, very low certainty. The text says 2 years of suppression and the Figure 4 legend says 3. Follow-up and retreatment triggers are from Table 3; the table says ALT above 5 times ULN and the prose says 5 times or more.");
 }
 ext(() => {
+  tableSlide("What happens when you stop", [["Study", "Patients", "HBsAg loss", "Retreatment"],
+    ["STOP-NUC, randomized (Van Bommel 2023)", "166", "10.1% vs 0% at 96 weeks", "13.9%"],
+    ["RETRACT-B, cohort (Hirode 2022)", "1,552", "3.2% at 12 months, 13.0% at 48 months", "–"],
+    ["FINITE, randomized (Berg 2017)", "42", "4 of 21 (19%) in the stop arm at 144 weeks", "13 of 21 stayed off therapy"]],
+    { size: 18, tbl: { minRowH: 0.9 } },
+    "RETRACT-B: end-of-treatment HBsAg under 100 predicted loss (subdistribution HR 22.5, 13.1 to 38.7); loss was much more likely in White than Asian patients (HR 6.8). STOP-NUC: 79 per arm, DNA undetectable at least 4 years; in those with HBsAg under 1,000, loss was 7 of 25 (28%). Loss, relapse, retreatment and sustained remission are different endpoints and cannot be subtracted from each other. RETRACT-B retreatment: the overall rate is not in the abstract, so the cell is left empty. Severe flares can happen: a case of HBV-induced liver failure requiring emergency transplant after a finite-treatment strategy (REEF-2 report).",
+    "van Bömmel F et al. J Hepatol 2023;78:926-936, PMID 37062574. Hirode G et al. Gastroenterology 2022;162:757-771, PMID 34762906. Berg T et al. J Hepatol 2017;67:918-924, PMID 28736139.");
+  tableSlide("Definitions of cure", [["Endpoint", "Definition"],
+    ["Functional cure", "HBsAg loss and HBV DNA below quantification, 24 weeks off therapy"],
+    ["Partial cure", "HBsAg under 100 IU/mL and DNA below quantification, 24 weeks off therapy"],
+    ["Sterilizing cure", "Elimination of the viral templates (cccDNA and integrated DNA)"]],
+    { size: 21, tbl: { minRowH: 1.0 } },
+    "From the 2022 AASLD/EASL endpoint conference report (published 2023). Standard nucleos(t)ide therapy rarely gives HBsAg loss. Functional cure does not show that cccDNA or integrated DNA are gone.",
+    "Ghany MG et al. J Hepatol 2023;79:1254-1269, PMID 37377088.");
+});
+twoStep((step) => {
+  const s = slide("Same man at 57: a new drug");
+  q(s, "Is he a candidate for bepirovirsen?", 1.2, { size: 24, x: 0.4, w: 8.6 });
+  table(s, [["FDA label", "Our patient", "Met?"],
+    ["Adult, no cirrhosis", "Stiffness 5.9 kPa", ans(step, "Yes")],
+    ["On a nucleos(t)ide analogue 6 months or more", "TAF for 5 years", ans(step, "Yes")],
+    ["HBV DNA suppressed", "Undetectable", ans(step, "Yes")],
+    ["HBsAg 3,000 IU/mL or lower", "400 IU/mL", ans(step, "Yes")]],
+    { x: 0.4, y: 1.9, w: 8.6, size: 19, minRowH: 0.62 });
+  pic(s, "man-52.png", 9.1, 1.3, 4.1, 5.0, "Watercolor of the same man in his fifties, gray at the temples, with reading glasses");
+  if (step === 2) {
+    q(s, "Yes. FDA approved 20 October 2026", 5.25, { size: 24, hl: true, x: 0.4, w: 8.6 });
+    s.addText("About 1 in 5 had HBsAg loss 24 weeks after stopping all treatment; none on placebo", { x: 0.4, y: 5.9, w: 8.6, h: 0.8, fontFace: "Georgia", fontSize: 19, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  }
+  src(s, "FDA news release 20 October 2026. Hou J et al. N Engl J Med 2026;394:2395-2406, PMID 42206582 (B-Well 1 and 2).");
+  s.addNotes("Bepirovirsen (Hibsago) is an antisense oligonucleotide given under the skin for up to 24 weeks, together with the existing antiviral, which continues for at least 24 weeks after the last injection; some patients can then stop it. Across the two trials 24% met the criteria to stop their existing medicine versus none on placebo, and 19% still had suppressed virus with undetectable HBsAg 24 weeks after stopping all hepatitis B treatment. FDA also authorized a Roche qHBsAg assay as a companion diagnostic. Boxed warning for serious liver reactions and low platelets; warnings include worsening kidney function and vasculitis. For hepatitis D, bulevirtide (Hepcludex) got FDA accelerated approval on 22 May 2026.");
+  return s;
+});
+ext(() => {
+  const s = slide("Bepirovirsen: B-Well 1 and 2");
+  bars(s, [{ name: "Bepirovirsen", labels: ["B-Well 1", "B-Well 2"], values: [20, 19] }, { name: "Placebo", labels: ["B-Well 1", "B-Well 2"], values: [0, 0] }],
+    { x: 0.6, y: 1.3, w: 7.0, h: 4.6, colors: [NAVY, SLATE], max: 25, unit: 5, legend: true, labSize: 18, catSize: 16 });
+  body(s, ["Functional cure at week 72: HBsAg loss and DNA below quantification at least 24 weeks off all therapy", "127 of 650 vs 0 of 328, and 106 of 570 vs 0 of 286", "Trial entry: noncirrhotic, stable NA, HBsAg 100 to 3,000 IU/mL", "Grade 3 or higher adverse events 16% vs 3%"],
+    { x: 7.9, y: 1.5, w: 5.0, h: 5.2, size: 17, gap: 10 });
+  src(s, "Hou J et al. N Engl J Med 2026;394:2395-2406, PMID 42206582 (B-Well 1 and 2).");
+  s.addNotes("The sponsor's phase 3 trials: 978 and 856 participants. The FDA pooled figure is 19%. The earlier phase 2b B-Clear (Yuen, NEJM 2022, 457 participants): 300 mg for 24 weeks gave sustained response in 9% on NA and 10% off NA. Eligibility is narrow (noncirrhotic, suppressed, low HBsAg), so this is not a cure rate for all patients with hepatitis B.");
+});
+ext(() => {
+  sec("Other situations");
   tableSlide("Coinfection with HIV or HCV", [["Coinfection", "What to do"],
     ["HIV", "ART must include TDF or TAF plus emtricitabine or lamivudine. Entecavir alone is not HIV treatment"],
     ["HCV, HBsAg positive", "DNA every 4 to 8 weeks during direct-acting antivirals and for 3 months after"],
@@ -1113,19 +1166,19 @@ ext(() => {
   body(s, ["FDA accelerated approval 22 May 2026", "8.5 mg subcutaneously, once a day", "Adults without cirrhosis or with compensated cirrhosis", "Boxed warning: stopping can cause severe exacerbations"],
     { x: 7.9, y: 1.7, w: 5.0, h: 4.5, size: 19, gap: 12 });
   src(s, "FDA news release 22 May 2026. MYR301, week 48. Combined response: HDV RNA undetectable or 2 log decline, and normal ALT.");
-  s.addNotes("MYR301 as described by FDA: immediate treatment with 8.5 mg once daily for 144 weeks versus delayed treatment (48 weeks observation, then treatment). Week 48 combined response 48% vs 2%; undetectable HDV RNA 20% vs 0%; at weeks 96 and 144 undetectable RNA 36% and 50%. Accelerated approval rests on this surrogate response; clinical benefit needs confirmation. Side effects: hypersensitivity, injection site reactions, headache, abdominal pain, fatigue, itching. The dossier's published MYR301 numbers (2 mg 45%, 10 mg 48%) are from the NEJM paper; the slide uses FDA's numbers for the approved dose. Gilead is the sponsor.");
+  s.addNotes("MYR301 as described by FDA: immediate treatment with 8.5 mg once daily for 144 weeks versus delayed treatment (48 weeks observation, then treatment). Week 48 combined response 48% vs 2%; undetectable HDV RNA 20% vs 0%; at weeks 96 and 144 undetectable RNA 36% and 50%. Accelerated approval rests on this surrogate response; clinical benefit needs confirmation. Side effects: hypersensitivity, injection site reactions, headache, abdominal pain, fatigue, itching. The US label dose is 8.5 mg; MYR301 tested 2 and 10 mg (NEJM: 45% and 48%), and the EU dose is 2 mg. Gilead is the sponsor.");
   tableSlide("Cirrhosis and decompensation", [["Jang, observational", "Treated", "Untreated"], ["First decompensation, n = 707", "423", "284"], ["5-year transplant-free survival", "59.7%", "46.0%"], ["Delisted on treatment", "33.9%", ""]],
     { size: 21, tbl: { x: 0.5, w: 7.7, minRowH: 0.85 }, after: (s) => pic(s, "cirrhotic-liver.png", 8.4, 1.2, 4.7, 5.6, "Watercolor of a small nodular cirrhotic liver") },
     "Not randomized, and the antivirals were those of that era. Do not promise one-third delisting to every patient today. AASLD 2018 R7B: treat decompensated disease indefinitely regardless of DNA, ALT or HBeAg, and assess for transplant. PegIFN is contraindicated. The US TAF label does not recommend Child-Pugh B or C. Call transplant hepatology.",
-    "Jang JW et al. 2015 (dossier ref 56).");
+    "Jang JW et al. Hepatology 2015;61:1809-1820, PMID 25627342.");
   {
     const s2 = slide("HBV and liver transplant");
     bars(s2, [{ name: "De novo HBV", labels: ["No prophylaxis", "Any prophylaxis", "HBIG alone", "Lamivudine alone", "HBIG plus lamivudine"], values: [48, 12, 19, 2.6, 2.8] }],
-      { x: 0.6, y: 1.3, w: 7.4, h: 4.6, colors: [NAVY], max: 60, unit: 20, labSize: 15, catSize: 12, fmt: '0.0"%"' });
+      { x: 0.6, y: 1.3, w: 7.4, h: 4.9, colors: [NAVY], max: 60, unit: 20, labSize: 15, catSize: 12, fmt: '0.0"%"', title: "De novo HBV after an anti-HBc-positive liver, %" });
     body(s2, ["Anti-HBc positive donor, HBV-naive recipient (Cholongitas, older regimens)", "Entecavir alone without HBIG: 265 recipients, 92% HBsAg negative and 100% DNA undetectable at 8 years (Fung)", "Long-term nucleos(t)ide analogue for HBsAg-negative recipients of anti-HBc-positive grafts"],
       { x: 8.3, y: 1.5, w: 4.7, h: 5.0, size: 17, gap: 12 });
-    src(s2, "Cholongitas E et al. 2010 (dossier ref 59). Fung J et al. 2017 (ref 57). AASLD 2018 section 6H.");
-    s2.addNotes("Cholongitas: 39 studies, 903 recipients, regimens of that time, so the rates are not contemporary entecavir or tenofovir rates. AASLD 2018 supports indefinite high-barrier NA after transplant for HBV; selected low-risk patients may get no HBIG or 5 to 7 days plus NA, higher-risk patients (HIV, HDV, adherence concerns) HBIG plus NA. HBIG alone is not appropriate. The AST 2019 wording was not opened, so quote AASLD 2018 here. Fung 2017: nine-year survival 85%, no fatal HBV recurrence reported.");
+    src(s2, "Cholongitas E et al. J Hepatol 2010;52:272-279, PMID 20034693. Fung J et al. Hepatology 2017;66:1036-1044, PMID 28370215. AASLD 2018.");
+    s2.addNotes("Cholongitas: 39 studies, 903 recipients, regimens of that time, so the rates are not contemporary entecavir or tenofovir rates. AASLD 2018 supports indefinite high-barrier NA after transplant for HBV; selected low-risk patients may get no HBIG or 5 to 7 days plus NA, higher-risk patients (HIV, HDV, adherence concerns) HBIG plus NA. HBIG alone is not appropriate. Fung 2017: nine-year survival 85%, no fatal HBV recurrence reported.");
   }
   tableSlide("Children and adolescents", [["", "Who is treated"],
     ["AASLD 2018", "HBeAg-positive, age 2 to under 18, raised ALT and measurable DNA. Normal ALT: no routine treatment"],
@@ -1136,110 +1189,28 @@ ext(() => {
     "AASLD 2018 R9A and R9B; WHO 2024 chapter 8; DailyMed labels.");
 });
 
-// ---------------------------------------------------------------- Stopping, cure, new drugs
-sec("Stopping and what is new");
-twoStep((step) => {
-  const s = slide("Same man, 57 years old, five years on TAF");
-  table(s, [["Condition for stopping", "Our patient", "Met?"],
-    ["No cirrhosis or advanced disease", "Stiffness 5.9 kPa", ans(step, "Yes")],
-    ["HBV DNA undetectable for 2 years or more", "Undetectable for 5 years", ans(step, "Yes")],
-    ["HBsAg under 100 IU/mL", "400 IU/mL", ans(step, { t: "No", red: true, b: true })],
-    ["No HIV or HDV", "Both negative", ans(step, "Yes")],
-    ["Reliable follow-up", "Yes", ans(step, "Yes")]],
-    { x: 0.4, y: 1.3, w: 8.6, size: 19, minRowH: 0.65 });
-  pic(s, "man-52.png", 9.1, 1.3, 4.1, 5.0, "Watercolor of the same man in his fifties, gray at the temples, with reading glasses");
-  q(s, "Can he stop?", 5.5, { size: 26, x: 0.4, w: 8.6 });
-  if (step === 2) q(s, "No. Continue until HBsAg is lost", 6.1, { size: 22, hl: true, x: 0.4, w: 8.6 });
-  src(s, "AASLD/IDSA 2025 R5. Hepatology 2026;83:974-997, PMID 41186418.");
-  s.addNotes("HBeAg negative, started on TAF at 52. AASLD/IDSA 2025 R5 (conditional, very low certainty) suggests continuing until HBsAg loss; stopping only in exceptions: no advanced complications, DNA undetectable at least 2 years, qHBsAg under 100, no HIV or HDV, reliable follow-up. If HBeAg-positive at the start, seroconverted at least 1 year. The text says 2 years and the guideline's Figure 4 legend says 3, so quote 2 to 3. If you do stop: DNA and ALT every 1 to 3 months for 6 months, then every 3 months for 6 to 12 months, then every 3 to 6 months. Retreat for DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 or decompensation (Table 3). Evidence in the extended version. Values are made up.");
-  return s;
-});
-mcq("A different patient stops TAF", "Which result means restart now?", [
-  "ALT 1.5 times ULN",
-  "HBV DNA 10,000 IU/mL",
-  "HBsAg 200 IU/mL",
-  "Anti-HBs negative",
-], 1, { file: "blood-tubes.png", alt: "Watercolor of blood collection tubes in a rack" },
-  "AASLD/IDSA 2025 Table 3: restart at once for DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 mg/dL, or decompensation. A mild ALT rise after stopping is expected and is watched, not treated straight away.",
-  "AASLD/IDSA 2025 Table 3 (PMID 41186418).");
-{
-  const s = slide("Stopping: summary");
-  body(s, [
-    { t: "Default: continue until HBsAg is lost", b: true },
-    { t: "Stop only if all of these:", b: true },
-    "No cirrhosis",
-    "DNA undetectable for 2 years or more",
-    "HBsAg under 100 IU/mL",
-    "No HIV or HDV",
-    "Reliable follow-up",
-  ], { x: 0.5, y: 1.3, w: 5.7, h: 5.2, size: 21, gap: 8 });
-  s.addText("After stopping", { x: 6.5, y: 1.3, w: 6.5, h: 0.45, fontFace: "Georgia", fontSize: 20, bold: true, align: "center", color: "000000", isTextBox: true, margin: 0 });
-  fbox(s, "Months 0 to 6: DNA and ALT every 1 to 3 months", 6.7, 1.9, 6.2, 0.6, "watch", 16);
-  farrow(s, 9.8, 2.5, 9.8, 2.75);
-  fbox(s, "Months 6 to 12: every 3 months", 6.7, 2.75, 6.2, 0.6, "watch", 16);
-  farrow(s, 9.8, 3.35, 9.8, 3.6);
-  fbox(s, "After 12 months: every 3 to 6 months", 6.7, 3.6, 6.2, 0.6, "watch", 16);
-  fbox(s, "Restart now: DNA 10,000 or more, ALT above 5 times ULN, bilirubin above 2.5 mg/dL, or decompensation", 6.7, 4.7, 6.2, 1.2, "treat", 17);
-  src(s, "AASLD/IDSA 2025 R5 and Table 3 (PMID 41186418).");
-  s.addNotes("R5 is conditional, very low certainty. If HBeAg-positive at the start, also seroconverted for at least 1 year. The text says 2 years of suppression and the Figure 4 legend says 3. Follow-up and retreatment triggers are from Table 3; the table says ALT above 5 times ULN and the prose says 5 times or more.");
-}
-ext(() => {
-  tableSlide("What happens when you stop", [["Study", "Patients", "HBsAg loss", "Retreatment"],
-    ["STOP-NUC, randomized (Van Bommel 2023)", "166", "10.1% vs 0% at 96 weeks", "13.9%"],
-    ["RETRACT-B, cohort (Hirode 2022)", "1,552", "3.2% at 12 months, 13.0% at 48 months", "See paper"],
-    ["FINITE, randomized (Berg 2017)", "42", "4 of 21 (19%) in the stop arm at 144 weeks", "13 of 21 stayed off therapy"]],
-    { size: 18, tbl: { minRowH: 0.9 } },
-    "RETRACT-B: end-of-treatment HBsAg under 100 predicted loss (subdistribution HR 22.5, 13.1 to 38.7); loss was much more likely in White than Asian patients (HR 6.8). STOP-NUC: 79 per arm, DNA undetectable at least 4 years; in those with HBsAg under 1,000, loss was 7 of 25 (28%). Loss, relapse, retreatment and sustained remission are different endpoints and cannot be subtracted from each other. Severe flares can happen: a case of HBV-induced liver failure requiring emergency transplant after a finite-treatment strategy (REEF-2 report).",
-    "Van Bommel F et al. J Hepatol 2023 (dossier ref 61); Hirode G et al. Gastroenterology 2022 (ref 60); Berg T et al. J Hepatol 2017 (ref 62).");
-  tableSlide("Definitions of cure", [["Endpoint", "Definition"],
-    ["Functional cure", "HBsAg loss and HBV DNA below quantification, 24 weeks off therapy"],
-    ["Partial cure", "HBsAg under 100 IU/mL and DNA below quantification, 24 weeks off therapy"],
-    ["Sterilizing cure", "Elimination of the viral templates (cccDNA and integrated DNA)"]],
-    { size: 21, tbl: { minRowH: 1.0 } },
-    "From the 2022 AASLD/EASL endpoint conference report (published 2023). Standard nucleos(t)ide therapy rarely gives HBsAg loss. Functional cure does not show that cccDNA or integrated DNA are gone.",
-    "Ghany MG et al. 2023 (dossier ref 65).");
-});
-{
-  const s = slide("Approved in 2026");
-  table(s, [["", "Bepirovirsen (Hibsago)", "Bulevirtide (Hepcludex)"],
-    ["For", "Chronic hepatitis B", "Chronic hepatitis D"],
-    ["FDA approval", "20 October 2026", "22 May 2026"],
-    ["Who", "Adults without cirrhosis, on a nucleos(t)ide analogue 6 months or more, DNA suppressed, HBsAg 3,000 IU/mL or lower", "Adults without cirrhosis or with compensated cirrhosis"],
-    ["Result", "19% had HBsAg undetectable 24 weeks after stopping all treatment; 0% on placebo", "Week 48: combined response 48% vs 2%"],
-    ["Warning", "Liver reactions, low platelets", "Severe exacerbation if stopped"]],
-    { x: 0.6, y: 1.3, w: W - 1.2, size: 20, minRowH: 0.8, colW: [1.7, 5.25, 5.25], keepW: true });
-  src(s, "FDA news releases 20 October 2026 (bepirovirsen) and 22 May 2026 (bulevirtide). B-Well 1 and 2, Hou, NEJM 2026.");
-  s.addNotes("From the FDA pages. Bepirovirsen is an antisense oligonucleotide given under the skin for up to 24 weeks, together with the existing antiviral, which continues for at least 24 weeks after the last injection; some patients can then stop it. Across the two trials 24% met the criteria to stop their existing medicine versus none on placebo, and 19% still had suppressed virus with undetectable HBsAg 24 weeks after stopping all hepatitis B treatment. The FDA also authorized a Roche qHBsAg assay as a companion diagnostic. Boxed warning for serious liver reactions and low platelets; warnings include worsening kidney function and vasculitis. Hepcludex: accelerated approval, boxed warning for severe exacerbations of HDV and HBV on discontinuation.");
-}
-ext(() => {
-  const s = slide("Bepirovirsen: B-Well 1 and 2");
-  bars(s, [{ name: "Bepirovirsen", labels: ["B-Well 1", "B-Well 2"], values: [20, 19] }, { name: "Placebo", labels: ["B-Well 1", "B-Well 2"], values: [0, 0] }],
-    { x: 0.6, y: 1.3, w: 7.0, h: 4.6, colors: [NAVY, SLATE], max: 25, unit: 5, legend: true, labSize: 18, catSize: 16 });
-  body(s, ["Functional cure at week 72: HBsAg loss and DNA below quantification at least 24 weeks off all therapy", "127 of 650 vs 0 of 328, and 106 of 570 vs 0 of 286", "Noncirrhotic, stable NA, HBsAg 100 to 3,000 IU/mL", "Grade 3 or higher adverse events 16% vs 3%"],
-    { x: 7.9, y: 1.5, w: 5.0, h: 5.2, size: 17, gap: 10 });
-  src(s, "Hou J et al. N Engl J Med 2026 (B-Well 1 and 2, dossier ref 67). Final issue 25 June 2026.");
-  s.addNotes("The sponsor's phase 3 trials: 978 and 856 participants. The FDA pooled figure is 19%. The earlier phase 2b B-Clear (Yuen, NEJM 2022, 457 participants): 300 mg for 24 weeks gave sustained response in 9% on NA and 10% off NA. Eligibility is narrow (noncirrhotic, suppressed, low HBsAg), so this is not a cure rate for all patients with hepatitis B.");
-});
 ext(() => {
   tableSlide("In the pipeline", [["Agent", "Phase 2 result", "Caution"],
-    ["Xalnesiran (siRNA)", "HBsAg loss at 24 weeks after treatment 7% (100 mg), 3% (200 mg), 12% with ruzotolimod, 23% with PegIFN, 0% NA alone", "Background NA continued"],
-    ["Elebsiran with PegIFN", "HBsAg loss 21% (200 mg) and 33% (100 mg) vs 6% with PegIFN alone", "NA stopping follow-up ongoing"],
-    ["JNJ-3989 (siRNA)", "Met NA-stopping criteria at week 48 in 5, 16 and 19% (40, 100, 200 mg) vs 2%", "Stopping eligibility, not cure"],
-    ["Imdusiran (siRNA)", "Phase 1a/b, safety primary", "No cure rate yet"]],
-    { size: 16, tbl: { minRowH: 0.9 } },
-    "The endpoints matter: HBsAg decline on NA, HBsAg loss with NA continuing, and sustained functional cure off all therapy are not the same. Xalnesiran (Hou 2024 NEJM, 159 participants; all HBsAg loss was at baseline HBsAg under 1,000). Elebsiran (ENSURE, Wong, Nat Med 2026): part 1 N = 55. JNJ-3989 REEF-1 (Yuen 2023, 470 randomized). Imdusiran (Yuen 2026). Check each paper before quoting; most are abstract-level in the dossier. Checkpoint inhibitor trials: an imdusiran plus durvalumab registry entry was withdrawn with no enrollment, which says nothing about the class.",
-    "Dossier refs 66 to 71 and registry entries NCT04225715 and NCT06245291.");
+    ["Xalnesiran (siRNA)", "HBsAg loss 24 weeks off treatment: 3 to 7% alone, 23% with PegIFN, 0% on NA alone", "Background NA continued"],
+    ["Elebsiran with PegIFN", "HBsAg loss 21% (200 mg) and 33% (100 mg) vs 6% with PegIFN alone", "NA stopping follow-up ongoing"]],
+    { size: 20, tbl: { minRowH: 1.3 } },
+    "The endpoints matter: HBsAg decline on NA, HBsAg loss with NA continuing, and sustained functional cure off all therapy are not the same. Xalnesiran (Hou 2024 NEJM, 159 participants; all HBsAg loss was at baseline HBsAg under 1,000). Elebsiran (ENSURE, Wong, Nat Med 2026): part 1 N = 55. JNJ-3989 REEF-1 (Yuen 2023, 470 randomized). Imdusiran (Yuen 2026) is phase 1. Checkpoint inhibitor trials: an imdusiran plus durvalumab registry entry was withdrawn with no enrollment, which says nothing about the class.",
+    "Hou J et al. N Engl J Med 2024;391:2098-2109, PMID 39774313. Wong GLH et al. Nat Med 2026;32:151-159, PMID 41203919.");
 });
 
 // ---------------------------------------------------------------- Recap and close
 sec("Close");
 {
   const s = slide("Back to our patients");
-  table(s, [["", "Patient", "Decision"],
-    ["1", "Man, 34 to 57. HBeAg-positive, then HBeAg-negative with DNA 8,000 and ALT 48", "Monitor at 34. Treatment suggested at 41, he waited. TAF at 52. PAGE-B 18, surveillance. Do not stop with HBsAg 400"],
-    ["2", "Woman, 61. Anti-HBc positive, HBsAg negative, rituximab", "Entecavir, TDF or TAF before the first dose and for 12 months after the last"],
-    ["3", "Woman, 29, 20 weeks pregnant. DNA 5,000,000", "TDF or TAF from week 28. Vaccine and HBIG within 12 hours. Test the baby at 9 to 12 months"]],
-    { x: 0.6, y: 1.4, w: W - 1.2, size: 21, minRowH: 1.4 });
+  const P = [["man-52.png", "Watercolor of the man in his fifties", "Man, 34 to 57", "Monitor, surveillance from 41, TAF at 52. Now a candidate for bepirovirsen"],
+    ["iv-infusion.png", "Watercolor of an IV bag and infusion pump", "Woman, 61, rituximab", "Entecavir, TDF or TAF before the first dose, 12 months after the last"],
+    ["pregnant-patient.png", "Watercolor of a seated pregnant woman", "Woman, 29, pregnant", "TDF or TAF from week 28. Vaccine and HBIG within 12 hours"]];
+  P.forEach((p, i) => {
+    const x = 0.5 + i * 4.2;
+    pic(s, p[0], x, 1.25, 3.9, 3.6, p[1]);
+    s.addText(p[2], { x, y: 4.95, w: 3.9, h: 0.5, fontFace: "Georgia", fontSize: 20, bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+    s.addText(p[3], { x, y: 5.45, w: 3.9, h: 1.3, fontFace: "Georgia", fontSize: 17, align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0 });
+  });
   s.addNotes("Close the loop on the three patients. Then take questions.");
 }
 {

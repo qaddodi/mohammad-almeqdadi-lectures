@@ -1,6 +1,15 @@
 # Chronic hepatitis B: planning outline
 
-Status: planning only (2026-10-28). No slides yet. The reviewer AI's source dossier is in (`HBV_lecture_source_dossier.md`, cited below as the dossier, with its reference numbers). Numbers in this plan marked [D] come from the dossier; many are from abstracts only, which the dossier labels "A". I have not opened any of these papers myself, and this session can't reach pubmed, fda.gov or github.io. Anything marked "to check" still needs the paper.
+Status (2026-10-28): both decks are built and on main (31 numbered slides for 30 minutes, 57 for 60 minutes), with the full critique applied. The text below is the original plan.
+
+Open questions still to check before the talk:
+- EASL 2025 age rule (pp 514 to 519): the decks say EASL "would consider treatment over 30" for HBeAg-positive chronic infection, based on the dossier matrix (observe only under 30 at low risk). The EASL PDF could not be opened from the build session.
+- PAGE-B platelet boundary at exactly 200 in the original Papatheodoridis table (EASL prints "above 200"; the slide and calculator use 200 or more).
+- WHO 2024 cutoffs for F3 and cirrhosis (left blank on the elastography slide).
+- Bulevirtide EU dose (2 mg) from the EMA page.
+- RETRACT-B overall retreatment rate (left blank).
+- Transplant slide: add one plain line on what Tufts does (no numbers).
+- Glance at fda.gov for the bepirovirsen and bulevirtide labels.
 
 ## Brief
 
