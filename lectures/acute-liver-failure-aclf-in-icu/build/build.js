@@ -664,9 +664,6 @@ cont();
     { y: 6.1, h: 0.6, size: 20 });
   s.addNotes("Two decisions we own as intensivists. Before answering, why is the brain the problem?");
 }
-// brain section page comes after the reveal so the picture doesn't give the answer away
-bgDivider("Ammonia and the brain", null, "divider-brain.jpg", "Watercolor of a brain in coronal section")
-  .addNotes("Astrocytes in chronic liver disease have time to adapt to ammonia. In hyperacute ALF they don't, and they swell.");
 {
   const s = slide("Why does the brain swell?");
   const x = 0.8, bw = 3.0, bh = 0.85;
