@@ -65,16 +65,18 @@ Slides that were tables only with free space got a spot illustration. All are sq
 
 Patient 1, the man followed from 34 to 57: Vietnamese-born man, slim build, short straight black hair, clean-shaven, plain navy polo shirt, sitting in a simple clinic chair. At 52 the same man has gray at the temples, thin reading glasses and slightly fuller face, same navy polo.
 
+Placement rule (Mohammad, 2026-10-28): pictures go in big. Text or table moves to the left 55 to 60 percent, and the picture fills the right side at about 5 to 5.5 inches tall, as on the pregnancy and elastography slides.
+
 | Filename | Slides | Where it goes |
 |---|---|---|
-| blood-tubes.png | Objectives | Right of the objectives list |
-| vaccine-1980s.png | From antigen to vaccine | Below the timeline |
-| man-34.png | 34-year-old man (34 and 41 slides) | Right of the lab table |
-| man-52.png | Same man, now 52 (and the stopping slides if space) | Right of the lab table |
-| iv-infusion.png | Rituximab, six cycles (question step) | Below the chart |
-| ultrasound-probe.png | Monitoring (60 min), Who gets surveillance | Beside the table |
-| cirrhotic-liver.png | Cirrhosis and decompensation (60 min) | Below the table |
-| newborn-vaccine.png | Children and adolescents (60 min), pregnancy timeline if space | Below or beside the table |
+| blood-tubes.png | Objectives | List on the left, tubes filling the right side |
+| vaccine-1980s.png | From antigen to vaccine | Timeline narrowed to the left; vial and syringe on the right |
+| man-34.png | 34-year-old man, and Same man at 41 | Lab table on the left, him on the right, same spot on every step |
+| man-52.png | Same man, now 52 | Lab table on the left, him on the right |
+| iv-infusion.png | Rituximab, six cycles (both steps) | Gantt chart narrowed to the left, infusion on the right |
+| ultrasound-probe.png | Who gets surveillance? (both steps) | Table on the left, probe on the right |
+| cirrhotic-liver.png | Cirrhosis and decompensation (60 min) | Table on the left, liver on the right |
+| newborn-vaccine.png | Children and adolescents (60 min) | Table on the left, baby on the right |
 
 ### Clinical accuracy checks
 

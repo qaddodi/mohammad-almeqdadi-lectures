@@ -721,7 +721,7 @@ ext(() => {
     ["Significant fibrosis (F2)", "Above 7 kPa", "Above 7 kPa, or APRI above 0.5"],
     ["Advanced fibrosis (F3)", "Above 8 kPa", ""],
     ["Cirrhosis (F4)", "Above 11 kPa", "APRI above 2 in the 2015 guideline"]],
-    { size: 20, tbl: { minRowH: 0.9, w: 8.9 }, after: (s) => pic(s, "fibroscan-probe.png", 9.9, 1.5, 3.0, 3.0, "Watercolor of a transient elastography probe") },
+    { size: 20, tbl: { x: 0.5, minRowH: 1.0, w: 7.6 }, after: (s) => pic(s, "fibroscan-probe.png", 8.4, 1.3, 4.6, 5.4, "Watercolor of a transient elastography probe") },
     "EASL 2025 Table 6 lists F2 above 7 kPa, F3 above 8 and F4 above 11. WHO 2024 uses APRI above 0.5 or elastography above 7 kPa as a treatment pathway, with no DNA threshold. Do not teach a single FibroScan cut-off of 8 for every purpose. The WHO cirrhosis row is from the 2015 guideline as described in the reviewer's dossier; check the 2024 text before using that row.",
     "EASL 2025 PMID 40348683; WHO 2024 chapter 5.");
   tableSlide("Treat everyone with high DNA and normal ALT?", [["", "Kim, Gut 2018", "Jeon, Clin Mol Hepatol 2021"],
@@ -910,14 +910,14 @@ ext(() => {
 twoStep((step) => {
   const s = slide("29-year-old woman, 20 weeks pregnant");
   table(s, [["HBsAg", "HBeAg", "HBV DNA", "ALT"], ["Positive", "Positive", { t: "5,000,000 IU/mL", red: true }, "22 U/L"]],
-    { x: 1.2, y: 1.35, w: W - 2.4, size: 22, minRowH: 0.6 });
-  q(s, "What do you do for her and for the baby?", 3.0, { size: 26 });
-  pic(s, "pregnant-patient.png", 9.6, 3.7, 3.2, 3.2, "Watercolor of a seated pregnant woman in profile");
+    { x: 0.5, y: 1.35, w: 7.2, size: 20, minRowH: 0.6 });
+  s.addText("What do you do for her and for the baby?", { x: 0.5, y: 2.75, w: 7.2, h: 0.6, fontFace: "Georgia", fontSize: 24, bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  pic(s, "pregnant-patient.png", 7.7, 1.2, 5.5, 5.8, "Watercolor of a seated pregnant woman in profile");
   if (step === 2) {
     body(s, [
       "TDF or TAF from week 28, because DNA is above 200,000 IU/mL",
       "Baby: hepatitis B vaccine and HBIG within 12 hours of birth",
-    ], { x: 1.2, y: 3.9, w: 8.2, h: 2.4, size: 24, gap: 14 });
+    ], { x: 0.6, y: 3.7, w: 7.0, h: 2.8, size: 24, gap: 16 });
   }
   s.addNotes("Born in Ethiopia, HBeAg positive, all values made up. AASLD/IDSA 2025 R1 (strong, moderate certainty): DNA above 200,000 at any point, start TDF or TAF at week 28 (consider week 16 when infant HBIG is not available). WHO 2024 also treats HBeAg-positive mothers regardless of DNA. Mother's ALT is normal, so this is prophylaxis to prevent transmission; stopping at delivery is allowed when treatment was only for that purpose, with DNA and ALT every 1 to 3 months for 6 months. Infant: single-antigen hepatitis B vaccine plus HBIG within 12 hours at separate sites, then complete the series. Breastfeeding is not prohibited.");
   return s;
