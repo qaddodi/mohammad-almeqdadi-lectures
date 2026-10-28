@@ -5,6 +5,8 @@ const fs = require("fs");
 const { applyTheme } = require(process.env.SKILL + "/scripts/apply_theme.js");
 
 const OUT = process.argv[2];
+// SHORT=1 builds the short version: same deck with some slides left out (marked 'if (!SHORT)')
+const SHORT = process.env.SHORT === "1";
 const COVER_IMG = process.argv[3];
 const LOGO_IMG = process.argv[4];
 
@@ -592,7 +594,7 @@ function caseA_apap(step) {
 }
 caseA_apap(1).addNotes("Combination products are where the hidden acetaminophen is. Ask about every over-the-counter product by name.");
 cont(); caseA_apap(2).addNotes("An undetectable or low level late in the course does not exclude acetaminophen toxicity [PMID: 36001996]. NAC is safe enough that the threshold to start it is low. Dosing per your pharmacy protocol.");
-{
+if (!SHORT) {
   const s = slide("The Rumack-Matthew nomogram");
   const hrs = ["4 h", "8 h", "12 h", "16 h", "20 h", "24 h"];
   s.addChart(pres.charts.LINE, [
@@ -1146,7 +1148,7 @@ cont(); kcc(2).addNotes("King's College criteria are specific but not very sensi
 // ---------------------------------------------------------------- Patient B
 sec("Patient B");
 bgDivider("Bed 7", "56M, cirrhosis and fever", "divider-bed7.jpg", "Watercolor of a shrunken nodular cirrhotic liver").addNotes("Second patient, in the unit at the same time.");
-{
+if (!SHORT) {
   const s = slide("Back to day 1: bed 7");
   table(s, [
     [{ t: "Bed 4", grey: true }, { t: "Bed 7", hl: true }],
@@ -1237,7 +1239,7 @@ function hypotension(step) {
 }
 hypotension(1).addNotes("Let them list causes before you show the figure. Most will say sepsis and volume.");
 cont(); hypotension(2).addNotes("For SBP, cover for prior antibiotic exposure and local resistance. Albumin is a reasonable resuscitation fluid in cirrhosis, but every bag goes somewhere. Keep that in mind for the next few slides. Sources: Surviving Sepsis 2026 [PMID: 41869847]; SCCM 2020 [PMID: 32058387]; EASL ACLF 2023 [PMID: 37364789].");
-twoStep((step) => {
+if (!SHORT) twoStep((step) => {
   const s = slide("Too little volume, or too much?");
   pic(s, step === 1 ? "ivc-q.png" : "ivc.png", 0.8, 1.4, W - 1.6, 4.3, "IVC on ultrasound, two patients");
   if (step === 1) { q(s, "Which one would you give more fluid?", 6.0, { size: 24 }); return s; }
@@ -1280,7 +1282,7 @@ function organs(step) {
 }
 organs(1).addNotes("Have the room count with you. Liver failure here means a bilirubin of 12, which surprises people.");
 cont(); organs(2).addNotes("Kidney and circulation. Respiratory is borderline: PaO2 74 on a Venturi mask at 0.35 is a P/F of 211. That's why he's on a Venturi mask here: nasal cannula doesn't give you a reliable FiO2, so if the grade depends on the lungs, get a gas on a known FiO2. Watch that row.");
-{
+if (!SHORT) {
   const s = slide("ACLF grades");
   table(s, [
     ["Grade", "What it takes"],
@@ -1345,7 +1347,7 @@ function hrs(step) {
 hrs(1).addNotes("The reflex in many units: oliguric cirrhotic, give albumin for 48 hours, then terlipressin.");
 cont(); hrs(2).addNotes("Let the room fill it in.");
 cont(); hrs(3).addNotes("AKI here means creatinine up 0.3 mg/dL or more within 48 hours, or 50% or more within 7 days, and/or urine output 0.5 mL/kg/h or less for 6 hours or more. The mandatory 48-hour albumin challenge is gone, and a patient who is already wet doesn't need a fluid challenge to satisfy a clock. HRS physiology and tubular injury can coexist. Assessment is faster and individualized. But that cuts both ways: you also need to look for the other causes, and right now sepsis is the obvious one.");
-{
+if (!SHORT) {
   const s = slide("Kidney failure in cirrhosis is usually a mixture");
   body(s, [
     { t: "Possible contributors", b: true, nb: true },
@@ -1391,8 +1393,8 @@ function heB(step) {
   src(s, "EASL HE guideline 2022 [PMID: 35724930]; SCCM 2023 [PMID: 37052436]");
   return s;
 }
-heB(1).addNotes("The reflex is to give more lactulose and recheck the ammonia. Let them say it.");
-cont(); heB(2).addNotes("In cirrhosis, HE is a clinical diagnosis. The ammonia level doesn't grade it, and chasing it doesn't help. Every worsening needs the same search for a precipitant as the admission did. Lactulose is right for overt HE, but too much gives you dehydration, hypernatremia and a worse kidney. Don't make every first episode an automatic two-drug start.");
+if (!SHORT) heB(1).addNotes("The reflex is to give more lactulose and recheck the ammonia. Let them say it.");
+if (!SHORT) { cont(); heB(2).addNotes("In cirrhosis, HE is a clinical diagnosis. The ammonia level doesn't grade it, and chasing it doesn't help. Every worsening needs the same search for a precipitant as the admission did. Lactulose is right for overt HE, but too much gives you dehydration, hypernatremia and a worse kidney. Don't make every first episode an automatic two-drug start."); }
 const B2_ROWS = [
   ["", "Admission", "Day 2"],
   ["Albumin received", "", "110 g (SBP dose, 1.5 g/kg at 73 kg) + 2 L crystalloid"],
@@ -1442,7 +1444,7 @@ twoStep((step) => {
   s.addNotes("Before any terlipressin dose: baseline SpO2, lung exam, volume status, and whether he is ACLF grade 3. Norepinephrine is an ICU alternative for HRS when terlipressin is contraindicated or unavailable. RRT for volume overload or acidosis follows the usual ICU indications. RRT for HRS alone is a bridge to transplant; in a patient who is not a candidate, it is a goals-of-care conversation first, and a time-limited trial is one honest option.");
   return s;
 });
-paper("Does HRS reversal mean survival?", "confirm-title.png", "confirm-concl.png",
+if (!SHORT) paper("Does HRS reversal mean survival?", "confirm-title.png", "confirm-concl.png",
   "Wong F et al. N Engl J Med 2021;384:818-28 [PMID: 33657294]", "CONFIRM trial")
   .addNotes("CONFIRM: 300 patients with HRS type 1, terlipressin plus albumin vs placebo plus albumin, randomized 2:1. Their own conclusion already has the catch in it.");
 {
@@ -1461,7 +1463,7 @@ paper("Does HRS reversal mean survival?", "confirm-title.png", "confirm-concl.pn
   src(s, "Wong F et al. NEJM 2021 [PMID: 33657294]; TERLIVAZ prescribing information, revised 6/2026");
   s.addNotes("The respiratory harm clustered in patients with volume overload and ACLF grade 3, which is how the label language came about. The label's own reanalysis gives slightly different reversal numbers (29% vs 16%); either way the direction is the same.");
 }
-paper("Should we treat the albumin number?", "attire-title.png", "attire-concl.png",
+if (!SHORT) paper("Should we treat the albumin number?", "attire-title.png", "attire-concl.png",
   "China L et al. N Engl J Med 2021;384:808-17 [PMID: 33657293]", "ATTIRE trial")
   .addNotes("ATTIRE: 777 hospitalized patients with decompensated cirrhosis and albumin under 30 g/L, in 35 UK hospitals.");
 {
@@ -1541,8 +1543,8 @@ function apxMathurin() {
   src(s, "Mathurin P et al. N Engl J Med 2011 [PMID: 22070476]");
   s.addNotes("This is the study that broke the six-month rule. The selection was strict, and later US data (ACCELERATE-AH) showed similar results in selected patients. Patient B's trigger was SBP, not alcohol-associated hepatitis; this is here for the alcohol question that comes up with every cirrhotic in the ICU. The alcohol history is a question for the transplant team, not a decision the ICU makes alone.");
 }
-{
-  const s = slide("Calling transplant hepatology");
+function callingTH(title) {
+  const s = slide(title);
   table(s, [
     ["Patient A (ALF)", "Patient B (ACLF)"],
     [
@@ -1569,7 +1571,8 @@ function apxMathurin() {
   q(s, "Call first. Gather this while you wait for the call back", 1.45, { hl: true, size: 22 });
   s.addNotes("Nothing on this list should delay the first call. A good call makes the transplant team's decision faster. Trends, not single values. Referral, candidacy, listing and allocation are separate decisions; the first one is ours.");
 }
-twoStep((step) => {
+if (!SHORT) callingTH("Calling transplant hepatology");
+if (!SHORT) twoStep((step) => {
   const s = slide("ALF and ACLF: what changes at the bedside");
   body(s, [{ t: "Both have a sick liver. Do they have the same disease?", nb: true, i: true, align: "center" }], { y: 1.15, h: 0.45, size: 18 });
   table(s, [
@@ -1654,6 +1657,7 @@ apxKcc();
 apxAmmonia();
 apxWhichAclf();
 apxMathurin();
+if (SHORT) callingTH("Appendix: calling transplant hepatology");
 {
   const s = slide("Appendix: sources (1)");
   body(s, [

@@ -2,7 +2,7 @@
 
 Lecture plan for pulmonary critical care fellows. Prepared for Mohammad Almeqdadi, MD.
 
-**Status:** First draft deck built from this plan: [ALF and ACLF in the ICU.pptx](ALF%20and%20ACLF%20in%20the%20ICU.pptx) (about 60 minutes, 116 slides counting reveal steps and section dividers, plus a 7-slide appendix).
+**Status:** First draft deck built from this plan: [ALF and ACLF in the ICU.pptx](ALF%20and%20ACLF%20in%20the%20ICU.pptx) (about 60 minutes, 116 slides counting reveal steps and section dividers, plus a 7-slide appendix). As of 2026-10-28 there are two versions: the long deck (67 numbered slides, about 75 minutes with audience answers) and [the short deck](ALF%20and%20ACLF%20in%20the%20ICU%20(short).pptx) (57 numbered slides, for a one-hour slot), both from the same build.js.
 
 **Evidence search date:** October 26, 2026. Targeted searches of PubMed, society resources, open-access full text, and official prescribing information. This is a curated educational evidence set, not a systematic review.
 
