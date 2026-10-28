@@ -395,7 +395,7 @@ sec("Opening");
 // ---------------------------------------------------------------- Patient A
 sec("Patient A");
 {
-  const s = slide("Two patients, same ICU", { master: "CONTENT" });
+  const s = slide("Bed 4 and bed 7", { master: "CONTENT" });
   table(s, [
     ["Bed 4", "Bed 7"],
     ["28-year-old woman", "56-year-old man"],
@@ -403,7 +403,7 @@ sec("Patient A");
     ["Nausea and vomiting for 4 days", "Fever, confusion, low blood pressure"],
   ], { x: 0.4, y: 1.9, w: 7.2, size: 16, noLabel: true, minRowH: 0.55 });
   pic(s, "two-beds.jpg", 7.75, 1.3, 5.2, 4.3, "Watercolor of two empty ICU beds side by side");
-  body(s, [{ t: "Both have a sick liver. Do they have the same disease?", nb: true, i: true, align: "center" }],
+  body(s, [{ t: "Is it the same disease?", nb: true, i: true, align: "center" }],
     { y: 5.95, h: 0.6, size: 22 });
   s.addNotes("Introduce both up front so the contrast is there from the start. We'll start with bed 4 and come back to bed 7.");
 }
@@ -546,15 +546,15 @@ cont(); featuresAnswer().addNotes("This is why these patients are ICU patients. 
   s.addNotes("Wait for answers. Usually people list tests in order. That's the trap.");
 }
 {
-  const s = slide("Two things at the same time");
+  const s = slide("The first hour");
   table(s, [
-    ["Keep her alive", "Find the cause"],
+    ["Support", "Workup"],
     [
       { t: [{ t: "ICU bed", br: true }, { t: "Glucose every 1 to 2 hours", br: true }, { t: "Volume, perfusion, lactate", br: true }, { t: "Neuro checks" }] },
       { t: [{ t: "Acetaminophen level", br: true }, { t: "Viral, autoimmune, Wilson, toxicology", br: true }, { t: "Doppler ultrasound", br: true }, { t: "Pregnancy test" }] },
     ],
-  ], { x: 1.6, y: 1.6, w: W - 3.2, size: 20, valign: "top", noLabel: true });
-  q(s, "Both start in the first hour", 4.9, { hl: true });
+  ], { x: 1.2, y: 1.7, w: W - 2.4, size: 26, valign: "top", noLabel: true });
+  q(s, "Send the workup while you resuscitate", 5.6, { size: 24 });
   s.addNotes("The classic mistake is a serial workup: wait for the hepatitis panel, then the autoimmune markers, then act. Support and workup run in parallel. Who else to call, and when, comes later in the talk.");
 }
 twoStep((step) => {
@@ -693,13 +693,13 @@ twoStep((step) => {
     const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
     s.addImage({ path: path.join(IMG, "brain-background.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5,
       altText: "Watercolor of a normal human brain, side view, on ivory paper" });
-    s.addText("Same ammonia, different brain", { x: 6.2, y: 0.45, w: 6.9, h: 0.8, fontFace: "Georgia", fontSize: 30,
+    s.addText("Ammonia: ALF vs cirrhosis", { x: 6.2, y: 0.45, w: 6.9, h: 0.8, fontFace: "Georgia", fontSize: 30,
       align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
     s.addText("Why do patients with cirrhosis rarely get cerebral edema, even with a high ammonia?", { x: 6.6, y: 2.6, w: 6.1, h: 2.0,
       fontFace: "Georgia", fontSize: 28, bold: true, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0, objectName: "Question" });
     return s;
   }
-  const s = slide("Same ammonia, different brain");
+  const s = slide("Ammonia: ALF vs cirrhosis");
   const ix = 0.6, iy = 1.3, iw = 5.4, ih = 4.03;
   s.addImage({ path: path.join(IMG, "astrocytes.png"), x: ix, y: iy, w: iw, h: ih, altText: "Brain histology with an Alzheimer type II astrocyte and normal glial nuclei" });
   const pt = (fx, fy) => [ix + fx * iw, iy + fy * ih];
@@ -818,7 +818,7 @@ function hypercap(step) {
     return s;
   }
   table(s, [
-    ["", "The lung wants", "The brain wants", "What we do"],
+    ["", "For the lungs (ARDS)", "For the brain (ICP)", "What we do"],
     [{ t: "Tidal volume", b: true }, "6 mL/kg PBW", "Watch the CO2", "6 mL/kg, raise the rate"],
     [{ t: "CO2", b: true }, "Tolerate a high CO2", "High CO2 raises ICP", { t: "Keep the CO2 normal", b: true }],
     [{ t: "Hyperventilation", b: true }, "No", "Lowers ICP briefly", "Short rescue for herniation only"],
@@ -883,7 +883,7 @@ cont(); hypercap(2).addNotes("Low tidal volume still applies. What changes is th
   s.addNotes("Sodium targets differ between sources: the 2022 update uses 145 to 155 for prevention, the 2024 practical review a lower range. Agree on one with transplant hepatology and write it in the orders. Hypertonic saline is a conditional SCCM recommendation for patients at risk of intracranial hypertension. The cooling trial randomized intubated high-risk ALF patients to 34 vs 36 °C for 72 hours; no difference in intracranial hypertension or survival. Avoid fever, don't induce hypothermia.");
 }
 {
-  const s = slide("A surge: new hypertension, bradycardia or a pupil");
+  const s = slide("Rising ICP: hypertension, bradycardia, a new pupil");
   body(s, [
     "Hyperosmolar bolus (hypertonic saline or mannitol)",
     "Brief hyperventilation as a bridge",
@@ -962,7 +962,7 @@ twoStep((step) => {
   const s = slide("Calling nephrology");
   if (step === 1) { q(s, "What do you ask them for?", 3.2, { size: 32 }); return s; }
   body(s, [
-    "It's for the ammonia and the brain, not the creatinine",
+    "Indication: ammonia 214 and grade III encephalopathy. The creatinine doesn't matter here",
     "Start now and keep it running. A clotted filter means the ammonia climbs back",
     "One sodium plan: the CRRT fluid and the hypertonic saline together",
     "Watch phosphate and potassium, and calcium if they use citrate",
@@ -970,7 +970,7 @@ twoStep((step) => {
   pic(s, "crrt-machine.jpg", 9.3, 1.3, 3.6, 5.5, "Watercolor of a CRRT machine with filter and circuit");
   src(s, "ACG ALF 2023 [PMID: 37377263]; update 2022 [PMID: 36001996]");
   return s;
-}).addNotes("No universal dose or ammonia target to stop at; use your center's protocol. The common failure is not the decision to start, it's a circuit that keeps clotting so the delivered clearance is a fraction of what was ordered, and a sodium plan that nobody owns. Citrate can build up in liver failure, so follow the total to ionized calcium ratio.");
+}).addNotes("No universal dose or ammonia target to stop at; use your center's protocol. Where it usually goes wrong is the circuit: it keeps clotting, so the delivered clearance is a fraction of what was ordered. The other problem is a sodium plan that nobody owns. Citrate can build up in liver failure, so follow the total to ionized calcium ratio.");
 {
   const s = slide(null, { master: "BLANK" });
   s.addText("I know what you're thinking...", { x: 0.8, y: 2.6, w: W - 1.6, h: 1.4, fontFace: "Georgia", fontSize: 44, italic: true,
@@ -983,7 +983,7 @@ function cvvh(step) {
   body(s, [
     "Ammonia is tiny (17 Da), water soluble and not protein bound",
     "It crosses the filter with the water (convection, CVVH) or down its gradient (diffusion, CVVHD)",
-    "So what matters is effluent flow and hours on a working circuit, not the letters",
+    "What matters is the effluent dose and hours on a working circuit, more than the mode",
     { runs: ["More effluent, more clearance: ", { t: "90 vs 35 mL/kg/h", b: true }, " (Slack 2014)"] },
     { runs: ["54 ALF patients on CRRT: median ammonia ", { t: "151 → 52 μmol/L", b: true }, " by day 5 (Warrillow 2020)"] },
   ], { x: 0.7, y: 1.4, w: 6.6, h: 4.3, size: 19, gap: 10 });
@@ -1126,7 +1126,7 @@ kcc(1).addNotes("Let them vote.");
 cont(); kcc(2).addNotes("King's College criteria are specific but not very sensitive. If you wait for them, the evaluation starts too late. Patient A now meets acetaminophen criteria by pH, but the call happened on admission. Transplant referral, listing and allocation are separate decisions; the transplant team handles the last two.");
 
 {
-  const s = slide("Let's recap: bed 4, day 3");
+  const s = slide("Bed 4 on day 3");
   table(s, [
     ["Problem", "What she's on", "What we watch"],
     ["Acetaminophen ALF, pH 7.26", "NAC; listed 1A on day 2", "Time to an offer"],
@@ -1136,7 +1136,7 @@ cont(); kcc(2).addNotes("King's College criteria are specific but not very sensi
     ["Infection risk", "Surveillance cultures", "Low bar for antimicrobials"],
   ], { x: 0.7, y: 1.4, w: W - 1.4, size: 20, minRowH: 0.6 });
   src(s, "Made-up numbers for teaching");
-  s.addNotes("This is where she is while she waits. What would close the window: fixed dilated pupils, uncontrolled sepsis, rising support despite everything. If she becomes hypotensive: norepinephrine first, vasopressin next, hydrocortisone if refractory, and keep the MAP high enough for cerebral perfusion. Status 1A is the OPTN category for ALF in the ICU; check current policy before quoting details.");
+  s.addNotes("This is where she is while she waits. What would take her off the list: fixed dilated pupils, uncontrolled sepsis, rising support despite everything. If she becomes hypotensive: norepinephrine first, vasopressin next, hydrocortisone if refractory, and keep the MAP high enough for cerebral perfusion. Status 1A is the OPTN category for ALF in the ICU; check current policy before quoting details.");
 }
 {
   const s = slide(null, { master: "BLANK" });
@@ -1244,7 +1244,7 @@ if (!SHORT) twoStep((step) => {
   pic(s, step === 1 ? "ivc-q.png" : "ivc.png", 0.8, 1.4, W - 1.6, 4.3, "IVC on ultrasound, two patients");
   if (step === 1) { q(s, "Which one would you give more fluid?", 6.0, { size: 24 }); return s; }
   body(s, [{ t: "Left: a full, plethoric IVC. Right: an IVC that collapses", nb: true, i: true, align: "center" }], { y: 5.85, h: 0.45, size: 18 });
-  q(s, "Look before you give the next liter", 6.3, { size: 22 });
+  q(s, "Check the IVC, lungs and heart before more fluid", 6.3, { size: 22 });
   s.addNotes("Ascites and a tense belly change IVC size and collapse, so use it with the lungs, the heart and the trend, not alone. Edema in a cirrhotic doesn't mean the vessels are full.");
   return s;
 });
@@ -1380,7 +1380,7 @@ function heB(step) {
     qPic(s, "ammonia-on-ice.jpg", 3.35, 3.6, "Watercolor of a blood tube standing in a cup of ice");
     return s;
   }
-  q(s, "Look for the reason first. The ammonia doesn't tell you", 2.75, { hl: true, size: 22 });
+  q(s, "Look for a precipitant. The ammonia level won't help", 2.75, { hl: true, size: 22 });
   body(s, [
     "Glucose, sodium, oxygen and CO2",
     "Is the infection controlled? Cultures, source, antibiotic coverage",
@@ -1409,12 +1409,12 @@ function day2B(step) {
   table(s, B2_ROWS, { x: 1.2, y: 1.4, w: W - 2.4, colW: [2.9, 3.0, 5.03], size: 17, rowH: 0.5 });
   if (step === 1) q(s, "More albumin? Terlipressin? Something else?", 5.4, { size: 26 });
   if (step === 2) {
-    q(s, "First, what are the lungs telling you?", 5.2, { size: 24 });
+    q(s, "First, look at his oxygen", 5.2, { size: 24 });
     q(s, "Now on high-flow, FiO2 0.6, SpO2 90%: SpO2/FiO2 150. That's a third organ failure", 5.9, { hl: true, size: 20 });
   }
   return s;
 }
-day2B(1).addNotes("This is the hinge of the second case. The kidney is worse, and the reflex is to treat the kidney.");
+day2B(1).addNotes("The kidney is worse, and the reflex is to treat the kidney.");
 cont(); const D2B = day2B(2);
 {
   const s = slide("Day 2: what do his lungs look like?");
@@ -1506,18 +1506,18 @@ function trajectory(step) {
 }
 trajectory(1).addNotes("Day 3: CRRT started for fluid overload and oliguria, while the transplant evaluation was under way. Ask the room whether he is better or worse.");
 cont(); trajectory(2).addNotes("Grading is a snapshot; the trend is what you act on. Kidney failure on RRT still counts as an organ failure. Bring palliative care in alongside, not instead of, full support. Document what the time-limited trial is and when you'll reassess.");
-bgDivider("Who gets a liver?", "Transplant in ACLF", "divider-transplant.jpg", "Watercolor of a donor liver in an organ bag on ice in a transport cooler").addNotes("Back to the question both families will ask.");
+bgDivider("Transplant in ACLF", null, "divider-transplant.jpg", "Watercolor of a donor liver in an organ bag on ice in a transport cooler").addNotes("Back to the question both families will ask.");
 twoStep((step) => {
-  const s = slide("Too sick for a transplant, or sick enough to need one?");
+  const s = slide("Is he too sick for a transplant?");
   if (step === 1) {
-    q(s, "Ventilator, pressors, CRRT, ACLF 3. Is he too sick?", 1.55, { size: 28 });
+    q(s, "ACLF 3 on a ventilator. Would you call?", 1.55, { size: 28 });
     qPic(s, "icu-bay.jpg", 2.35, 4.6, "Watercolor of an ICU bed surrounded by a ventilator, infusion pumps and a CRRT machine");
     return s;
   }
   body(s, [
     "A ventilator, pressors or dialysis do not by themselves exclude transplant",
-    "Selected patients with ACLF grade 3 do well after transplant. The window is short",
-    { t: "What can close the window", b: true, nb: true, gap: 16 },
+    "Selected patients with ACLF grade 3 do well after transplant, if it happens early",
+    { t: "What makes transplant unlikely", b: true, nb: true, gap: 16 },
     "Uncontrolled infection",
     "Rising vasopressor needs, severe respiratory failure",
     "Irreversible brain injury",
@@ -1574,8 +1574,7 @@ function callingTH(title) {
 if (!SHORT) callingTH("Calling transplant hepatology");
 if (!SHORT) twoStep((step) => {
   const s = slide("ALF and ACLF: what changes at the bedside");
-  body(s, [{ t: "Both have a sick liver. Do they have the same disease?", nb: true, i: true, align: "center" }], { y: 1.15, h: 0.45, size: 18 });
-  table(s, [
+    table(s, [
     ["", "Acute liver failure", "ACLF"],
     [{ t: "Ammonia", b: true }, ans(step, "With HE grade and trend: brain risk, CRRT"), ans(step, "Doesn't diagnose HE; don't trend it")],
     [{ t: "Lactulose", b: true }, ans(step, "No proven benefit; distends the bowel"), ans(step, "Yes for overt HE ± rifaximin")],
@@ -1621,7 +1620,7 @@ sec("Closing");
   s.addNotes("Ask the room. Don't put the answers up.");
 }
 {
-  const s = slide("Some tricks of the trade");
+  const s = slide("Summary");
   body(s, [
     "High AST and ALT alone are not liver failure. Get an INR and examine the patient",
     "Stabilize, treat the cause and call transplant hepatology in the same hour",
