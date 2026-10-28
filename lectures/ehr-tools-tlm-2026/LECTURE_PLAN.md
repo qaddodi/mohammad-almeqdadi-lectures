@@ -30,8 +30,8 @@ Show and tell, no live demo. One made-up patient, ZZTEST, LIVER (58M with cirrho
 | 12 | Chart search | A full slide on Ctrl+Space (opens search from anywhere, watercolor key background); EGD search with hover preview, then: related terms (hepatitis b finds entecavir and tenofovir), trend ALT alone, then ALT and weight together on one graph, OCR of a scanned fax, math (80x13 for ursodiol in PBC). From the Epic Specialist Spotlight video with Mohammad |
 | 13 | Chart Review quick filters | Notes tab 214 notes, then the Hepatology quick filter: 7 notes, Care Everywhere notes in the same list |
 | 14 | SmartPhrases | Typing the phrase, then the expanded note with SmartLinks, SmartLists and ***; sharing |
-| 15 | Community Library | Its own slide: mock-up laid out like comlib.epic.com from Mohammad's phone screenshots, a hepatology search (6,232 results) with an invented cirrhosis visit order set open; 536 organizations share build. Organizations invented |
-| 16 | Orders | Preference list favorites (MELD labs with AFP; AFP, AFP-L3, DCP; CLD workup with PEth; triphasic liver MRI), Follow Users, and a personal order set |
+| 15 | Orders | Preference list favorites (MELD labs with AFP; AFP, AFP-L3, DCP; CLD workup with PEth; triphasic liver MRI), Follow Users, and a personal order set |
+| 16 | Community Library | Its own slide: mock-up laid out like comlib.epic.com from Mohammad's phone screenshots, a hepatology search (6,232 results) with an invented cirrhosis visit order set open; 536 organizations share build. Organizations invented |
 | 17 | After March 2020 | EHR time growth by group (Holmgren 2025). Reveal |
 | 18 | In Basket tools | QuickActions, result notes, out of contact |
 | 19 | AI tools in Epic | Table of Art tools with release versions |
