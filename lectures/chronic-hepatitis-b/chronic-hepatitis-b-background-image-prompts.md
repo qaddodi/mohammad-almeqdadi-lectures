@@ -49,6 +49,8 @@ Square 1:1 image. Clinical editorial watercolor over fine gray ink linework, in 
 
 Image 4. pregnant-patient.png
 Square 1:1 image. Clinical editorial watercolor over fine gray ink linework, in muted slate, ochre, dusty rose, sage and cream, with soft blooms. A woman about 20 weeks pregnant, seated upright in a simple clinic chair, seen in profile, wearing a plain loose dress, both hands resting in her lap below a modest rounded bump. Her face is turned slightly away and drawn only as a simple soft outline without detail. Calm, dignified and respectful. The subject is centered with a generous margin, and the washes fade softly into a plain pure white background with no visible paper edge, so it sits cleanly on a white slide. No medical equipment, no other people, no text, numbers or logos. No 3D render look or photorealism.
+
+Make sure to generate all of the images above, one image per prompt.
 ```
 
 Save each result under the exact filename. Use the first image Gemini returns unless it is square or centered when it should be 16:9, or has stray text.
