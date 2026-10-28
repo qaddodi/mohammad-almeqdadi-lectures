@@ -1132,12 +1132,12 @@ function plex(step) {
     [{ t: "Design", b: true }, "RCT, 182 ALF", "UK, 7 centers, 378 ALF"],
     [{ t: "Plasma exchange", b: true }, "High volume × 3 days", "120 patients, matched"],
     [{ t: "Survival", b: true }, ans(step, "58.7% vs 47.8% (HR 0.56)"), ans(step, "51.4% vs 62.6% (p = 0.12)")],
-    [{ t: "Catch", b: true }, { t: ans(step, "Not blinded; no ACLF"), b: true }, { t: ans(step, "Retrospective"), b: true }],
+    [{ t: "Catch", b: true }, { t: ans(step, "Not blinded; no ACLF"), b: true }, { t: ans(step, "Retrospective; sicker patients got it"), b: true }],
   ], { x: 0.4, y: 1.5, w: 8.7, size: 18, minRowH: 0.7 });
   if (step === 2) q(s, "Better blood pressure, no proven survival benefit", 5.6, { hl: true, size: 22, x: 0.4, w: 8.7 });
   pic(s, "plasma-exchange.jpg", 9.3, 1.25, 3.75, 5.6, "Watercolor of an apheresis machine for plasma exchange");
   src(s, "Larsen FS et al. J Hepatol 2016 [PMID: 26325537]; Burke L et al. J Hepatol 2025;82:615-21 [PMID: 39362282]");
-  s.addNotes("Larsen: high-volume plasma exchange removes cytokines and DAMPs and replaces coagulation factors; hospital survival was better in the trial. Burke: all seven UK transplant centers, 2013 to 2021, propensity matched. Noradrenaline fell from 0.35 to 0.16 mcg/kg/min after plasma exchange, but overall survival (51.4% vs 62.6%) and transplant-free survival (42.6% vs 53.1%) were not better. Observational, so the sicker patients may have been the ones who got it. If you use it, use it early and as a bridge, and don't delay listing for it. The INR after plasma exchange is no longer the patient's INR, so tell transplant hepatology before the first session.");
+  s.addNotes("Larsen: high-volume plasma exchange removes cytokines and DAMPs and replaces coagulation factors; hospital survival was better in the trial. Burke: all seven UK transplant centers, 2013 to 2021, propensity matched. Noradrenaline fell from 0.35 to 0.16 mcg/kg/min after plasma exchange, but overall survival (51.4% vs 62.6%) and transplant-free survival (42.6% vs 53.1%) were not better. Observational: plasma exchange went to older, sicker patients (acetaminophen, meeting King's College criteria, higher noradrenaline), and practice varied between centers. If you use it, use it early and as a bridge, and don't delay listing for it. The INR after plasma exchange is no longer the patient's INR, so tell transplant hepatology before the first session.");
   return s;
 }
 if (!SHORT) {
