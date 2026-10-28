@@ -54,3 +54,67 @@ Make sure to generate all of the images above, one image per prompt.
 ```
 
 Save each result under the exact filename. Use the first image Gemini returns unless it is square or centered when it should be 16:9, or has stray text.
+
+The four images above were remade by Mohammad in Gemini on 2026-10-28 and replaced the API versions.
+
+## Added later: whole-deck audit (2026-10-28)
+
+Slides that were tables only with free space got a spot illustration. All are square spot illustrations that fade to pure white.
+
+### Patient continuity sheet
+
+Patient 1, the man followed from 34 to 57: Vietnamese-born man, slim build, short straight black hair, clean-shaven, plain navy polo shirt, sitting in a simple clinic chair. At 52 the same man has gray at the temples, thin reading glasses and slightly fuller face, same navy polo.
+
+| Filename | Slides | Where it goes |
+|---|---|---|
+| blood-tubes.png | Objectives | Right of the objectives list |
+| vaccine-1980s.png | From antigen to vaccine | Below the timeline |
+| man-34.png | 34-year-old man (34 and 41 slides) | Right of the lab table |
+| man-52.png | Same man, now 52 (and the stopping slides if space) | Right of the lab table |
+| iv-infusion.png | Rituximab, six cycles (question step) | Below the chart |
+| ultrasound-probe.png | Monitoring (60 min), Who gets surveillance | Beside the table |
+| cirrhotic-liver.png | Cirrhosis and decompensation (60 min) | Below the table |
+| newborn-vaccine.png | Children and adolescents (60 min), pregnancy timeline if space | Below or beside the table |
+
+### Clinical accuracy checks
+
+- **blood-tubes:** modern evacuated tubes with plain colored caps (gold or red for serum), blank labels, in a white plastic rack. Different from the cork-stoppered 1960s tubes on the cover.
+- **vaccine-1980s:** a small glass vial with an aluminum crimp cap and a glass syringe of the early 1980s, blank label. No brand.
+- **man-34 / man-52:** same person, aged correctly. Respectful, calm, not sick-looking (he has no symptoms). No jaundice.
+- **iv-infusion:** an IV bag of clear fluid on a pole with a drip chamber and an infusion pump with a blank screen. No drug name.
+- **ultrasound-probe:** a curvilinear abdominal probe (convex face), not a linear vascular probe and not the elastography probe.
+- **cirrhotic-liver:** small, nodular, blunt edges, atrophic right lobe, relatively enlarged left and caudate lobes. A little ascites is not drawn (organ only).
+- **newborn-vaccine:** a swaddled newborn sleeping, with a small vaccine syringe and a cotton ball on a tray beside, not in the baby. Nothing invasive.
+- **Spoilers:** man-34 and man-52 sit on the question steps too; they show nothing about the answer. iv-infusion goes on the question step, not with the answer bar.
+
+### Copy-paste block for Gemini
+
+```
+Generate the following images. Make each one separately, in order, as its own image. None of them should contain any text, letters, numbers, labels, logos or watermarks. Every image is square 1:1, a clinical editorial watercolor over fine gray ink linework in muted slate, ochre, dusty rose, sage and cream, with soft blooms, the subject centered with a generous margin, and the washes fading softly into a plain pure white background with no visible paper edge, so it sits cleanly on a white slide. No 3D render look and no photorealism.
+
+Image 1. blood-tubes.png
+Five modern evacuated blood collection tubes standing in a small white plastic rack, seen at a slight three-quarter angle. Two have gold caps and three have red caps, each filled with clear straw-yellow serum above a layer of separated red cells. The tube labels are blank white. No needles, no hands, no text, numbers or barcodes.
+
+Image 2. vaccine-1980s.png
+A small glass vaccine vial from the early 1980s with an aluminum crimp cap and a blank paper label, lying beside a reusable glass syringe with a metal plunger and finger rings, on a folded white cloth. Quiet still life, like a museum object. No text, numbers, brand names or scale markings.
+
+Image 3. man-34.png
+A Vietnamese man aged about 34, slim build, short straight black hair, clean-shaven, wearing a plain navy polo shirt, sitting upright in a simple clinic chair, seen in three-quarter view from the waist up, hands resting on his knees. Calm, healthy-looking, dignified, face drawn simply with soft features. No medical equipment, no other people, no text.
+
+Image 4. man-52.png
+The same Vietnamese man now aged about 52: slim build, short straight black hair with gray at the temples, thin wire reading glasses, a slightly fuller face, clean-shaven, wearing the same plain navy polo shirt, sitting upright in the same simple clinic chair, seen in three-quarter view from the waist up, hands resting on his knees. Calm, healthy-looking, dignified, face drawn simply with soft features. No medical equipment, no other people, no text.
+
+Image 5. iv-infusion.png
+An IV pole with one bag of clear fluid hanging from it, a drip chamber and tubing running down into a small infusion pump clamped to the pole, its screen blank. Seen from a slight three-quarter angle. No people, no hands, no text, numbers or drug names on the bag or the pump.
+
+Image 6. ultrasound-probe.png
+An abdominal ultrasound probe with a curved convex face, resting at an angle beside a small dab of clear gel, its cable loosely coiled. Simple and clear, readable from the back of a room. Not a linear probe, not a pen-shaped probe. No screen, no people, no hands, no text, numbers or brand names.
+
+Image 7. cirrhotic-liver.png
+A single anatomically correct cirrhotic human liver, anterior view, drawn like a plate in an old pathology atlas. It is small and shrunken, with a coarse nodular surface of many small regenerative nodules and blunt edges. The right lobe is atrophied and the left lobe relatively enlarged. Dull ochre, olive and dusty rose washes with thin gray ink contours. No other organs, no blood, no text or labels.
+
+Image 8. newborn-vaccine.png
+A sleeping newborn baby swaddled in a plain cream blanket, lying on a soft surface, seen from slightly above. Beside the baby, on a small white tray, a tiny prefilled vaccine syringe with its cap on and a cotton ball. The syringe is not touching the baby. Peaceful and gentle. No adults, no hands, no text, numbers or markings.
+
+Make sure to generate all of the images above, one image per prompt.
+```

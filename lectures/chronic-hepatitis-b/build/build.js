@@ -654,7 +654,7 @@ const P1_ROWS = (age, dna, alt) => [
 ];
 twoStep((step) => {
   const s = slide("34-year-old man, born in Vietnam");
-  table(s, P1_ROWS(34, "60,000,000 IU/mL", "24 U/L"), { x: 2.6, y: 1.3, w: 8.1, size: 22, minRowH: 0.55 });
+  table(s, P1_ROWS(34, "60,000,000 IU/mL", "24 U/L"), { x: 2.6, y: 1.3, w: 8.1, size: 22, minRowH: 0.55, noLabel: true });
   q(s, "Do you treat him?", 5.75, { size: 26 });
   if (step === 2) q(s, "No. Monitor ALT and DNA every 3 to 6 months", 6.3, { size: 22, hl: true });
   s.addNotes("HBsAg found at a blood donation, asymptomatic, ALT normal on two checks six months apart. This is the HBeAg-positive chronic infection (immune tolerant) phase. AASLD/IDSA 2025 R3 defines it as HBeAg positive, DNA above 10,000,000 IU/mL and persistently normal ALT on at least two measurements 6 months apart. At 34, no fibrosis, the recommendation is to monitor. AASLD 2018 R2A: against antiviral therapy in immune-tolerant adults. Stiffness 5.1 kPa is below the EASL F2 cut-off of 7 kPa. All values are made up.");
@@ -662,7 +662,7 @@ twoStep((step) => {
 });
 twoStep((step) => {
   const s = slide("Same man, now 41 years old");
-  table(s, P1_ROWS(41, "55,000,000 IU/mL", "26 U/L"), { x: 2.6, y: 1.3, w: 8.1, size: 22, minRowH: 0.55 });
+  table(s, P1_ROWS(41, "55,000,000 IU/mL", "26 U/L"), { x: 2.6, y: 1.3, w: 8.1, size: 22, minRowH: 0.55, noLabel: true });
   q(s, "Does the answer change?", 5.75, { size: 26 });
   if (step === 2) q(s, "AASLD/IDSA 2025: over age 40 supports treatment", 6.3, { size: 22, hl: true });
   s.addNotes("AASLD/IDSA 2025 R3 (conditional, very low certainty): for immune-tolerant adults, antiviral therapy is supported if over 40 or with grade 2 / stage 2 or worse disease. The recommendation text says 'over 40' and the guideline's algorithm says '40 or more'. The evidence is observational and the AASLD technical review calls it very uncertain, so this is a shared decision. EASL 2025 and WHO 2024 reach treatment through other pathways (fibrosis, family history of HCC); they do not use this age rule in the same way. The same labs at 34 and 41 make the point about age.");
@@ -672,7 +672,7 @@ twoStep((step) => {
   const s = slide("Same man, now 52 years old");
   table(s, [["Test", "Result"], ["HBsAg", "Positive"], ["HBeAg", "Negative"], ["Anti-HBe", "Positive"], ["HBV DNA", { t: "8,000 IU/mL", red: true }],
     ["ALT", { t: "48 U/L", red: true }], ["Platelets", "190 x 10^9/L"], ["FIB-4", "1.8"], ["Liver stiffness", "6.8 kPa"]],
-    { x: 2.6, y: 1.2, w: 8.1, size: 21, minRowH: 0.52 });
+    { x: 2.6, y: 1.2, w: 8.1, size: 21, minRowH: 0.52, noLabel: true });
   q(s, "Do you treat him?", 6.1, { size: 26 });
   s.addNotes("He lost HBeAg and seroconverted in his late 40s. DNA 8,000, ALT 48 (1.4 times the AASLD upper limit of 35), no advanced fibrosis. Let the room commit. The next slide shows what each guideline says.");
 }
