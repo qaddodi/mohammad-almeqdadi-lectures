@@ -315,7 +315,7 @@ def inbasket():
 def committee():
     body = f"""<div class='win' style='width:560px'>
 <div class='pt'><b>ZZTEST, LIVER</b><span class='sm'>Liver transplant evaluation</span></div>
-<div class='bar'><span class='ttl'>Insights for Committee Review</span><span class='grey'>Generated summary, review the sources</span></div>
+<div class='bar'><span class='ttl'>Transplant Evaluation Insights</span><span class='grey'>Generated summary, review the sources</span></div>
 <div style='padding:12px 14px; font-size:13px; line-height:1.55'>
 <b>Previous presentations</b><br>Not previously presented.<br><br>
 <b>Concerns</b>

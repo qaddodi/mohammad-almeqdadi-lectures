@@ -4,6 +4,7 @@
 
 - Holmgren AJ et al. JAMA Intern Med 2025;185:461-3. EHR time after March 2020, Epic Signal data, 280,712 physicians [PMID: 39992635]
 - Holmgren AJ et al. J Gen Intern Med 2024;39:2868-70. EHR time across specialties, 200,081 ambulatory physicians. doi:10.1007/s11606-024-08930-4
+- Koirala T, Burger CD, Chaudhry R, et al. Impact of a disease-focused electronic health record dashboard on clinical staff efficiency in previsit patient review in an ambulatory pulmonary hypertension care clinic. Appl Clin Inform 2024;15:928-38. doi:10.1055/s-0044-1790552. Mayo Clinic Florida, dashboard built in Epic; physician previsit review 7.0 to 4.95 min (median, Signal), total EHR time per visit 15.15 to 12.21 min, after-hours time on unscheduled days 30 to 17 min; 2 physicians
 - Bali AS et al. Dig Dis Sci 2026;71:3466-75. EHR burden among GI providers, 347 providers (38 hepatology), 3 centers [PMID: 41801633]
 - Tai-Seale M et al. JAMA Netw Open 2024;7:e246565. AI-generated draft replies in the In Basket
 - Lukac PJ et al. Randomized trial of two ambient AI scribes, UCLA. medRxiv 2025 (preprint); check the NEJM AI version before quoting
