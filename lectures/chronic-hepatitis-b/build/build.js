@@ -437,7 +437,7 @@ sec("Opening");
     { text: "Assistant Professor of Medicine and Surgery", options: { fontSize: 16, breakLine: true } },
     { text: "X: @mfalmeqdadi", options: { fontSize: 16, color: "595959" } },
   ], { x: tx, y: 4.0, w: tw, h: 1.6, fontFace: "Georgia", align: "center", valign: "top", color: "000000", isTextBox: true, margin: 0, paraSpaceAfter: 4 });
-  s.addImage({ path: LOGO_IMG, x: tx + (tw - 3.79) / 2, y: 5.85, w: 3.79, h: 0.77, altText: "Tufts University School of Medicine" });
+  s.addImage({ path: LOGO_IMG, x: HAS_COVER ? tx + 0.15 : tx + (tw - 3.79) / 2, y: 5.85, w: 3.79, h: 0.77, altText: "Tufts University School of Medicine" });
   s.addImage({ path: path.join(IMG, QR_PDF), x: W - 1.7, y: 5.3, w: 1.3, h: 1.3, altText: "QR code linking to the slides PDF" });
   s.addText("Slides (PDF)", { x: W - 1.83, y: 6.65, w: 1.55, h: 0.3, fontFace: "Georgia", fontSize: 11, align: "center", color: "595959", isTextBox: true, margin: 0 });
   if (HAS_COVER) s.addText("Illustrations generated with Google Gemini", { x: 0.4, y: 7.0, w: 5, h: 0.3, fontFace: "Georgia", fontSize: 11, italic: true, color: "7F7F7F", isTextBox: true, margin: 0 });
@@ -721,7 +721,7 @@ ext(() => {
     ["Significant fibrosis (F2)", "Above 7 kPa", "Above 7 kPa, or APRI above 0.5"],
     ["Advanced fibrosis (F3)", "Above 8 kPa", ""],
     ["Cirrhosis (F4)", "Above 11 kPa", "APRI above 2 in the 2015 guideline"]],
-    { size: 22, tbl: { minRowH: 0.9 } },
+    { size: 20, tbl: { minRowH: 0.9, w: 8.9 }, after: (s) => pic(s, "fibroscan-probe.png", 9.9, 1.5, 3.0, 3.0, "Watercolor of a transient elastography probe") },
     "EASL 2025 Table 6 lists F2 above 7 kPa, F3 above 8 and F4 above 11. WHO 2024 uses APRI above 0.5 or elastography above 7 kPa as a treatment pathway, with no DNA threshold. Do not teach a single FibroScan cut-off of 8 for every purpose. The WHO cirrhosis row is from the 2015 guideline as described in the reviewer's dossier; check the 2024 text before using that row.",
     "EASL 2025 PMID 40348683; WHO 2024 chapter 5.");
   tableSlide("Treat everyone with high DNA and normal ALT?", [["", "Kim, Gut 2018", "Jeon, Clin Mol Hepatol 2021"],
@@ -912,11 +912,12 @@ twoStep((step) => {
   table(s, [["HBsAg", "HBeAg", "HBV DNA", "ALT"], ["Positive", "Positive", { t: "5,000,000 IU/mL", red: true }, "22 U/L"]],
     { x: 1.2, y: 1.35, w: W - 2.4, size: 22, minRowH: 0.6 });
   q(s, "What do you do for her and for the baby?", 3.0, { size: 26 });
+  pic(s, "pregnant-patient.png", 9.6, 3.7, 3.2, 3.2, "Watercolor of a seated pregnant woman in profile");
   if (step === 2) {
     body(s, [
       "TDF or TAF from week 28, because DNA is above 200,000 IU/mL",
       "Baby: hepatitis B vaccine and HBIG within 12 hours of birth",
-    ], { x: 1.4, y: 3.9, w: W - 2.8, h: 2.2, size: 24, gap: 14 });
+    ], { x: 1.2, y: 3.9, w: 8.2, h: 2.4, size: 24, gap: 14 });
   }
   s.addNotes("Born in Ethiopia, HBeAg positive, all values made up. AASLD/IDSA 2025 R1 (strong, moderate certainty): DNA above 200,000 at any point, start TDF or TAF at week 28 (consider week 16 when infant HBIG is not available). WHO 2024 also treats HBeAg-positive mothers regardless of DNA. Mother's ALT is normal, so this is prophylaxis to prevent transmission; stopping at delivery is allowed when treatment was only for that purpose, with DNA and ALT every 1 to 3 months for 6 months. Infant: single-antigen hepatitis B vaccine plus HBIG within 12 hours at separate sites, then complete the series. Breastfeeding is not prohibited.");
   return s;
@@ -1062,10 +1063,13 @@ sec("Close");
 }
 {
   const s = slide(null, { master: "BLANK" });
-  s.addText("Questions?", { x: 0.8, y: 2.4, w: W - 1.6, h: 1.3, fontFace: "Georgia", fontSize: 54, align: "center", valign: "middle", isTextBox: true, margin: 0 });
-  s.addText("X: @mfalmeqdadi", { x: 0.8, y: 3.9, w: W - 1.6, h: 0.5, fontFace: "Georgia", fontSize: 20, align: "center", color: "595959", isTextBox: true, margin: 0 });
-  s.addImage({ path: path.join(IMG, QR_PDF), x: W / 2 - 1.1, y: 4.6, w: 2.2, h: 2.2, altText: "QR code linking to the slides PDF" });
-  s.addText("Slides (PDF)", { x: 0.8, y: 6.85, w: W - 1.6, h: 0.35, fontFace: "Georgia", fontSize: 14, align: "center", color: "595959", isTextBox: true, margin: 0 });
+  const CLOSE = path.join(IMG, "closing-chb.jpg"), HAS_CLOSE = fs.existsSync(CLOSE);
+  if (HAS_CLOSE) s.addImage({ path: CLOSE, x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a liver in warm light on ivory paper" });
+  const cx = HAS_CLOSE ? 7.1 : 0.8, cw = HAS_CLOSE ? 5.7 : W - 1.6;
+  s.addText("Questions?", { x: cx, y: 1.3, w: cw, h: 1.3, fontFace: "Georgia", fontSize: 54, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  s.addText("X: @mfalmeqdadi", { x: cx, y: 2.75, w: cw, h: 0.5, fontFace: "Georgia", fontSize: 20, align: "center", color: "595959", isTextBox: true, margin: 0 });
+  s.addImage({ path: path.join(IMG, QR_PDF), x: cx + cw / 2 - 1.25, y: 3.5, w: 2.5, h: 2.5, altText: "QR code linking to the slides PDF" });
+  s.addText("Slides (PDF)", { x: cx, y: 6.1, w: cw, h: 0.35, fontFace: "Georgia", fontSize: 14, align: "center", color: "595959", isTextBox: true, margin: 0 });
   s.addNotes("The QR code opens the slides PDF. The HBV HCC risk calculator is at qaddodi.github.io/chb-hcc-risk.");
   endMain();
 }
