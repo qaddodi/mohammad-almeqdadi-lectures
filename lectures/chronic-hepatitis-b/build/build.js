@@ -904,16 +904,6 @@ twoStep((step) => {
   s.addNotes("High-risk exposure with anti-HBc positive: prophylaxis rather than monitoring (AGA R1, strong). Use a high-barrier drug: entecavir, TDF or TAF. Continue at least 6 months after the immunosuppression ends and at least 12 months for B-cell-depleting therapy (AGA and AASLD 2018); EASL 2025 says 6 to 12 months and at least 18 months after B-cell depletion. For a moderate-risk exposure in a DNA-negative resolved infection, AGA favors prophylaxis but accepts monitoring. ACR 2021 and ASCO 2020 give the rheumatology and oncology versions.");
   return s;
 });
-ext(() => {
-  tableSlide("Prophylaxis: the guidelines compared", [["", "AGA 2025", "AASLD 2018", "EASL 2025", "ASCO 2020"],
-    ["Anti-CD20, anti-HBc positive", "Prophylaxis", "Prophylaxis", "Prophylaxis", "Prophylaxis"],
-    ["Drug", "High barrier", "ETV, TDF or TAF", "ETV, TDF or TAF", "High barrier"],
-    ["After the last dose", "6 months, 12 for B-cell depletion", "6 months, 12 for anti-CD20", "6 to 12 months, 18 for B-cell depletion", "12 months"],
-    ["If monitoring", "DNA, ALT every 1 to 3 months", "DNA every 1 to 3 months", "Every 3 months", "By regimen"]],
-    { size: 17, tbl: { minRowH: 0.85 } },
-    "From the reviewer's comparison (dossier A5). ACR 2021 (rheumatoid arthritis): strong recommendation for prophylaxis in anti-HBc-positive patients starting rituximab regardless of HBsAg, and in HBsAg-positive patients starting any biologic or targeted synthetic DMARD; monitoring is conditionally preferred for HBsAg-negative anti-HBc-positive patients on other agents.",
-    "AGA PMID 39863345; AASLD PMID 29405329; EASL PMID 40348683; ASCO 2020 PMID 32716741; ACR 2021 PMID 34101387.");
-});
 twoStep((step) => {
   const s = slide("29-year-old woman, 20 weeks pregnant");
   table(s, [["HBsAg", "HBeAg", "HBV DNA", "ALT"], ["Positive", "Positive", { t: "5,000,000 IU/mL", red: true }, "22 U/L"]],
