@@ -64,7 +64,7 @@ Copy the old decks, not a template.
 | Bullets | Plain en-dash bullets, about 20 to 22 pt, sub-bullets smaller |
 | Color | Black text. Red (#C00000) for abnormal labs and the harmful value. Yellow highlight on the revealed answer. Grey for sources and slide numbers |
 | Tables | Thin grey borders, light grey header row, real lab values with units, one line per cell (see Tables below) |
-| Charts | Native PowerPoint charts in black and grey, values on the bars, red only for the harmful bar |
+| Charts | Native PowerPoint charts in a muted, professional palette (Mohammad, 2026-10-27: "more colorful, not too colorful"): navy #1F4E79 for the bar that matters, soft slate blue #9DB4CA for the rest; stacked parts in navy, teal #2E7D8C, sage #6F9A72, ochre #C08A3E, mauve #8E7C99. Values on the bars, red only for the harmful bar. No bright or saturated colors |
 | Sources | Small grey italic line at the bottom left, with PMID |
 | Slide numbers | "X/Y", bottom right, small and grey. None on the cover |
 
@@ -107,7 +107,8 @@ Mohammad's rule (2026-10-27): a table cell should read on one line.
 - A table that fills in on the reveal is the same table on both steps: same columns, column widths, position, font size and alignment. The answer column is there on the question step, with its header and empty cells sized for the answers. Never add or drop a column between steps.
 - No PowerPoint transitions or animations. Every step is its own slide.
 - Pure teaching slides ("Why does the brain swell?") can stay single.
-- Paper slides go in two steps: title block with "What do you think they found?", then their figure or conclusion.
+- Paper slides for trainees go in two steps: title block with "What do you think they found?", then their figure or conclusion.
+- Specialist audiences (conference talks to practicing hepatologists, attendings): no "What do you think they found?" or similar guessing prompts on paper slides. Mohammad finds them redundant there. Show the title block and the result together on one slide (rule set 2026-10-27, TLM EHR talk).
 
 ## No spoilers
 
@@ -121,6 +122,27 @@ Nothing before a reveal may give the answer away. This was the most common mista
 - **Image labels** ("IVC collapse" on the question slide) and paper titles that state the result.
 - **Threshold lines on charts** before the question about the threshold.
 
+## Tufts program numbers
+
+Mohammad's rule (2026-10-27): Tufts program data (transplant volume, diagnoses, where patients live, outcomes) never go public.
+
+- In the talk, use rough numbers ("about N since mid-year", "about one in X from a state"), never exact counts. The real values stay in the project folder.
+- Keep them out of the repo copy and the PDF the QR code serves. Drop those slides or leave the values off in the public version.
+- Don't show program survival unless he asks for it.
+- Don't show death rates or mortality for the audience's own region (Maine liver deaths, distance-mortality data at a Maine talk) (Mohammad, 2026-10-27).
+
+## Where a study was done
+
+Mohammad (2026-10-27): when a slide asks whether a result held up in the US, the slide before it says plainly where that study was done ("France and Belgium, not the US").
+
+## Tufts colleagues in papers
+
+Mohammad (2026-10-27): when James Pomposelli or Fredric Gordon is an author of a paper on a slide, highlight the name in yellow, both in the title block image and in the source line. Both work with him at Tufts.
+
+## Medical history
+
+Mohammad (2026-10-27): he loves medical history. Give a talk its historic context where it fits, briefly (a couple of slides early on, or one slide where a tool or idea started, like where MELD came from). The best version shows the original: an excerpt or a screenshot of the first paper, even one from the 1900s, or a period news story (the New York Times obituary of Thomas Starzl in the transplant talks). Keep the transplant history and the Starzl slide in transplant talks. For the public repo copy, keep newspaper pages to the headline; the full page with the photo goes only in the talk copy.
+
 ## Slide numbers
 
 - "X/Y", bottom right. The cover has no number.
@@ -133,6 +155,7 @@ Nothing before a reveal may give the answer away. This was the most common mista
 
 - Mohammad's Gemini watercolor, full-bleed, with a quiet zone on one side where the title sits. Nothing printed over the picture itself.
 - Title, then his name and titles: "Mohammad Almeqdadi, MD", "Transplant Hepatologist and Gastroenterologist", "Assistant Professor of Medicine and Surgery", then "X: @mfalmeqdadi".
+- For talks outside Tufts, add the institutions (Mohammad, 2026-10-27, MMC grand rounds): "Transplant Hepatologist, Tufts Medical Center", "Assistant Professor of Medicine and Surgery, Tufts University School of Medicine".
 - Tufts University School of Medicine logo.
 - Small italic credit in a corner: "Illustrations generated with Google Gemini".
 - A QR code labeled "Slides (PDF)" that downloads the PDF directly (raw file URL, not a GitHub page). Plain navy dots (#1A1F31) with rounded finder squares, transparent background, no icon or logo in the middle.
