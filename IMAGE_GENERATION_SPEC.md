@@ -104,7 +104,11 @@ Generate the following images:
 
 2. divider-bed4.png
 [full prompt]
+
+Make sure to generate all of the images above, one image per prompt.
 ```
+
+Always end the block with that last line. Without it, Gemini often makes only the first image (Mohammad's rule, 2026-10-28).
 
 Save each result under the exact filename from the asset table.
 

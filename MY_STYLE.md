@@ -80,7 +80,7 @@ Where to get figures, in this order:
 2. **The paper itself.** Screenshot the title block and the key figure or conclusion from the PDF. No border or frame around paper screenshots.
 3. **His own clinical images** (CT, CXR, ultrasound, a DayQuil box) when he can supply them.
 4. **Redrawn data.** Native charts built from the numbers in the paper, checked against the source.
-5. **Gemini watercolors** for the cover, section pages, pause slides and spot objects (an ICU bed, a CRRT machine, a phone). See [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md).
+5. **Gemini watercolors** for the cover, section pages, pause slides and spot objects (an ICU bed, a CRRT machine, a phone). See [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md). Every Gemini copy-paste block ends with "Make sure to generate all of the images above, one image per prompt."
 
 A figure has a job: say what the learner should find in it. "Add an image" isn't a plan; "show the same lab table again with the discriminating value in red" is.
 
