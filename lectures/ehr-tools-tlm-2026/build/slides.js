@@ -138,7 +138,7 @@ function fullView(title, files, notes) {
 {
   const s = slide("We built three Synopsis views. You can too");
   lab(s, "Finding information");
-  s.addText([{ text: "Pulmonary hypertension dashboard in Epic: previsit review " }, { text: "7.0 to 4.95 minutes", options: { highlight: HL, bold: true } }],
+  s.addText([{ text: "One screen per disease cut physician previsit review from " }, { text: "7.0 to 4.95 minutes", options: { highlight: HL, bold: true } }],
     { x: 0.6, y: 1.12, w: W - 1.2, h: 0.5, fontFace: "Georgia", fontSize: 18, align: "center", valign: "middle", color: "000000", isTextBox: true, margin: 0, objectName: "Sub" });
   const v = [["thumb-pre.png", "Liver disease"], ["thumb-workup.png", "CLD workup"], ["thumb-post.png", "After transplant"]];
   const cw = 3.95, gap = 0.25, x0 = (W - 3 * cw - 2 * gap) / 2;
