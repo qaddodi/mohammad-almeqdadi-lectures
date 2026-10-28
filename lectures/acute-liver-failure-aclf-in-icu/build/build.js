@@ -1635,8 +1635,12 @@ sec("Closing");
 {
   const s = slide(null, { master: "BLANK" });
   s.addImage({ path: path.join(IMG, "closing-liver.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a healthy liver in warm light on ivory paper" });
-  s.addText("Questions?", { x: 7.1, y: 2.8, w: 5.7, h: 1.4, fontFace: "Georgia", fontSize: 54, align: "center",
+  s.addText("Questions?", { x: 7.1, y: 1.3, w: 5.7, h: 1.4, fontFace: "Georgia", fontSize: 54, align: "center",
     valign: "middle", color: "000000", isTextBox: true, margin: 0 });
+  // same QR as the cover: the long-version PDF
+  s.addImage({ path: path.join(IMG, "qr-slides.png"), x: 7.1 + 5.7 / 2 - 1.25, y: 3.1, w: 2.5, h: 2.5, altText: "QR code linking to the slides PDF" });
+  s.addText("Slides (PDF)", { x: 7.1, y: 5.7, w: 5.7, h: 0.4, fontFace: "Georgia", fontSize: 16, align: "center",
+    color: "595959", isTextBox: true, margin: 0 });
 }
 endMain();
 
