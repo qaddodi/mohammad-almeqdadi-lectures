@@ -407,10 +407,10 @@ LOGICAL = 0; // the cover is not counted
   s.background = { path: path.join(IMG, "disclosures-background.jpg") };
   body(s, [
     "No relevant financial relationships",
-    "No relationship with Epic Systems",
+    "Epic Systems: I advise Epic as vice chair of its Hepatology Specialty Steering Board, and I worked with Epic as an Exemplar",
     "Every screen in this talk is a mock-up with invented data. None of it is a real patient or a real Epic screen",
   ], { x: 0.9, w: 7.0, y: 1.9, h: 4.2, size: 24, gap: 18 });
-  s.addNotes("Quick. The point to make: the screens look like Epic so you recognize them, but I drew them. No patient data anywhere.");
+  s.addNotes("Quick. My Epic role: I advise Epic as vice chair of its Hepatology Specialty Steering Board, and I worked with them as an Exemplar. The point to make: the screens look like Epic so you recognize them, but I drew them. No patient data anywhere.");
 }
 
 // 2 Objectives, on a full-slide watercolor with the text on the plain left side
