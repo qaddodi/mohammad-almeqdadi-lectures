@@ -363,7 +363,7 @@ sec("Opening");
 {
   const s = pres.addSlide({ masterName: "BLANK", sectionTitle: section });
   // watercolor cover from Gemini (prompt in the lecture folder); the road is on the right, title on the plain left half
-  s.addImage({ path: path.join(IMG, "cover-coast-road.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a coastal road in Maine running south toward a distant city" });
+  s.addImage({ path: path.join(IMG, "cover-coast-road.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a coastal road in Maine running south, with an anatomical drawing of a liver in the sky" });
   const tx = 0.35, tw = 5.9;
   s.addText([
     { text: "Liver Transplantation", options: { fontSize: 32, breakLine: true } },
@@ -1143,7 +1143,7 @@ if (!PUBLIC) {
 }
 {
   const s = slide(null, { master: "BLANK" });
-  s.addImage({ path: path.join(IMG, "cover-coast-road.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a coastal road in Maine running south toward a distant city" });
+  s.addImage({ path: path.join(IMG, "cover-coast-road.jpg"), x: -0.05, y: 0, w: 13.43, h: 7.5, altText: "Watercolor of a coastal road in Maine running south, with an anatomical drawing of a liver in the sky" });
   // plain closing slide, no referral lines, only his X handle (Mohammad, 2026-10-28)
   s.addText("Questions?", { x: 0.6, y: 2.8, w: 6.0, h: 1.4, fontFace: "Georgia", fontSize: 54, align: "center",
     valign: "middle", color: "000000", isTextBox: true, margin: 0 });
