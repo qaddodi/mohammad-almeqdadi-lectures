@@ -1,5 +1,7 @@
 # Humanizer
 
+> Credit: by Mohammad Almeqdadi, licensed CC BY 4.0. If you reuse or adapt this, see [NOTICE.md](NOTICE.md) for how to credit it.
+
 Every word and every slide in a lecture should look like Mohammad made it. Run this pass on every build and every edit, after the content is right and before the deck goes to him.
 
 Style rules are in [MY_STYLE.md](MY_STYLE.md). How to build a deck is in [AUTHOR_GUIDE.md](AUTHOR_GUIDE.md). This file is the checklist for the last read-through. When Mohammad sets a new correction, add it here and to MY_STYLE.md.

@@ -1,5 +1,7 @@
 # Image generation spec for lectures
 
+> Credit: by Mohammad Almeqdadi, licensed CC BY 4.0. If you reuse or adapt this, see [NOTICE.md](NOTICE.md) for how to credit it.
+
 How to specify, prompt, and check the pictures used behind lecture slides. Follow this for every new lecture. Slide wording and layout rules are in [MY_STYLE.md](MY_STYLE.md), and the build steps are in [AUTHOR_GUIDE.md](AUTHOR_GUIDE.md).
 
 Worked example: [lectures/acute-liver-failure-aclf-in-icu/acute-liver-failure-aclf-in-icu-background-image-prompts.md](lectures/acute-liver-failure-aclf-in-icu/acute-liver-failure-aclf-in-icu-background-image-prompts.md).

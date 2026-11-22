@@ -1,5 +1,7 @@
 # Author guide
 
+> Credit: by Mohammad Almeqdadi, licensed CC BY 4.0. If you reuse or adapt this, see [NOTICE.md](NOTICE.md) for how to credit it.
+
 Step by step: how to build a new lecture, or change an existing one, so it comes out in Mohammad's style.
 
 Read these first:

@@ -3,6 +3,14 @@
 Slide decks used as a reference for building future lectures in the same style.
 Decks are grouped by topic under `lectures/`.
 
+## License and credit
+
+Copyright © Mohammad Almeqdadi. The guides, decks and build scripts in this repository are licensed under [CC BY 4.0](LICENSE): use and adapt them freely, including commercially, as long as you credit him and link here. Suggested line:
+
+> Lecture style and materials by Mohammad Almeqdadi, https://github.com/qaddodi/mohammad-almeqdadi-lectures, licensed under CC BY 4.0.
+
+Figures and screenshots taken from papers, guidelines and other people's slides are not covered by this license. They belong to their authors. See [NOTICE.md](NOTICE.md) for the full terms, and [CITATION.cff](CITATION.cff) for a citation.
+
 ## Guides
 
 - [MY_STYLE.md](MY_STYLE.md): what the lectures look and sound like, and the rules Mohammad has set

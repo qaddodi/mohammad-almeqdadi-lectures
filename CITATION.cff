@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use or adapt these lecture materials or style guides, please credit the author using the metadata below."
+title: "Mohammad Almeqdadi lectures: lecture style guides and slide decks"
+type: dataset
+authors:
+  - family-names: "Almeqdadi"
+    given-names: "Mohammad"
+repository-code: "https://github.com/qaddodi/mohammad-almeqdadi-lectures"
+url: "https://github.com/qaddodi/mohammad-almeqdadi-lectures"
+license: CC-BY-4.0
+date-released: 2026-11-22
+keywords:
+  - medical education
+  - lecture slides
+  - hepatology
+  - liver transplantation
+  - gastroenterology

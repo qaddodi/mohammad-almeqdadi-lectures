@@ -1,5 +1,7 @@
 # My lecture style
 
+> Credit: by Mohammad Almeqdadi, licensed CC BY 4.0. If you reuse or adapt this, see [NOTICE.md](NOTICE.md) for how to credit it.
+
 What Mohammad Almeqdadi's lectures look like and sound like. Use it for every new deck and every edit to an old one.
 
 How to actually build or change a deck is in [AUTHOR_GUIDE.md](AUTHOR_GUIDE.md). Pictures made with Gemini follow [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md). Every build ends with the checklist in [HUMANIZER.md](HUMANIZER.md), which covers the sound-human rules below in full.
