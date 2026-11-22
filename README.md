@@ -26,7 +26,7 @@ Each folder has the deck, a PDF, a LECTURE_PLAN.md and the build scripts.
 - [lectures/chronic-hepatitis-b](lectures/chronic-hepatitis-b): Chronic hepatitis B, 30-minute core talk and 60-minute extended version from one build.js
 - [lectures/ehr-tools-tlm-2026](lectures/ehr-tools-tlm-2026): Epically Efficient EHR Tools, AASLD TLM 2026 (Epic mock-ups, invented data)
 - [lectures/liver-transplant-grand-rounds-mmc-2026](lectures/liver-transplant-grand-rounds-mmc-2026): Liver Transplantation: When to Refer and What's New, Maine Medical Center grand rounds 11/2026 (public copy, Tufts program numbers left out)
-- [lectures/tachycardia-induced-cardiomyopathy](lectures/tachycardia-induced-cardiomyopathy): Tachycardia-induced cardiomyopathy, a cardiology talk around three patients (flutter 2:1, PVCs, rate-controlled AF). 60-minute version (58 numbered slides) and 30-minute cut (43) from one build.js; ECG, echo and Coleman 1971 boxes still to fill
+- [lectures/tachycardia-induced-cardiomyopathy](lectures/tachycardia-induced-cardiomyopathy): Tachycardia-induced cardiomyopathy, a cardiology talk around three patients (flutter 2:1, PVCs, rate-controlled AF). 60-minute version (61 numbered slides) and 30-minute cut (45) from one build.js; ECG, echo and Coleman 1971 boxes still to fill
 
 ## Older decks
 

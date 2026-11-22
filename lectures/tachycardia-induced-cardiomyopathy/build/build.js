@@ -1209,6 +1209,7 @@ twoStep((step) => {
   src(s, "Joglar JA et al. Circulation 2024;149:e1-e156, PMID 38033089 (surveillance after AF-induced CM, Class 2a).");
   s.addNotes("The 2023 guideline gives long-term surveillance for recurrent AF a 2a. Watches, patches, Holters and loop recorders all count. Whether GDMT can be stopped in pure TIC is not known. TRED-HF showed relapse when therapy was withdrawn in recovered dilated cardiomyopathy, but those were not TIC patients. I leave that decision to cardiology.");
 }
+sec("Pacing-induced cardiomyopathy");
 ext(() => twoStep((step) => {
   const s = slide("A related problem: RV pacing");
   body(s, [{ t: "823 patients with complete heart block and EF >50% who got a pacemaker", nb: true }], { x: 0.6, y: 1.4, w: W - 1.2, h: 0.7, size: 20 });
@@ -1219,6 +1220,19 @@ ext(() => twoStep((step) => {
   s.addNotes("Not a tachycardia, but the same lesson: an electrical problem that weakens a normal ventricle and can be reversed. Here the mechanism is dyssynchrony from RV pacing. Only 29% of them were upgraded to CRT, though 84% responded.");
 }));
 
+{
+  const s = slide("Pacing-induced cardiomyopathy");
+  table(s, [["Definition", "EF falls ≥10 points to <50% after RV pacing, no other cause"],
+    ["How often", "12% to 20% over 3 to 4 years"],
+    ["Main risk", "RV pacing in ≥20% of beats"],
+    ["Other risks", "Men; wider native QRS (>115 ms, 90% specific)"],
+    ["Mechanism", "RV apex activates the LV late: LBBB-like dyssynchrony"],
+    ["Treatment", "Upgrade to biventricular or conduction system pacing"]],
+    { x: 0.6, y: 1.4, w: 7.9, size: 19, header: false });
+  spot(s, "pacemaker.png", 8.8, 1.4, 4.1, 4.6, "Watercolor of a pacemaker with one lead", "Gemini spot: pacemaker (pacemaker.png)");
+  src(s, "Khurshid S et al. Heart Rhythm 2014;11:1619-25, PMID 24893122 (257 patients, 19.5% over 3.3 years). Kiehl EL et al. Heart Rhythm 2016;13:2272-8, PMID 27855853 (823 patients, 12.3% over 4.3 years).");
+  s.addNotes("Same lesson as TIC, different trigger: an electrical problem weakens a normal ventricle, and it can be reversed. Pacing the RV apex spreads activation slowly through muscle instead of the conduction system, so the lateral LV wall contracts late, like left bundle branch block. That is also why LBBB-morphology PVCs can do it. Khurshid used a definition of an EF drop of at least 10 points to below 50% with no other explanation; 19.5% of patients with 20% or more RV pacing developed it over 3.3 years, and men and patients with a wider native QRS were at higher risk. Risk starts well below the old 40% pacing threshold. Check the pacing burden at every device check and get an echo if it's high.");
+}
 ext(() => twoStep((step) => {
   const s = slide("Left bundle vs RV pacing");
   body(s, [{ t: "703 patients who needed a pacemaker for bradycardia, Geisinger and Rush registry", nb: true },
@@ -1237,6 +1251,41 @@ ext(() => twoStep((step) => {
   else q(s, "HR 0.46 overall, 0.32 if paced >20% of beats. Registry, not a trial", 6.2, { hl: true, size: 21 });
   src(s, "Sharma PS et al. Heart Rhythm 2022;19:3-11, PMID 34481985. Observational, 2018 to 2020.");
   s.addNotes("Left bundle branch area pacing keeps the paced QRS close to the native one (121 vs 156 ms with RV pacing), so the LV contracts in sync. In this registry the composite of death, HF admission or biventricular upgrade was 10.0% vs 23.3% (HR 0.46), and the gap was biggest in the patients whose ventricles were paced in more than 20% of beats (8.4% vs 26.1%, HR 0.32). That is the group at risk of pacing-induced cardiomyopathy from RV pacing (Kiehl: RV pacing in 20% or more of beats, HR 6.76). The authors concluded the higher pacing burden drove the difference. Mortality 7.8% vs 15% and HF admissions 3.7% vs 10.5%. It is a registry, not a trial, so the groups differ in ways we can't fully adjust for.");
+  return s;
+}));
+
+twoStep((step) => {
+  const s = slide("LEAP-Block, 2026");
+  body(s, [{ t: "499 patients with AV block, EF ≥50%, expected ventricular pacing >40%", nb: true },
+    "Randomized: left bundle branch area pacing vs RV pacing, 14 hospitals in China"], { x: 0.6, y: 1.4, w: W - 1.2, h: 1.0, size: 20 });
+  TL(s, "Death, HF event or upgrade to biventricular pacing, 24 months", 0.6, 2.6, W - 1.2, 0.4, { align: "center", size: 18, color: GREY });
+  vbars(s, [
+    { label: "Left bundle", v: 5.0, text: "5.0%", show: step === 2 },
+    { label: "RV", v: 13.2, text: "13.2%", color: SLATE, show: step === 2 }],
+    { x: 3.2, y: 3.1, w: 6.9, h: 2.2, max: 20 });
+  if (step === 1) q(s, "What do you think?", 6.2, { size: 22 });
+  else q(s, "HR 0.37, mostly fewer HF events (3.4% vs 11.3%)", 6.2, { hl: true, size: 22 });
+  src(s, "Li X et al. (LEAP-Block) JAMA 2026, online Oct 28, PMID 42949742. Left bundle capture confirmed in 80%.");
+  s.addNotes("The first large randomized trial, published in JAMA last month. Patients with AV block and a normal EF who were going to be paced most of the time. The 24-month Kaplan-Meier rate of the composite was 5.0% with left bundle branch area pacing and 13.2% with RV pacing (HR 0.37). HF events were 3.4% vs 11.3%. Death, biventricular upgrade, complications and pacing-induced cardiomyopathy itself did not differ significantly. Implant success was similar (98% vs 99.6%).");
+  return s;
+});
+ext(() => twoStep((step) => {
+  const s = slide("Upgrade to which pacing?");
+  body(s, [{ t: "183 patients with pacing-induced cardiomyopathy, mean EF 33%, Italian registry", nb: true },
+    "Upgraded to conduction system pacing or biventricular pacing, 57 matched pairs"], { x: 0.6, y: 1.4, w: W - 1.2, h: 1.0, size: 20 });
+  TL(s, "Death or HF admission, median 23 months", 0.8, 2.6, 5.6, 0.4, { align: "center", size: 17, color: GREY });
+  TL(s, "EF gain at 12 months, points", 6.9, 2.6, 5.6, 0.4, { align: "center", size: 17, color: GREY });
+  vbars(s, [
+    { label: "Conduction system", v: 10.5, text: "10.5%", show: step === 2 },
+    { label: "Biventricular", v: 29.8, text: "29.8%", color: SLATE, show: step === 2 },
+    { label: "Conduction system", v: 15.3, text: "+15.3", show: step === 2 },
+    { label: "Biventricular", v: 11.1, text: "+11.1", color: SLATE, show: step === 2 }],
+    { x: 0.8, y: 3.1, w: 11.7, h: 2.2, max: 35 });
+  s.addShape(pres.shapes.LINE, { x: 6.65, y: 2.65, w: 0, h: 3.0, line: { color: "BFBFBF", width: 1, dashType: "dash" } });
+  if (step === 1) q(s, "What do you think?", 6.2, { size: 22 });
+  else q(s, "Conduction system: fewer events, more EF back. Registry", 6.2, { hl: true, size: 22 });
+  src(s, "Palmisano P et al. Heart Rhythm 2026;23:e615-23, PMID 41354229 (propensity matched). Similar EF result: He C et al. Heart Rhythm 2026;23:e411-9, PMID 40412603.");
+  s.addNotes("Biventricular upgrade has been the standard; in Kiehl's cohort 84% of those upgraded responded. In this propensity-matched Italian registry, upgrading to conduction system pacing (52 left bundle branch area, 17 His) had fewer deaths or HF admissions (10.5% vs 29.8%), fewer procedure complications (3.5% vs 14.0%) and a larger EF gain (+15.3 vs +11.1 points). A two-center Chinese study found a larger EF gain with left bundle pacing (+9.6 vs +4.9) and similar clinical outcomes. No randomized upgrade trial yet.");
   return s;
 }));
 

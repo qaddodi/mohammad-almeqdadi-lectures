@@ -107,3 +107,14 @@ These are real clinical images or paper screenshots and must come from Mohammad 
 All nine were generated with the Gemini API (gemini-3-pro-image) on 2026-11-22. The cover and the wearable defibrillator were made a second time: the first cover had "SALINE" written on the jars and the first vest came out as a framed card on flowers. Spot images were pushed to pure white with `build/whiten.py`.
 
 Mohammad then made all nine in Gemini himself on 2026-11-22, and his versions replaced the API ones in the deck.
+
+## Added later: pacemaker.png (2026-11-22)
+
+Spot for the "Pacing-induced cardiomyopathy" summary slide, generated with the Gemini API and whitened with `build/whiten.py`:
+
+```
+Image 1. pacemaker.png
+Square 1:1 image. Clinical editorial watercolor over fine gray ink linework, in muted slate, ochre, dusty rose, sage and cream, with soft blooms. A single permanent pacemaker: a small, flat, rounded titanium generator about the size of a matchbox, seen at a slight angle, with one thin transvenous lead plugged into its header and loosely coiled beside it, the lead tip with a small screw-in helix. Simple and clear, readable from the back of a room. The subject is centered with a generous margin, and the washes fade softly into a plain pure white background with no visible paper edge, no card, no frame, no flowers and no border, so it sits cleanly on a white slide. No people, no hands, no text, numbers, logos or brand names. No 3D render look or photorealism.
+
+Make sure to generate all of the images above, one image per prompt.
+```
