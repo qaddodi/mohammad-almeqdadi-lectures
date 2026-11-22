@@ -1214,7 +1214,7 @@ ext(() => twoStep((step) => {
   body(s, [{ t: "823 patients with complete heart block and EF >50% who got a pacemaker", nb: true }], { x: 0.6, y: 1.4, w: W - 1.2, h: 0.7, size: 20 });
   vbars(s, [{ label: "Pacing-induced cardiomyopathy, mean 4.3 years", v: 12.3, text: "12.3%", show: step === 2 }], { x: 3.5, y: 2.6, w: 6.3, h: 2.6, max: 30 });
   if (step === 1) q(s, "How many lose their EF?", 3.8);
-  else q(s, "RV pacing ≥20%: HR 6.76", 5.9, { hl: true });
+  else q(s, "RV pacing in ≥20% of beats: HR 6.76", 5.9, { hl: true });
   src(s, "Kiehl EL et al. Heart Rhythm 2016;13:2272-8, PMID 27855853. CRT upgrade worked in 84% of those who got it.");
   s.addNotes("Not a tachycardia, but the same lesson: an electrical problem that weakens a normal ventricle and can be reversed. Here the mechanism is dyssynchrony from RV pacing. Only 29% of them were upgraded to CRT, though 84% responded.");
 }));
@@ -1223,17 +1223,20 @@ ext(() => twoStep((step) => {
   const s = slide("Left bundle vs RV pacing");
   body(s, [{ t: "703 patients who needed a pacemaker for bradycardia, Geisinger and Rush registry", nb: true },
     "Left bundle branch area pacing vs RV pacing"], { x: 0.6, y: 1.4, w: W - 1.2, h: 1.0, size: 20 });
-  TL(s, "Death, HF admission or upgrade to biventricular pacing", 0.6, 2.55, W - 1.2, 0.4, { align: "center", size: 18, color: GREY });
+  TL(s, "Death, HF admission or upgrade to biventricular pacing", 0.6, 2.4, W - 1.2, 0.4, { align: "center", size: 18, color: GREY });
+  TL(s, "All 703 patients", 1.5, 2.85, 5.15, 0.4, { align: "center", size: 18, b: true });
+  TL(s, "Ventricles paced in >20% of beats", 6.65, 2.85, 5.15, 0.4, { align: "center", size: 18, b: true });
+  s.addShape(pres.shapes.LINE, { x: 6.65, y: 2.9, w: 0, h: 2.75, line: { color: "BFBFBF", width: 1, dashType: "dash" } });
   vbars(s, [
-    { label: "Left bundle, all", v: 10.0, text: "10.0%", show: step === 2 },
-    { label: "RV, all", v: 23.3, text: "23.3%", color: SLATE, show: step === 2 },
-    { label: "Left bundle, pacing >20%", v: 8.4, text: "8.4%", show: step === 2 },
-    { label: "RV, pacing >20%", v: 26.1, text: "26.1%", color: SLATE, show: step === 2 }],
-    { x: 1.5, y: 2.95, w: 10.3, h: 2.2, max: 35 });
-  if (step === 1) q(s, "What do you think?", 4.0, { size: 22 });
-  else q(s, "HR 0.46 overall, 0.32 when pacing >20%. Not randomized", 6.2, { hl: true, size: 22 });
+    { label: "Left bundle", v: 10.0, text: "10.0%", show: step === 2 },
+    { label: "RV", v: 23.3, text: "23.3%", color: SLATE, show: step === 2 },
+    { label: "Left bundle", v: 8.4, text: "8.4%", show: step === 2 },
+    { label: "RV", v: 26.1, text: "26.1%", color: SLATE, show: step === 2 }],
+    { x: 1.5, y: 3.35, w: 10.3, h: 2.0, max: 35 });
+  if (step === 1) q(s, "What do you think?", 6.2, { size: 22 });
+  else q(s, "HR 0.46 overall, 0.32 if paced >20% of beats. Registry, not a trial", 6.2, { hl: true, size: 21 });
   src(s, "Sharma PS et al. Heart Rhythm 2022;19:3-11, PMID 34481985. Observational, 2018 to 2020.");
-  s.addNotes("Left bundle branch area pacing keeps the paced QRS close to the native one (121 vs 156 ms with RV pacing), so the LV contracts in sync. In this registry the composite of death, HF admission or biventricular upgrade was 10.0% vs 23.3% (HR 0.46), and the gap was biggest in patients paced more than 20% of the time, the same group that gets pacing-induced cardiomyopathy. Mortality 7.8% vs 15% and HF admissions 3.7% vs 10.5%. It is a registry, not a trial, so the groups differ in ways we can't fully adjust for.");
+  s.addNotes("Left bundle branch area pacing keeps the paced QRS close to the native one (121 vs 156 ms with RV pacing), so the LV contracts in sync. In this registry the composite of death, HF admission or biventricular upgrade was 10.0% vs 23.3% (HR 0.46), and the gap was biggest in the patients whose ventricles were paced in more than 20% of beats (8.4% vs 26.1%, HR 0.32). That is the group at risk of pacing-induced cardiomyopathy from RV pacing (Kiehl: RV pacing in 20% or more of beats, HR 6.76). The authors concluded the higher pacing burden drove the difference. Mortality 7.8% vs 15% and HF admissions 3.7% vs 10.5%. It is a registry, not a trial, so the groups differ in ways we can't fully adjust for.");
   return s;
 }));
 
