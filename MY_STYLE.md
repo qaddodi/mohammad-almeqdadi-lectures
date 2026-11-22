@@ -77,7 +77,7 @@ He hates text-only slides. Before writing bullets, decide what the room will loo
 Where to get figures, in this order:
 
 1. **His own decks first.** The NEJM ALF organ diagram, Kayser-Fleischer ring, ammonia bottle, Haj-Rockey ammonia curves, Mathurin KM curve, splanchnic vasodilation figures and the acuity-circles map all came from his older decks. Search `lectures/` and `/Users/qaddodi/Downloads/Lectures` before anything else.
-2. **The paper itself.** Screenshot the title block and the key figure or conclusion from the PDF. No border or frame around paper screenshots.
+2. **The paper itself.** Screenshot the title block and the key figure or conclusion from the PDF. No border, outline or frame around paper screenshots, ever: place the crop as it is (Mohammad, 2026-11-22, after the TIC deck had gray outlines on its journal crops).
 3. **His own clinical images** (CT, CXR, ultrasound, a DayQuil box) when he can supply them.
 4. **Redrawn data.** Native charts built from the numbers in the paper, checked against the source.
 5. **Gemini watercolors** for the cover, section pages, pause slides and spot objects (an ICU bed, a CRRT machine, a phone). See [IMAGE_GENERATION_SPEC.md](IMAGE_GENERATION_SPEC.md). Every Gemini copy-paste block ends with "Make sure to generate all of the images above, one image per prompt."
@@ -121,6 +121,9 @@ Nothing before a reveal may give the answer away. This was the most common mista
 - **Earlier slides.** A take-home line, a table column or a "next step" list that answers a question asked later.
 - **Image labels** ("IVC collapse" on the question slide) and paper titles that state the result.
 - **Threshold lines on charts** before the question about the threshold.
+- **Chart axis and bar labels.** A label that carries the result ("EF improved (16 of 28)") gives the answer away even with the bars hidden. On the question step, labels name the groups only; counts and values appear on the answer step (TIC deck, 2026-11-22: "NEVER EVER GIVE ANSWERS AWAY").
+- **Placeholder text.** A dashed box that says "atrial flutter with 2:1" on the "What's the rhythm?" slide is a spoiler too. Describe the image without the diagnosis.
+- **Pictures on multiple-choice slides.** A picture that matches one option (an IV pump next to "Diltiazem drip") is a hint. Pick a picture neutral to all options.
 
 ## Tufts program numbers
 

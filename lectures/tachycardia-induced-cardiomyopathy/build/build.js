@@ -288,11 +288,9 @@ function pic(s, file, x, y, maxW, maxH, alt, o = {}) {
   s.addImage({ path: f, x: px, y, w, h, altText: alt });
   return { x: px, y, w, h };
 }
-// Screenshot from a paper, with a thin gray border so it reads as a page
+// Screenshot from a paper, placed as it is
 function shot(s, file, x, y, maxW, maxH, alt) {
-  const r = pic(s, file, x, y, maxW, maxH, alt);
-  s.addShape(pres.shapes.RECTANGLE, { x: r.x, y: r.y, w: r.w, h: r.h, fill: { color: "FFFFFF", transparency: 100 }, line: { color: "BFBFBF", width: 0.75 } });
-  return r;
+  return pic(s, file, x, y, maxW, maxH, alt); // no border or outline on paper screenshots (MY_STYLE)
 }
 // Spot picture centered under a question
 function qPic(s, file, y, h, alt) { return pic(s, file, 0.9, y, W - 1.8, h, alt); }
@@ -604,7 +602,7 @@ twoStep((step) => {
 twoStep((step) => {
   const s = slide("Hour 0 ECG");
   spot(s, "ecg-flutter-21.png", 0.6, 1.2, W - 1.2, 4.4, "12-lead ECG, regular narrow-complex tachycardia at 148",
-    step === 1 ? "12-lead ECG: regular narrow-complex tachycardia at 148 (atrial flutter with 2:1 conduction; his ECG or a CC-licensed one; ecg-flutter-21.png)"
+    step === 1 ? "12-lead ECG at Hour 0, de-identified (ecg-flutter-21.png)"
       : "Same ECG with the flutter waves marked in II, III, aVF and V1 (ecg-flutter-21-marked.png)");
   q(s, step === 1 ? "What's the rhythm?" : "Atrial flutter with 2:1 conduction", 5.85, { hl: step === 2 });
   s.addNotes(step === 1 ? "Give them time. Most of the room will say sinus tachycardia, like triage did."
@@ -634,11 +632,12 @@ twoStep((step) => {
     ["Wall thickness", "9 mm"],
     ["Mitral regurgitation", { t: "Moderate, functional", red: true }],
     ["RV function", { t: "Mildly reduced", red: true }],
-    ["IVC", { t: "2.6 cm, no collapse", red: true }]],
-    { x: 0.8, y: 1.45, w: 7.4, size: 20 });
+    ["IVC", { t: "2.6 cm, no collapse", red: true }],
+    ["LA volume index", { t: "38 mL/m²", red: true }]],
+    { x: 0.8, y: 1.45, w: 7.4, size: 18 });
   spot(s, "echo-a4c.png", 8.5, 1.3, 4.3, 4.5, "Apical four-chamber echo", "Apical 4-chamber echo still (his own image if he has one; echo-a4c.png)");
   q(s, step === 1 ? "What's going on?" : "New HFrEF. The LV isn't very big for an EF of 25%", 6.15, { x: 0.6, w: W - 1.2, size: 22, hl: step === 2 });
-  s.addNotes("Severe systolic dysfunction, but the LV is only mildly dilated and there is no hypertrophy. Hold on to the 56 mm; it comes back in the diagnosis section. The MR is functional, from annular dilation, and usually improves with the EF.");
+  s.addNotes("Severe systolic dysfunction, but the LV is only mildly dilated and there is no hypertrophy. Hold on to the 56 mm; it comes back in the diagnosis section. The left atrium is mildly enlarged (normal LA volume index is 34 mL/m² or less): weeks of flutter and high filling pressure stretch the atrium too. The MR is functional, from annular dilation, and usually improves with the EF.");
   return s;
 });
 {
@@ -882,14 +881,14 @@ twoStep((step) => {
     ["Cardiac MRI", { t: "No late gadolinium enhancement", b: true }],
     ["Telemetry", { t: "Flutter 2:1 the whole time", red: true }]],
     { x: 0.8, y: 1.4, w: W - 1.6, size: 20 });
-  q(s, step === 1 ? "Is this TIC?" : "Probably. We'll know in 3 months", 5.75, { hl: step === 2 });
+  q(s, step === 1 ? "What do you make of it?" : "Probably. We'll know in 3 months", 5.75, { hl: step === 2 });
   s.addNotes("Everything points to TIC: no CAD, no other cause, an LV that isn't very big, no scar, and a rhythm that hasn't stopped in weeks. But the honest answer is: probably, and we'll know when we re-image him.");
   return s;
 });
 
 // ---------------------------------------------------------------- Treatment
 sec("Treatment");
-mcq("HR 148, BP 104/72, EF 25%", "Which one would you avoid?", ["Diltiazem drip", "IV metoprolol, small doses", "IV amiodarone", "Digoxin"], 0, { file: "iv-infusion.png", alt: "Watercolor of an IV infusion bag and pump" },
+mcq("HR 148, BP 104/72, EF 25%", "Which one would you avoid?", ["Diltiazem drip", "IV metoprolol, small doses", "IV amiodarone", "Digoxin"], 0, { file: "echo-machine.png", alt: "Watercolor of an echo machine beside an exam bed" },
   "Diltiazem and verapamil are Class 3: Harm with an EF under 40% (2023 AF guideline, recommendation 11): they worsen heart failure. Beta-blocker if the blood pressure allows; start low. IV amiodarone is reasonable for acute rate control when a beta-blocker is not tolerated or not working (2a). Digoxin is reasonable as an add-on (2a). Anticoagulate: flutter carries the same stroke risk rules as AF, and you will need a TEE before cardioversion if he has been in flutter more than 48 hours.",
   "Joglar JA et al. 2023 ACC/AHA/ACCP/HRS AF guideline. Circulation 2024;149:e1-e156, PMID 38033089.");
 twoStep((step) => {
@@ -922,9 +921,9 @@ ext(() => twoStep((step) => {
   const s = slide("Will his EF come back?");
   body(s, [{ t: "111 patients ablated for persistent flutter", nb: true }, "28 (25%) had a cardiomyopathy"], { x: 0.6, y: 1.4, w: W - 1.2, h: 1.0, size: 20 });
   vbars(s, [
-    { label: "EF improved (16 of 28)", v: 57, show: step === 2 },
-    { label: "EF normal (12 of 28)", v: 43, show: step === 2 },
-    { label: "No longer met ICD criteria (9 of 19)", v: 47, show: step === 2, color: SLATE },
+    { label: step === 2 ? "EF improved (16 of 28)" : "EF improved", v: 57, show: step === 2 },
+    { label: step === 2 ? "EF normal (12 of 28)" : "EF normal", v: 43, show: step === 2 },
+    { label: step === 2 ? "No longer met ICD criteria (9 of 19)" : "No longer met ICD criteria", v: 47, show: step === 2, color: SLATE },
   ], { x: 0.8, y: 2.6, w: W - 1.6, h: 3.0, max: 100 });
   if (step === 1) q(s, "What do you think?", 3.9);
   src(s, "Pizzale S et al. Can J Cardiol 2009;25:469-72, PMID 19668781.");
@@ -947,10 +946,11 @@ twoStep((step) => {
     ["LVEF", { t: "25%", red: true }, ans(step, { t: "55%", b: true })],
     ["LVEDD", "56 mm", ans(step, "54 mm")],
     ["Mitral regurgitation", { t: "Moderate", red: true }, ans(step, "Trace")],
+    ["LA volume index, mL/m²", { t: "38", red: true }, ans(step, "31")],
     ["NT-proBNP, pg/mL", { t: "5,200", red: true }, ans(step, "160")],
     ["AST / ALT, bilirubin", { t: "86 / 104, 2.6", red: true }, ans(step, "Normal")]],
-    { x: 1.2, y: 1.4, w: W - 2.4, size: 20 });
-  if (step === 2) q(s, "This was tachycardia-induced cardiomyopathy", 5.8, { hl: true });
+    { x: 1.2, y: 1.4, w: W - 2.4, size: 18 });
+  if (step === 2) q(s, "This was tachycardia-induced cardiomyopathy", 5.95, { hl: true });
   s.addNotes("Now we can answer the question from the beginning: the flutter came first. Look back at your vote. Note the LV is barely smaller; the EF recovered faster than the size. That matters later.");
   return s;
 });
@@ -966,11 +966,12 @@ patientPage("68M, persistent AF for 14 months", "Resting heart rate 82 on metopr
     ["Resting HR / 24-hour mean", "82 / 88"],
     ["LVEF", { t: "35%", red: true }],
     ["LVEDD", "60 mm"],
+    ["LA volume index", { t: "52 mL/m²", red: true }],
     ["Coronary CTA", "No stenosis"],
     ["Cardiac MRI", "No LGE"]],
-    { x: 0.8, y: 1.4, w: 7.4, size: 20 });
-  spot(s, "ecg-af.png", 8.5, 1.3, 4.4, 4.4, "ECG strip of atrial fibrillation at about 85", "Rhythm strip: AF at about 82 (ecg-af.png)");
-  q(s, "His rate is fine. Can it still be the AF?", 6.0, { size: 22 });
+    { x: 0.8, y: 1.4, w: 7.4, size: 18 });
+  spot(s, "ecg-af.png", 8.5, 1.3, 4.4, 4.4, "ECG strip of atrial fibrillation at about 82", "Rhythm strip: AF at about 82 (ecg-af.png)");
+  q(s, "What do you think is weakening his LV?", 6.0, { size: 22 });
   s.addNotes("The usual answer in clinic is: rate controlled, so the AF isn't the problem, it's a cardiomyopathy that happens to have AF. Ask the room to vote again. The trials that follow answer it.");
 }
 ext(() => paperQ("AF-CHF, 2008", "afchf-title.png", "Roy D et al. Rhythm control versus rate control for atrial fibrillation and heart failure. N Engl J Med 2008",
@@ -1001,6 +1002,26 @@ paperQ("CAMERA-MRI, 2017", "camera-mri-title.png", "Prabhu S et al. Catheter abl
   "Prabhu S et al. J Am Coll Cardiol 2017;70:1949-61, PMID 28855115. Australia. 4-year follow-up: Sugumar H et al. JACC Clin EP 2020;6:1721-31, PMID 33334453.",
   "This is the trial for Patient C. Persistent AF, EF 45% or less with no other explanation, and the rate already optimized. Ablation (pulmonary vein and posterior wall isolation) vs continued rate control. At 6 months the EF rose 18 points vs 4.4, and was normal in 58% vs 9%. Without LGE, 73% normalized. At 4 years the ablation group was still ahead (+16.4 vs +8.6), even though AF had come back in 57% at a low burden. Done in Australia, 68 patients, MRI-measured EF.",
   { setup: ["68 patients, persistent AF, unexplained EF ≤45%, rate already controlled", "Ablation vs continued rate control"] });
+twoStep((step) => {
+  const s = slide("What about the atria?");
+  body(s, [
+    "Normal LA volume index: ≤34 mL/m²",
+    "AF-CHF, CASTLE-AF, CASTLE-HTx: LA diameter about 49 mm at entry",
+    "CAMERA-MRI: LA volume index 54 mL/m² at entry",
+  ], { x: 0.6, y: 1.5, w: 5.6, h: 3.6, size: 19, gap: 10 });
+  TL(s, "CAMERA-MRI: LA volume index, mL/m²", 6.5, 1.3, 6.4, 0.4, { align: "center", size: 17, color: GREY });
+  vbars(s, [
+    { label: "Ablation, entry", v: 54.4, text: "54" },
+    { label: "Ablation, 6 months", v: 43.4, text: "43", show: step === 2 },
+    { label: "Rate control, entry", v: 53.9, text: "54", color: SLATE },
+    { label: "Rate control, 6 months", v: 55.6, text: "56", color: SLATE, show: step === 2 }],
+    { x: 6.5, y: 2.0, w: 6.4, h: 3.0, max: 70 });
+  if (step === 1) q(s, "What happens to the atrium?", 6.2, { x: 0.6, w: 5.6, size: 22 });
+  else q(s, "Ablation: 12 mL/m² smaller. Rate control: no change", 6.2, { x: 0.6, w: W - 1.2, size: 22, hl: true });
+  src(s, "Prabhu S et al. J Am Coll Cardiol 2017;70:1949-61, PMID 28855115 (Table 2). Lang RM et al. J Am Soc Echocardiogr 2015;28:1-39, PMID 25559473. Roy D 2008; Marrouche NF 2018; Sohns C 2023 (baseline tables).");
+  s.addNotes("The trial patients all had big atria: a mean or median LA diameter of 48 to 50 mm in AF-CHF, CASTLE-AF and CASTLE-HTx, and an LA volume index of 54 mL/m² in CAMERA-MRI, against a normal of 34 or less (ASE/EACVI 2015; index the volume, the diameter underestimates). In CAMERA-MRI the LA volume index fell by 12 mL/m² with ablation and did not change with rate control (P <0.0001). The atrium remodels in both directions: AF makes it bigger, and sinus rhythm lets it shrink.");
+  return s;
+});
 ext(() => paperQ("CASTLE-HTx, 2023", "castle-htx-title.png", "Sohns C et al. Catheter ablation in end-stage heart failure with atrial fibrillation. N Engl J Med 2023",
   (s, R) => {
     TL(s, "Death, LVAD or urgent transplant", R.x, R.y, R.w, 0.4, { align: "center", size: 18, color: GREY });
@@ -1018,7 +1039,8 @@ ext(() => paperQ("CASTLE-HTx, 2023", "castle-htx-title.png", "Sohns C et al. Cat
     ["Digoxin or IV amiodarone for rate control in HF", "2a"],
     ["After recovery: long-term rhythm surveillance", "2a"],
     ["Suspected TIC on rate control: HR <80 at rest, <110 with exercise", "2b"],
-    ["Rate control fails: AV node ablation + biventricular pacing", "2a"]],
+    ["Rate control fails: AV node ablation + biventricular pacing", "2a"],
+    ["After AV node ablation: conduction system pacing instead of biventricular", "2b"]],
     { x: 0.6, y: 1.35, w: W - 1.2, size: 18 });
   src(s, "Joglar JA et al. 2023 ACC/AHA/ACCP/HRS AF guideline. Circulation 2024;149:e1-e156, PMID 38033089 (section 9.2, paraphrased).");
   s.addNotes("Paraphrased from section 9.2. The two Class 1 recommendations are the practice change: suspect it in every new HFrEF with AF, and use ablation in the right patient. For rate targets the evidence is weak: RACE II showed lenient control (<110 at rest) was as good as strict control (<80) in permanent AF, but those were not TIC patients, so in suspected TIC the guideline allows a stricter target.");
@@ -1033,14 +1055,32 @@ ext(() => twoStep((step) => {
   s.addNotes("When you can't keep sinus rhythm and you can't control the rate, ablate the AV junction and pace. In APAF-CRT, with biventricular pacing, death fell from 29% to 11% (HR 0.26), whatever the baseline EF. The guideline now also allows conduction system pacing as an alternative to biventricular pacing (2b). It is permanent pacemaker dependence, so it's a last step, not a first.");
   return s;
 }));
+twoStep((step) => {
+  const s = slide("Which pacing after AV node ablation?");
+  body(s, [{ t: "CONDUCT-AF: 82 patients, refractory AF, EF <50%, QRS ≤120 ms", nb: true },
+    "Left bundle branch area pacing vs biventricular pacing"], { x: 0.6, y: 1.4, w: W - 1.2, h: 1.0, size: 20 });
+  TL(s, "LVEF, %", 2.5, 2.55, 8.3, 0.4, { align: "center", size: 18, color: GREY });
+  vbars(s, [
+    { label: "Left bundle, entry", v: 36, text: "36" },
+    { label: "Left bundle, 6 months", v: 46, text: "46", show: step === 2 },
+    { label: "Biventricular, entry", v: 34, text: "34", color: SLATE },
+    { label: "Biventricular, 6 months", v: 46, text: "46", color: SLATE, show: step === 2 }],
+    { x: 2.5, y: 2.95, w: 8.3, h: 2.2, max: 60 });
+  if (step === 1) q(s, "What do you think?", 6.2, { size: 22 });
+  else q(s, "Same EF gain. Paced QRS 14 ms narrower, shorter procedure", 6.2, { hl: true, size: 22 });
+  src(s, "Žižek D et al. (CONDUCT-AF) Eur Heart J 2026, online Oct 6, PMID 42834810. 10 centers in Europe; non-inferiority. His bundle: Huang W et al. (ALTERNATIVE-AF) Heart Rhythm 2022;19:1948-55, PMID 35843465.");
+  s.addNotes("CONDUCT-AF was published this October: 82 patients with refractory AF, EF under 50%, narrow QRS and NT-proBNP over 600, randomized to left bundle branch area pacing or biventricular pacing after AV node ablation. EF went from 36% to 46% with left bundle pacing and from 34% to 46% with biventricular pacing; the difference was 0.4 points, so left bundle pacing was non-inferior. Heart failure events were similar, the paced QRS was 14 ms narrower, and procedure and fluoroscopy times were shorter. Before that, ALTERNATIVE-AF (50 patients, crossover) found His bundle pacing a little better than biventricular for EF. The 2023 AF guideline gives conduction system pacing a 2b here; that was written before CONDUCT-AF.");
+  return s;
+});
 {
   const s = slide("Patient C, 6 months later");
   table(s, [["", "Before", "6 months after ablation"],
     ["Rhythm", { t: "AF, 82", red: true }, "Sinus, 62"],
     ["LVEF", { t: "35%", red: true }, { t: "52%", b: true }],
-    ["LVEDD", "60 mm", "57 mm"]],
+    ["LVEDD", "60 mm", "57 mm"],
+    ["LA volume index", { t: "52 mL/m²", red: true }, "42 mL/m²"]],
     { x: 0.6, y: 1.6, w: 7.3, size: 20 });
-  q(s, "A controlled rate does not rule it out", 4.4, { hl: true, x: 0.6, w: 7.3 });
+  q(s, "A controlled rate does not rule it out", 5.0, { hl: true, x: 0.6, w: 7.3 });
   spot(s, "patient-c-walking.png", 8.3, 1.3, 4.6, 5.4, "Watercolor of a man in his late sixties walking outdoors", "Gemini spot: Patient C walking outdoors (patient-c-walking.png)");
   s.addNotes("His EF came back once he was in sinus rhythm, even though his rate had been fine. Irregularity, loss of atrial contraction and episodes of fast rates the clinic visit never sees all play a part.");
 }
@@ -1176,6 +1216,24 @@ ext(() => twoStep((step) => {
   else q(s, "RV pacing ≥20%: HR 6.76", 5.9, { hl: true });
   src(s, "Kiehl EL et al. Heart Rhythm 2016;13:2272-8, PMID 27855853. CRT upgrade worked in 84% of those who got it.");
   s.addNotes("Not a tachycardia, but the same lesson: an electrical problem that weakens a normal ventricle and can be reversed. Here the mechanism is dyssynchrony from RV pacing. Only 29% of them were upgraded to CRT, though 84% responded.");
+}));
+
+ext(() => twoStep((step) => {
+  const s = slide("Left bundle vs RV pacing");
+  body(s, [{ t: "703 patients who needed a pacemaker for bradycardia, Geisinger and Rush registry", nb: true },
+    "Left bundle branch area pacing vs RV pacing"], { x: 0.6, y: 1.4, w: W - 1.2, h: 1.0, size: 20 });
+  TL(s, "Death, HF admission or upgrade to biventricular pacing", 0.6, 2.55, W - 1.2, 0.4, { align: "center", size: 18, color: GREY });
+  vbars(s, [
+    { label: "Left bundle, all", v: 10.0, text: "10.0%", show: step === 2 },
+    { label: "RV, all", v: 23.3, text: "23.3%", color: SLATE, show: step === 2 },
+    { label: "Left bundle, pacing >20%", v: 8.4, text: "8.4%", show: step === 2 },
+    { label: "RV, pacing >20%", v: 26.1, text: "26.1%", color: SLATE, show: step === 2 }],
+    { x: 1.5, y: 2.95, w: 10.3, h: 2.2, max: 35 });
+  if (step === 1) q(s, "What do you think?", 4.0, { size: 22 });
+  else q(s, "HR 0.46 overall, 0.32 when pacing >20%. Not randomized", 6.2, { hl: true, size: 22 });
+  src(s, "Sharma PS et al. Heart Rhythm 2022;19:3-11, PMID 34481985. Observational, 2018 to 2020.");
+  s.addNotes("Left bundle branch area pacing keeps the paced QRS close to the native one (121 vs 156 ms with RV pacing), so the LV contracts in sync. In this registry the composite of death, HF admission or biventricular upgrade was 10.0% vs 23.3% (HR 0.46), and the gap was biggest in patients paced more than 20% of the time, the same group that gets pacing-induced cardiomyopathy. Mortality 7.8% vs 15% and HF admissions 3.7% vs 10.5%. It is a registry, not a trial, so the groups differ in ways we can't fully adjust for.");
+  return s;
 }));
 
 // ---------------------------------------------------------------- Close
