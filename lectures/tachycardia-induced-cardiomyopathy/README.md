@@ -8,4 +8,4 @@ Draft. Cardiology talk for residents and fellows, built around three patients: f
 - `tachycardia-induced-cardiomyopathy-background-image-prompts.md`: Gemini prompts for the cover, section pages and spot pictures
 - `build/`: build.js and figures. `sh rebuild.sh` builds both decks. Slides inside `ext(() => {...})` appear only in the 60-minute version.
 
-Dashed boxes are placeholders: de-identified ECGs and echo stills, and title blocks from the original papers.
+Paper screenshots come from PDFs Mohammad supplied (Gossage 1913: first page only). Dashed boxes are placeholders: de-identified ECGs and echo stills, and the Coleman 1971 title block.

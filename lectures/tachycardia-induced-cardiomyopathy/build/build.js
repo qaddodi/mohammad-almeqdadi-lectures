@@ -288,6 +288,12 @@ function pic(s, file, x, y, maxW, maxH, alt, o = {}) {
   s.addImage({ path: f, x: px, y, w, h, altText: alt });
   return { x: px, y, w, h };
 }
+// Screenshot from a paper, with a thin gray border so it reads as a page
+function shot(s, file, x, y, maxW, maxH, alt) {
+  const r = pic(s, file, x, y, maxW, maxH, alt);
+  s.addShape(pres.shapes.RECTANGLE, { x: r.x, y: r.y, w: r.w, h: r.h, fill: { color: "FFFFFF", transparency: 100 }, line: { color: "BFBFBF", width: 0.75 } });
+  return r;
+}
 // Spot picture centered under a question
 function qPic(s, file, y, h, alt) { return pic(s, file, 0.9, y, W - 1.8, h, alt); }
 // The paper itself: title block from the PDF, then a figure or the authors' conclusion
@@ -509,7 +515,7 @@ function patientPage(title, sub, file, alt, side, notes) {
 function paperQ(title, titleImg, cite, result, source, notes, o = {}) {
   return twoStep((step) => {
     const s = slide(title);
-    if (has(titleImg)) pic(s, titleImg, 0.6, 1.3, 6.0, 2.6, "Title block: " + cite);
+    if (has(titleImg)) shot(s, titleImg, 0.6, 1.3, 6.0, 2.6, "Title block: " + cite);
     else holder(s, 0.6, 1.3, 6.0, 2.6, "Title block from the PDF: " + cite);
     if (o.setup) body(s, o.setup, { x: 0.6, y: 4.15, w: 6.0, h: 2.6, size: 20, gap: 8 });
     const R = { x: 7.0, y: 1.3, w: 5.8, h: 5.4 };
@@ -651,27 +657,30 @@ sec("History");
 {
   const s = slide("Where it comes from");
   timeline(s, [
-    { y: "1913", t: "Gossage and Braxton Hicks: AF in hearts with no other disease" },
-    { y: "1949", t: "Phillips and Levine: AF without other heart disease" },
+    { y: "1913", t: "Gossage and Braxton Hicks: AF, heart failure, no other heart disease" },
+    { y: "1949", t: "Phillips and Levine: AF as a cause of reversible heart failure" },
     { y: "1962", t: "Whipple: pace a normal dog heart fast and it fails" },
     { y: "1971", t: "Coleman, with Braunwald: heart failure after chronic tachycardia" },
     { y: "1986", t: "Packer names it: 8 patients, EF back after the tachycardia is fixed" },
   ], 2.6, 0.7, W - 0.7, 18);
   src(s, "QJM 1913;os6:435-440. Am J Med 1949;7:478-489. Whipple 1962, cited in Shinbane JS et al. JACC 1997;29:709-15, PMID 9091514. Am Heart J 1971;81:790-8, PMID 5088355. Am J Cardiol 1986;57:563-70, PMID 3953440.");
-  s.addNotes("The idea is more than a hundred years old. Gossage and Braxton Hicks wrote about auricular fibrillation in otherwise healthy hearts in 1913, only a few years after Lewis showed that 'delirium cordis' was atrial fibrillation on the string galvanometer. Phillips and Levine collected AF without other heart disease in 1949. The dog experiments made the point that tachycardia alone can make a normal heart fail, and that it recovers. Braunwald is on the 1971 paper. Packer gave it the name in 1986. [Check the 1913 and 1949 wording against the PDFs before presenting.]");
+  s.addNotes("The idea is more than a hundred years old. In 1913, only a few years after Lewis showed that 'delirium cordis' was atrial fibrillation on the string galvanometer, Gossage and Braxton Hicks reported AF with congestive failure and no other heart disease. In 1949 Phillips and Levine called AF without other heart disease 'a cause of reversible heart failure'. The dog experiments made the point that tachycardia alone can make a normal heart fail, and that it recovers. Braunwald is on the 1971 paper. Packer gave it the name in 1986.");
 }
 ext(() => {
   {
     const s = slide("1913");
-    spot(s, "gossage-1913.png", 1.2, 1.25, W - 2.4, 5.4, "First page of Gossage and Braxton Hicks, QJM 1913", "First page of Gossage AM, Braxton Hicks JA. On auricular fibrillation. QJM 1913;os6:435-440 (PDF needed; gossage-1913.png)");
+    shot(s, "gossage-1913a.png", 3.2, 1.3, 6.9, 1.2, "Title of Gossage and Braxton Hicks, QJM 1913");
+    shot(s, "gossage-1913b.png", 1.9, 2.75, 9.5, 4.0, "Case I and Fig. 1 from Gossage and Braxton Hicks, QJM 1913");
     src(s, "Gossage AM, Braxton Hicks JA. On auricular fibrillation. QJM 1913;os6:435-440. doi 10.1093/oxfordjournals.qjmed.a069352.");
-    s.addNotes("[To write after reading the paper.] Point out the year: this is the era of the string galvanometer, before anyone could record an ECG at the bedside.");
+    s.addNotes("Case I is a 58-year-old grocer's assistant with a dilated heart and a very irregular rhythm. Fig. 1 is a jugular and radial pulse tracing, not an ECG; this is the era of the string galvanometer, before anyone recorded an ECG at the bedside. Phillips and Levine later summarized this paper: the autopsy showed a hypertrophied, dilated LV, and Gossage and Braxton Hicks thought the heart had been normal and the changes came from the arrhythmia. I have only the first page of the 1913 paper.");
   }
   {
     const s = slide("1949");
-    spot(s, "phillips-1949.png", 1.2, 1.25, W - 2.4, 5.4, "Title block of Phillips and Levine, Am J Med 1949", "Title block of Phillips E, Levine SA. Auricular fibrillation without other evidence of heart disease. Am J Med 1949;7:478-489 (PDF needed; phillips-1949.png)");
+    shot(s, "phillips-1949a.png", 0.5, 1.4, 6.2, 2.0, "Title block of Phillips and Levine, Am J Med 1949");
+    body(s, ["AF with no other heart disease can cause frank congestive heart failure", "Back in sinus rhythm, all evidence of heart disease may disappear", "They cite Gossage and Hicks: the dilated LV was a result of the arrhythmia"], { x: 0.5, y: 3.6, w: 6.2, h: 3.1, size: 19, gap: 8 });
+    shot(s, "phillips-1949c.png", 7.1, 1.4, 5.8, 5.3, "Paragraph of Phillips and Levine citing Gossage and Hicks");
     src(s, "Phillips E, Levine SA. Am J Med 1949;7:478-489. doi 10.1016/0002-9343(49)90397-6.");
-    s.addNotes("[To write after reading the paper.] Samuel Levine, of Levine's sign and the Levine murmur grades.");
+    s.addNotes("Read the subtitle: a cause of reversible heart failure. Their point was that some patients with AF and no other heart disease develop frank congestive failure, and all evidence of heart disease can disappear once sinus rhythm is restored. Samuel Levine, of Levine's sign and the Levine murmur grades, at the Peter Bent Brigham in Boston.");
   }
   {
     const s = slide("1971");
@@ -683,7 +692,7 @@ ext(() => {
 });
 twoStep((step) => {
   const s = slide("1986: Packer names it");
-  spot(s, "packer-1986.png", 0.6, 1.25, 6.3, 2.6, "Title block of Packer et al., Am J Cardiol 1986", "Title block of Packer DL et al. Tachycardia-induced cardiomyopathy: a reversible form of left ventricular dysfunction. Am J Cardiol 1986 (PDF needed; packer-1986.png)");
+  (has("packer-1986.png") ? shot : spot)(s, "packer-1986.png", 0.6, 1.25, 6.3, 2.6, "Title block of Packer et al., Am J Cardiol 1986", "Title block of Packer DL et al. Tachycardia-induced cardiomyopathy: a reversible form of left ventricular dysfunction. Am J Cardiol 1986 (PDF needed; packer-1986.png)");
   body(s, ["8 patients, ages 5 to 57", "Tachycardia for 2.5 to 41 years", "7 had an accessory pathway, 1 an ectopic atrial focus", "Surgery or ablation of the pathway or focus"], { x: 0.6, y: 4.1, w: 6.3, h: 2.6, size: 19, gap: 6 });
   vbars(s, [
     { label: "Before", v: 19, color: RED, red: true },

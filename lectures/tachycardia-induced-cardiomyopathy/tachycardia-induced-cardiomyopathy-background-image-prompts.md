@@ -105,3 +105,5 @@ These are real clinical images or paper screenshots and must come from Mohammad 
 ## Generated
 
 All nine were generated with the Gemini API (gemini-3-pro-image) on 2026-11-22. The cover and the wearable defibrillator were made a second time: the first cover had "SALINE" written on the jars and the first vest came out as a framed card on flowers. Spot images were pushed to pure white with `build/whiten.py`.
+
+Mohammad then made all nine in Gemini himself on 2026-11-22, and his versions replaced the API ones in the deck.
