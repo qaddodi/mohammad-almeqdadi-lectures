@@ -924,8 +924,9 @@ ext(() => twoStep((step) => {
     { label: step === 2 ? "EF improved (16 of 28)" : "EF improved", v: 57, show: step === 2 },
     { label: step === 2 ? "EF normal (12 of 28)" : "EF normal", v: 43, show: step === 2 },
     { label: step === 2 ? "No longer met ICD criteria (9 of 19)" : "No longer met ICD criteria", v: 47, show: step === 2, color: SLATE },
-  ], { x: 0.8, y: 2.6, w: W - 1.6, h: 3.0, max: 100 });
-  if (step === 1) q(s, "What do you think?", 3.9);
+  ], { x: 0.8, y: 2.6, w: W - 1.6, h: 2.6, max: 100 });
+  if (step === 1) q(s, "What do you think?", 3.7);
+  else q(s, "Better in 57%, normal in 43%. Rate during flutter predicted it", 6.15, { hl: true, size: 22 });
   src(s, "Pizzale S et al. Can J Cardiol 2009;25:469-72, PMID 19668781.");
   s.addNotes("A quarter of patients with persistent flutter referred for ablation had a cardiomyopathy. More than half improved, and nearly half of those who met primary-prevention ICD criteria no longer did. The only independent predictor of recovery was the average ventricular rate during flutter.");
   return s;
